@@ -9,8 +9,8 @@ OBJDIR		=	obj
 LIBDIR		=	lib
 INCLDIR		=	incld
 
-SRC			=	test.c \
-				data_test.c
+SRC			=	main.c \
+				lexer.c
 OBJ			=	$(SRC:%.c=$(OBJDIR)/%.o)
 
 CC			=	gcc
