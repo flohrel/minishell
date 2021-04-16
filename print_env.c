@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   print_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/01 12:22:47 by flohrel           #+#    #+#             */
-/*   Updated: 2021/04/16 15:52:42 by mtogbe           ###   ########.fr       */
+/*   Created: 2021/04/16 17:28:13 by mtogbe            #+#    #+#             */
+/*   Updated: 2021/04/16 17:35:14 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+#include "minishell.h"
 
-# include "libft/type.h"
-# include "libft/memory.h"
-# include "libft/list.h"
-# include "libft/string.h"
-# include "libft/ctype.h"
-# include "libft/io.h"
-# include "libft/conv.h"
-# include "libft/gnl.h"
+void	print_env(t_env *env)
+{
+	t_env	*tmp;
 
-#endif
+	tmp = env;
+	while (tmp)
+	{
+		printf("%s=", tmp->key);
+		printf("%s\n", tmp->value);
+		tmp = tmp->next;
+	}
+}

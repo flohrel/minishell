@@ -9,13 +9,14 @@ OBJDIR		=	obj
 LIBDIR		=	lib
 INCLDIR		=	incld
 
-SRC			=	test.c \
-				data_test.c
+SRC			=	cd.c pwd.c echo.c export.c unset.c \
+				parse_env.c get_env_value.c print_env.c
+
 OBJ			=	$(SRC:%.c=$(OBJDIR)/%.o)
 
 CC			=	gcc
 CFLAGS		=	-Wall -Werror -Wextra -g3
-INCFLAGS	=	-I./$(INCLDIR) -I./$(LIBDIR)/libft/incld
+INCFLAGS	=	-I./$(INCLDIR) -I./$(LIBDIR)/libft/incld -I./include
 LFLAGS		=	-L./$(LIBDIR)/libft -lft
 RM			=	/bin/rm -rf
 UNAME		:=	$(shell uname -s)
