@@ -14,19 +14,18 @@
 
 int		main(int argc, char **argv, char **envp)
 {
-	char	*input;
-	t_lexer	lexbuf;
+	t_vars	vars;
 
 	(void)argc;
 	(void)argv;
 	(void)envp;
 	while (1)
 	{
-		input = NULL;
+		vars.input.buffer = NULL;
 		write(1, "minishell>> ", 12);
-		get_next_line(STDIN_FILENO, &input);
-		lexer(input, &lexbuf);
-		free(input);
+		get_next_line(STDIN_FILENO, &vars.input.buffer);
+		lexer(&vars);
+		free(vars.input.buffer);
 	}
 	return (0);
 }

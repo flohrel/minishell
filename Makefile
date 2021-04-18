@@ -10,7 +10,8 @@ LIBDIR		=	lib
 INCLDIR		=	incld
 
 SRC			=	main.c \
-				lexer.c
+				lexer.c \
+				exit.c
 OBJ			=	$(SRC:%.c=$(OBJDIR)/%.o)
 
 CC			=	gcc

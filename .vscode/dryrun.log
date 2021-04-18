@@ -1,0 +1,7 @@
+make --dry-run --keep-going --print-directory
+make: Entering directory '/home/user42/code/perso/minishell'
+gcc -Wall -Werror -Wextra -g3 -I./incld -I./lib/libft/incld -c src/lexer.c -o obj/lexer.o
+make -C lib/libft
+gcc -Wall -Werror -Wextra -g3 -o minishell obj/main.o obj/lexer.o obj/exit.o -L./lib/libft -lft
+make: Leaving directory '/home/user42/code/perso/minishell'
+ 

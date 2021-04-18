@@ -13,39 +13,15 @@
 #ifndef LEXER_H
 # define LEXER_H
 
-/*
-**		VARIABLES
-*/
+# include "exit.h"
+# include "libft.h"
+# include "stdlib.h"
 
-enum	e_toktype {
-	CHAR = 0,
-	PIPE = '|',
-	SEMICOLON = ';',
-	QUOTE = '\'',
-	DQUOTE = '\"',
-	SPACE = ' ',
-	ESCAPE = '\\',
-	GREATER = '>',
-	LESSER = '<',
-	DOLLAR = '$',
-};
-
-typedef struct		s_tok
-{
-	int				type;
-	char			*data;
-	struct s_tok	*next;
-}					t_tok;
-
-typedef struct		s_lexer
-{
-	int		ntok;
-	t_tok	*list;
-}					t_lexer;
 
 /*
 **		FUNCTIONS
 */
-int					lexer(char *input, t_lexer *lexbuf);
+
+int					lexer(t_vars *vars);
 
 #endif

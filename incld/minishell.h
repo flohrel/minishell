@@ -16,6 +16,8 @@
 # include <unistd.h>
 # include <stdio.h>
 # include "libft.h"
+# include "data.h"
 # include "lexer.h"
+
 
 #endif
