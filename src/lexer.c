@@ -77,7 +77,7 @@ int		lexer(t_vars *vars)
 	while (lexer->buffer[++i])
 	{
 		type = get_token_type(lexer->buffer[i]);
-		lexer->token_handle[type](vars);
+		lexer->token_handle[lexer->state](vars);
 	}
 	return (0);
 }
