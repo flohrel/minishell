@@ -1,16 +1,19 @@
 #include "exit.h"
 
-void	clean_exit(t_vars *vars, int status)
+void	del_token(void *content)
 {
 	t_token	*token;
 
-	token = vars->lexer.token_list;
-	while (token != NULL)
-	{
-		vars->lexer.token_list = token->next;
-		free(token);
-		token = vars->lexer.token_list;
-	}
+	token = (t_token *)content;
+	if (token->data)
+		free(token->data);
+}
+
+void	clean_exit(t_vars *vars, int status)
+{
+	ft_lstclear(&vars->lexer.tokens, del_token);
 	free(vars->lexer.buffer);
-	exit(status);
+	if (errno)
+		printf("%s\n", strerror(errno));
+	exit(128 + status);
 }

@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   prompt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/16 15:29:11 by flohrel           #+#    #+#             */
-/*   Updated: 2021/04/19 12:15:24 by flohrel          ###   ########.fr       */
+/*   Created: 2021/04/19 11:39:56 by flohrel           #+#    #+#             */
+/*   Updated: 2021/04/19 12:21:27 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef PROMPT_H
+# define PROMPT_H
 
-int		main(int argc, char **argv, char **envp)
-{
-	t_vars	vars;
+# include <unistd.h>
+# include <stdlib.h>
+# include <errno.h>
+# include "data.h"
+# include "exit.h"
 
-	(void)argc;
-	(void)argv;
-	(void)envp;
-	errno = 0;
-	while (1)
-	{
-		ft_readline(&vars, "minishell>> ");
-		lexer(&vars);
-		free(vars.lexer.buffer);
-	}
-	return (0);
-}
+# define BUFFER_SIZE	4096
+
+void			ft_readline(t_vars *vars, const char *prompt);
+
+#endif

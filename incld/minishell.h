@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 16:21:33 by flohrel           #+#    #+#             */
-/*   Updated: 2021/04/16 18:06:33 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/04/19 12:01:05 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,10 @@
 
 # include <unistd.h>
 # include <stdio.h>
+# include <errno.h>
 # include "libft.h"
 # include "data.h"
 # include "lexer.h"
-
+# include "prompt.h"
 
 #endif

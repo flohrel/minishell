@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 10:18:14 by flohrel           #+#    #+#             */
-/*   Updated: 2021/01/16 18:41:55 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/04/19 11:26:41 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include "string.h"
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE	1
+#  define BUFFER_SIZE	4096
 # endif
 
 # define MAX_FD			1024

@@ -11,7 +11,8 @@ INCLDIR		=	incld
 
 SRC			=	main.c \
 				lexer.c \
-				exit.c
+				exit.c \
+				prompt.c
 OBJ			=	$(SRC:%.c=$(OBJDIR)/%.o)
 
 CC			=	gcc

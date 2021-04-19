@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 17:20:52 by flohrel           #+#    #+#             */
-/*   Updated: 2021/04/16 18:10:52 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/04/19 12:24:04 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,35 +31,47 @@ int		get_token_type(char c)
 		return (TK_RDIN);
 	else if (c == ' ')
 		return (TK_SPACE);
+	else if (c == '$')
+		return (TK_VAR);
 	else
 		return (TK_STR);
 }
 
-void	general_state_handle(t_vars *vars)
+void	quote_state_handle(t_vars *vars, int tk_type)
 {
 	(void)vars;
+	(void)tk_type;
 }
 
-void	quote_state_handle(t_vars *vars)
+void	dquote_state_handle(t_vars *vars, int tk_type)
 {
 	(void)vars;
+	(void)tk_type;
 }
 
-void	dquote_state_handle(t_vars *vars)
+void	general_state_handle(t_vars *vars, int tk_type)
 {
 	(void)vars;
+//	t_lexer	*lexer;
+	(void)tk_type;
+
+//	lexer = &vars->lexer;
+//	if (lexer->tk_type == TK_SPACE)
 }
 
 void	lexer_init(t_vars *vars)
 {
 	t_lexer	*lexer;
+	t_token	*new_token;
 
 	lexer = &vars->lexer;
+	lexer->state = ST_GENERAL;
 	lexer->buf_len = ft_strlen(lexer->buffer);
 	lexer->ntoken = 0;
-	lexer->token_list = ft_calloc(1, sizeof(*(lexer->token_list)));
-	if (lexer->token_list == NULL)
+	new_token = ft_calloc(1, sizeof(*new_token));
+	if (new_token == NULL)
 		clean_exit(vars, 1);
+	lexer->tokens = ft_lstnew(new_token);
 	lexer->token_handle[0] = general_state_handle;
 	lexer->token_handle[1] = quote_state_handle;
 	lexer->token_handle[2] = dquote_state_handle;
@@ -68,7 +80,7 @@ void	lexer_init(t_vars *vars)
 int		lexer(t_vars *vars)
 {
 	int		i;
-	int		type;
+	int		tk_type;
 	t_lexer	*lexer;
 
 	lexer_init(vars);
@@ -76,8 +88,8 @@ int		lexer(t_vars *vars)
 	i = -1;
 	while (lexer->buffer[++i])
 	{
-		type = get_token_type(lexer->buffer[i]);
-		lexer->token_handle[lexer->state](vars);
+		tk_type = get_token_type(lexer->buffer[i]);
+		lexer->token_handle[lexer->state](vars, tk_type);
 	}
 	return (0);
 }
