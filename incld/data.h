@@ -12,6 +12,7 @@ enum				e_state
 
 enum				e_tktype
 {
+	TK_NULL,
 	TK_STR,
 	TK_PIPE,
 	TK_SEMCOL,
@@ -19,8 +20,10 @@ enum				e_tktype
 	TK_DQUOTE,
 	TK_SPACE,
 	TK_ESCAPE,
-	TK_GREATER,
-	TK_LESSER,
+	TK_RDOUT,
+	TK_RDAPP,
+	TK_RDIN,
+	TOKEN = -1,
 };
 
 typedef struct		s_token
@@ -30,17 +33,22 @@ typedef struct		s_token
 	struct s_token	*next;
 }					t_token;
 
-typedef struct		s_lexer
+typedef struct		s_lexer	t_lexer;
+typedef struct		s_vars	t_vars;
+
+struct				s_lexer
 {
+	int				state;
 	char			*buffer;
 	int				buf_len;
 	int				ntoken;
 	t_token			*token_list;
-}					t_lexer;
+	void			(*token_handle[3])(t_vars *);
+};
 
-typedef struct		s_vars
+struct				s_vars
 {
-	t_lexer			input;
-}					t_vars;
+	t_lexer			lexer;
+};
 
 #endif

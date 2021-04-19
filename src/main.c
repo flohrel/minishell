@@ -21,11 +21,11 @@ int		main(int argc, char **argv, char **envp)
 	(void)envp;
 	while (1)
 	{
-		vars.input.buffer = NULL;
+		vars.lexer.buffer = NULL;
 		write(1, "minishell>> ", 12);
-		get_next_line(STDIN_FILENO, &vars.input.buffer);
+		get_next_line(STDIN_FILENO, &vars.lexer.buffer);
 		lexer(&vars);
-		free(vars.input.buffer);
+		free(vars.lexer.buffer);
 	}
 	return (0);
 }
