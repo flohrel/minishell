@@ -17,11 +17,7 @@
 # include "libft.h"
 # include "stdlib.h"
 
-/*
-**		FUNCTIONS
-*/
-
-int					lexer(t_vars *vars);
-int					get_token_type(char c);
+int		lexer(t_vars *vars);
+int		get_token_type(char c);
 
 #endif

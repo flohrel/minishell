@@ -21,6 +21,6 @@
 
 # define BUFFER_SIZE	4096
 
-void			ft_readline(t_vars *vars, const char *prompt);
+void	ft_readline(t_vars *vars, const char *prompt);
 
 #endif

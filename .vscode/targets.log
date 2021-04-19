@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Sun Apr 18 23:56:15 2021
+# Make data base, printed on Mon Apr 19 17:56:38 2021
 
 # Variables
 
@@ -20,10 +20,10 @@ PAPERSIZE = a4
 DESKTOP_SESSION = xubuntu
 # default
 .SHELLFLAGS := -c
-# makefile (from 'Makefile', line 15)
+# makefile (from 'Makefile', line 17)
 OBJ = $(SRC:%.c=$(OBJDIR)/%.o)
 # makefile (from 'Makefile', line 12)
-SRC = main.c lexer.c exit.c
+SRC = main.c lexer.c lexer2.c exit.c prompt.c
 # environment
 XDG_SESSION_TYPE = x11
 # environment
@@ -42,7 +42,7 @@ MAKE_VERSION := 4.1
 CURDIR := /home/user42/code/perso/minishell
 # makefile
 SHELL = /bin/sh
-# makefile (from 'Makefile', line 21)
+# makefile (from 'Makefile', line 23)
 RM = /bin/rm -rf
 # environment
 GDM_LANG = en
@@ -52,7 +52,7 @@ VTE_VERSION = 5202
 VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
 # environment
 _ = /usr/bin/code
-# makefile (from 'Makefile', line 18)
+# makefile (from 'Makefile', line 20)
 CFLAGS = -Wall -Werror -Wextra -g3
 # environment
 XDG_CONFIG_DIRS = /etc/xdg/xdg-xubuntu:/etc/xdg:/etc/xdg
@@ -79,11 +79,11 @@ VSCODE_VERBOSE_LOGGING = true
 # environment
 GLADE_PIXMAP_PATH = :
 # environment
-TERMINATOR_UUID = urn:uuid:a2fa20fa-6c26-4a2d-9fe3-558ecf67c7f6
+TERMINATOR_UUID = urn:uuid:1327400a-4cb3-4b24-b388-4c0b3f85420c
 # environment
 P9K_SSH = 0
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1001/vscode-ipc-b82fce58-6e1d-4a5e-8f43-72f4db4c9b35.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1001/vscode-ipc-f9b60f16-380f-4dd5-aae0-58179d764d8a.sock
 # environment
 LC_NAME = fr_FR.UTF-8
 # environment
@@ -99,7 +99,7 @@ GPG_AGENT_INFO = /run/user/1001/gnupg/S.gpg-agent:0:1
 # environment
 LSCOLORS = Gxfxcxdxbxegedabagacad
 # environment
-SESSION_MANAGER = local/salty-VirtualBox:@/tmp/.ICE-unix/1672,unix/salty-VirtualBox:/tmp/.ICE-unix/1672
+SESSION_MANAGER = local/salty-VirtualBox:@/tmp/.ICE-unix/1661,unix/salty-VirtualBox:/tmp/.ICE-unix/1661
 # environment
 XDG_RUNTIME_DIR = /run/user/1001
 # environment
@@ -107,7 +107,7 @@ GLADE_CATALOG_PATH = :
 # environment
 BREAKPAD_DUMP_LOCATION = /home/user42/.config/Code/exthost Crash Reports
 # makefile (from 'Makefile', line 7)
-VPATH = src
+VPATH = src src/lexer
 # environment
 XDG_MENU_PREFIX = xfce-
 # environment
@@ -139,7 +139,7 @@ QT_QPA_PLATFORMTHEME = gtk2
 # environment
 XDG_SEAT = seat0
 # environment
-SSH_AGENT_PID = 1654
+SSH_AGENT_PID = 1643
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = XFCE
 # environment
@@ -174,14 +174,14 @@ MAKE = $(MAKE_COMMAND)
 MAKECMDGOALS := all
 # environment
 SHLVL = 1
-# makefile (from 'Makefile', line 17)
+# makefile (from 'Makefile', line 19)
 CC = gcc
-# makefile (from 'Makefile', line 22)
+# makefile (from 'Makefile', line 24)
 UNAME := Linux
 # environment
 XDG_SESSION_ID = c2
 # environment
-USER = user42
+USER = flohrel
 # environment
 LC_MONETARY = fr_FR.UTF-8
 # makefile
@@ -196,12 +196,12 @@ LESS = -R
 %D = $(patsubst %/,%,$(dir $%))
 # environment
 LC_TELEPHONE = fr_FR.UTF-8
-# makefile (from 'Makefile', line 20)
+# makefile (from 'Makefile', line 22)
 LFLAGS = -L./$(LIBDIR)/libft -lft
 # default
 MAKE_COMMAND := make
 # environment
-OLDPWD = /home/user42
+OLDPWD = /home/user42/code/perso
 # makefile (from 'Makefile', line 9)
 LIBDIR = lib
 # environment
@@ -216,7 +216,7 @@ LANGUAGE = en
 XDG_SEAT_PATH = /org/freedesktop/DisplayManager/Seat0
 # environment
 VSCODE_IPC_HOOK = /run/user/1001/vscode-6f96cc86-1.55.2-main.sock
-# makefile (from 'Makefile', line 19)
+# makefile (from 'Makefile', line 21)
 INCFLAGS = -I./$(INCLDIR) -I./$(LIBDIR)/libft/incld
 # makefile
 MAKEFLAGS = pqrR
@@ -274,7 +274,7 @@ TERM = xterm-256color
 TERMINATOR_DBUS_NAME = net.tenshu.Terminator20x1a6021154d881c
  
 # environment
-VSCODE_PID = 4532
+VSCODE_PID = 2318
 # variable set hash-table stats:
 # Load=132/1024=13%, Rehash=0, Collisions=17/176=10%
 
@@ -286,13 +286,14 @@ VSCODE_PID = 4532
 
 # . (device 2049, inode 419421): 11 files, no impossibilities.
 # src (device 2049, inode 426616): 4 files, no impossibilities so far.
+# src/lexer (device 2049, inode 1047720): No files, no impossibilities so far.
 
-# 15 files, no impossibilities in 2 directories.
+# 15 files, no impossibilities in 3 directories.
 
 # Implicit Rules
 
 obj/%.o: %.c | obj
-#  recipe to execute (from 'Makefile', line 34):
+#  recipe to execute (from 'Makefile', line 36):
 				$(CC) $(CFLAGS) $(INCFLAGS) -c $< -o $@
 
 # 1 implicit rules, 0 (0,0%) terminal.
@@ -317,54 +318,51 @@ all: minishell
 obj/main.o: src/main.c | obj
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'main'
-#  Last modified 2021-04-18 23:41:45.874510336
+#  Last modified 2021-04-19 13:00:04.242070974
 #  File has been updated.
-#  Successfully updated.
-#  recipe to execute (from 'Makefile', line 34):
+#  Needs to be updated (-q is set).
+# automatic
+# @ := obj/main.o
+# automatic
+# % := 
+# automatic
+# * := main
+# automatic
+# + := src/main.c
+# automatic
+# | := obj
+# automatic
+# < := src/main.c
+# automatic
+# ^ := src/main.c
+# automatic
+# ? := src/main.c
+# variable set hash-table stats:
+# Load=8/32=25%, Rehash=0, Collisions=1/18=6%
+#  recipe to execute (from 'Makefile', line 36):
 				$(CC) $(CFLAGS) $(INCFLAGS) -c $< -o $@
 
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2021-04-18 23:56:12.047380544
+#  Last modified 2021-04-19 13:05:50.323040875
 #  File has been updated.
 #  Successfully updated.
 
-obj/lexer.o: src/lexer.c | obj
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: 'lexer'
-#  Last modified 2021-04-18 23:47:51.701332449
-#  File has been updated.
-#  Needs to be updated (-q is set).
-# automatic
-# @ := obj/lexer.o
-# automatic
-# % := 
-# automatic
-# * := lexer
-# automatic
-# + := src/lexer.c
-# automatic
-# | := obj
-# automatic
-# < := src/lexer.c
-# automatic
-# ^ := src/lexer.c
-# automatic
-# ? := src/lexer.c
-# variable set hash-table stats:
-# Load=8/32=25%, Rehash=0, Collisions=1/18=6%
-#  recipe to execute (from 'Makefile', line 34):
-				$(CC) $(CFLAGS) $(INCFLAGS) -c $< -o $@
-
-minishell: obj/main.o obj/lexer.o obj/exit.o
+# Not a target:
+obj/lexer.o:
 #  Implicit rule search has not been done.
-#  Last modified 2021-04-18 23:48:14.784868459
+#  Modification time never checked.
+#  File has not been updated.
+
+minishell: obj/main.o obj/lexer.o obj/lexer2.o obj/exit.o obj/prompt.o
+#  Implicit rule search has not been done.
+#  Last modified 2021-04-19 13:05:50.327042875
 #  File has been updated.
 #  Needs to be updated (-q is set).
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/8=0%
-#  recipe to execute (from 'Makefile', line 37):
+#  recipe to execute (from 'Makefile', line 39):
 				make -C $(LIBDIR)/libft
 				$(CC) $(CFLAGS) -o $@ $^ $(LFLAGS)
 
@@ -373,7 +371,7 @@ bonus:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 44):
+#  recipe to execute (from 'Makefile', line 46):
 				@make all
 
 fclean: clean
@@ -381,30 +379,23 @@ fclean: clean
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 50):
+#  recipe to execute (from 'Makefile', line 52):
 				$(RM) $(NAME) $(OBJDIR)
 
 # Not a target:
 src/main.c:
 #  Implicit rule search has been done.
-#  Last modified 2021-04-18 23:41:30.89902633
+#  Last modified 2021-04-19 13:05:50.331044876
 #  File has been updated.
 #  Successfully updated.
 
 obj:
 #  Implicit rule search has not been done.
-#  Last modified 2021-04-18 23:48:14.736844459
+#  Last modified 2021-04-19 13:00:04.510204987
 #  File has been updated.
 #  Successfully updated.
-#  recipe to execute (from 'Makefile', line 41):
+#  recipe to execute (from 'Makefile', line 43):
 				mkdir $(OBJDIR)
-
-# Not a target:
-src/lexer.c:
-#  Implicit rule search has been done.
-#  Last modified 2021-04-18 23:53:04.045426523
-#  File has been updated.
-#  Successfully updated.
 
 # Not a target:
 .DEFAULT:
@@ -423,8 +414,20 @@ clean:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 47):
+#  recipe to execute (from 'Makefile', line 49):
 				$(RM) $(OBJ)
+
+# Not a target:
+obj/lexer2.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+obj/prompt.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
 
 # Not a target:
 obj/exit.o:
@@ -433,20 +436,20 @@ obj/exit.o:
 #  File has not been updated.
 
 # files hash-table stats:
-# Load=16/1024=2%, Rehash=0, Collisions=0/66=0%
+# Load=17/1024=2%, Rehash=0, Collisions=0/58=0%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # General ('VPATH' variable) search path:
-# src
+# src:src/lexer
 
-# strcache buffers: 1 (0) / strings = 34 / storage = 254 B / avg = 7 B
-# current buf: size = 8162 B / used = 254 B / count = 34 / avg = 7 B
+# strcache buffers: 1 (0) / strings = 35 / storage = 270 B / avg = 7 B
+# current buf: size = 8162 B / used = 270 B / count = 35 / avg = 7 B
 
-# strcache performance: lookups = 72 / hit rate = 52%
+# strcache performance: lookups = 69 / hit rate = 49%
 # hash-table stats:
-# Load=34/8192=0%, Rehash=0, Collisions=1/72=1%
-# Finished Make data base on Sun Apr 18 23:56:15 2021
+# Load=35/8192=0%, Rehash=0, Collisions=1/69=1%
+# Finished Make data base on Mon Apr 19 17:56:38 2021
 
  

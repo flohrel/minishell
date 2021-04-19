@@ -6,36 +6,12 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 17:20:52 by flohrel           #+#    #+#             */
-/*   Updated: 2021/04/19 12:24:04 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/04/19 16:06:58 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 #include <stdio.h>
-
-int		get_token_type(char c)
-{
-	if (c == '|')
-		return (TK_PIPE);
-	else if (c == ';')
-		return (TK_SEMCOL);
-	else if (c == '\'')
-		return (TK_QUOTE);
-	else if (c == '\"')
-		return (TK_DQUOTE);
-	else if (c == '\\')
-		return (TK_ESCAPE);
-	else if (c == '>')
-		return (TK_RDOUT);
-	else if (c == '<')
-		return (TK_RDIN);
-	else if (c == ' ')
-		return (TK_SPACE);
-	else if (c == '$')
-		return (TK_VAR);
-	else
-		return (TK_STR);
-}
 
 void	quote_state_handle(t_vars *vars, int tk_type)
 {
@@ -51,12 +27,14 @@ void	dquote_state_handle(t_vars *vars, int tk_type)
 
 void	general_state_handle(t_vars *vars, int tk_type)
 {
-	(void)vars;
-//	t_lexer	*lexer;
+	t_lexer	*lexer;
 	(void)tk_type;
 
-//	lexer = &vars->lexer;
-//	if (lexer->tk_type == TK_SPACE)
+	lexer = &vars->lexer;
+	if (lexer->tk_type == TK_SPACE)
+	{
+
+	}
 }
 
 void	lexer_init(t_vars *vars)
