@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 15:24:24 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/04/16 18:03:36 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/04/21 17:12:51 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,6 @@ int		echo(int fd, char **tab, int opt);
 int		export(char *str, t_env *env);
 char	*get_env_value(char *key, t_env *env);
 void	print_env(t_env *env);
+void	sort_env(t_env **env);
 t_env	*unset(char *key, t_env *env);
 #endif

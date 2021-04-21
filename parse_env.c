@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 15:48:37 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/04/16 18:07:04 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/04/21 17:13:15 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ int main(int ac, char **av, char **env)
 	(void)ac;
 	(void)av;
 	g_env = parse_env(env);
-	g_env = unset("TERM", g_env);
-	print_env(g_env);
-	pwd(g_env);
+	sort_env(&g_env);
+	//	g_env = unset("_", g_env);
+//	print_env(g_env);
+//	pwd(g_env);
 }

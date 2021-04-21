@@ -10,7 +10,7 @@ LIBDIR		=	lib
 INCLDIR		=	incld
 
 SRC			=	cd.c pwd.c echo.c export.c unset.c \
-				parse_env.c get_env_value.c print_env.c
+				parse_env.c get_env_value.c print_env.c env_utils.c
 
 OBJ			=	$(SRC:%.c=$(OBJDIR)/%.o)
 
