@@ -6,20 +6,11 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 17:58:07 by flohrel           #+#    #+#             */
-/*   Updated: 2021/04/19 17:58:09 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/04/20 14:13:00 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exit.h"
-
-void	del_token(void *content)
-{
-	t_token	*token;
-
-	token = (t_token *)content;
-	if (token->data)
-		free(token->data);
-}
 
 void	clean_exit(t_vars *vars, int status)
 {

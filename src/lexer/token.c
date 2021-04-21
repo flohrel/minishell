@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer2.c                                           :+:      :+:    :+:   */
+/*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 12:58:34 by flohrel           #+#    #+#             */
-/*   Updated: 2021/04/19 12:59:29 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/04/20 14:24:43 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,17 @@ int		get_token_type(char c)
 	if (c == '|')
 		return (TK_PIPE);
 	else if (c == ';')
-		return (TK_SEMCOL);
+		return (TK_SEMI);
 	else if (c == '\'')
 		return (TK_QUOTE);
 	else if (c == '\"')
 		return (TK_DQUOTE);
 	else if (c == '\\')
-		return (TK_ESCAPE);
+		return (TK_ESC);
 	else if (c == '>')
-		return (TK_RDOUT);
+		return (TK_GREAT);
 	else if (c == '<')
-		return (TK_RDIN);
+		return (TK_LESS);
 	else if (c == ' ')
 		return (TK_SPACE);
 	else if (c == '$')
@@ -36,4 +36,22 @@ int		get_token_type(char c)
 		return (TK_STR);
 }
 
+void	del_token(void *content)
+{
+	t_token	*token;
 
+	token = (t_token *)content;
+	if (token->data)
+		free(token->data);
+}
+
+t_token	*new_token(int type)
+{
+	t_token	*token;
+
+	token = ft_calloc(1, sizeof(*token));
+	if (token == NULL)
+		return (token);
+	token->type = type;
+	return (token);
+}

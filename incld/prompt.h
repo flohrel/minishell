@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 11:39:56 by flohrel           #+#    #+#             */
-/*   Updated: 2021/04/19 12:21:27 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/04/20 15:59:14 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,14 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <errno.h>
+# include "ansi_colors.h"
 # include "data.h"
 # include "exit.h"
 
 # define BUFFER_SIZE	4096
+# define PROMPT			BGRN"minishell>> "RESET
 
-void	ft_readline(t_vars *vars, const char *prompt);
+void	display_prompt(void);
+void	ft_readline(t_vars *vars);
 
 #endif
