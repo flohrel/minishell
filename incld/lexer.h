@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 17:14:29 by flohrel           #+#    #+#             */
-/*   Updated: 2021/04/20 14:22:51 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/04/22 15:36:30 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		lexer(t_vars *vars);
  **		token.c
  */
 int		get_token_type(char c);
-t_token	*new_token(int type);
+void	new_token(t_vars *vars, int type, char *data);
 void	del_token(void *content);
 
 #endif

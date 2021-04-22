@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 12:58:34 by flohrel           #+#    #+#             */
-/*   Updated: 2021/04/20 14:24:43 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/04/22 15:49:48 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int		get_token_type(char c)
 	else if (c == '$')
 		return (TK_VAR);
 	else
-		return (TK_STR);
+		return (TOKEN);
 }
 
 void	del_token(void *content)
@@ -45,13 +45,18 @@ void	del_token(void *content)
 		free(token->data);
 }
 
-t_token	*new_token(int type)
+void	new_token(t_vars *vars, int type, char *data)
 {
 	t_token	*token;
+	t_list	*lst;
 
 	token = ft_calloc(1, sizeof(*token));
 	if (token == NULL)
-		return (token);
+		clean_exit(vars, errno);
 	token->type = type;
-	return (token);
+	token->data = data;
+	lst = ft_lstnew(token);
+	if (lst == NULL)
+		clean_exit(vars, errno);
+	ft_lstadd_back(&vars->lexer.tokens, lst);
 }

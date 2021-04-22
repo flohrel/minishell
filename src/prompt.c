@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 11:42:38 by flohrel           #+#    #+#             */
-/*   Updated: 2021/04/20 16:00:03 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/04/22 15:56:26 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,4 @@ void	ft_readline(t_vars *vars)
 	if (vars->lexer.buffer == NULL)
 		clean_exit(vars, errno);
 	ft_strlcpy(vars->lexer.buffer, buffer, size + 1);
-	vars->lexer.buf_len = size;
 }

@@ -3,8 +3,6 @@
 
 # include "libft.h"
 
-# define NTOKTYPE	9
-
 enum				e_state
 {
 	ST_GENERAL,
@@ -14,19 +12,18 @@ enum				e_state
 
 enum				e_tktype
 {
-	TK_NULL,
-	TK_STR,
-	TK_PIPE,
-	TK_SEMI,
+	TOKEN = -1,
+	TK_NULL = 0,
 	TK_QUOTE,
 	TK_DQUOTE,
 	TK_SPACE,
 	TK_ESC,
+	TK_VAR,
+	TK_PIPE,
+	TK_SEMI,
+	TK_LESS,
 	TK_GREAT,
 	TK_DGREAT,
-	TK_LESS,
-	TK_VAR,
-	TOKEN = -1,
 };
 
 typedef struct		s_lexer	t_lexer;
@@ -44,7 +41,6 @@ struct				s_lexer
 {
 	int				state;
 	char			*buffer;
-	int				buf_len;
 	int				ntoken;
 	t_list			*tokens;
 	void			(*token_handle[3])(t_vars *, int);
