@@ -6,12 +6,11 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 17:20:52 by flohrel           #+#    #+#             */
-/*   Updated: 2021/04/22 15:49:13 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/04/25 05:15:33 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
-#include <stdio.h>
 
 void	lexer_init(t_vars *vars)
 {
@@ -21,6 +20,11 @@ void	lexer_init(t_vars *vars)
 	lexer->state = ST_GENERAL;
 	lexer->ntoken = 0;
 	lexer->tokens = NULL;
+	lexer->token_handle[0] = word_handle;
+	lexer->token_handle[1] = word_handle;
+	lexer->token_handle[2] = word_handle;
+	lexer->token_handle[3] = space_handle;
+	lexer->token_handle[4] = escape_handle;
 }
 
 void	job_token_handle(int tk_type, t_vars *vars, char *c)
@@ -33,19 +37,27 @@ void	job_token_handle(int tk_type, t_vars *vars, char *c)
 
 int		lexer(t_vars *vars)
 {
-	char	*c;
+	char	*buffer;
+	char	*cur_char;
 	int		tk_type;
 	t_lexer	*lexer;
 
 	lexer_init(vars);
 	lexer = &vars->lexer;
-	c = lexer->buffer;
-	while (*c)
+	buffer = lexer->buffer;
+	while (*buffer)
 	{
-		tk_type = get_token_type(*c);
-		if (tk_type > 5 && (lexer->state == ST_GENERAL))
-			job_token_handle(tk_type, vars, c);
-		c++;
+		tk_type = get_token_type(*buffer);
+		if (lexer->state == ST_GENERAL)
+		{
+			if (tk_type > 6)
+				job_token_handle(tk_type, vars, buffer);
+			else
+				token_handle[tk_type](vars, &buffer, cur_char);
+		}
+		else
+			quoted_state_handle(vars, cur_char);
+		buffer++;
 	}
 	return (0);
 }

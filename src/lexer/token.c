@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 12:58:34 by flohrel           #+#    #+#             */
-/*   Updated: 2021/04/22 15:49:48 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/04/25 05:06:03 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,8 @@ int		get_token_type(char c)
 		return (TK_LESS);
 	else if (c == ' ')
 		return (TK_SPACE);
-	else if (c == '$')
-		return (TK_VAR);
 	else
-		return (TOKEN);
+		return (TK_CHAR);
 }
 
 void	del_token(void *content)
