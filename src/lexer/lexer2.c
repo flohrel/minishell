@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 05:14:28 by flohrel           #+#    #+#             */
-/*   Updated: 2021/04/28 00:59:40 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/04/28 01:23:08 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	job_token_handle(int tk_type, t_vars *vars, char **c)
 	lexer = &vars->lexer;
 	if (lexer->cur_char)
 		*(lexer->cur_char) = '\0';
-	if ((tk_type == TK_GREAT) && (*(*c + 1) == TK_GREAT))
+	printf("%c\n", *(*c + 1));
+	if ((tk_type == TK_GREAT) && (get_token_type(*(*c + 1)) == TK_GREAT))
 	{
 		new_token(vars, TK_DGREAT, 0);
 		(*c)++;

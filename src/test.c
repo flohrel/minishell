@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/16 16:21:33 by flohrel           #+#    #+#             */
-/*   Updated: 2021/04/28 01:11:42 by flohrel          ###   ########.fr       */
+/*   Created: 2021/04/28 01:03:40 by flohrel           #+#    #+#             */
+/*   Updated: 2021/04/28 01:13:20 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "test.h"
 
-# include <unistd.h>
-# include <stdio.h>
-# include <errno.h>
-# include <signal.h>
-# include "libft.h"
-# include "data.h"
-# include "lexer.h"
-# include "prompt.h"
-# include "test.h"
+void	display_token_list(t_lexer *lexer)
+{
+	t_list	*lst;
+	t_token	*token;
 
-#endif
+	lst = lexer->tokens;
+	while (lst)
+	{
+		token = lst->content;
+		printf("%d - %s\n", token->type, token->data);
+		lst = lst->next;
+	}
+}

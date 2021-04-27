@@ -14,7 +14,8 @@ SRC			=	main.c \
 				lexer2.c \
 				token.c \
 				exit.c \
-				prompt.c
+				prompt.c \
+				test.c
 OBJ			=	$(SRC:%.c=$(OBJDIR)/%.o)
 
 CC			=	gcc
