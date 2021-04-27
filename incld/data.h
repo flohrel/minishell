@@ -41,9 +41,10 @@ struct				s_lexer
 	int				state;
 	char			*buffer;
 	int				buf_len;
-	int				ntoken;
 	t_list			*tokens;
-	void			(*token_handle[5])(t_vars *, char **, char *);
+	t_token			*cur_tok;
+	char			*cur_char;
+	void			(*token_handle[5])(t_vars *, char **);
 };
 
 typedef struct		s_term
