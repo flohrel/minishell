@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 17:14:29 by flohrel           #+#    #+#             */
-/*   Updated: 2021/04/27 04:29:51 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/04/28 00:59:10 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 /*
  **		lexer.c
  */
-int		lexer(t_vars *vars);
+void	lexer(t_vars *vars);
 
 /*
  **		lexer2.c
@@ -29,7 +29,7 @@ void	job_token_handle(int tk_type, t_vars *vars, char **buf);
 void	word_handle(t_vars *vars, char **buf);
 void	space_handle(t_vars *vars, char **buf);
 void	escape_handle(t_vars *vars, char **buf);
-void	quote_handle(t_vars *vars);
+void	quote_handle(t_vars *vars, char *buf);
 
 /*
  **		token.c

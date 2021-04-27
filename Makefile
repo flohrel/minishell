@@ -11,6 +11,7 @@ INCLDIR		=	incld
 
 SRC			=	main.c \
 				lexer.c \
+				lexer2.c \
 				token.c \
 				exit.c \
 				prompt.c

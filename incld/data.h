@@ -42,9 +42,7 @@ struct				s_lexer
 	char			*buffer;
 	int				buf_len;
 	t_list			*tokens;
-	t_token			*cur_tok;
 	char			*cur_char;
-	void			(*token_handle[5])(t_vars *, char **);
 };
 
 typedef struct		s_term

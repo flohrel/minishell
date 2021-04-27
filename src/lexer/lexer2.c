@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 05:14:28 by flohrel           #+#    #+#             */
-/*   Updated: 2021/04/27 04:32:31 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/04/28 00:59:40 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	job_token_handle(int tk_type, t_vars *vars, char **c)
 	t_lexer	*lexer;
 
 	lexer = &vars->lexer;
-	if (lexer->cur_tok)
+	if (lexer->cur_char)
 		*(lexer->cur_char) = '\0';
 	if ((tk_type == TK_GREAT) && (*(*c + 1) == TK_GREAT))
 	{
@@ -26,40 +26,42 @@ void	job_token_handle(int tk_type, t_vars *vars, char **c)
 	}
 	else
 		new_token(vars, tk_type, 0);
-	lexer->cur_tok = NULL;
 }
 
 void	word_handle(t_vars *vars, char **buf)
 {
 	t_lexer	*lexer;
 
-	lexer = vars->lexer;
-	token = lexer->cur_tok;
+	lexer = &vars->lexer;
+	*(lexer->cur_char)++ = (**buf);
 }
 
 void	space_handle(t_vars *vars, char **buf)
 {
 	t_lexer	*lexer;
+	int		size;
 
-	lexer = vars->lexer;
-	token = lexer->cur_tok;
-	cur_char = '\0';
+	lexer = &vars->lexer;
+	if (lexer->cur_char)
+		*(lexer->cur_char) = '\0';
+	size = lexer->buffer + lexer->buf_len - (*buf);
+	new_token(vars, TOKEN, size);
 }
 
 void	escape_handle(t_vars *vars, char **buf)
 {
 	t_lexer	*lexer;
 
-	lexer = vars->lexer;
-	token = lexer->cur_tok;
-	cur_char = '\0';
+	lexer = &vars->lexer;
+	*(lexer->cur_char)++ = *(++(*buf));
 }
 
-void	quote_handle(t_vars *vars)
+void	quote_handle(t_vars *vars, char *buf)
 {
 	t_lexer	*lexer;
 
-	lexer = vars->lexer;
-	token = lexer->cur_tok;
-	cur_char = '\0';
+	lexer = &vars->lexer;
+	*(lexer->cur_char)++ = (*buf);
+	if ((*buf == '\'') || (*buf == '\"'))
+		lexer->state = ST_GENERAL;
 }
