@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 11:42:38 by flohrel           #+#    #+#             */
-/*   Updated: 2021/04/29 00:51:47 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/04/29 00:59:16 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,26 @@ void	display_prompt(void)
 	write(1, PROMPT, ft_strlen(PROMPT));
 }
 
-int		input_handle(char *input, int size, int *index)
+int		input_handle(t_vars *vars, char *input, int size, int *index)
 {
 //	printf("size = %d char=%d\n", size, *input);
 	if (size == 1)
 	{
 		if (*input == '\n')
 			return (0);
+		else if (*input == 4 && !(*index))
+		{
+			write(1, "\033[2D\033[0K", 8);
+			write(1, "exit\n", 5);
+			clean_exit(vars, 0);
+		}
 		else if (*input == 127)
 		{
 			if (*index)
+			{
 				write(1, "\033[3D\033[0K", 8);
+				(*index)--;
+			}
 			else
 				write(1, "\033[2D\033[0K", 8);
 			return (-1);
@@ -55,7 +64,7 @@ void	ft_readline(t_vars *vars)
 				write(1, "exit\n", 5);
 			clean_exit(vars, errno);
 		}
-		ret = input_handle(&buffer[i], size, &i);
+		ret = input_handle(vars, &buffer[i], size, &i);
 		if (ret > 0)
 			i += size;
 	}
