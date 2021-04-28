@@ -6,7 +6,7 @@
 #    By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/16 16:04:42 by flohrel           #+#    #+#              #
-#    Updated: 2021/02/23 03:34:34 by flohrel          ###   ########.fr        #
+#    Updated: 2021/04/28 16:15:37 by flohrel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,8 @@ CTYPE		=	ft_isalnum.c \
 				ft_tolower.c \
 				ft_toupper.c
 
-IO			=	ft_putchar_fd.c \
+IO			=	ft_putchar.c \
+				ft_putchar_fd.c \
 				ft_putendl_fd.c \
 				ft_putnbr_fd.c \
 				ft_putstr_fd.c

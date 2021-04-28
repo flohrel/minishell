@@ -21,7 +21,7 @@ OBJ			=	$(SRC:%.c=$(OBJDIR)/%.o)
 CC			=	gcc
 CFLAGS		=	-Wall -Werror -Wextra -g3
 INCFLAGS	=	-I./$(INCLDIR) -I./$(LIBDIR)/libft/incld
-LFLAGS		=	-L./$(LIBDIR)/libft -lft
+LFLAGS		=	-L./$(LIBDIR)/libft -lft -lncurses
 RM			=	/bin/rm -rf
 UNAME		:=	$(shell uname -s)
 

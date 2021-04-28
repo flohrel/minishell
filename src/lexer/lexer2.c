@@ -6,27 +6,30 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 05:14:28 by flohrel           #+#    #+#             */
-/*   Updated: 2021/04/28 01:23:08 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/04/28 16:35:53 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-void	job_token_handle(int tk_type, t_vars *vars, char **c)
+void	job_token_handle(int tk_type, t_vars *vars, char **buf)
 {
 	t_lexer	*lexer;
+	int		size;
 
 	lexer = &vars->lexer;
 	if (lexer->cur_char)
 		*(lexer->cur_char) = '\0';
-	printf("%c\n", *(*c + 1));
-	if ((tk_type == TK_GREAT) && (get_token_type(*(*c + 1)) == TK_GREAT))
+	printf("%c\n", *(*buf + 1));
+	if ((tk_type == TK_GREAT) && (get_token_type(*(*buf + 1)) == TK_GREAT))
 	{
 		new_token(vars, TK_DGREAT, 0);
-		(*c)++;
+		(*buf)++;
 	}
 	else
 		new_token(vars, tk_type, 0);
+	size = lexer->buffer + lexer->buf_len - (*buf);
+	new_token(vars, TOKEN, size);
 }
 
 void	word_handle(t_vars *vars, char **buf)

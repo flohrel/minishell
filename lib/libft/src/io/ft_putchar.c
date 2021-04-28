@@ -1,29 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt.h                                           :+:      :+:    :+:   */
+/*   ft_putchar.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/19 11:39:56 by flohrel           #+#    #+#             */
-/*   Updated: 2021/04/28 15:03:41 by flohrel          ###   ########.fr       */
+/*   Created: 2021/04/28 16:10:53 by flohrel           #+#    #+#             */
+/*   Updated: 2021/04/28 16:24:17 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROMPT_H
-# define PROMPT_H
+#include "libft/io.h"
 
-# include <unistd.h>
-# include <stdlib.h>
-# include <errno.h>
-# include "ansi_colors.h"
-# include "data.h"
-# include "exit.h"
+int	ft_putchar(int c)
+{
+	unsigned char	uc;
 
-# define BUFFER_SIZE	4096
-# define PROMPT			BGRN"minishell>> "RESET
-
-void	display_prompt(void);
-void	ft_readline(t_vars *vars);
-
-#endif
+	uc = (unsigned char)c;
+	return (write(1, &uc, 1));
+}
