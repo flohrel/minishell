@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 11:39:56 by flohrel           #+#    #+#             */
-/*   Updated: 2021/04/28 21:33:26 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/04/30 02:04:05 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,15 @@
 # define BUFFER_SIZE	4096
 # define PROMPT			BGRN"minishell>> "RESET
 
+/*
+**		prompt.c
+*/
 void	display_prompt(void);
 void	ft_readline(t_vars *vars);
+
+/*
+**		input.c
+*/
+int		input_handle(t_vars *vars, char *input, int size, int *index);
 
 #endif
