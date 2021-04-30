@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 15:29:11 by flohrel           #+#    #+#             */
-/*   Updated: 2021/04/29 18:56:12 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/04/30 03:45:17 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,23 +23,6 @@ void	sigquit_handler(int signum)
 {
 	(void)signum;
 	write(1, "\033[2D\033[0K", 8);
-}
-
-void	init_term(t_vars *vars)
-{
-	t_term	*termios;
-	char	*term_type;
-
-	termios = &vars->termios;
-	if (tcgetattr(STDIN_FILENO, &termios->original) == -1)
-		clean_exit(vars, errno);
-	termios->current = termios->original;
-	termios->current.c_lflag &= ~(ICANON);
-	if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &termios->current))
-		clean_exit(vars, errno);
-	term_type = getenv("TERM");
-	if (term_type == NULL || tgetent(NULL, term_type) <= 0)
-		clean_exit(vars, 0);
 }
 
 void	init_vars(t_vars *vars)

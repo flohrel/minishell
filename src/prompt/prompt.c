@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 11:42:38 by flohrel           #+#    #+#             */
-/*   Updated: 2021/04/30 02:11:28 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/04/30 04:07:35 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,23 @@
 void	display_prompt(void)
 {
 	write(1, PROMPT, ft_strlen(PROMPT));
+}
+
+void	init_term(t_vars *vars)
+{
+	t_term	*termios;
+	char	*term_type;
+
+	termios = &vars->termios;
+	if (tcgetattr(STDIN_FILENO, &termios->original) == -1)
+		clean_exit(vars, errno);
+	termios->current = termios->original;
+	termios->current.c_lflag &= ~(ICANON);
+	if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &termios->current))
+		clean_exit(vars, errno);
+	term_type = getenv("TERM");
+	if (term_type == NULL || tgetent(NULL, term_type) <= 0)
+		clean_exit(vars, 0);
 }
 
 void	ft_readline(t_vars *vars)

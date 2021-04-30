@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 02:02:42 by flohrel           #+#    #+#             */
-/*   Updated: 2021/04/30 02:30:56 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/04/30 04:07:20 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 int		delete_handle(char *input, int *index)
 {
+	(void)input;
 	if (*index)
 	{
 		if (*(input - 1) == '\t')
 			tputs(tgetstr("bt", NULL), 1, ft_putchar);
-		else
-			write(1, "\033[1D\033[0K", 8);
+		write(1, "\033[1D\033[0K", 8);
 		(*index)--;
 	}
 	write(1, "\033[2D\033[0K", 8);
