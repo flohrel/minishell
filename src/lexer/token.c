@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 12:58:34 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/03 17:10:07 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/03 19:30:36 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,12 @@ void	del_token(void *content)
 	t_token	*token;
 
 	token = (t_token *)content;
-	if (token && token->data)
-		free(token->data);
+	if (token)
+	{
+		if (token->data)
+			free(token->data);
+		free(token);
+	}
 }
 
 void	new_token(t_vars *vars, int type, int size)
