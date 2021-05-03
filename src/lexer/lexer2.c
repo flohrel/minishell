@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 05:14:28 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/03 08:49:17 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/03 10:16:58 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ void	escape_handle(t_vars *vars, char **buf)
 	t_lexer	*lexer;
 
 	lexer = &vars->lexer;
-	*(lexer->cur_char)++ = *(++(*buf));
+	if (*((*buf) + 1))
+		*(lexer->cur_char)++ = *(++(*buf));
 }
 
 void	quote_handle(t_vars *vars, char *buf)
