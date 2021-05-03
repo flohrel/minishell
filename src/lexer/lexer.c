@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 17:20:52 by flohrel           #+#    #+#             */
-/*   Updated: 2021/04/28 16:23:15 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/03 08:49:31 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	lexer(t_vars *vars)
 		tk_type = get_token_type(*buffer);
 		if (lexer->state == ST_GENERAL)
 		{
-			if (tk_type > 5)
+			if (tk_type >= 5)
 				job_token_handle(tk_type, vars, &buffer);
 			else
 				token_handle[tk_type](vars, &buffer);

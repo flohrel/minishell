@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 11:39:56 by flohrel           #+#    #+#             */
-/*   Updated: 2021/04/30 02:04:05 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/04/30 03:36:36 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 **		prompt.c
 */
 void	display_prompt(void);
+void	init_term(t_vars *vars);
 void	ft_readline(t_vars *vars);
 
 /*

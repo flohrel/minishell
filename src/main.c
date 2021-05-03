@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 15:29:11 by flohrel           #+#    #+#             */
-/*   Updated: 2021/04/30 03:45:17 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/03 00:58:11 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	init_vars(t_vars *vars)
 {
 	vars->lexer.tokens = NULL;
 	vars->lexer.buffer = NULL;
-	init_term(vars);
 }
 
 int		main(int argc, char **argv, char **envp)
@@ -42,13 +41,15 @@ int		main(int argc, char **argv, char **envp)
 	errno = 0;
 	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, sigquit_handler);
-	init_vars(&vars);
+	init_term(&vars);
 	while (1)
 	{
+		init_vars(&vars);
 		display_prompt();
 		ft_readline(&vars);
 		lexer(&vars);
 		display_token_list(&vars.lexer);
+		ft_lstclear(&vars.lexer.tokens, del_token);
 		free(vars.lexer.buffer);
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 02:02:42 by flohrel           #+#    #+#             */
-/*   Updated: 2021/04/30 04:07:20 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/03 08:35:45 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,10 @@ int		input_handle(t_vars *vars, char *input, int size, int *index)
 	if (size == 1)
 	{
 		if (*input == '\n')
+		{
+			*input = '\0';
 			return (0);
+		}
 		else if (*input == '\t')
 			tputs(tgetstr("ta", NULL), 1, ft_putchar);
 		else if (*input == 4)
