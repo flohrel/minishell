@@ -6,48 +6,75 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 20:58:03 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/07 22:49:37 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/08 01:45:23 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
+int		is_charset(const char *charset, char c)
+{
+	while (*charset)
+	{
+		if (c == *charset || !c)
+			return (1);
+		charset++;
+	}
+	return (0);
+}
+
 void	var_expansion(char *buffer, int *index, char **data)
 {
 	char	*var;
 	int		size;
+	char	*str;
+	char	tmp;
 
-	var = ft_strtok_r(*data + 1, " \"", data);
-	var = getenv(var);
+	str = *data;
+	while (*(str++))
+	{
+		if (is_charset("\" ", *str))
+		{
+			tmp = *str;
+			*str = '\0';
+			var = getenv(*data + 1);
+			*str = tmp;
+			*data = str - 1;
+			break ;
+		}
+	}
 	size = ft_strlen(var);
 	ft_strlcpy(&buffer[*index], var, size + 1);
 	(*index) += size;
 }
 
-void	parse_word(t_vars *vars, t_lexer *lexer, char *data)
+void	parse_word(t_vars *vars, t_lexer *lexer, char **data)
 {
 	char	buffer[BUFFER_SIZE];
+	char	*str;
 	int		index;
 
-	(void)vars;
 	index = 0;
-	while (*data)
+	str = *data - 1;
+	while (*(++str))
 	{
-		if (*data == '\'')
+		if (*str == '\'')
 		{
 			if (lexer->state == ST_GENERAL)
 				lexer->state = ST_QUOTE;
 			else
 				lexer->state = ST_GENERAL;
 		}
-		else if ((*data == '$') && (lexer->state != ST_QUOTE))
-		{
-			var_expansion(buffer, &index, &data);
-			continue ;
-		}
-		buffer[index++] = *data++;
+		else if ((*str == '$') && (lexer->state != ST_QUOTE))
+			var_expansion(buffer, &index, &str);
+		else if (*str != '\"')
+			buffer[index++] = *str;
 	}
-	printf("%s", buffer);
+	buffer[index] = '\0';
+	free(*data);
+	*data = ft_strdup(buffer);
+	if (*data == NULL)
+		clean_exit(vars, 0);
 }
 
 void	delete_empty_token(t_lexer *lexer, t_parser *parser)
@@ -96,7 +123,7 @@ int		parser(t_vars *vars, t_lexer *lexer, t_parser *parser)
 		else
 		{
 			if (token->type < 0)
-				parse_word(vars, lexer, token->data);
+				parse_word(vars, lexer, &token->data);
 			parser->prev_tk = parser->cur_tk;
 			parser->cur_tk = parser->prev_tk->next;
 		}
