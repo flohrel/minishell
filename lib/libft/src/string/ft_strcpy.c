@@ -1,24 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/03 20:59:00 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/07 22:05:29 by flohrel          ###   ########.fr       */
+/*   Created: 2021/05/07 22:12:20 by flohrel           #+#    #+#             */
+/*   Updated: 2021/05/07 22:51:13 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
+#include "libft/string.h"
 
-# include <stdlib.h>
-# include "data.h"
-# include "lexer.h"
-
-# define BUFFER_SIZE	4096
-
-int		parser(t_vars *vars, t_lexer *lexer, t_parser *parser);
-
-#endif
+char	*ft_strcpy

@@ -6,7 +6,7 @@
 #    By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/16 16:04:42 by flohrel           #+#    #+#              #
-#    Updated: 2021/04/28 16:15:37 by flohrel          ###   ########.fr        #
+#    Updated: 2021/05/07 22:16:12 by flohrel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -84,6 +84,7 @@ STR			=	ft_memccpy.c \
 				ft_strrchr.c \
 				ft_strtrim.c \
 				ft_substr.c \
+				ft_strtok_r.c \
 				ft_bzero.c
 
 GNL			=	get_next_line.c \

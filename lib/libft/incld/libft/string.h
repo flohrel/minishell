@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 14:54:10 by flohrel           #+#    #+#             */
-/*   Updated: 2021/02/23 03:34:16 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/07 21:06:34 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,6 @@ char			*ft_strjoin(char const *s1, char const *s2);
 char			*ft_strtrim(char const *s1, char const *set);
 char			**ft_split(char const *s, char c);
 char			*ft_strmapi(char const *s, char (*f)(unsigned int, char));
+char			*ft_strtok_r(char *str, const char *delim, char **saveptr);
 
 #endif

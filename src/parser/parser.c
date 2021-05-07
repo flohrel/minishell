@@ -6,34 +6,48 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 20:58:03 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/07 18:05:28 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/07 22:49:37 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
+void	var_expansion(char *buffer, int *index, char **data)
+{
+	char	*var;
+	int		size;
+
+	var = ft_strtok_r(*data + 1, " \"", data);
+	var = getenv(var);
+	size = ft_strlen(var);
+	ft_strlcpy(&buffer[*index], var, size + 1);
+	(*index) += size;
+}
+
 void	parse_word(t_vars *vars, t_lexer *lexer, char *data)
 {
 	char	buffer[BUFFER_SIZE];
-	char	*tmp;
-	char	*str;
+	int		index;
 
+	(void)vars;
+	index = 0;
 	while (*data)
 	{
 		if (*data == '\'')
-			lexer->state = ST_QUOTE
-		else if (*data == '\"')
-			lexer->state = ST_DQUOTE
-		else
 		{
-			if ((*data == '$') && (lexer->state != ST_QUOTE))
-			{
-				tmp = ft_strtok(data + 1, " \"");
-				data += ft_strlen(tmp);
-			}
+			if (lexer->state == ST_GENERAL)
+				lexer->state = ST_QUOTE;
+			else
+				lexer->state = ST_GENERAL;
 		}
-		data++;
+		else if ((*data == '$') && (lexer->state != ST_QUOTE))
+		{
+			var_expansion(buffer, &index, &data);
+			continue ;
+		}
+		buffer[index++] = *data++;
 	}
+	printf("%s", buffer);
 }
 
 void	delete_empty_token(t_lexer *lexer, t_parser *parser)
