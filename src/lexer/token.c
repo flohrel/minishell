@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 12:58:34 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/03 19:30:36 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/06 05:54:39 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,5 @@ void	new_token(t_vars *vars, int type, int size)
 	lst = ft_lstnew(token);
 	if (lst == NULL)
 		clean_exit(vars, errno);
-	ft_lstadd_back(&lexer->tokens, lst);
+	ft_lstadd_back(&lexer->tk_list, lst);
 }

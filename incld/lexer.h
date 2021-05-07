@@ -6,13 +6,14 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 17:14:29 by flohrel           #+#    #+#             */
-/*   Updated: 2021/04/28 00:59:10 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/06 06:38:01 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
 # define LEXER_H
 
+# include "data.h"
 # include "exit.h"
 # include "libft.h"
 # include "stdlib.h"
@@ -20,7 +21,7 @@
 /*
  **		lexer.c
  */
-void	lexer(t_vars *vars);
+void	lexer(t_vars *vars, t_lexer *lexer);
 
 /*
  **		lexer2.c

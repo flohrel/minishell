@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 16:21:33 by flohrel           #+#    #+#             */
-/*   Updated: 2021/04/28 15:18:33 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/06 07:11:21 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,6 @@
 # include "lexer.h"
 # include "prompt.h"
 # include "test.h"
+# include "parser.h"
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 01:03:40 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/03 16:58:27 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/06 05:55:53 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	display_token_list(t_lexer *lexer)
 	t_list	*lst;
 	t_token	*token;
 
-	lst = lexer->tokens;
+	lst = lexer->tk_list;
 	while (lst)
 	{
 		printf(GRN"["RESET);
