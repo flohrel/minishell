@@ -6,16 +6,34 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 20:58:03 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/07 17:17:09 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/07 18:05:28 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-void	parse_word(t_vars *vars, char *string)
+void	parse_word(t_vars *vars, t_lexer *lexer, char *data)
 {
-	(void)vars;
-	(void)string;
+	char	buffer[BUFFER_SIZE];
+	char	*tmp;
+	char	*str;
+
+	while (*data)
+	{
+		if (*data == '\'')
+			lexer->state = ST_QUOTE
+		else if (*data == '\"')
+			lexer->state = ST_DQUOTE
+		else
+		{
+			if ((*data == '$') && (lexer->state != ST_QUOTE))
+			{
+				tmp = ft_strtok(data + 1, " \"");
+				data += ft_strlen(tmp);
+			}
+		}
+		data++;
+	}
 }
 
 void	delete_empty_token(t_lexer *lexer, t_parser *parser)
@@ -64,7 +82,7 @@ int		parser(t_vars *vars, t_lexer *lexer, t_parser *parser)
 		else
 		{
 			if (token->type < 0)
-				parse_word(vars, token->data);
+				parse_word(vars, lexer, token->data);
 			parser->prev_tk = parser->cur_tk;
 			parser->cur_tk = parser->prev_tk->next;
 		}
