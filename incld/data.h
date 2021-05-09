@@ -49,8 +49,8 @@ struct				s_lexer
 
 struct				s_parser
 {
-	t_list	*prev_tk;
-	t_list	*cur_tk;
+	t_list			*prev_tk;
+	t_list			*cur_tk;
 };
 
 typedef struct		s_term

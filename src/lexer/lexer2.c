@@ -6,12 +6,11 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 05:14:28 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/08 00:51:25 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/09 23:15:39 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
-#include "ansi_colors.h"
 
 void	job_token_handle(int tk_type, t_vars *vars, char **buf)
 {
@@ -62,7 +61,10 @@ void	escape_handle(t_vars *vars, char **buf)
 
 	lexer = &vars->lexer;
 	if (*((*buf) + 1))
-		*(lexer->cur_char)++ = *(++(*buf));
+	{
+		*(lexer->cur_char)++ = *((*buf)++);
+		*(lexer->cur_char)++ = **buf;
+	}
 }
 
 void	quote_handle(t_vars *vars, char *buf)

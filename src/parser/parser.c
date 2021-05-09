@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 20:58:03 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/09 18:01:35 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/09 18:51:44 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ int		parser(t_vars *vars, t_lexer *lexer, t_parser *parser)
 			delete_empty_token(lexer, parser);
 		else
 		{
-			if (token->type < 0)
-				parse_word(vars, lexer, &token->data);
+			if ((token->type < 0) && parse_word(vars, lexer, &token->data))
+				continue ;
 			parser->prev_tk = parser->cur_tk;
 			parser->cur_tk = parser->prev_tk->next;
 		}
