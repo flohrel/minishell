@@ -17,6 +17,7 @@ SRC			=	main.c \
 				prompt.c \
 				input.c \
 				parser.c \
+				parser2.c \
 				test.c
 OBJ			=	$(SRC:%.c=$(OBJDIR)/%.o)
 
