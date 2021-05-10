@@ -31,6 +31,7 @@ typedef struct		s_lexer		t_lexer;
 typedef struct		s_parser	t_parser;
 typedef struct		s_vars		t_vars;
 typedef struct		s_token		t_token;
+typedef struct		s_ast		t_ast;
 
 struct				s_token
 {
@@ -51,6 +52,15 @@ struct				s_parser
 {
 	t_list			*prev_tk;
 	t_list			*cur_tk;
+	t_ast			*exec_tree;
+};
+
+struct				s_ast
+{
+	int				type;
+	char			*data;
+	t_ast			*left;
+	t_ast			*right;
 };
 
 typedef struct		s_term

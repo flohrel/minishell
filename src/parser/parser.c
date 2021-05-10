@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 20:58:03 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/09 18:51:44 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/10 01:03:49 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,6 @@ int		parser(t_vars *vars, t_lexer *lexer, t_parser *parser)
 			parser->cur_tk = parser->prev_tk->next;
 		}
 	}
+	parser->exec_tree = astree_build(vars, lexer, parser);
 	return (0);
 }
