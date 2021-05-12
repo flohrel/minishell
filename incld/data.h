@@ -27,6 +27,18 @@ enum				e_tktype
 	TOKEN = -1,
 };
 
+enum				e_node
+{
+	NODE_SEQ = 1,
+	NODE_PIPE = 2,
+	NODE_RDIN = 4,
+	NODE_RDAPP = 8
+	NODE_RDOUT = 16,
+	NODE_CMD = 32,
+	NODE_ARG = 64,
+	NODE_DATA = 128,
+};
+
 typedef struct		s_lexer		t_lexer;
 typedef struct		s_parser	t_parser;
 typedef struct		s_vars		t_vars;

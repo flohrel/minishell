@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 20:59:00 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/10 01:02:37 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/12 02:03:34 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,6 @@ void	delete_empty_token(t_lexer *lexer, t_parser *parser);
 /*
  **		astree.c
  */
-t_ast	*astree_build(t_vars *vars, t_lexer *lexer, t_parser *parser);
+void	astree_build(t_vars *vars, t_lexer *lexer, t_parser *parser);
 
 #endif
