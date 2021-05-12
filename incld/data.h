@@ -32,7 +32,7 @@ enum				e_node
 	NODE_SEQ = 1,
 	NODE_PIPE = 2,
 	NODE_RDIN = 4,
-	NODE_RDAPP = 8
+	NODE_RDAPP = 8,
 	NODE_RDOUT = 16,
 	NODE_CMD = 32,
 	NODE_ARG = 64,

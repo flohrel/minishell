@@ -18,6 +18,8 @@ SRC			=	main.c \
 				input.c \
 				parser.c \
 				parser2.c \
+				parser3.c \
+				parser4.c \
 				astree.c \
 				test.c
 OBJ			=	$(SRC:%.c=$(OBJDIR)/%.o)
