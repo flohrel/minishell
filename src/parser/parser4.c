@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 05:32:30 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/12 22:21:16 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/13 17:34:39 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ t_ast	*cmd(t_vars *vars, t_parser *parser)
 
 	(void)vars;
 	(void)node;
-	t_token *truc = (t_token *)parser->cur_tk->content;
-	printf("data:%s type:%d\n", truc->data, truc->type);
+//	t_token *truc = (t_token *)parser->cur_tk->content;
+//	printf("data:%s type:%d\n", truc->data, truc->type);
 	parser->prev_tk = parser->cur_tk;
 /*	node = cmd1(vars, parser);
 	if (node != NULL)

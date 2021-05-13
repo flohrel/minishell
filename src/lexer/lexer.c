@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 17:20:52 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/09 23:12:04 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/13 17:20:52 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,5 @@ void	lexer(t_vars *vars, t_lexer *lexer)
 		buffer++;
 	}
 	if (lexer->cur_char)
-		lexer->cur_char = '\0';
+		*(lexer->cur_char) = '\0';
 }
