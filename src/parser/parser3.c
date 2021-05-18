@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 04:35:46 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/18 02:26:18 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/18 03:38:03 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,15 @@ t_ast	*cmdline(t_vars *vars, t_parser *parser)
 	parser->prev_tk = parser->cur_tk;
 	node = cmdline1(vars, parser);
 	if (node != NULL)
-		return (NULL);
+		return (node);
 	parser->cur_tk = parser->prev_tk;
 	node = cmdline2(vars, parser);
 	if (node != NULL)
-		return (NULL);
+		return (node);
 	parser->cur_tk = parser->prev_tk;
 	node = job(vars, parser);
 	if (node != NULL)
-		return (NULL);
+		return (node);
 	return (NULL);
 }
 

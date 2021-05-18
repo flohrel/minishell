@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 20:58:03 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/18 02:56:15 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/18 03:40:15 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int		syntax_error(t_token *token)
 {
 	ft_putstr_fd("bash: syntax error", STDERR_FILENO);
 	if (token == NULL)
-		ft_putstr_fd(": quote missing", STDERR_FILENO);
+		ft_putstr_fd(": quote missing\n", STDERR_FILENO);
 	else
 	{
 		ft_putstr_fd(" near unexpected token `", STDERR_FILENO);
@@ -26,7 +26,7 @@ int		syntax_error(t_token *token)
 			ft_putstr_fd(">>", STDERR_FILENO);
 		else
 			ft_putchar_fd(get_token_char(token->type), STDERR_FILENO);
-		ft_putstr_fd("'", STDERR_FILENO);
+		ft_putstr_fd("'\n", STDERR_FILENO);
 	}
 	return (-1);
 }

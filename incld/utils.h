@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/18 02:36:25 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/18 02:48:06 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/18 04:00:59 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
  **		exit.c
  */
 void	free_cmd(t_cmd **data);
-void	free_vars(t_vars *vars);
+void	free_vars(t_lexer *lexer, t_parser *parser);
 void	clean_exit(t_vars *vars, int status);
 
 /*
