@@ -6,28 +6,27 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 17:58:07 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/18 04:01:55 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/18 17:11:52 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
-void	free_cmd(t_cmd **data)
+void	del_arg(void *content)
 {
-	if ((*data)->path)
-		free((*data)->path);
-	free(*data);
+	char	*arg;
+
+	arg = (char *)content;
+	if (arg)
+		free(arg);
 }
 
-void	free_tree(t_ast **node)
+void	free_cmd_node(t_cmd *data)
 {
-	if (*node == NULL)
-		return ;
-	free_tree(&((*node)->left));
-	free_tree(&((*node)->right));
-	if ((*node)->type & NODE_CMD)
-		free_cmd(&(*node)->data);
-	free(*node);
+	if (data->path)
+		free(data->path);
+	ft_lstclear(&data->redir, del_token);
+	ft_lstclear(&data->arg, del_arg);
 }
 
 void	free_vars(t_lexer *lexer, t_parser *parser)
@@ -36,7 +35,7 @@ void	free_vars(t_lexer *lexer, t_parser *parser)
 	if (lexer->buffer)
 		free(lexer->buffer);
 	if (parser->exec_tree)
-		free_tree(&(parser->exec_tree));
+		tree_delete_node(parser->exec_tree);
 }
 
 void	clean_exit(t_vars *vars, int status)

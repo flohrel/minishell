@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 05:32:30 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/18 02:18:50 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/18 10:12:28 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@ t_ast	*job(t_vars *vars, t_parser *parser)
 		return (node);
 	parser->cur_tk = parser->prev_tk;
 	node = job2(vars, parser);
-	return (node);
+	if (node != NULL)
+		return (node);
+	return (NULL);
 }
 
 t_ast	*job1(t_vars *vars, t_parser *parser)

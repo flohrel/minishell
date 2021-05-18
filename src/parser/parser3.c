@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 04:35:46 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/18 03:38:03 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/18 09:56:42 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,27 @@ t_ast	*cmdline2(t_vars *vars, t_parser *parser)
 	return (node);
 }
 
+void	tree_display(t_ast *node, int level, int side)
+{
+	if (node == NULL)
+		return ;
+	printf("type=%d/level=%d/side=", node->type, level);
+	if (!side)
+		printf("racine\n");
+	else if (side == -1)
+		printf("left\n");
+	else
+		printf("right\n");
+	tree_display(node->left, level + 1, -1);
+	tree_display(node->right, level + 1, 1);
+}
+
 int		astree_build(t_vars *vars, t_lexer *lexer, t_parser *parser)
 {
 	parser->cur_tk = lexer->tk_list;
 	parser->exec_tree = cmdline(vars, parser);
 	if (parser->exec_tree == NULL)
 		return (syntax_error(parser->cur_tk->content));
+	tree_display(parser->exec_tree, 0, 0);
 	return (0);
 }
