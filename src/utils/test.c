@@ -6,33 +6,11 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 01:03:40 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/06 05:55:53 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/18 02:56:29 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "test.h"
-
-char	get_token_char(int type)
-{
-	if (type == TK_PIPE)
-		return ('|');
-	else if (type == TK_SEMI)
-		return (';');
-	else if (type == TK_QUOTE)
-		return ('\'');
-	else if (type == TK_DQUOTE)
-		return ('\"');
-	else if (type == TK_ESC)
-		return ('\\');
-	else if (type == TK_GREAT)
-		return ('>');
-	else if (type == TK_LESS)
-		return ('<');
-	else if (type == TK_SPACE)
-		return (' ');
-	else
-		return (0);
-}
+#include "utils.h"
 
 void	display_token_list(t_lexer *lexer)
 {
@@ -46,7 +24,9 @@ void	display_token_list(t_lexer *lexer)
 		token = lst->content;
 		if (token->type == TK_DGREAT)
 			printf(BLU">>"RESET);
-		else if (token->type == TOKEN)
+		else if (token->type == TK_NL)
+			printf(BLU"newline"RESET);
+		else if (token->type == TK_WORD)
 			printf(MAG"%s"RESET, token->data);
 		else
 			printf(BLU"%c"RESET, get_token_char(token->type));

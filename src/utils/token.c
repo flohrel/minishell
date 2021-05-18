@@ -6,11 +6,33 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 12:58:34 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/06 05:54:39 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/18 02:39:44 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
+
+char	get_token_char(int type)
+{
+	if (type == TK_PIPE)
+		return ('|');
+	else if (type == TK_SEMI)
+		return (';');
+	else if (type == TK_QUOTE)
+		return ('\'');
+	else if (type == TK_DQUOTE)
+		return ('\"');
+	else if (type == TK_ESC)
+		return ('\\');
+	else if (type == TK_GREAT)
+		return ('>');
+	else if (type == TK_LESS)
+		return ('<');
+	else if (type == TK_SPACE)
+		return (' ');
+	else
+		return (0);
+}
 
 int		get_token_type(char c)
 {
@@ -31,7 +53,7 @@ int		get_token_type(char c)
 	else if (c == ' ')
 		return (TK_SPACE);
 	else
-		return (TK_CHAR);
+		return (TK_WORD);
 }
 
 void	del_token(void *content)

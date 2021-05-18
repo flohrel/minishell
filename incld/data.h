@@ -14,7 +14,7 @@ enum				e_state
 
 enum				e_tktype
 {
-	TK_CHAR,
+	TK_WORD,
 	TK_QUOTE,
 	TK_DQUOTE,
 	TK_SPACE,
@@ -24,19 +24,14 @@ enum				e_tktype
 	TK_LESS,
 	TK_GREAT,
 	TK_DGREAT,
-	TOKEN = -1,
+	TK_NL = -1,
 };
 
 enum				e_node
 {
 	NODE_SEQ = 1,
 	NODE_PIPE = 2,
-	NODE_RDIN = 4,
-	NODE_RDAPP = 8,
-	NODE_RDOUT = 16,
-	NODE_CMD = 32,
-	NODE_ARG = 64,
-	NODE_DATA = 128,
+	NODE_CMD = 4,
 };
 
 typedef struct		s_lexer		t_lexer;
@@ -44,6 +39,7 @@ typedef struct		s_parser	t_parser;
 typedef struct		s_vars		t_vars;
 typedef struct		s_token		t_token;
 typedef struct		s_ast		t_ast;
+typedef struct		s_cmd		t_cmd;
 
 struct				s_token
 {
@@ -67,10 +63,17 @@ struct				s_parser
 	t_ast			*exec_tree;
 };
 
+struct				s_cmd
+{
+	char			*path;
+	t_list			*redir;
+	t_list			*arg;
+};
+
 struct				s_ast
 {
 	int				type;
-	char			*data;
+	t_cmd			*data;
 	t_ast			*left;
 	t_ast			*right;
 };

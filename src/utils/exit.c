@@ -6,11 +6,18 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 17:58:07 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/06 05:54:57 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/18 02:47:57 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exit.h"
+#include "utils.h"
+
+void	free_cmd(t_cmd **data)
+{
+	if ((*data)->path)
+		free((*data)->path);
+	free(*data);
+}
 
 void	free_vars(t_vars *vars)
 {

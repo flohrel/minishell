@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 04:35:46 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/12 22:12:19 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/18 02:26:18 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,15 @@ t_ast	*cmdline(t_vars *vars, t_parser *parser)
 	parser->prev_tk = parser->cur_tk;
 	node = cmdline1(vars, parser);
 	if (node != NULL)
-		return (node);
+		return (NULL);
 	parser->cur_tk = parser->prev_tk;
 	node = cmdline2(vars, parser);
 	if (node != NULL)
-		return (node);
+		return (NULL);
 	parser->cur_tk = parser->prev_tk;
 	node = job(vars, parser);
 	if (node != NULL)
-		return (node);
+		return (NULL);
 	return (NULL);
 }
 
@@ -50,7 +50,7 @@ t_ast	*cmdline1(t_vars *vars, t_parser *parser)
 
 	job_node = job(vars, parser);
 	if (job_node == NULL)
-		return (job_node);
+		return (NULL);
 	if (!check_token(parser, TK_SEMI))
 	{
 		tree_delete_node(job_node);
@@ -60,7 +60,7 @@ t_ast	*cmdline1(t_vars *vars, t_parser *parser)
 	if (cmdline_node == NULL)
 	{
 		tree_delete_node(job_node);
-		return (cmdline_node);
+		return (NULL);
 	}
 	node = tree_new_node(vars, NODE_SEQ, NULL);
 	tree_attach_branch(node, job_node, cmdline_node);
@@ -74,7 +74,7 @@ t_ast	*cmdline2(t_vars *vars, t_parser *parser)
 
 	job_node = job(vars, parser);
 	if (job_node == NULL)
-		return (job_node);
+		return (NULL);
 	node = tree_new_node(vars, NODE_SEQ, NULL);
 	tree_attach_branch(node, job_node, NULL);
 	return (node);
@@ -82,12 +82,9 @@ t_ast	*cmdline2(t_vars *vars, t_parser *parser)
 
 int		astree_build(t_vars *vars, t_lexer *lexer, t_parser *parser)
 {
-	(void)vars;
-	(void)lexer;
-	(void)parser;
 	parser->cur_tk = lexer->tk_list;
 	parser->exec_tree = cmdline(vars, parser);
-	if (parser->cur_tk)
-		return (-1);
+	if (parser->exec_tree == NULL)
+		return (syntax_error(parser->cur_tk->content));
 	return (0);
 }
