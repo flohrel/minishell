@@ -4,7 +4,7 @@
 
 NAME		=	minishell
 
-VPATH		=	src src/lexer src/parser src/prompt src/utils
+VPATH		=	src src/lexer src/parser src/prompt
 OBJDIR		=	obj
 LIBDIR		=	lib
 INCLDIR		=	incld
@@ -20,7 +20,6 @@ SRC			=	main.c \
 				parser2.c \
 				parser3.c \
 				parser4.c \
-				parser5.c \
 				astree.c \
 				test.c
 OBJ			=	$(SRC:%.c=$(OBJDIR)/%.o)

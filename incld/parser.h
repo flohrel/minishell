@@ -6,7 +6,11 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 20:59:00 by flohrel           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/05/18 17:16:42 by flohrel          ###   ########.fr       */
+=======
+/*   Updated: 2021/05/12 22:09:54 by flohrel          ###   ########.fr       */
+>>>>>>> parent of d390540... debugging tree parsing
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +21,6 @@
 # include <stdbool.h>
 # include "data.h"
 # include "lexer.h"
-# include "utils.h"
 
 # define BUFFER_SIZE	4096
 
@@ -25,7 +28,7 @@
  **		parser.c
  */
 int		parser(t_vars *vars, t_lexer *lexer, t_parser *parser);
-int		syntax_error(t_token *token);
+int		syntax_error(char *token);
 
 /*
  **		parser2.c
@@ -46,19 +49,24 @@ t_ast	*cmdline2(t_vars *vars, t_parser *parser);
 int		check_token(t_parser *parser, int type);
 
 /*
- **		parser4.c
+ **		parser3.c
  */
 t_ast	*cmd(t_vars *vars, t_parser *parser);
 t_ast	*job(t_vars *vars, t_parser *parser);
 t_ast	*job1(t_vars *vars, t_parser *parser);
-t_ast	*job2(t_vars *vars, t_parser *parser);
 
 /*
- **		parser5.c
+ **		astree.c
  */
+<<<<<<< HEAD
 t_ast	*cmd(t_vars *vars, t_parser *parser);
 void	argument(t_vars *vars, t_token *token, t_cmd *data);
 int		redirection(t_vars *vars, t_parser *parser, t_cmd *data, int type);
 void	init_cmd_data(t_cmd *data);
+=======
+t_ast	*tree_new_node(t_vars *vars, int type, char *data);
+void	tree_attach_branch(t_ast *root, t_ast *left, t_ast *right);
+void	tree_delete_node(t_ast *node);
+>>>>>>> parent of d390540... debugging tree parsing
 
 #endif

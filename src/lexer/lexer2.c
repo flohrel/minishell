@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 05:14:28 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/17 23:28:23 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/09 23:15:39 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	job_token_handle(int tk_type, t_vars *vars, char **buf)
 	else
 		new_token(vars, tk_type, 0);
 	size = lexer->buffer + lexer->buf_len - (*buf);
-	new_token(vars, TK_WORD, size);
+	new_token(vars, TOKEN, size);
 }
 
 void	word_handle(t_vars *vars, char **buf)
@@ -52,7 +52,7 @@ void	space_handle(t_vars *vars, char **buf)
 	if (lexer->cur_char)
 		*(lexer->cur_char) = '\0';
 	size = lexer->buffer + lexer->buf_len - (*buf);
-	new_token(vars, TK_WORD, size);
+	new_token(vars, TOKEN, size);
 }
 
 void	escape_handle(t_vars *vars, char **buf)

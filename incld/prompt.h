@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 11:39:56 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/18 02:35:02 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/04/30 03:36:36 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <term.h>
 # include "ansi_colors.h"
 # include "data.h"
-# include "utils.h"
+# include "exit.h"
 
 # define BUFFER_SIZE	4096
 # define PROMPT			BGRN"minishell>> "RESET

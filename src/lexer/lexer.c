@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 17:20:52 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/17 23:33:26 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/13 17:20:52 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	lexer_init(t_vars *vars, void (*token_handle[5])(t_vars *, char **))
 	lexer = &vars->lexer;
 	lexer->state = ST_GENERAL;
 	lexer->buf_len = ft_strlen(lexer->buffer);
-	new_token(vars, TK_WORD, lexer->buf_len);
+	new_token(vars, TOKEN, lexer->buf_len);
 	token_handle[0] = word_handle;
 	token_handle[1] = word_handle;
 	token_handle[2] = word_handle;
@@ -51,5 +51,4 @@ void	lexer(t_vars *vars, t_lexer *lexer)
 	}
 	if (lexer->cur_char)
 		*(lexer->cur_char) = '\0';
-	new_token(vars, TK_NL, 0);
 }

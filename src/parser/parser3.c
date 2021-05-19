@@ -6,7 +6,11 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 04:35:46 by flohrel           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/05/18 09:56:42 by flohrel          ###   ########.fr       */
+=======
+/*   Updated: 2021/05/12 22:12:19 by flohrel          ###   ########.fr       */
+>>>>>>> parent of d390540... debugging tree parsing
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +54,7 @@ t_ast	*cmdline1(t_vars *vars, t_parser *parser)
 
 	job_node = job(vars, parser);
 	if (job_node == NULL)
-		return (NULL);
+		return (job_node);
 	if (!check_token(parser, TK_SEMI))
 	{
 		tree_delete_node(job_node);
@@ -60,7 +64,7 @@ t_ast	*cmdline1(t_vars *vars, t_parser *parser)
 	if (cmdline_node == NULL)
 	{
 		tree_delete_node(job_node);
-		return (NULL);
+		return (cmdline_node);
 	}
 	node = tree_new_node(vars, NODE_SEQ, NULL);
 	tree_attach_branch(node, job_node, cmdline_node);
@@ -74,7 +78,7 @@ t_ast	*cmdline2(t_vars *vars, t_parser *parser)
 
 	job_node = job(vars, parser);
 	if (job_node == NULL)
-		return (NULL);
+		return (job_node);
 	node = tree_new_node(vars, NODE_SEQ, NULL);
 	tree_attach_branch(node, job_node, NULL);
 	return (node);
@@ -97,10 +101,18 @@ void	tree_display(t_ast *node, int level, int side)
 
 int		astree_build(t_vars *vars, t_lexer *lexer, t_parser *parser)
 {
+	(void)vars;
+	(void)lexer;
+	(void)parser;
 	parser->cur_tk = lexer->tk_list;
 	parser->exec_tree = cmdline(vars, parser);
+<<<<<<< HEAD
 	if (parser->exec_tree == NULL)
 		return (syntax_error(parser->cur_tk->content));
 	tree_display(parser->exec_tree, 0, 0);
+=======
+	if (parser->cur_tk)
+		return (-1);
+>>>>>>> parent of d390540... debugging tree parsing
 	return (0);
 }

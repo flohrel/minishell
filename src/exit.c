@@ -6,6 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 17:58:07 by flohrel           #+#    #+#             */
+<<<<<<< HEAD:src/utils/exit.c
 /*   Updated: 2021/05/18 17:11:52 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -28,6 +29,13 @@ void	free_cmd_node(t_cmd *data)
 	ft_lstclear(&data->redir, del_token);
 	ft_lstclear(&data->arg, del_arg);
 }
+=======
+/*   Updated: 2021/05/06 05:54:57 by flohrel          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "exit.h"
+>>>>>>> parent of d390540... debugging tree parsing:src/exit.c
 
 void	free_vars(t_lexer *lexer, t_parser *parser)
 {
