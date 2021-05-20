@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   data.h                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/05/20 15:01:51 by flohrel           #+#    #+#             */
+/*   Updated: 2021/05/20 15:36:38 by flohrel          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef DATA_H
 # define DATA_H
 
@@ -29,9 +41,9 @@ enum				e_tktype
 
 enum				e_node
 {
-	NODE_SEQ = 1,
-	NODE_PIPE = 2,
-	NODE_CMD = 4,
+	NODE_SEQ,
+	NODE_PIPE,
+	NODE_CMD,
 };
 
 typedef struct		s_lexer		t_lexer;
