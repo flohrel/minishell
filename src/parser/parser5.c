@@ -6,32 +6,31 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/18 02:07:59 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/20 15:42:26 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/20 17:20:44 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-int		redirection(t_parser *parser, t_cmd *data, int type)
+int		redirection(t_parser *parser, int type, t_cmd *data)
 {
+	t_token	*token;
+
 	parser->cur_tk = parser->cur_tk->next;
 	token = (t_token *)parser->cur_tk->content;
 	if (token->type != 0)
 		return (-1);
 	token->type = type;
-	ft_lstadd_back(&data->redir, token);
+	ft_lstadd_back(&data->redir, parser->cur_tk);
 	return (0);
 }
 
-void	argument(t_token *token, t_cmd *data)
+void	argument(t_parser *parser, t_token *token, t_cmd *data)
 {
-	char	*arg;
-	t_list	*lst;
-
 	if (!data->path)
 		data->path = token->data;
 	else
-		ft_lstadd_back(&data->arg, token);
+		ft_lstadd_back(&data->arg, parser->cur_tk);
 }
 
 void	init_cmd_data(t_cmd *data)
@@ -55,13 +54,13 @@ t_ast	*cmd(t_vars *vars, t_parser *parser)
 	while ((token->type == TK_WORD) || (token->type > TK_SEMI))
 	{
 		if ((token->type > TK_SEMI) &&
-			(redirection(parser, data, token->type) == -1))
+			(redirection(parser, token->type, data) == -1))
 		{
 			free_cmd_node(data);
 			return (NULL);
 		}
 		else
-			argument(token, data);
+			argument(parser, token, data);
 		parser->cur_tk = parser->cur_tk->next;
 		token = (t_token *)parser->cur_tk->content;
 	}
