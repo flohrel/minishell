@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 10:17:42 by flohrel           #+#    #+#             */
-/*   Updated: 2021/01/16 18:39:18 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/26 18:54:25 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ int	read_tmp(t_queue *file_q, char **line)
 int	read_fd(t_queue *file_q, int fd, char **line)
 {
 	char	*c;
-	char	buf[BUFFER_SIZE];
+	char	buf[GNL_BUF_SIZE];
 	int		ret;
 	size_t	size;
 	size_t	tmp_size;
 
-	while ((ret = read(fd, buf, BUFFER_SIZE)) > 0)
+	while ((ret = read(fd, buf, GNL_BUF_SIZE)) > 0)
 	{
 		c = ft_memchr(buf, '\n', ret);
 		if (c)
@@ -73,7 +73,7 @@ int	get_next_line(int fd, char **line)
 	t_queue			*file_q;
 	int				ret;
 
-	if (!line || fd < 0 || BUFFER_SIZE <= 0)
+	if (!line || fd < 0 || GNL_BUF_SIZE <= 0)
 		return (-1);
 	if (!qlist[fd] && !(qlist[fd] = init_file_queue(qlist[fd])))
 		return (-1);

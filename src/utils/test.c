@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 01:03:40 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/18 02:56:29 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/26 22:30:35 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,14 @@ void	display_token_list(t_lexer *lexer)
 	}
 	printf("\n");
 	fflush(stdout);
+}
+
+void	print_lst(t_list *lst)
+{
+	while (lst)
+	{
+		printf("content : %p\n", lst->content);
+		lst = lst->next;
+	}
+	printf("------------\n");
 }

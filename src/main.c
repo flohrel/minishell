@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 15:29:11 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/18 04:00:32 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/26 22:34:43 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	init_vars(t_vars *vars)
 {
 	vars->lexer.tk_list = NULL;
 	vars->lexer.buffer = NULL;
+	vars->ptr_list = NULL;
 }
 
 int		main(int argc, char **argv, char **envp)
@@ -49,7 +50,7 @@ int		main(int argc, char **argv, char **envp)
 		ft_readline(&vars);
 		lexer(&vars, &vars.lexer);
 		parser(&vars, &vars.lexer, &vars.parser);
-		free_vars(&vars.lexer, &vars.parser);
+		free_ptr_lst(&vars.ptr_list);
 	}
 	return (0);
 }

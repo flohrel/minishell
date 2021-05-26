@@ -6,20 +6,15 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 14:34:45 by flohrel           #+#    #+#             */
-/*   Updated: 2021/01/16 14:58:51 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/26 17:26:52 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIST_H
 # define LIST_H
 
+# include "type.h"
 # include "memory.h"
-
-typedef struct	s_list
-{
-	void			*content;
-	struct s_list	*next;
-}				t_list;
 
 t_list			*ft_lstnew(void *content);
 void			ft_lstadd_front(t_list **alst, t_list *new);

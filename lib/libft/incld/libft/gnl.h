@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 10:18:14 by flohrel           #+#    #+#             */
-/*   Updated: 2021/04/19 11:26:41 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/26 18:53:24 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 # include "memory.h"
 # include "string.h"
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE	4096
+# ifndef GNL_BUF_SIZE
+#  define GNL_BUF_SIZE	4096
 # endif
 
 # define MAX_FD			1024

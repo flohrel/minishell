@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 12:58:34 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/18 02:39:44 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/27 01:18:09 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,19 +56,6 @@ int		get_token_type(char c)
 		return (TK_WORD);
 }
 
-void	del_token(void *content)
-{
-	t_token	*token;
-
-	token = (t_token *)content;
-	if (token)
-	{
-		if (token->data)
-			free(token->data);
-		free(token);
-	}
-}
-
 void	new_token(t_vars *vars, int type, int size)
 {
 	t_lexer	*lexer;
@@ -76,7 +63,7 @@ void	new_token(t_vars *vars, int type, int size)
 	t_list	*lst;
 
 	lexer = &vars->lexer;
-	token = ft_calloc(1, sizeof(*token));
+	token = lst_alloc(1, sizeof(*token), &vars->ptr_list);
 	if (token == NULL)
 		clean_exit(vars, errno);
 	token->type = type;
@@ -84,13 +71,15 @@ void	new_token(t_vars *vars, int type, int size)
 	lexer->cur_char = NULL;
 	if (size)
 	{
-		token->data = ft_calloc(size + 1, sizeof(char));
+		token->data = lst_alloc(size + 1, sizeof(char), &vars->ptr_list);
 		if (token->data == NULL)
 			clean_exit(vars, errno);
 		lexer->cur_char = token->data;
 	}
-	lst = ft_lstnew(token);
+	lst = lst_alloc(1, sizeof(*lst), &vars->ptr_list);
 	if (lst == NULL)
 		clean_exit(vars, errno);
+	lst->content = token;
+	lst->next = NULL;
 	ft_lstadd_back(&lexer->tk_list, lst);
 }

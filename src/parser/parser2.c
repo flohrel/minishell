@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/09 17:56:30 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/10 00:51:47 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/26 23:41:05 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,18 @@ void	var_expansion(char *buffer, int *index, char **data)
 int		parse_word2(t_vars *vars, char **data, char *buffer)
 {
 	bool	has_quotes;
+	size_t	len;
 
 	has_quotes = false;
 	if (ft_strchr(*data, '\'') || ft_strchr(*data, '\"'))
 		has_quotes = true;
 	if (*buffer || has_quotes)
 	{
-		free(*data);
-		*data = ft_strdup(buffer);
-		if (*data == NULL)
-			clean_exit(vars, 0);
+		len = ft_strlen(buffer);
+		*data = lst_alloc(len + 1, sizeof(*buffer), &vars->ptr_list);
+		if (!(*data))
+			clean_exit(vars, errno);
+		ft_strlcpy(*data, buffer, len + 1);
 	}
 	else
 	{
@@ -103,13 +105,11 @@ void	delete_empty_token(t_lexer *lexer, t_parser *parser)
 	if (parser->prev_tk == NULL)
 	{
 		lexer->tk_list = lexer->tk_list->next;
-		ft_lstdelone(parser->cur_tk, del_token);
 		parser->cur_tk = lexer->tk_list;
 	}
 	else
 	{
 		parser->prev_tk->next = parser->cur_tk->next;
-		ft_lstdelone(parser->cur_tk, del_token);
 		parser->cur_tk = parser->prev_tk->next;
 	}
 }

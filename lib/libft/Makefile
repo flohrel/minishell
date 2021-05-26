@@ -6,7 +6,7 @@
 #    By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/16 16:04:42 by flohrel           #+#    #+#              #
-#    Updated: 2021/05/07 22:16:12 by flohrel          ###   ########.fr        #
+#    Updated: 2021/05/26 19:01:11 by flohrel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,7 +62,9 @@ LIST		=	ft_lstadd_back.c \
 				ft_lstnew.c \
 				ft_lstsize.c
 
-MEM			=	ft_calloc.c
+MEM			=	ft_calloc.c \
+				lst_alloc.c \
+				free.c
 
 STR			=	ft_memccpy.c \
 				ft_memchr.c \
@@ -84,7 +86,6 @@ STR			=	ft_memccpy.c \
 				ft_strrchr.c \
 				ft_strtrim.c \
 				ft_substr.c \
-				ft_strtok_r.c \
 				ft_bzero.c
 
 GNL			=	get_next_line.c \

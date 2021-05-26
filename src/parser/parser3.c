@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 04:35:46 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/18 09:56:42 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/26 19:10:48 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,10 @@ t_ast	*cmdline1(t_vars *vars, t_parser *parser)
 	if (job_node == NULL)
 		return (NULL);
 	if (!check_token(parser, TK_SEMI))
-	{
-		tree_delete_node(job_node);
 		return (NULL);
-	}
 	cmdline_node = cmdline(vars, parser);
 	if (cmdline_node == NULL)
-	{
-		tree_delete_node(job_node);
 		return (NULL);
-	}
 	node = tree_new_node(vars, NODE_SEQ, NULL);
 	tree_attach_branch(node, job_node, cmdline_node);
 	return (node);

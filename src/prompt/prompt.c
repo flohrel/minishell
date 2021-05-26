@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 11:42:38 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/13 17:58:40 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/26 18:51:20 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ void	ft_readline(t_vars *vars)
 		size = read(0, &buffer[i], 4);
 		ret = input_handle(vars, &buffer[i], size, &i);
 	}
-	vars->lexer.buffer = ft_calloc(i + 1, sizeof(*(vars->lexer.buffer)));
+	vars->lexer.buffer = lst_alloc(i + 1, sizeof(*(vars->lexer.buffer)),
+									&vars->ptr_list);
 	if (vars->lexer.buffer == NULL)
 		clean_exit(vars, errno);
 	ft_strlcpy(vars->lexer.buffer, buffer, i + 1);
