@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/18 02:07:59 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/27 03:47:51 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/27 06:42:33 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,10 @@ t_ast	*cmd(t_vars *vars, t_parser *parser)
 	token = (t_token *)parser->cur_tk->content;
 	while ((token->type == TK_WORD) || (token->type > TK_SEMI))
 	{
-		if ((token->type > TK_SEMI) &&
-			(redirection(vars, parser, token->type, data) == -1))
-			return (NULL);
-		else
+		if (token->type == TK_WORD)
 			argument(vars, token, data);
+		else if (redirection(vars, parser, token->type, data) == -1)
+			return (NULL);
 		parser->cur_tk = parser->cur_tk->next;
 		token = (t_token *)parser->cur_tk->content;
 	}

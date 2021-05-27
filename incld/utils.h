@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/18 02:36:25 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/27 03:19:49 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/27 05:10:22 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,6 @@ void	tree_delete_node(t_ast *node);
  */
 void	display_token_list(t_lexer *lexer);
 void	print_lst(t_list *lst);
-void	tree_display(t_ast *node, int level, int side);
+void	tree_display(t_ast *node, int level, int is_right);
 
 #endif
