@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 20:59:00 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/27 01:13:26 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/27 03:48:11 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ t_ast	*job2(t_vars *vars, t_parser *parser);
  **		parser5.c
  */
 t_ast	*cmd(t_vars *vars, t_parser *parser);
-void	argument(t_parser *parser, t_token *token, t_cmd *data);
+void	argument(t_vars *vars, t_token *token, t_cmd *data);
 int		redirection(t_vars *vars, t_parser *parser, int type, t_cmd *data);
 void	init_cmd_data(t_cmd *data);
 

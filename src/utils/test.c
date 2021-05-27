@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 01:03:40 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/26 22:30:35 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/27 03:18:00 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,19 @@ void	print_lst(t_list *lst)
 		lst = lst->next;
 	}
 	printf("------------\n");
+}
+
+void	tree_display(t_ast *node, int level, int side)
+{
+	if (node == NULL)
+		return ;
+	printf("type=%d/level=%d/side=", node->type, level);
+	if (!side)
+		printf("racine\n");
+	else if (side == -1)
+		printf("left\n");
+	else
+		printf("right\n");
+	tree_display(node->left, level + 1, -1);
+	tree_display(node->right, level + 1, 1);
 }

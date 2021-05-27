@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 04:35:46 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/26 19:10:48 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/27 03:20:17 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,21 +72,6 @@ t_ast	*cmdline2(t_vars *vars, t_parser *parser)
 	node = tree_new_node(vars, NODE_SEQ, NULL);
 	tree_attach_branch(node, job_node, NULL);
 	return (node);
-}
-
-void	tree_display(t_ast *node, int level, int side)
-{
-	if (node == NULL)
-		return ;
-	printf("type=%d/level=%d/side=", node->type, level);
-	if (!side)
-		printf("racine\n");
-	else if (side == -1)
-		printf("left\n");
-	else
-		printf("right\n");
-	tree_display(node->left, level + 1, -1);
-	tree_display(node->right, level + 1, 1);
 }
 
 int		astree_build(t_vars *vars, t_lexer *lexer, t_parser *parser)

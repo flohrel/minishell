@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/18 02:07:59 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/27 01:45:31 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/27 03:47:51 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,27 @@ int		redirection(t_vars *vars, t_parser *parser, int type, t_cmd *data)
 	return (0);
 }
 
-void	argument(t_parser *parser, t_token *token, t_cmd *data)
+void	argument(t_vars *vars, t_token *token, t_cmd *data)
 {
+	t_list	*lst;
+	t_token	*arg;
+
 	if (!data->path)
 		data->path = token->data;
 	else
-		ft_lstadd_back(&data->arg, parser->cur_tk);
+	{
+		lst = lst_alloc(1, sizeof(*lst), &vars->ptr_list);
+		if (lst == NULL)
+			clean_exit(vars, errno);
+		lst->next = NULL;
+		arg = lst_alloc(1, sizeof(*arg), &vars->ptr_list);
+		if (arg == NULL)
+			clean_exit(vars, errno);
+		arg->type = TK_WORD;
+		arg->data = token->data;
+		lst->content = arg;
+		ft_lstadd_back(&data->arg, lst);
+	}
 }
 
 void	init_cmd_data(t_cmd *data)
@@ -68,7 +83,7 @@ t_ast	*cmd(t_vars *vars, t_parser *parser)
 			(redirection(vars, parser, token->type, data) == -1))
 			return (NULL);
 		else
-			argument(parser, token, data);
+			argument(vars, token, data);
 		parser->cur_tk = parser->cur_tk->next;
 		token = (t_token *)parser->cur_tk->content;
 	}
