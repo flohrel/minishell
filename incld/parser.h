@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 20:59:00 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/27 03:48:11 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/27 08:09:35 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "data.h"
 # include "lexer.h"
 # include "utils.h"
+# include "test.h"
 
 # define BUFFER_SIZE	4096
 
@@ -25,7 +26,7 @@
  **		parser.c
  */
 int		parser(t_vars *vars, t_lexer *lexer, t_parser *parser);
-int		syntax_error(t_token *token);
+int		astree_build(t_vars *vars, t_lexer *lexer, t_parser *parser);
 
 /*
  **		parser2.c
@@ -39,7 +40,6 @@ void	delete_empty_token(t_lexer *lexer, t_parser *parser);
 /*
  **		parser3.c
  */
-int		astree_build(t_vars *vars, t_lexer *lexer, t_parser *parser);
 t_ast	*cmdline(t_vars *vars, t_parser *parser);
 t_ast	*cmdline1(t_vars *vars, t_parser *parser);
 t_ast	*cmdline2(t_vars *vars, t_parser *parser);
@@ -48,10 +48,8 @@ int		check_token(t_parser *parser, int type);
 /*
  **		parser4.c
  */
-t_ast	*cmd(t_vars *vars, t_parser *parser);
 t_ast	*job(t_vars *vars, t_parser *parser);
-t_ast	*job1(t_vars *vars, t_parser *parser);
-t_ast	*job2(t_vars *vars, t_parser *parser);
+t_ast	*pipeline(t_vars *vars, t_parser *parser);
 
 /*
  **		parser5.c

@@ -1,30 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   test.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/16 16:21:33 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/27 07:22:47 by flohrel          ###   ########.fr       */
+/*   Created: 2021/05/27 07:19:08 by flohrel           #+#    #+#             */
+/*   Updated: 2021/05/27 07:25:45 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef TEST_H
+# define TEST_H
 
-# include <unistd.h>
 # include <stdio.h>
-# include <errno.h>
-# include <signal.h>
-# include <curses.h>
-# include <term.h>
 # include "libft.h"
 # include "data.h"
-# include "lexer.h"
-# include "prompt.h"
-# include "parser.h"
-# include "utils.h"
-# include "test.h"
+
+void	display_token_list(t_lexer *lexer);
+void	print_lst(t_list *lst);
+void	tree_display(t_ast *node, int level, int is_right);
 
 #endif

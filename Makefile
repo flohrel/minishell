@@ -14,6 +14,7 @@ SRC			=	main.c \
 				lexer2.c \
 				token.c \
 				exit.c \
+				error.c \
 				prompt.c \
 				input.c \
 				parser.c \

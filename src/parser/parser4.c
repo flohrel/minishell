@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 05:32:30 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/27 03:40:39 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/27 08:13:51 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,18 @@
 t_ast	*job(t_vars *vars, t_parser *parser)
 {
 	t_ast	*node;
+	t_list	*save;
 
-	parser->prev_tk = parser->cur_tk;
-	node = job1(vars, parser);
+	save = parser->cur_tk;
+	node = pipeline(vars, parser);
 	if (node != NULL)
 		return (node);
-	parser->cur_tk = parser->prev_tk;
-	node = job2(vars, parser);
+	parser->cur_tk = save;
+	node = cmd(vars, parser);
 	return (node);
 }
 
-t_ast	*job1(t_vars *vars, t_parser *parser)
+t_ast	*pipeline(t_vars *vars, t_parser *parser)
 {
 	t_ast	*node;
 	t_ast	*cmd_node;
@@ -42,9 +43,4 @@ t_ast	*job1(t_vars *vars, t_parser *parser)
 	node = tree_new_node(vars, NODE_PIPE, NULL);
 	tree_attach_branch(node, cmd_node, job_node);
 	return (node);
-}
-
-t_ast	*job2(t_vars *vars, t_parser *parser)
-{
-	return (cmd(vars, parser));
 }

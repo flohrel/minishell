@@ -6,29 +6,19 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 20:58:03 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/27 04:59:07 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/27 08:01:52 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-int		syntax_error(t_token *token)
+int		astree_build(t_vars *vars, t_lexer *lexer, t_parser *parser)
 {
-	ft_putstr_fd("bash: syntax error", STDERR_FILENO);
-	if (token == NULL)
-		ft_putstr_fd(": quote missing\n", STDERR_FILENO);
-	else
-	{
-		ft_putstr_fd(" near unexpected token `", STDERR_FILENO);
-		if (token->type == TK_NL)
-			ft_putstr_fd("newline", STDERR_FILENO);
-		else if (token->type == TK_DGREAT)
-			ft_putstr_fd(">>", STDERR_FILENO);
-		else
-			ft_putchar_fd(get_token_char(token->type), STDERR_FILENO);
-		ft_putstr_fd("'\n", STDERR_FILENO);
-	}
-	return (-1);
+	parser->cur_tk = lexer->tk_list;
+	parser->exec_tree = cmdline(vars, parser);
+	if (parser->exec_tree == NULL)
+		return (syntax_error(parser->cur_tk->content));
+	return (0);
 }
 
 int		parser(t_vars *vars, t_lexer *lexer, t_parser *parser)
@@ -53,5 +43,6 @@ int		parser(t_vars *vars, t_lexer *lexer, t_parser *parser)
 			parser->cur_tk = parser->prev_tk->next;
 		}
 	}
+	display_token_list(&vars->lexer);						// TEST
 	return (astree_build(vars, lexer, parser));
 }
