@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 20:59:00 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/27 08:09:35 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/27 18:27:12 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ int		astree_build(t_vars *vars, t_lexer *lexer, t_parser *parser);
  */
 int		is_charset(const char *charset, char c);
 void	var_expansion(char *buffer, int *index, char **data);
+void	quote_state(int state, char c);
 int		parse_word(t_vars *vars, t_lexer *lexer, char **data);
 int		parse_word2(t_vars *vars, char **data, char *buffer);
-void	delete_empty_token(t_lexer *lexer, t_parser *parser);
 
 /*
  **		parser3.c

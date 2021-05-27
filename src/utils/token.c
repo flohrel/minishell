@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 12:58:34 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/27 01:18:09 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/27 18:23:25 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,18 @@ void	new_token(t_vars *vars, int type, int size)
 	lst->content = token;
 	lst->next = NULL;
 	ft_lstadd_back(&lexer->tk_list, lst);
+}
+
+void	delete_empty_token(t_lexer *lexer, t_parser *parser)
+{
+	if (parser->prev_tk == NULL)
+	{
+		lexer->tk_list = lexer->tk_list->next;
+		parser->cur_tk = lexer->tk_list;
+	}
+	else
+	{
+		parser->prev_tk->next = parser->cur_tk->next;
+		parser->cur_tk = parser->prev_tk->next;
+	}
 }

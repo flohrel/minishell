@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 15:01:51 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/26 18:48:26 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/27 19:00:46 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ typedef struct		s_vars
 	t_term			termios;
 	t_lexer			lexer;
 	t_parser		parser;
+	t_dlist			*history;
 	t_list			*ptr_list;
 }					t_vars;
 

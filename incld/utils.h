@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/18 02:36:25 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/27 07:47:05 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/27 18:24:29 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ char	get_token_char(int type);
 int		get_token_type(char c);
 void	new_token(t_vars *vars, int type, int size);
 void	del_token(void *content);
+void	delete_empty_token(t_lexer *lexer, t_parser *parser);
 
 /*
  **		astree.c

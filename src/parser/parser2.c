@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/09 17:56:30 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/27 17:16:51 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/27 18:38:35 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,30 @@ int		parse_word2(t_vars *vars, char **data, char *buffer)
 	return (0);
 }
 
+void	parse_word1(int state, char *str, char *buffer, int *index)
+{
+	if (*str == '\'' && state != ST_DQUOTE)
+	{
+		if (state == ST_GENERAL)
+			state = ST_QUOTE;
+		else
+			state = ST_GENERAL;
+	}
+	else if (*str == '\"' && state != ST_QUOTE)
+	{
+		if (state == ST_GENERAL)
+			state = ST_DQUOTE;
+		else
+			state = ST_GENERAL;
+	}
+	else if (*str == '\\')
+		buffer[(*index)++] = *(++str);
+	else if ((*str == '$') && (state != ST_QUOTE))
+		var_expansion(buffer, index, &str);
+	else
+		buffer[(*index)++] = *str;
+}
+
 int		parse_word(t_vars *vars, t_lexer *lexer, char **data)
 {
 	char	buffer[BUFFER_SIZE];
@@ -81,42 +105,7 @@ int		parse_word(t_vars *vars, t_lexer *lexer, char **data)
 	index = 0;
 	str = *data - 1;
 	while (*(++str))
-	{
-		if (*str == '\'' && lexer->state != ST_DQUOTE)
-		{
-			if (lexer->state == ST_GENERAL)
-				lexer->state = ST_QUOTE;
-			else
-				lexer->state = ST_GENERAL;
-		}
-		else if (*str == '\"' && lexer->state != ST_QUOTE)
-		{
-			if (lexer->state == ST_GENERAL)
-				lexer->state = ST_DQUOTE;
-			else
-				lexer->state = ST_GENERAL;
-		}
-		else if (*str == '\\')
-			buffer[index++] = *(++str);
-		else if ((*str == '$') && (lexer->state != ST_QUOTE))
-			var_expansion(buffer, &index, &str);
-		else
-			buffer[index++] = *str;
-	}
+		parse_word1(lexer->state, str, buffer, &index);
 	buffer[index] = '\0';
 	return (parse_word2(vars, data, buffer));
-}
-
-void	delete_empty_token(t_lexer *lexer, t_parser *parser)
-{
-	if (parser->prev_tk == NULL)
-	{
-		lexer->tk_list = lexer->tk_list->next;
-		parser->cur_tk = lexer->tk_list;
-	}
-	else
-	{
-		parser->prev_tk->next = parser->cur_tk->next;
-		parser->cur_tk = parser->prev_tk->next;
-	}
 }

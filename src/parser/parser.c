@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 20:58:03 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/27 16:48:02 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/27 18:40:46 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int		parser(t_vars *vars, t_lexer *lexer, t_parser *parser)
 {
 	t_token		*token;
 
-	display_token_list(&vars->lexer);						// TEST
 	parser->cur_tk = lexer->tk_list;
 	parser->prev_tk = NULL;
 	if (lexer->state != ST_GENERAL)
