@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/09 17:56:30 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/26 23:41:05 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/27 17:16:51 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,17 @@ int		parse_word(t_vars *vars, t_lexer *lexer, char **data)
 	str = *data - 1;
 	while (*(++str))
 	{
-		if (*str == '\'')
+		if (*str == '\'' && lexer->state != ST_DQUOTE)
 		{
 			if (lexer->state == ST_GENERAL)
 				lexer->state = ST_QUOTE;
+			else
+				lexer->state = ST_GENERAL;
+		}
+		else if (*str == '\"' && lexer->state != ST_QUOTE)
+		{
+			if (lexer->state == ST_GENERAL)
+				lexer->state = ST_DQUOTE;
 			else
 				lexer->state = ST_GENERAL;
 		}
@@ -93,7 +100,7 @@ int		parse_word(t_vars *vars, t_lexer *lexer, char **data)
 			buffer[index++] = *(++str);
 		else if ((*str == '$') && (lexer->state != ST_QUOTE))
 			var_expansion(buffer, &index, &str);
-		else if ((*str != '\"') || (lexer->state == ST_QUOTE))
+		else
 			buffer[index++] = *str;
 	}
 	buffer[index] = '\0';
