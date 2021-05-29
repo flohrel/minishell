@@ -6,16 +6,17 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 15:01:51 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/27 22:53:48 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/29 05:58:26 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DATA_H
 # define DATA_H
 
-# include <unistd.h>
-# include "libft.h"
 # include <termios.h>
+# include <unistd.h>
+# include <stdbool.h>
+# include "libft.h"
 
 enum				e_state
 {
@@ -51,7 +52,7 @@ typedef struct		s_parser	t_parser;
 typedef struct		s_vars		t_vars;
 typedef struct		s_token		t_token;
 typedef struct		s_ast		t_ast;
-typedef struct		s_cmd		t_cmd;
+typedef struct		s_param		t_param;
 typedef struct		s_dlist		t_dlist;
 
 struct				s_dlist
@@ -83,17 +84,19 @@ struct				s_parser
 	t_ast			*exec_tree;
 };
 
-struct				s_cmd
+struct				s_param
 {
+	bool			has_path;
 	char			*path;
 	t_list			*redir;
 	t_list			*arg;
+	t_list			*var;
 };
 
 struct				s_ast
 {
 	int				type;
-	t_cmd			*data;
+	t_param			*data;
 	t_ast			*left;
 	t_ast			*right;
 };

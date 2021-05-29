@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/18 02:36:25 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/27 18:24:29 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/29 06:02:44 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 /*
  **		exit.c
  */
-void	free_cmd_node(t_cmd *data);
+void	free_cmd_node(t_param *data);
 void	free_vars(t_lexer *lexer, t_parser *parser);
 void	clean_exit(t_vars *vars, int status);
 
@@ -40,7 +40,7 @@ void	delete_empty_token(t_lexer *lexer, t_parser *parser);
 /*
  **		astree.c
  */
-t_ast	*tree_new_node(t_vars *vars, int type, t_cmd *data);
+t_ast	*tree_new_node(t_vars *vars, int type, t_param *data);
 void	tree_attach_branch(t_ast *root, t_ast *left, t_ast *right);
 void	tree_delete_node(t_ast *node);
 
