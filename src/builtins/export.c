@@ -1,33 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst_alloc.c                                        :+:      :+:    :+:   */
+/*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/14 17:30:48 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/05/29 18:07:51 by mtogbe           ###   ########.fr       */
+/*   Created: 2021/04/16 17:14:46 by mtogbe            #+#    #+#             */
+/*   Updated: 2021/05/29 19:11:01 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/memory.h"
+#include "minishell.h"
 
-void	*lst_alloc(size_t nmemb, size_t size, t_list **lst)
+int	export(char *str, t_env *env, t_vars *vars)
 {
-	void			*ptr;
-	t_list			*new;
+	t_env	*result;
+	t_env	*tmp;
 
-	if (!lst)
-		return (NULL);
-	ptr = ft_calloc(nmemb, size);
-	if (!ptr)
-		return (NULL);
-	new = ft_lstnew(ptr);
-	if (!new)
-	{
-		free(ptr);
-		return (NULL);
-	}
-	ft_lstadd_front(lst, new);
-	return (ptr);
+	tmp = env;
+	while (tmp->next)
+		tmp = tmp->next;
+	result = lst_alloc(1, sizeof(t_env), &vars->ptr_list);
+	if (!result)
+		return (0);
+	result = new_envblock(str, result, vars);
+	if (!result)
+		return (0);
+	result->next = NULL;
+	tmp->next = result;
+	return (1);
 }

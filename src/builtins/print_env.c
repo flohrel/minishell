@@ -1,22 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
+/*   print_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/11 18:09:13 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/29 18:40:45 by mtogbe           ###   ########.fr       */
+/*   Created: 2021/04/16 17:28:13 by mtogbe            #+#    #+#             */
+/*   Updated: 2021/05/29 19:11:17 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/list.h"
+#include "minishell.h"
 
-void	ft_lstadd_front(t_list **alst, t_list *new)
+void	print_env(t_env *env)
 {
-	if (new)
+	t_env	*tmp;
+
+	tmp = env;
+	while (tmp)
 	{
-		new->next = *alst;
-		*alst = new;
+		printf("%s=", tmp->key);
+		printf("%s\n", tmp->value);
+		tmp = tmp->next;
 	}
 }
