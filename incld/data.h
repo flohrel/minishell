@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 15:01:51 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/29 06:29:36 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/29 09:59:06 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,13 +83,6 @@ struct				s_parser
 	t_list			*prev_tk;
 	t_list			*cur_tk;
 	t_ast			*exec_tree;
-};
-
-struct				s_assign
-{
-	char			op;
-	char			*name;
-	char			*value;
 };
 
 struct				s_param
