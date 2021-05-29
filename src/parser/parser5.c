@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/18 02:07:59 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/29 06:11:21 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/29 09:15:40 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,9 @@ int		redirection(t_vars *vars, t_parser *parser, int type, t_param *data)
 	token = (t_token *)parser->cur_tk->content;
 	if (token->type != TK_WORD)
 		return (-1);
-	lst = lst_alloc(1, sizeof(*lst), &vars->ptr_list);
-	if (lst == NULL)
-		clean_exit(vars, errno);
+	lst = lst_alloc(1, sizeof(*lst), vars);
 	lst->next = NULL;
-	redir = lst_alloc(1, sizeof(*redir), &vars->ptr_list);
-	if (redir == NULL)
-		clean_exit(vars, errno);
+	redir = lst_alloc(1, sizeof(*redir), vars);
 	redir->type = type;
 	redir->data = token->data;
 	lst->content = redir;
@@ -47,43 +43,57 @@ void	argument(t_vars *vars, t_token *token, t_param *data)
 		data->has_path = true;
 		return ;
 	}
-	lst = lst_alloc(1, sizeof(*lst), &vars->ptr_list);
-	if (lst == NULL)
-		clean_exit(vars, errno);
+	lst = lst_alloc(1, sizeof(*lst), vars);
 	lst->next = NULL;
-	arg = lst_alloc(1, sizeof(*arg), &vars->ptr_list);
-	if (arg == NULL)
-		clean_exit(vars, errno);
+	arg = lst_alloc(1, sizeof(*arg), vars);
 	arg->type = TK_WORD;
 	arg->data = token->data;
 	lst->content = arg;
 	ft_lstadd_back(&data->arg, lst);
 }
 
-void	variable()
+void	variable(t_vars *vars, t_token *token, t_param *data, char *ptr)
 {
+	t_list		*lst;
+	t_assign	*var;
+
+	lst = lst_alloc(1, sizeof(*lst), vars);
+	lst->next = NULL;
+	var = lst_alloc(1, sizeof(*var), vars);
+	if (ptr == token->data)
+		argument(vars, token, data);
+	if ((*(ptr - 1) == '+'))
+	{
+		if ((ptr - 1) == token->data)
+			argument(vars, token, data);
+		var->op = '+';
+	}
+	else
+		var->op = '=';
+	var->name = token->data;
+	var->value = ptr + 1;
+	lst->content = var;
+	ft_lstadd_back(&data->assign, lst);
 }
 
-void	init_cmd_param(t_vars *vars)
+t_param	*init_cmd_param(t_vars *vars)
 {
 	t_param	*data;
 
-	data = lst_alloc(1, sizeof(*data), &vars->ptr_list);
-	if (data == NULL)
-		clean_exit(vars, errno);
+	data = lst_alloc(1, sizeof(*data), vars);
 	data->path = NULL;
 	data->redir = NULL;
 	data->arg = NULL;
-	data->var = NULL;
+	data->assign = NULL;
 	data->has_path = false;
 	return (data);
 }
 
 t_ast	*cmd(t_vars *vars, t_parser *parser)
 {
-	t_ast	*node;
 	t_param	*data;
 	t_token	*token;
+	char	*ptr;
 
 	token = (t_token *)parser->cur_tk->content;
 	if (token->type < 0)
@@ -93,8 +103,8 @@ t_ast	*cmd(t_vars *vars, t_parser *parser)
 	{
 		if (token->type == TK_WORD)
 		{
-			if (!data->has_path && ft_strchr(token->data, '='))
-				variable(vars, token, data);
+			if ((ptr = ft_strchr(token->data, '=')))
+				variable(vars, token, data, ptr);
 			else
 				argument(vars, token, data);
 		}
@@ -103,5 +113,5 @@ t_ast	*cmd(t_vars *vars, t_parser *parser)
 		parser->cur_tk = parser->cur_tk->next;
 		token = (t_token *)parser->cur_tk->content;
 	}
-	return (tree_new_node(vars, NODE_CMD, data);
+	return (tree_new_node(vars, NODE_CMD, data));
 }

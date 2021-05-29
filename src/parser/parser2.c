@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/09 17:56:30 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/27 18:38:35 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/29 09:20:25 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,7 @@ int		parse_word2(t_vars *vars, char **data, char *buffer)
 	if (*buffer || has_quotes)
 	{
 		len = ft_strlen(buffer);
-		*data = lst_alloc(len + 1, sizeof(*buffer), &vars->ptr_list);
-		if (!(*data))
-			clean_exit(vars, errno);
+		*data = lst_alloc(len + 1, sizeof(*buffer), vars);
 		ft_strlcpy(*data, buffer, len + 1);
 	}
 	else

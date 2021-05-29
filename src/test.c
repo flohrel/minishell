@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 01:03:40 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/27 13:17:11 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/29 07:46:24 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,14 @@ void	display_token_list(t_lexer *lexer)
 void	print_content(void *content)
 {
 	printf("\"%s\" ", ((t_token *)content)->data);
+}
+
+void	print_assign(void *content)
+{
+	t_assign	*var;
+
+	var = (t_assign *)content;
+	printf("\'%s %c= %s\' ", var->name, var->op, var->value);
 }
 
 void	print_tabs(int size)
@@ -81,8 +89,12 @@ void	tree_display(t_ast *node, int level, int is_right)
 		ft_lstiter(node->data->arg, print_content);
 		printf("\n");
 		print_tabs(level);
-		printf("%s%s %d redir: ", branch, horiz, ft_lstsize(node->data->redir));
+		printf("%s%s %d redir: ", root, horiz, ft_lstsize(node->data->redir));
 		ft_lstiter(node->data->redir, print_content);
+		printf("\n");
+		printf("%s%s %d assign: ", branch, horiz, ft_lstsize(node->data->assign));
+		ft_lstiter(node->data->assign, print_assign);
+		print_tabs(level);
 		printf("\n");
 		return ;
 	}

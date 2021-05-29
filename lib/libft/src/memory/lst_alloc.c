@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   my_calloc.c                                        :+:      :+:    :+:   */
+/*   lst_alloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 17:30:48 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/05/26 19:00:40 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/29 09:07:33 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/memory.h"
 
-void	*lst_alloc(size_t nmemb, size_t size, t_list **lst)
+void	*garbage_collector(size_t nmemb, size_t size, t_list **lst)
 {
 	void			*ptr;
 	t_list			*new;

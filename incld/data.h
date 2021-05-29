@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 15:01:51 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/29 05:58:26 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/29 06:29:36 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct		s_token		t_token;
 typedef struct		s_ast		t_ast;
 typedef struct		s_param		t_param;
 typedef struct		s_dlist		t_dlist;
+typedef struct		s_assign	t_assign;
 
 struct				s_dlist
 {
@@ -84,13 +85,20 @@ struct				s_parser
 	t_ast			*exec_tree;
 };
 
+struct				s_assign
+{
+	char			op;
+	char			*name;
+	char			*value;
+};
+
 struct				s_param
 {
 	bool			has_path;
 	char			*path;
 	t_list			*redir;
 	t_list			*arg;
-	t_list			*var;
+	t_list			*assign;
 };
 
 struct				s_ast

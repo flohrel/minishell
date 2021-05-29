@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 12:58:34 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/27 18:23:25 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/29 09:18:53 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,22 +63,16 @@ void	new_token(t_vars *vars, int type, int size)
 	t_list	*lst;
 
 	lexer = &vars->lexer;
-	token = lst_alloc(1, sizeof(*token), &vars->ptr_list);
-	if (token == NULL)
-		clean_exit(vars, errno);
+	token = lst_alloc(1, sizeof(*token), vars);
 	token->type = type;
 	token->data = NULL;
 	lexer->cur_char = NULL;
 	if (size)
 	{
-		token->data = lst_alloc(size + 1, sizeof(char), &vars->ptr_list);
-		if (token->data == NULL)
-			clean_exit(vars, errno);
+		token->data = lst_alloc(size + 1, sizeof(char), vars);
 		lexer->cur_char = token->data;
 	}
-	lst = lst_alloc(1, sizeof(*lst), &vars->ptr_list);
-	if (lst == NULL)
-		clean_exit(vars, errno);
+	lst = lst_alloc(1, sizeof(*lst), vars);
 	lst->content = token;
 	lst->next = NULL;
 	ft_lstadd_back(&lexer->tk_list, lst);

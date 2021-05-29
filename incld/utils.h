@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/18 02:36:25 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/29 06:02:44 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/29 09:17:32 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,10 @@ void	tree_delete_node(t_ast *node);
  **		error.c
  */
 int		syntax_error(t_token *token);
+
+/*
+ **		memory.c
+ */
+void	*lst_alloc(size_t nmemb, size_t size, t_vars *vars);
 
 #endif

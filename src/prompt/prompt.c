@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 11:42:38 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/27 19:00:55 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/29 09:19:54 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	init_term(t_vars *vars)
 		clean_exit(vars, 0);
 }
 
-void	history_save(t_vars *vars, char *buffer)
+/*void	history_save(t_vars *vars, char *buffer)
 {
 	t_dlist	*cmdline;
 	char	*copy;
@@ -49,7 +49,7 @@ void	history_save(t_vars *vars, char *buffer)
 			clean_exit(vars, errno);
 		ft_dlstadd_front(vars->history);
 	}
-}
+}*/
 
 void	ft_readline(t_vars *vars)
 {
@@ -66,10 +66,7 @@ void	ft_readline(t_vars *vars)
 		size = read(0, &buffer[i], 4);
 		ret = input_handle(vars, &buffer[i], size, &i);
 	}
-	vars->lexer.buffer = lst_alloc(i + 1, sizeof(*(vars->lexer.buffer)),
-									&vars->ptr_list);
-	if (vars->lexer.buffer == NULL)
-		clean_exit(vars, errno);
+	vars->lexer.buffer = lst_alloc(i + 1, sizeof(*(vars->lexer.buffer)), vars);
 	ft_strlcpy(vars->lexer.buffer, buffer, i + 1);
-	history_save(vars->history, buffer);
+//	history_save(vars->history, buffer);
 }

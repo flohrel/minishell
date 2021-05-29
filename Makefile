@@ -15,6 +15,7 @@ SRC			=	main.c \
 				token.c \
 				exit.c \
 				error.c \
+				memory.c \
 				prompt.c \
 				input.c \
 				parser.c \
