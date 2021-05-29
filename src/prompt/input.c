@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 02:02:42 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/13 18:11:46 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/27 22:34:05 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ int		delete_handle(char *input, int *index)
 	if (*index)
 	{
 // A supprimer
-		if (*(input - 1) == '\t')
-			tputs(tgetstr("bt", NULL), 1, ft_putchar);
+/*		if (*(input - 1) == '\t')
+			tputs(tgetstr("bt", NULL), 1, ft_putchar);*/
 //
 		write(1, "\033[1D\033[0K", 8);
 		(*index)--;
@@ -29,7 +29,7 @@ int		delete_handle(char *input, int *index)
 }
 
 // Inutile car traitee dans input_handler ?
-void	eot_handle(t_vars *vars, int *index)
+/*void	eot_handle(t_vars *vars, int *index)
 {
 	write(1, "\033[2D\033[0K", 8);
 	if (!(*index))
@@ -37,7 +37,7 @@ void	eot_handle(t_vars *vars, int *index)
 		write(1, "exit\n", 5);
 		clean_exit(vars, 0);
 	}
-}
+}*/
 
 int		input_handle(t_vars *vars, char *input, int size, int *index)
 {
@@ -48,10 +48,8 @@ int		input_handle(t_vars *vars, char *input, int size, int *index)
 			*input = '\0';
 			return (0);
 		}
-// A supprimer
-		else if (*input == '\t')
-			tputs(tgetstr("ta", NULL), 1, ft_putchar);
-//
+/*		else if (*input == '\t')
+			tputs(tgetstr("ta", NULL), 1, ft_putchar);*/
 		else if (*input == 4)
 			eot_handle(vars, index);
 		else if (*input == 127)

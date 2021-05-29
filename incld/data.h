@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 15:01:51 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/27 19:00:46 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/27 22:53:48 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,14 @@ typedef struct		s_vars		t_vars;
 typedef struct		s_token		t_token;
 typedef struct		s_ast		t_ast;
 typedef struct		s_cmd		t_cmd;
+typedef struct		s_dlist		t_dlist;
+
+struct				s_dlist
+{
+	char			*data;
+	t_dlist			*next;
+	t_dlist			*prev;
+};
 
 struct				s_token
 {
