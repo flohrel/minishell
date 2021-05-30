@@ -4,7 +4,7 @@
 
 NAME		=	minishell
 
-VPATH		=	src src/lexer src/parser src/prompt src/utils
+VPATH		=	src src/lexer src/parser src/input src/utils
 OBJDIR		=	obj
 LIBDIR		=	lib
 INCLDIR		=	incld

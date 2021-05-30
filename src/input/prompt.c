@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 11:42:38 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/29 09:19:54 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/29 10:32:32 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	ft_readline(t_vars *vars)
 	ret = -1;
 	while (ret)
 	{
+		tputs(tgetstr("sc", NULL), 1, ft_putchar);
 		size = read(0, &buffer[i], 4);
 		ret = input_handle(vars, &buffer[i], size, &i);
 	}
