@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/11 18:09:13 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/29 18:40:45 by mtogbe           ###   ########.fr       */
+/*   Created: 2021/04/16 15:44:07 by mtogbe            #+#    #+#             */
+/*   Updated: 2021/05/29 19:11:39 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/list.h"
+#include "minishell.h"
 
-void	ft_lstadd_front(t_list **alst, t_list *new)
+int	pwd(t_env *env)
 {
-	if (new)
-	{
-		new->next = *alst;
-		*alst = new;
-	}
+	char	*str;
+
+	str = get_env_value("PWD", env);
+	if (!str)
+		str = get_env_value("OLDPWD", env);
+	if (!str)
+		return (-1);
+	ft_putstr_fd(str, 1);
+	ft_putchar_fd('\n', 1);
+	return (1);
 }

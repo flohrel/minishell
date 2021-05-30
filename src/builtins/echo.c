@@ -1,22 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/11 18:09:13 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/29 18:40:45 by mtogbe           ###   ########.fr       */
+/*   Created: 2021/05/29 17:49:41 by mtogbe            #+#    #+#             */
+/*   Updated: 2021/05/29 17:56:58 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/list.h"
+#include "minishell.h"
 
-void	ft_lstadd_front(t_list **alst, t_list *new)
+int	echo(int fd, char **tab)
 {
-	if (new)
+	int	i;
+	int	j;
+
+	i = 0;
+	while (tab[i])
 	{
-		new->next = *alst;
-		*alst = new;
+		j = 0;
+		while (tab[i][j])
+			write(fd, &(tab[i][j++]), 1);
+		write(fd, " ", 1);
+		i++;
 	}
+	if (opt)
+		write(fd, "\n", 1);
+	return (1);
 }
