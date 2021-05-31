@@ -16,12 +16,12 @@ int	find_builtin(char *path, char **args, t_vars *vars)
 {
 	if (ft_strcmp("echo", path))
 	{
-		if (echo(args, vars) < 0)
+		if (my_echo(args, vars) < 0)
 			return (-1);
 	}
 	else if (ft_strcmp("cd", path))
 	{
-		if (cd(args) < 0)
+		if (cd((const char **)args) < 0)
 			return (-1);
 	}
 	else if (ft_strcmp("pwd", path))
@@ -35,4 +35,5 @@ int	find_builtin(char *path, char **args, t_vars *vars)
 			return (-1);
 	}
 	//find_builtin_next(path, args, vars);
+	return (1);
 }

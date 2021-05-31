@@ -28,6 +28,7 @@ SRC			=	main.c \
 				cd.c \
 				env_utils.c \
 				export.c \
+				find_builtin.c \
 				ft_already.c \
 				ft_endwith.c \
 				ft_ischarset.c \
@@ -39,6 +40,7 @@ SRC			=	main.c \
 				print_env.c \
 				pwd.c \
 				unset.c
+
 OBJ			=	$(SRC:%.c=$(OBJDIR)/%.o)
 
 CC			=	gcc
