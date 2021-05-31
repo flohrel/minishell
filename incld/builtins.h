@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 15:24:24 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/05/31 17:24:24 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/05/31 19:26:30 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef struct	s_opt{
 
 t_env	*g_env;
 
+int		find_builtin(char *path, char **args, t_vars *vars);
 int 	pwd(char **args, t_vars *vars);
 int		cd(const char **args);
 int		my_echo(char **args, t_vars *vars);

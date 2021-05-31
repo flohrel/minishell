@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 16:21:33 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/29 17:53:32 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/05/31 19:24:46 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,6 @@
 # include "utils.h"
 # include "test.h"
 # include "builtins.h"
+# include "exec.h"
 
 #endif

@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize.c                                       :+:      :+:    :+:   */
+/*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/11 18:13:36 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/31 18:34:41 by mtogbe           ###   ########.fr       */
+/*   Created: 2021/05/31 19:23:42 by mtogbe            #+#    #+#             */
+/*   Updated: 2021/05/31 19:24:32 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/list.h"
+#ifndef EXEC_H
+# define EXEC_H
 
-int	ft_lstsize(t_list *lst)
-{
-	if (!lst)
-		return (0);
-	return (1 + ft_lstsize(lst->next));
-}
+# include "data.h"
+
+int	exec_cmd(t_vars *vars);
+
+#endif
