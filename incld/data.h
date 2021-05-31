@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 15:01:51 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/30 18:29:52 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/31 19:34:06 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,12 +109,12 @@ typedef struct		s_term
 	struct termios	current;
 }					t_term;
 
-typedef struct			s_env
+typedef struct		s_env
 {
 	char			*key;
 	char			*value;
-	struct s_env		*next;
-}				t_env;
+	struct s_env	*next;
+}					t_env;
 
 typedef struct		s_vars
 {

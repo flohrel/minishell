@@ -1,20 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize.c                                       :+:      :+:    :+:   */
+/*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/11 18:13:36 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/31 18:34:41 by mtogbe           ###   ########.fr       */
+/*   Created: 2021/05/31 19:05:43 by mtogbe            #+#    #+#             */
+/*   Updated: 2021/05/31 19:34:12 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/list.h"
+#include "minishell.h"
 
-int	ft_lstsize(t_list *lst)
+int	exec_cmd(t_vars *vars)
 {
-	if (!lst)
-		return (0);
-	return (1 + ft_lstsize(lst->next));
+	t_param	*param;
+
+	param = vars->parser.exec_tree->data;
+	find_builtin(param->path, list_to_tab(param->arg, vars), vars);
+	printf("%s\n", param->path);
+	return (0);
 }

@@ -4,7 +4,7 @@
 
 NAME		=	minishell
 
-VPATH		=	src src/lexer src/parser src/prompt src/utils src/builtins
+VPATH		=	src src/lexer src/parser src/prompt src/utils src/builtins src/exec
 OBJDIR		=	obj
 LIBDIR		=	lib
 INCLDIR		=	incld
@@ -36,10 +36,12 @@ SRC			=	main.c \
 				ft_startwith.c \
 				ft_tablen.c \
 				get_env_value.c \
+				list_to_tab.c \
 				optionhandle.c \
 				parse_env.c \
 				print_env.c \
 				pwd.c \
+				exec_cmd.c \
 				unset.c
 
 OBJ			=	$(SRC:%.c=$(OBJDIR)/%.o)
