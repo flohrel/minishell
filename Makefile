@@ -26,6 +26,7 @@ SRC			=	main.c \
 				astree.c \
 				test.c \
 				cd.c \
+				echo.c \
 				env_utils.c \
 				export.c \
 				find_builtin.c \
