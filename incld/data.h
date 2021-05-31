@@ -47,6 +47,7 @@ enum				e_node
 	NODE_CMD,
 };
 
+typedef struct		s_env		t_env;
 typedef struct		s_lexer		t_lexer;
 typedef struct		s_parser	t_parser;
 typedef struct		s_vars		t_vars;
@@ -108,6 +109,13 @@ typedef struct		s_term
 	struct termios	current;
 }					t_term;
 
+typedef struct			s_env
+{
+	char			*key;
+	char			*value;
+	struct s_env		*next;
+}				t_env;
+
 typedef struct		s_vars
 {
 	t_term			termios;
@@ -115,6 +123,7 @@ typedef struct		s_vars
 	t_parser		parser;
 	t_dlist			*history;
 	t_list			*ptr_list;
+	t_env			*env;
 }					t_vars;
 
 #endif

@@ -23,7 +23,7 @@ t_env	*new_envblock(char *str, t_env *result, t_vars *vars)
 	if (!new)
 		return (NULL);
 	ft_lstadd_front(&vars->ptr_list, new);
-	result->key	= lst_alloc(ft_strlen(str) - ft_strlen(result->value), sizeof(char), &vars->ptr_list);
+	result->key	= lst_alloc(ft_strlen(str) - ft_strlen(result->value), sizeof(char), vars);
 	if (!(result->key))
 		return (NULL);
 	ft_strlcat(result->key, str, ft_strlen(str) - ft_strlen(result->value));
@@ -37,7 +37,7 @@ t_env	*parse_env(char **env, t_vars *vars)
 	int		i;
 
 	i = 0;
-	result = lst_alloc(1, sizeof(t_env), &vars->ptr_list);
+	result = lst_alloc(1, sizeof(t_env), vars);
 	if (!result)
 		return (NULL);
 	head = result;
@@ -45,7 +45,7 @@ t_env	*parse_env(char **env, t_vars *vars)
 	{
 		result = new_envblock(env[i], result, vars);
 		if (!result)
-			return (NULL)
+			return (NULL);
 		if (env[++i])
 		{
 			result->next = malloc(sizeof(t_env));

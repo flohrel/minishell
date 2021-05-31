@@ -12,17 +12,17 @@
 
 #include "minishell.h"
 
-int	echo(int fd, char **tab)
+int	my_echo(int fd, char **args, t_vars *vars)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	while (tab[i])
+	while (args[i])
 	{
 		j = 0;
-		while (tab[i][j])
-			write(fd, &(tab[i][j++]), 1);
+		while (args[i][j])
+			write(fd, &(args[i][j++]), 1);
 		write(fd, " ", 1);
 		i++;
 	}

@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-t_env	*remove_mid(t_env *env, char *key)
+static t_env	*remove_mid(t_env *env, char *key)
 {
 	t_env	*stack;
 	t_env	*head;
@@ -31,7 +31,7 @@ t_env	*remove_mid(t_env *env, char *key)
 	return (head);
 }
 
-t_env	*unset(char *key, t_env *env)
+static t_env	*unset_key(char *key, t_env *env)
 {
 	t_env	*tmp;
 	t_env	*stack;
@@ -58,4 +58,10 @@ t_env	*unset(char *key, t_env *env)
 		}
 	}
 	return (head);
+}
+
+int		unset(char **args, t_vars *vars)
+{
+	vars->env = unset_key(args[0], vars->env);
+	return (1);
 }

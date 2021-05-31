@@ -12,10 +12,13 @@
 
 #include "minishell.h"
 
-int	pwd(t_env *env)
+int	pwd(char **args, t_vars *vars)
 {
 	char	*str;
+	t_env	*env;
 
+	(void)args;
+	env = vars->env;
 	str = get_env_value("PWD", env);
 	if (!str)
 		str = get_env_value("OLDPWD", env);

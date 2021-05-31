@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "builtins.h"
 
 t_env	*envcpy(t_env *env)
 {

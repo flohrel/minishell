@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_env.c                                        :+:      :+:    :+:   */
+/*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/16 17:28:13 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/05/29 19:11:17 by mtogbe           ###   ########.fr       */
+/*   Created: 2021/04/16 14:47:20 by mtogbe            #+#    #+#             */
+/*   Updated: 2021/05/12 15:22:15 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	print_env(char **args, t_vars *vars)
+int	cd(const char **args)
 {
-	t_env	*tmp;
+	char		s[255];
+	const char	*path;
 
-	(void)args;
-	tmp = vars->env;
-	while (tmp)
-	{
-		printf("%s=", tmp->key);
-		printf("%s\n", tmp->value);
-		tmp = tmp->next;
-	}
+	path = args[0];
+	if (chdir(path) < 0)
+		return (-1);
+	getcwd(s, 255);
+	printf("%s\n", s);
 	return (1);
 }
