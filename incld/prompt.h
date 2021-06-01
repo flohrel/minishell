@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 11:39:56 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/18 02:35:02 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/01 15:19:31 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include "utils.h"
 
 # define BUFFER_SIZE	4096
-# define PROMPT			BGRN"minishell>> "RESET
+# define PROMPT			"minishell>> "
 
 /*
 **		prompt.c

@@ -4,28 +4,12 @@
 
 NAME		=	minishell
 
-VPATH		=	src src/lexer src/parser src/prompt src/utils src/builtins src/exec
+VPATH		=	src src/lexer src/parser src/input src/utils src/builtins src/exec
 OBJDIR		=	obj
 LIBDIR		=	lib
 INCLDIR		=	incld
 
-SRC			=	main.c \
-				lexer.c \
-				lexer2.c \
-				token.c \
-				exit.c \
-				error.c \
-				memory.c \
-				prompt.c \
-				input.c \
-				parser.c \
-				parser2.c \
-				parser3.c \
-				parser4.c \
-				parser5.c \
-				astree.c \
-				test.c \
-				cd.c \
+BUILTINS	=	cd.c \
 				echo.c \
 				env_utils.c \
 				export.c \
@@ -36,13 +20,42 @@ SRC			=	main.c \
 				ft_startwith.c \
 				ft_tablen.c \
 				get_env_value.c \
-				list_to_tab.c \
 				optionhandle.c \
 				parse_env.c \
 				print_env.c \
 				pwd.c \
 				exec_cmd.c \
 				unset.c
+
+EXEC		=	
+
+INPUT		=	input.c \
+				prompt.c
+
+LEXER		=	lexer.c \
+				lexer2.c
+
+PARSER		=	parser.c \
+				parser2.c \
+				parser3.c \
+				parser4.c \
+				parser5.c \
+
+UTILS		=	astree.c \
+				error.c \
+				exit.c \
+				list_to_tab.c \
+				memory.c \
+				token.c
+
+SRC			=	main.c \
+				test.c \
+				$(BUILTINS) \
+				$(EXEC) \
+				$(INPUT) \
+				$(LEXER) \
+				$(PARSER) \
+				$(UTILS)
 
 OBJ			=	$(SRC:%.c=$(OBJDIR)/%.o)
 
