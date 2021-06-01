@@ -6,13 +6,13 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 20:58:03 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/31 18:42:58 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/06/01 15:45:11 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-int		astree_build(t_vars *vars, t_lexer *lexer, t_parser *parser)
+int	astree_build(t_vars *vars, t_lexer *lexer, t_parser *parser)
 {
 	parser->cur_tk = lexer->tk_list;
 	parser->exec_tree = cmdline(vars, parser);
@@ -21,7 +21,7 @@ int		astree_build(t_vars *vars, t_lexer *lexer, t_parser *parser)
 	return (0);
 }
 
-int		parser(t_vars *vars, t_lexer *lexer, t_parser *parser)
+int	parser(t_vars *vars, t_lexer *lexer, t_parser *parser)
 {
 	t_token		*token;
 
@@ -36,8 +36,8 @@ int		parser(t_vars *vars, t_lexer *lexer, t_parser *parser)
 			delete_empty_token(lexer, parser);
 		else
 		{
-			if ((token->type == TK_WORD) &&
-				parse_word(vars, lexer, &token->data))
+			if ((token->type == TK_WORD)
+				&& parse_word(vars, lexer, &token->data))
 				continue ;
 			parser->prev_tk = parser->cur_tk;
 			parser->cur_tk = parser->prev_tk->next;

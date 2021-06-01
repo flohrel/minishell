@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 16:58:50 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/05/31 17:23:52 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/06/01 15:39:59 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ void	free_block(t_env *env)
 
 void	free_env(t_env *env)
 {
-	t_env *stack;
+	t_env	*stack;
 
-	while(env)
+	while (env)
 	{
 		stack = env;
 		env = env->next;
@@ -80,7 +80,6 @@ void	print_sorted_env(t_env *env)
 	int		reset;
 
 	env = envcpy(env);
-	reset = 0;
 	head = env;
 	while (env && env->next)
 	{

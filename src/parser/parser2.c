@@ -6,13 +6,13 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/09 17:56:30 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/31 19:38:00 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/01 15:41:53 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-int		is_charset(const char *charset, char c)
+int	is_charset(const char *charset, char c)
 {
 	while (*charset)
 	{
@@ -48,7 +48,7 @@ void	var_expansion(char *buffer, int *index, char **data)
 	*data = str - 1;
 }
 
-int		parse_word2(t_vars *vars, char **data, char *buffer)
+int	parse_word2(t_vars *vars, char **data, char *buffer)
 {
 	bool	has_quotes;
 	size_t	len;
@@ -94,7 +94,7 @@ void	parse_word1(int *state, char *str, char *buffer, int *index)
 		buffer[(*index)++] = *str;
 }
 
-int		parse_word(t_vars *vars, t_lexer *lexer, char **data)
+int	parse_word(t_vars *vars, t_lexer *lexer, char **data)
 {
 	char	buffer[BUFFER_SIZE];
 	char	*str;

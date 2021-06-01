@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 05:14:28 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/27 13:21:10 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/01 15:32:23 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	quote_handle(t_vars *vars, char *buf)
 
 	lexer = &vars->lexer;
 	*(lexer->cur_char)++ = (*buf);
-	if (((*buf == '\'') && (lexer->state == ST_QUOTE)) ||
-		((*buf == '\"') && (lexer->state == ST_DQUOTE)))
+	if (((*buf == '\'') && (lexer->state == ST_QUOTE))
+		|| ((*buf == '\"') && (lexer->state == ST_DQUOTE)))
 		lexer->state = ST_GENERAL;
 }

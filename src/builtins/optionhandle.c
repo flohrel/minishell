@@ -2,7 +2,7 @@
 
 static char	*check_options(char *str, char *opt, char *flags, t_vars *vars)
 {
-	int	i;
+	int		i;
 	char	*result;
 	t_list	*new;
 	char	f[1];
@@ -21,7 +21,7 @@ static char	*check_options(char *str, char *opt, char *flags, t_vars *vars)
 		result = ft_strjoin(flags, f);
 		if (!result)
 			return (NULL);
-		new = ft_lstnew((void*)result);
+		new = ft_lstnew((void *)result);
 		if (!new)
 			return (NULL);
 		ft_lstadd_front(&vars->ptr_list, new);
@@ -32,8 +32,8 @@ static char	*check_options(char *str, char *opt, char *flags, t_vars *vars)
 t_opt	optionhandler(char **args, char *opt, t_vars *vars)
 {
 	t_opt	options;
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 
 	j = 0;
 	i = 0;

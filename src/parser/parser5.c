@@ -6,13 +6,13 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/18 02:07:59 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/31 18:47:27 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/06/01 15:43:36 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-int		redirection(t_vars *vars, t_parser *parser, int type, t_param *data)
+int	redirection(t_vars *vars, t_parser *parser, int type, t_param *data)
 {
 	t_token	*token;
 	t_token	*redir;
@@ -42,8 +42,8 @@ void	argument(t_vars *vars, t_token *token, t_param *data)
 	dest_list = &data->arg;
 	if (!data->has_path)
 	{
-		if (((ptr = ft_strchr(token->data, '+')) ||
-			(ptr = ft_strchr(token->data, '='))) && (ptr != token->data))
+		if (((ptr = ft_strchr(token->data, '+'))
+			|| (ptr = ft_strchr(token->data, '='))) && (ptr != token->data))
 			dest_list = &data->assign;
 		else
 		{

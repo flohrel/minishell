@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 12:58:34 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/29 09:18:53 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/01 15:44:36 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	get_token_char(int type)
 		return (0);
 }
 
-int		get_token_type(char c)
+int	get_token_type(char c)
 {
 	if (c == '|')
 		return (TK_PIPE);

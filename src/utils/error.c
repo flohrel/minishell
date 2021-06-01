@@ -6,13 +6,13 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 07:26:48 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/27 07:46:41 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/01 15:44:21 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "utils.h"
+#include "utils.h"
 
-int		syntax_error(t_token *token)
+int	syntax_error(t_token *token)
 {
 	ft_putstr_fd("bash: syntax error", STDERR_FILENO);
 	if (token == NULL)

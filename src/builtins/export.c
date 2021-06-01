@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 17:14:46 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/05/29 19:11:01 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/06/01 15:33:42 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	export_str(char *str, t_env *env, t_vars *vars)
 	return (1);
 }
 
-int		export(char **args, t_vars *vars)
+int	export(char **args, t_vars *vars)
 {
 	export_str(args[0], vars->env, vars);
 	return (1);

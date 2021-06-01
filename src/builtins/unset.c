@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 17:36:41 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/05/29 19:12:41 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/06/01 15:33:27 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static t_env	*unset_key(char *key, t_env *env)
 	return (head);
 }
 
-int		unset(char **args, t_vars *vars)
+int	unset(char **args, t_vars *vars)
 {
 	vars->env = unset_key(args[0], vars->env);
 	return (1);
