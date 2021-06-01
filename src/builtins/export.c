@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	export(char *str, t_env *env, t_vars *vars)
+static int	export_str(char *str, t_env *env, t_vars *vars)
 {
 	t_env	*result;
 	t_env	*tmp;
@@ -20,7 +20,7 @@ int	export(char *str, t_env *env, t_vars *vars)
 	tmp = env;
 	while (tmp->next)
 		tmp = tmp->next;
-	result = lst_alloc(1, sizeof(t_env), &vars->ptr_list);
+	result = lst_alloc(1, sizeof(t_env), vars);
 	if (!result)
 		return (0);
 	result = new_envblock(str, result, vars);
@@ -28,5 +28,11 @@ int	export(char *str, t_env *env, t_vars *vars)
 		return (0);
 	result->next = NULL;
 	tmp->next = result;
+	return (1);
+}
+
+int		export(char **args, t_vars *vars)
+{
+	export_str(args[0], vars->env, vars);
 	return (1);
 }

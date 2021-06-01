@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_env.c                                        :+:      :+:    :+:   */
+/*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/16 17:28:13 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/05/29 19:11:17 by mtogbe           ###   ########.fr       */
+/*   Created: 2021/05/31 19:05:43 by mtogbe            #+#    #+#             */
+/*   Updated: 2021/05/31 19:34:12 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	print_env(char **args, t_vars *vars)
+int	exec_cmd(t_vars *vars)
 {
-	t_env	*tmp;
+	t_param	*param;
 
-	(void)args;
-	tmp = vars->env;
-	while (tmp)
-	{
-		printf("%s=", tmp->key);
-		printf("%s\n", tmp->value);
-		tmp = tmp->next;
-	}
-	return (1);
+	param = vars->parser.exec_tree->data;
+	find_builtin(param->path, list_to_tab(param->arg, vars), vars);
+	printf("%s\n", param->path);
+	return (0);
 }

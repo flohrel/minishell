@@ -6,11 +6,12 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 16:58:50 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/05/29 19:14:36 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/05/31 17:23:52 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "builtins.h"
 
 t_env	*envcpy(t_env *env)
 {
@@ -98,6 +99,5 @@ void	print_sorted_env(t_env *env)
 		if (reset)
 			env = head;
 	}
-	print_env(head);
 	free_env(head);
 }

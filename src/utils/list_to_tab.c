@@ -1,28 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_env.c                                        :+:      :+:    :+:   */
+/*   list_to_tab.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/16 17:28:13 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/05/29 19:11:17 by mtogbe           ###   ########.fr       */
+/*   Created: 2021/05/31 18:30:44 by mtogbe            #+#    #+#             */
+/*   Updated: 2021/05/31 18:59:24 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	print_env(char **args, t_vars *vars)
+char	**list_to_tab(t_list *lst, t_vars *vars)
 {
-	t_env	*tmp;
+	char	**result;
+	int		i;
+	int		size;
+	t_token	*token;
 
-	(void)args;
-	tmp = vars->env;
-	while (tmp)
+	size = ft_lstsize(lst);
+	i = 0;
+	result = lst_alloc(size + 1, sizeof(char *), vars);
+	if (!result)
+		return (NULL);
+	while (i < size)
 	{
-		printf("%s=", tmp->key);
-		printf("%s\n", tmp->value);
-		tmp = tmp->next;
+		token = (t_token *)lst->content;
+		result[i++] = token->data;
+		lst = lst->next;
 	}
-	return (1);
+	result[i] = NULL;
+	return (result);
 }
