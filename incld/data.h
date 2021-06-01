@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 15:01:51 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/31 19:34:06 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/06/01 15:12:40 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,19 @@ enum				e_node
 	NODE_CMD,
 };
 
-typedef struct		s_env		t_env;
-typedef struct		s_lexer		t_lexer;
-typedef struct		s_parser	t_parser;
-typedef struct		s_vars		t_vars;
-typedef struct		s_token		t_token;
-typedef struct		s_ast		t_ast;
-typedef struct		s_param		t_param;
-typedef struct		s_dlist		t_dlist;
-typedef struct		s_assign	t_assign;
+typedef struct s_env		t_env;
+typedef struct s_lexer		t_lexer;
+typedef struct s_parser		t_parser;
+typedef struct s_vars		t_vars;
+typedef struct s_token		t_token;
+typedef struct s_ast		t_ast;
+typedef struct s_param		t_param;
+typedef struct s_dlist		t_dlist;
+typedef struct s_assign		t_assign;
+typedef struct s_term		t_term;
+typedef struct s_env		t_env;
+typedef struct s_vars		t_vars;
+typedef struct s_opt		t_opt;
 
 struct				s_dlist
 {
@@ -103,20 +107,20 @@ struct				s_ast
 	t_ast			*right;
 };
 
-typedef struct		s_term
+struct				s_term
 {
 	struct termios	original;
 	struct termios	current;
-}					t_term;
+};
 
-typedef struct		s_env
+struct				s_env
 {
 	char			*key;
 	char			*value;
 	struct s_env	*next;
-}					t_env;
+};
 
-typedef struct		s_vars
+struct				s_vars
 {
 	t_term			termios;
 	t_lexer			lexer;
@@ -124,6 +128,12 @@ typedef struct		s_vars
 	t_dlist			*history;
 	t_list			*ptr_list;
 	t_env			*env;
-}					t_vars;
+};
+
+struct				s_opt
+{
+	char	*optflag;
+	char	**args;
+};
 
 #endif
