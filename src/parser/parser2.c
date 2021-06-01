@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/09 17:56:30 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/01 15:41:53 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/01 16:29:46 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,5 @@ int	parse_word(t_vars *vars, t_lexer *lexer, char **data)
 	while (*(++str))
 		parse_word1(&lexer->state, str, buffer, &index);
 	buffer[index] = '\0';
-	printf("%s\n", buffer);
 	return (parse_word2(vars, data, buffer));
 }

@@ -6,11 +6,11 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 11:42:38 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/01 16:25:25 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/01 17:37:04 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "prompt.h"
+#include "input.h"
 
 void	display_prompt(void)
 {
@@ -60,7 +60,6 @@ void	ft_readline(t_vars *vars)
 	int		ret;
 	int		i;
 
-	size = 0;
 	i = 0;
 	ret = -1;
 	while (ret)

@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 16:21:33 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/31 19:24:46 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/06/01 16:27:55 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include "libft.h"
 # include "data.h"
 # include "lexer.h"
-# include "prompt.h"
+# include "input.h"
 # include "parser.h"
 # include "utils.h"
 # include "test.h"
