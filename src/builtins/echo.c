@@ -1,33 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst_alloc.c                                        :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/14 17:30:48 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/05/30 18:32:15 by flohrel          ###   ########.fr       */
+/*   Created: 2021/05/29 17:49:41 by mtogbe            #+#    #+#             */
+/*   Updated: 2021/05/31 17:26:13 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/memory.h"
+#include "minishell.h"
 
-void	*garbage_collector(size_t nmemb, size_t size, t_list **lst)
+int	my_echo(char **args, t_vars *vars)
 {
-	void			*ptr;
-	t_list			*new;
+	int	i;
+	int	j;
+	int	opt;
 
-	if (!lst)
-		return (NULL);
-	ptr = ft_calloc(nmemb, size);
-	if (!ptr)
-		return (NULL);
-	new = ft_lstnew(ptr);
-	if (!new)
+	(void)vars;
+	opt = 0;
+	i = 0;
+	while (args[i])
 	{
-		free(ptr);
-		return (NULL);
+		j = 0;
+		while (args[i][j])
+			write(1, &(args[i][j++]), 1);
+		write(1, " ", 1);
+		i++;
 	}
-	ft_lstadd_front(lst, new);
-	return (ptr);
+	if (opt)
+		write(1, "\n", 1);
+	return (1);
 }

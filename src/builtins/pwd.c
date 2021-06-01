@@ -1,33 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst_alloc.c                                        :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/14 17:30:48 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/05/30 18:32:15 by flohrel          ###   ########.fr       */
+/*   Created: 2021/04/16 15:44:07 by mtogbe            #+#    #+#             */
+/*   Updated: 2021/05/29 19:11:39 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/memory.h"
+#include "minishell.h"
 
-void	*garbage_collector(size_t nmemb, size_t size, t_list **lst)
+int	pwd(char **args, t_vars *vars)
 {
-	void			*ptr;
-	t_list			*new;
+	char	*str;
+	t_env	*env;
 
-	if (!lst)
-		return (NULL);
-	ptr = ft_calloc(nmemb, size);
-	if (!ptr)
-		return (NULL);
-	new = ft_lstnew(ptr);
-	if (!new)
-	{
-		free(ptr);
-		return (NULL);
-	}
-	ft_lstadd_front(lst, new);
-	return (ptr);
+	(void)args;
+	env = vars->env;
+	str = get_env_value("PWD", env);
+	if (!str)
+		str = get_env_value("OLDPWD", env);
+	if (!str)
+		return (-1);
+	ft_putstr_fd(str, 1);
+	ft_putchar_fd('\n', 1);
+	return (1);
 }

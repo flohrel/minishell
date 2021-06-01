@@ -1,22 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
+/*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/11 18:09:13 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/29 18:40:45 by mtogbe           ###   ########.fr       */
+/*   Created: 2021/04/16 14:47:20 by mtogbe            #+#    #+#             */
+/*   Updated: 2021/05/12 15:22:15 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/list.h"
+#include "minishell.h"
 
-void	ft_lstadd_front(t_list **alst, t_list *new)
+int	cd(const char **args)
 {
-	if (new)
-	{
-		new->next = *alst;
-		*alst = new;
-	}
+	char		s[255];
+	const char	*path;
+
+	path = args[0];
+	if (chdir(path) < 0)
+		return (-1);
+	getcwd(s, 255);
+	printf("%s\n", s);
+	return (1);
 }

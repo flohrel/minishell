@@ -6,13 +6,13 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 02:02:42 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/30 18:26:12 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/01 16:25:03 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prompt.h"
 
-int		delete_handle(int *index)
+int	delete_handle(char *input, int *index)
 {
 	if (*index)
 		(*index)--;
@@ -32,7 +32,7 @@ void	eot_handle(t_vars *vars, int *index)
 }
 
 // EN CHANTIER
-int		input_handle(t_vars *vars, char *input, int size, int *index)
+int	input_handle(t_vars *vars, char *input, int size, int *index)
 {
 	(void)size;
 	if (*input == '\n')

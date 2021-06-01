@@ -6,15 +6,15 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 04:35:46 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/27 08:06:20 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/01 15:44:00 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-int		check_token(t_parser *parser, int type)
+int	check_token(t_parser *parser, int type)
 {
-	t_token *token;
+	t_token	*token;
 
 	token = (t_token *)parser->cur_tk->content;
 	if (token->type != type)

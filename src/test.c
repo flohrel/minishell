@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 01:03:40 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/29 09:58:44 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/05/30 18:35:16 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,9 @@ void	tree_display(t_ast *node, int level, int is_right)
 		printf("%s%s %d redir: ", root, horiz, ft_lstsize(node->data->redir));
 		ft_lstiter(node->data->redir, print_content);
 		printf("\n");
+		print_tabs(level);
 		printf("%s%s %d assign: ", branch, horiz, ft_lstsize(node->data->assign));
 		ft_lstiter(node->data->assign, print_content);
-		print_tabs(level);
 		printf("\n");
 		return ;
 	}

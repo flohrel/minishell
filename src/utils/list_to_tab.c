@@ -1,33 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst_alloc.c                                        :+:      :+:    :+:   */
+/*   list_to_tab.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/14 17:30:48 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/05/30 18:32:15 by flohrel          ###   ########.fr       */
+/*   Created: 2021/05/31 18:30:44 by mtogbe            #+#    #+#             */
+/*   Updated: 2021/05/31 18:59:24 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/memory.h"
+#include "minishell.h"
 
-void	*garbage_collector(size_t nmemb, size_t size, t_list **lst)
+char	**list_to_tab(t_list *lst, t_vars *vars)
 {
-	void			*ptr;
-	t_list			*new;
+	char	**result;
+	int		i;
+	int		size;
+	t_token	*token;
 
-	if (!lst)
+	size = ft_lstsize(lst);
+	i = 0;
+	result = lst_alloc(size + 1, sizeof(char *), vars);
+	if (!result)
 		return (NULL);
-	ptr = ft_calloc(nmemb, size);
-	if (!ptr)
-		return (NULL);
-	new = ft_lstnew(ptr);
-	if (!new)
+	while (i < size)
 	{
-		free(ptr);
-		return (NULL);
+		token = (t_token *)lst->content;
+		result[i++] = token->data;
+		lst = lst->next;
 	}
-	ft_lstadd_front(lst, new);
-	return (ptr);
+	result[i] = NULL;
+	return (result);
 }

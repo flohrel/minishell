@@ -1,22 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
+/*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/11 18:09:13 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/29 18:40:45 by mtogbe           ###   ########.fr       */
+/*   Created: 2021/05/31 19:23:42 by mtogbe            #+#    #+#             */
+/*   Updated: 2021/05/31 19:24:32 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/list.h"
+#ifndef EXEC_H
+# define EXEC_H
 
-void	ft_lstadd_front(t_list **alst, t_list *new)
-{
-	if (new)
-	{
-		new->next = *alst;
-		*alst = new;
-	}
-}
+# include "data.h"
+
+int	exec_cmd(t_vars *vars);
+
+#endif

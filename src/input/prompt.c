@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 11:42:38 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/29 10:32:32 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/01 16:25:25 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 void	display_prompt(void)
 {
-	write(1, PROMPT, ft_strlen(PROMPT));
+	ft_putstr_fd(BGRN, STDERR_FILENO);
+	ft_putstr_fd(PROMPT, STDERR_FILENO);
+	ft_putstr_fd(RESET, STDERR_FILENO);
 }
 
 void	init_term(t_vars *vars)
