@@ -25,6 +25,7 @@ BUILTINS	=	cd.c \
 				print_env.c \
 				pwd.c \
 				exec_cmd.c \
+				set_env_value.c \
 				unset.c
 
 EXEC		=	

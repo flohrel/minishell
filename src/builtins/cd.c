@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 14:47:20 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/05/12 15:22:15 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/06/02 19:57:45 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	cd(char **args, t_vars *vars)
 {
 	char		s[255];
 	const char	*path;
-	DIR		*dir;
+	DIR			*dir;
 
 	if (ft_tablen(args) > 1)
 		return (errormsg("cd : too many arguments", NULL));
@@ -42,8 +42,11 @@ int	cd(char **args, t_vars *vars)
 		path = args[0];
 	}
 	if (chdir(path) < 0)
-		errormsg("cd : aucun fichier ou dossier de ce type : ", (char *)path);
+		return (errormsg("cd : aucun fichier ou dossier de ce type : ",
+					(char *)path));
+	vars->env = set_env_value(vars->env, "OLDPWD",
+			get_env_value("PWD", vars->env));
 	getcwd(s, 255);
-	errormsg(s, NULL);
+	vars->env = set_env_value(vars->env, "PWD", ft_strdup(s));
 	return (1);
 }
