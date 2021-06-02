@@ -18,6 +18,5 @@ int	exec_cmd(t_vars *vars)
 
 	param = vars->parser.exec_tree->data;
 	find_builtin(param->path, list_to_tab(param->arg, vars), vars);
-	printf("%s\n", param->path);
 	return (0);
 }
