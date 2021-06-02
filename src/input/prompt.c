@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 11:42:38 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/01 17:37:04 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/02 17:37:55 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,12 @@
 
 void	display_prompt(void)
 {
-	ft_putstr_fd(BGRN, STDERR_FILENO);
-	ft_putstr_fd(PROMPT, STDERR_FILENO);
-	ft_putstr_fd(RESET, STDERR_FILENO);
+	if (isatty(STDOUT_FILENO))
+	{
+		ft_putstr_fd(BGRN, STDERR_FILENO);
+		ft_putstr_fd(PROMPT, STDERR_FILENO);
+		ft_putstr_fd(RESET, STDERR_FILENO);
+	}
 }
 
 void	init_term(t_vars *vars)

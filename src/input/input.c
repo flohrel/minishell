@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 02:02:42 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/01 17:59:10 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/02 19:03:57 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,16 @@ int		input_handle(t_vars *vars, char *input, int size, int *index)
 		eot_handle(vars, index);
 	else if (*input < '\040')
 	{
+/*
+		if (input[2] == 'D')
+				tputs(tgetstr("le", NULL), 1, ft_putchar);
+			else if (input[2] == 'C')
+				tputs(tgetstr("nd", NULL), 1, ft_putchar);
+			else if (input[2] == 'A')
+				REMONTER HISTORIQUE
+			else if (input[2] == 'B')
+				DESCENDRE HISTORIQUE
+*/
 		tputs(tgetstr("rc", NULL), 1, ft_putchar);
 		tputs(tgetstr("ce", NULL), 1, ft_putchar);
 	}
