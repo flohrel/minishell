@@ -6,17 +6,20 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 11:42:38 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/01 15:18:22 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/02 17:37:55 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "prompt.h"
+#include "input.h"
 
 void	display_prompt(void)
 {
-	ft_putstr_fd(BGRN, STDERR_FILENO);
-	ft_putstr_fd(PROMPT, STDERR_FILENO);
-	ft_putstr_fd(RESET, STDERR_FILENO);
+	if (isatty(STDOUT_FILENO))
+	{
+		ft_putstr_fd(BGRN, STDERR_FILENO);
+		ft_putstr_fd(PROMPT, STDERR_FILENO);
+		ft_putstr_fd(RESET, STDERR_FILENO);
+	}
 }
 
 void	init_term(t_vars *vars)
@@ -60,11 +63,11 @@ void	ft_readline(t_vars *vars)
 	int		ret;
 	int		i;
 
-	size = 0;
 	i = 0;
 	ret = -1;
 	while (ret)
 	{
+		tputs(tgetstr("sc", NULL), 1, ft_putchar);
 		size = read(0, &buffer[i], 4);
 		ret = input_handle(vars, &buffer[i], size, &i);
 	}
