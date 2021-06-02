@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-static int	errormsg(char *str, char *arg)
+int	errormsg(char *str, char *arg)
 {
 	if (str)
 		ft_putstr_fd(str, 1);

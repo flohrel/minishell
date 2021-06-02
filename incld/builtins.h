@@ -31,6 +31,7 @@ int		ft_endwith(char *str, char c);
 int		ft_startwith(char *str, char c);
 int		ft_ischarset(char c, char *set);
 int		ft_tablen(char **args);
+int		errormsg(char *str, char *arg);
 char	*get_env_value(char *key, t_env *env);
 void	print_sorted_env(t_env *env);
 void	free_block(t_env *env);
