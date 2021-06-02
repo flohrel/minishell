@@ -16,20 +16,20 @@ int	my_echo(char **args, t_vars *vars)
 {
 	int	i;
 	int	j;
-	int	opt;
-
-	(void)vars;
-	opt = 0;
+	t_opt	options;
+	
 	i = 0;
-	while (args[i])
+	options = optionhandler(args, "n", vars);
+	while (options.args[i])
 	{
 		j = 0;
-		while (args[i][j])
-			write(1, &(args[i][j++]), 1);
-		write(1, " ", 1);
+		while (options.args[i][j])
+			write(1, &(options.args[i][j++]), 1);
 		i++;
+		if (options.args[i])
+			write(1, " ", 1);
 	}
-	if (opt)
+	if (!(options.optflag[0]))
 		write(1, "\n", 1);
 	return (1);
 }

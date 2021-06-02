@@ -43,6 +43,7 @@ int	main(int argc, char **argv, char **envp)
 	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, sigquit_handler);
 	init_term(&vars);
+	vars.env = parse_env(envp, &vars);
 	while (isatty(0))
 	{
 		init_vars(&vars);

@@ -17,7 +17,8 @@ int	pwd(char **args, t_vars *vars)
 	char	*str;
 	t_env	*env;
 
-	(void)args;
+	if (ft_tablen(args))
+		return (errormsg("pwd : too many argument", ""));
 	env = vars->env;
 	str = get_env_value("PWD", env);
 	if (!str)

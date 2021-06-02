@@ -1,31 +1,52 @@
 #include "minishell.h"
 
-static char	*check_options(char *str, char *opt, char *flags, t_vars *vars)
+static int	check_flags(char *str, char *opt)
 {
-	int		i;
-	char	*result;
-	t_list	*new;
-	char	f[1];
+	int	i;
 
 	i = 0;
 	while (str[i])
 	{
-		if (ft_ischarset(str[i], flags))
+		if (!(ft_ischarset(str[i], opt)))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+static int	check_options(char *str, char *opt, char **flags, t_vars *vars)
+{
+	int		i;
+	t_list	*new;
+	char	f[1];
+
+	i = 0;
+	if (check_flags(str, opt) == 0)
+		return (0);
+	while (str[i])
+	{
+		if (ft_ischarset(str[i], *flags))
 		{
 			i++;
 			continue ;
 		}
-		if (!(ft_ischarset(str[i], opt)))
-			return (NULL);
 		f[0] = str[i++];
-		result = ft_strjoin(flags, f);
-		if (!result)
-			return (NULL);
-		new = ft_lstnew((void *)result);
+		*flags = ft_strjoin(*flags, f);
+		if (!(*flags))
+			return (-1);
+		new = ft_lstnew((void *)*flags);
 		if (!new)
-			return (NULL);
+			return (-1);
 		ft_lstadd_front(&vars->ptr_list, new);
 	}
+	return (1);
+}
+
+t_opt	nullopt()
+{
+	t_opt	result;
+
+	result.optflag = NULL;
+	result.args = NULL;
 	return (result);
 }
 
@@ -34,19 +55,30 @@ t_opt	optionhandler(char **args, char *opt, t_vars *vars)
 	t_opt	options;
 	int		i;
 	int		j;
+	int		ret;
 
 	j = 0;
 	i = 0;
+	options.optflag = "";
 	while (args[i] && ft_startwith(args[i], '-'))
 	{
-		options.optflag = check_options(args[i++] + 1, opt,
-				options.optflag, vars);
+		ret = check_options(args[i] + 1, opt,
+					&(options.optflag), vars);
+		if (ret < 0)
+			return (nullopt());
+		else if (ret == 0)
+			break;
+		i++;
 	}
-	options.args = lst_alloc(ft_tablen(args + i), sizeof(char *),
+	printf ("flags : %s\n", options.optflag);
+	printf ("args : %s\n", args[i]);
+	options.args = lst_alloc(ft_tablen(args + i) + 1, sizeof(char *),
 			vars);
 	if (!(options.args))
 		return (options);
 	while (args[i])
 		options.args[j++] = args[i++];
+	printf ("args : %s\n", options.args[0]);
+	options.args[j] = NULL;
 	return (options);
 }
