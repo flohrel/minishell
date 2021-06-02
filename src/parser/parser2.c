@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/09 17:56:30 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/01 16:29:46 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/02 15:47:17 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	var_expansion(char *buffer, int *index, char **data)
 		if (is_charset("\'\" ", *str))
 		{
 			tmp = *str;
-			*str = '\0';					// ICI GROS PROBLEME
+			*str = '\0';
 			var = getenv(*data + 1);
 			*str = tmp;
 			break ;
@@ -44,7 +44,7 @@ void	var_expansion(char *buffer, int *index, char **data)
 	}
 	size = ft_strlen(var);
 	ft_strlcpy(&buffer[*index], var, size + 1);
-	(*index) += (size + ft_strlen(*data));
+	(*index) += size;
 	*data = str - 1;
 }
 
@@ -70,28 +70,31 @@ int	parse_word2(t_vars *vars, char **data, char *buffer)
 	return (0);
 }
 
-void	parse_word1(int *state, char *str, char *buffer, int *index)
+void	parse_word1(int *state, char **str, char *buffer, int *index)
 {
-	if ((*str == '\'') && (*state != ST_DQUOTE))
+	char	c;
+
+	c = **str;
+	if ((c == '\'') && (*state != ST_DQUOTE))
 	{
 		if (*state == ST_GENERAL)
 			*state = ST_QUOTE;
 		else
 			*state = ST_GENERAL;
 	}
-	else if ((*str == '\"') && (*state != ST_QUOTE))
+	else if ((c == '\"') && (*state != ST_QUOTE))
 	{
 		if (*state == ST_GENERAL)
 			*state = ST_DQUOTE;
 		else
 			*state = ST_GENERAL;
 	}
-	else if (*str == '\\')
-		buffer[(*index)++] = *(++str);
-	else if ((*str == '$') && (*state != ST_QUOTE))
-		var_expansion(buffer, index, &str);
+	else if (c == '\\')
+		buffer[(*index)++] = *(++(*str));
+	else if ((c == '$') && (*state != ST_QUOTE))
+		var_expansion(buffer, index, str);
 	else
-		buffer[(*index)++] = *str;
+		buffer[(*index)++] = c;
 }
 
 int	parse_word(t_vars *vars, t_lexer *lexer, char **data)
@@ -103,7 +106,7 @@ int	parse_word(t_vars *vars, t_lexer *lexer, char **data)
 	index = 0;
 	str = *data - 1;
 	while (*(++str))
-		parse_word1(&lexer->state, str, buffer, &index);
+		parse_word1(&lexer->state, &str, buffer, &index);
 	buffer[index] = '\0';
 	return (parse_word2(vars, data, buffer));
 }
