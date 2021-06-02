@@ -21,7 +21,7 @@ int	find_builtin(char *path, char **args, t_vars *vars)
 	}
 	else if (ft_strcmp("cd", path) == 0)
 	{
-		if (cd((const char **)args) < 0)
+		if (cd(args, vars) < 0)
 			return (-1);
 	}
 	else if (ft_strcmp("pwd", path) == 0)
