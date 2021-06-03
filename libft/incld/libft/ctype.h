@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 15:29:20 by flohrel           #+#    #+#             */
-/*   Updated: 2021/02/23 03:19:25 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/03 17:54:29 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@ int				ft_isprint(int c);
 int				ft_isspace(int c);
 int				ft_tolower(int c);
 int				ft_toupper(int c);
+int				is_charset(const char *set, char c);
 
 #endif

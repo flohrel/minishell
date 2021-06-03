@@ -6,22 +6,11 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/09 17:56:30 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/02 15:47:17 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/03 17:55:49 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
-
-int	is_charset(const char *charset, char c)
-{
-	while (*charset)
-	{
-		if (c == *charset || !c)
-			return (1);
-		charset++;
-	}
-	return (0);
-}
 
 void	var_expansion(char *buffer, int *index, char **data)
 {
@@ -33,7 +22,7 @@ void	var_expansion(char *buffer, int *index, char **data)
 	str = *data;
 	while (*(str++))
 	{
-		if (is_charset("\'\" ", *str))
+		if (!(*str) || is_charset("\'\" ", *str))
 		{
 			tmp = *str;
 			*str = '\0';

@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 19:05:43 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/06/03 17:17:41 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/03 18:00:00 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,14 @@
 
 void	exec_command(t_vars *vars, t_ast *node)
 {
+	(void)vars;
+	(void)node;
 }
 
 void	exec_pipeline(t_vars *vars, t_ast *node)
 {
+	(void)vars;
+	(void)node;
 }
 
 void	exec_job(t_vars *vars, t_ast *node)
