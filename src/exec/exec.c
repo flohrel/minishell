@@ -14,6 +14,10 @@
 
 void	exec_command(t_vars *vars, t_ast *node)
 {
+	t_param	*param;
+
+	param = node->data;
+	find_builtin(param->path, list_to_tab(param->arg, vars), vars);
 	(void)vars;
 	(void)node;
 }
@@ -34,9 +38,14 @@ void	exec_job(t_vars *vars, t_ast *node)
 
 void	exec_cmdline(t_vars *vars, t_ast *node)
 {
-	if (node->type == NODE_SEQ)
+	if (node->type == NODE_SEQ && node->right)
+	{
 		exec_cmdline(vars, node->right);
-	exec_job(vars, node->left);
+	}
+	if (node->left)
+		exec_job(vars, node->left);
+	else if (node)
+		exec_job(vars, node);
 }
 
 void	exec_ast(t_vars *vars, t_ast *root)

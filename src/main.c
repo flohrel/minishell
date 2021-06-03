@@ -43,7 +43,7 @@ int	main(int argc, char **argv, char **envp)
 	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, sigquit_handler);
 	init_term(&vars);
-	vars.env = parse_env(envp);
+	vars.env = parse_env(envp, &vars);
 	while (isatty(0))
 	{
 		init_vars(&vars);
@@ -53,7 +53,7 @@ int	main(int argc, char **argv, char **envp)
 		if (parser(&vars, &vars.lexer, &vars.parser) == 0)
 		{
 			tree_display(vars.parser.exec_tree, 0, 0);
-//			exec_ast(&vars, vars.parser.exec_tree);
+			exec_ast(&vars, vars.parser.exec_tree);
 		}
 		free_ptr_lst(&vars.ptr_list);
 	}
