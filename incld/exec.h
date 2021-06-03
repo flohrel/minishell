@@ -15,6 +15,7 @@
 
 # include "data.h"
 
-int	exec_cmd(t_vars *vars);
+int	exec_cmd(t_vars *vars, char **envp);
+int	find_cmd(char *path, char **argv, char **envp, t_vars *vars);
 
 #endif

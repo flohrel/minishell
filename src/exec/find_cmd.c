@@ -17,31 +17,35 @@
 #include <string.h>
 #include "minishell.h"
 
-int	ft_ischarset(char *set, char c)
+char	*create_path(char *path, char *cmd)
 {
-	int	i;
+	char	*result;
 
-	i = 0;
-	while (set[i])
-	{
-		if (set[i] == c)
-			return (1);
-		i++;
-	}
-	return (0);
+	result = ft_strjoin(path, "/");
+	if (!result)
+		return (NULL);
+	result = ft_strjoin(result, cmd);
+	if (!result)
+		return (NULL);
+	return (result);
 }
 
-int	find_cmd(char *path, char **argv, char **envp)
+int	find_cmd(char *path, char **argv, char **envp, t_vars *vars)
 {
-	DIR				*dir;
-	struct dirent	*s_dir;
+//	DIR				*dir;
+//	struct dirent	*s_dir;
+	char		**paths;
+	int		i;
+	char		*path_x;
 
-	if (ft_ischarset(path, '/'))
+	i = 0;
+	if (ft_ischarset('/', path))
 	{
 		if (execve(path, argv, envp) < 0)
-			printf("bash : %s: No such file or directory.");
+			printf("bash : %s: No such file or directory.", path);
+		ft_putstr_fd("executing\n", 1);
 	}
-	else
+	/*else
 	{
 		dir = opendir("/bin/");
 		do
@@ -52,13 +56,21 @@ int	find_cmd(char *path, char **argv, char **envp)
 				printf("exec %s\n", s_dir->d_name);
 			}
 		} while (s_dir);
-	}
+		closedir(dir);
+	}*/
 	// ou directment faire un execve avec le path "/bin/" + pathname
-	closedir(dir);
+	paths = ft_split(get_env_value("PATH", vars->env), ':');
+	if (!paths)
+		return (-1);
+	while (paths[i])
+	{
+		path_x = create_path(paths[i], path);
+		if (!path_x)
+			return (-1);
+		if (execve(path_x, argv, envp) < 0)
+			i++;
+		else
+			return (1);
+	}
 	return (1);
-}
-
-int	main(int ac, char **av, char **envp)
-{
-	find_cmd(av[1], av + 1, envp);
 }

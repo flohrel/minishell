@@ -53,7 +53,7 @@ int	main(int argc, char **argv, char **envp)
 		if (parser(&vars, &vars.lexer, &vars.parser) == 0)
 		{
 			tree_display(vars.parser.exec_tree, 0, 0);
-			exec_cmd(&vars);
+			exec_cmd(&vars, envp);
 		}
 		free_ptr_lst(&vars.ptr_list);
 	}
