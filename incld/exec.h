@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 19:23:42 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/05/31 19:24:32 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/06/03 13:46:44 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 
 # include "data.h"
 
-int	exec_cmd(t_vars *vars);
+void	exec_ast(t_vars *vars, t_ast *root);
 
 #endif
