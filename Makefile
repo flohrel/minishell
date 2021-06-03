@@ -28,6 +28,7 @@ BUILTINS	=	cd.c \
 				ft_tablen.c \
 				ft_strisdigit.c \
 				get_env_value.c \
+				set_env_value.c \
 				optionhandle.c \
 				parse_env.c \
 				print_env.c \

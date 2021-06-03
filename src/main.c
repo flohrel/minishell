@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 15:29:11 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/03 18:03:04 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/03 18:30:15 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	main(int argc, char **argv, char **envp)
 	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, sigquit_handler);
 	init_term(&vars);
-	vars.env = parse_env(envp, &vars);
+	vars.env = parse_env(envp);
 	while (isatty(0))
 	{
 		init_vars(&vars);
