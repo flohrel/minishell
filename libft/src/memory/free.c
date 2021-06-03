@@ -6,13 +6,13 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 16:57:48 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/05/26 18:43:12 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/04 01:23:07 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/memory.h"
 
-void			free_ptr(void *ptr, t_list **head)
+void	free_ptr(void *ptr, t_list **head)
 {
 	t_list	*lst;
 	t_list	*tmp;
@@ -39,7 +39,7 @@ void			free_ptr(void *ptr, t_list **head)
 	}
 }
 
-void			free_ptr_lst(t_list **lst)
+void	free_ptr_lst(t_list **lst)
 {
 	t_list	*tmp;
 

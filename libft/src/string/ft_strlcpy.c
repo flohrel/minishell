@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 02:12:43 by flohrel           #+#    #+#             */
-/*   Updated: 2021/01/16 15:58:30 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/04 01:54:16 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,11 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 	if (n != 0)
 	{
 		while (--n)
-			if ((*dst++ = *s++) == '\0')
+		{
+			*dst++ = *s++;
+			if (*dst == '\0')
 				break ;
+		}
 	}
 	if (!n)
 	{

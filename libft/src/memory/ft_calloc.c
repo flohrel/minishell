@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/03 23:35:35 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/20 17:26:25 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/06/04 01:22:39 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	*ft_calloc(size_t nmemb, size_t size)
 		maxsqrt = 65535;
 	else
 		maxsqrt = 4294967295;
-	if (((nmemb > maxsqrt) || (size > maxsqrt)) &&
-		((SIZE_MAX / nmemb) < size))
+	if (((nmemb > maxsqrt) || (size > maxsqrt))
+		&& ((SIZE_MAX / nmemb) < size))
 		return (NULL);
 	tsize = nmemb * size;
 	ptr = malloc(tsize);

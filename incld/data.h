@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 15:01:51 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/03 19:55:25 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/04 00:49:04 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ struct				s_vars
 	t_lexer			lexer;
 	t_parser		parser;
 	t_list			*ptr_list;
-	char			*hist_file;
+	t_dlist			*history;
 	t_env			*env;
 };
 

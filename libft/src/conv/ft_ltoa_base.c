@@ -6,13 +6,13 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:50:37 by flohrel           #+#    #+#             */
-/*   Updated: 2021/02/08 18:49:41 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/04 01:34:33 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/conv.h"
 
-static int		ft_isvalid(char *base)
+static int	ft_isvalid(char *base)
 {
 	char	*ptr;
 
@@ -57,7 +57,7 @@ static size_t	str_alloc(long n, char **str, size_t base_len)
 	return (str_len);
 }
 
-static void		base_convert(unsigned long n, char *str, char *base,
+static void	base_convert(unsigned long n, char *str, char *base,
 		size_t base_len)
 {
 	if (n >= base_len)
@@ -65,15 +65,15 @@ static void		base_convert(unsigned long n, char *str, char *base,
 	*str = base[n % base_len];
 }
 
-char			*ft_ltoa_base(long n, char *base)
+char	*ft_ltoa_base(long n, char *base)
 {
 	size_t			str_len;
 	size_t			base_len;
 	char			*str;
 
 	base_len = ft_strlen(base);
-	if (!ft_isvalid(base) ||
-		base_len < 2)
+	if (!ft_isvalid(base)
+		|| base_len < 2)
 		return (NULL);
 	str = NULL;
 	str_len = str_alloc(n, &str, base_len);

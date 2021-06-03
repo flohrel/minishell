@@ -1,35 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*   ft_dlstnew.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/11 19:38:57 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/04 01:11:40 by flohrel          ###   ########.fr       */
+/*   Created: 2020/12/11 18:01:07 by flohrel           #+#    #+#             */
+/*   Updated: 2021/06/04 00:51:17 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/list.h"
+#include "libft/dlist.h"
 
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+t_dlist	*ft_dlstnew(void *content)
 {
-	t_list	*new_lst;
-	t_list	*tmp;
+	t_dlist	*new;
 
-	if (!lst || !f)
-		return (NULL);
-	new_lst = NULL;
-	while (lst)
-	{
-		tmp = ft_lstnew(f(lst->content));
-		if (!tmp)
-		{
-			ft_lstclear(&new_lst, del);
-			return (NULL);
-		}
-		ft_lstadd_back(&new_lst, tmp);
-		lst = lst->next;
-	}
-	return (new_lst);
+	new = ft_calloc(1, sizeof(*new));
+	if (!new)
+		return (new);
+	new->content = content;
+	new->next = NULL;
+	new->prev = NULL;
+	return (new);
 }

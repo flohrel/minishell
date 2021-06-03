@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 16:14:36 by flohrel           #+#    #+#             */
-/*   Updated: 2021/01/16 15:56:05 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/04 01:52:16 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	*ft_memset(void *s, int c, size_t n)
 {
-	char *str;
+	char	*str;
 
 	str = (char *)s;
 	while (n--)

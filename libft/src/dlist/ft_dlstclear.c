@@ -1,35 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*   ft_dlstclear.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/11 19:38:57 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/04 01:11:40 by flohrel          ###   ########.fr       */
+/*   Created: 2020/12/11 18:51:19 by flohrel           #+#    #+#             */
+/*   Updated: 2021/06/04 01:04:36 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/list.h"
+#include "libft/dlist.h"
 
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+void	ft_dlstclear(t_dlist **lst, void (*del)(void *))
 {
-	t_list	*new_lst;
-	t_list	*tmp;
+	t_dlist	*lptr;
+	t_dlist	*next;
 
-	if (!lst || !f)
-		return (NULL);
-	new_lst = NULL;
-	while (lst)
+	if (lst && *lst && del)
 	{
-		tmp = ft_lstnew(f(lst->content));
-		if (!tmp)
+		lptr = *lst;
+		while (lptr)
 		{
-			ft_lstclear(&new_lst, del);
-			return (NULL);
+			next = lptr->next;
+			ft_dlstdelone(lptr, del);
+			lptr = next;
 		}
-		ft_lstadd_back(&new_lst, tmp);
-		lst = lst->next;
+		*lst = NULL;
 	}
-	return (new_lst);
 }

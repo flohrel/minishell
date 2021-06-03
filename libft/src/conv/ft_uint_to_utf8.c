@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 10:13:28 by flohrel           #+#    #+#             */
-/*   Updated: 2021/02/19 10:17:33 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/04 01:34:55 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static char	*onebyte_utf(const uint32_t c)
 	return (ret);
 }
 
-char		*ft_uint_to_utf8(const uint32_t c)
+char	*ft_uint_to_utf8(const uint32_t c)
 {
 	if (c < 0x80)
 		return (onebyte_utf(c));

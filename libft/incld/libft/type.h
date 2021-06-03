@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 14:56:49 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/26 17:27:27 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/04 01:22:00 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,23 @@
 
 # include <stdint.h>
 # include <stddef.h>
+# include <stdbool.h>
 # include <limits.h>
 
-# define TRUE		1
-# define FALSE		0
+typedef struct s_list	t_list;
+typedef struct s_dlist	t_dlist;
 
-typedef char		t_bool;
-
-typedef struct		s_list
+struct s_list
 {
-	void			*content;
-	struct s_list	*next;
-}					t_list;
+	void	*content;
+	t_list	*next;
+};
+
+struct s_dlist
+{
+	void	*content;
+	t_dlist	*prev;
+	t_dlist	*next;
+};
 
 #endif
