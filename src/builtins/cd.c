@@ -22,28 +22,35 @@ int	errormsg(char *str, char *arg)
 	return (1);
 }
 
+static int      check_error(char *path)
+{
+        int     fd;
+
+        fd = open(path, O_RDONLY);
+        if (fd < 0)
+                return (errormsg("cd : aucun fichier ou dossier de ce type : "
+                                        , path));
+        else
+        {
+                close(fd);
+                return (errormsg("cd : n'est pas un dossier : ", path));
+        }
+        return (1);
+}
+
 int	cd(char **args, t_vars *vars)
 {
 	char		s[255];
 	const char	*path;
-	DIR			*dir;
 
 	if (ft_tablen(args) > 1)
 		return (errormsg("cd : too many arguments", NULL));
 	if (ft_tablen(args) == 0)
 		path = (get_env_value("HOME", vars->env));
 	else
-	{
-		dir = opendir(args[0]);
-		if (!dir)
-			return (errormsg("cd : n'est pas un dossier : ",
-						args[0]));
-		closedir(dir);
 		path = args[0];
-	}
 	if (chdir(path) < 0)
-		return (errormsg("cd : aucun fichier ou dossier de ce type : ",
-					(char *)path));
+		return (check_error((char *)path));
 	vars->env = set_env_value(vars->env, "OLDPWD",
 			get_env_value("PWD", vars->env));
 	getcwd(s, 255);

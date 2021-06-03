@@ -16,6 +16,8 @@
 # include "data.h"
 # include <dirent.h>
 # include <sys/types.h>
+# include <sys/stat.h>
+# include <fcntl.h>
 
 t_env	*g_env;
 
