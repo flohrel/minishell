@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 15:01:51 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/01 15:12:40 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/03 17:18:09 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,12 @@ enum				e_node
 	NODE_CMD,
 };
 
+enum				e_io
+{
+	FD_IN,
+	FD_OUT,
+}
+
 typedef struct s_env		t_env;
 typedef struct s_lexer		t_lexer;
 typedef struct s_parser		t_parser;
@@ -60,6 +66,7 @@ typedef struct s_term		t_term;
 typedef struct s_env		t_env;
 typedef struct s_vars		t_vars;
 typedef struct s_opt		t_opt;
+typedef struct s_cmd		t_cmd;
 
 struct				s_dlist
 {
@@ -132,8 +139,16 @@ struct				s_vars
 
 struct				s_opt
 {
-	char	*optflag;
-	char	**args;
+	char			*optflag;
+	char			**args;
+};
+
+struct				s_cmd
+{
+	bool			is_builtin;
+	char			*full_path;
+	char			**arg;
+	int				fd[2];
 };
 
 #endif
