@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 14:54:10 by flohrel           #+#    #+#             */
-/*   Updated: 2021/02/23 03:34:16 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/03 18:00:33 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define STRING_H
 
 # include <unistd.h>
+# include "ctype.h"
 # include "type.h"
 # include "memory.h"
 

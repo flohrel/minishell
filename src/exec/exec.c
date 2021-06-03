@@ -6,20 +6,40 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 19:05:43 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/05/31 19:34:12 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/06/03 18:02:49 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	exec_cmd(t_vars *vars, char **envp)
+void	exec_command(t_vars *vars, t_ast *node)
 {
-	t_param	*param;
-	char	**args;
+	(void)vars;
+	(void)node;
+}
 
-	param = vars->parser.exec_tree->data;
-	args = list_to_tab(param->arg, vars);
-	find_builtin(param->path, args, vars);
-	find_cmd(param->path, args, envp, vars);
-	return (0);
+void	exec_pipeline(t_vars *vars, t_ast *node)
+{
+	(void)vars;
+	(void)node;
+}
+
+void	exec_job(t_vars *vars, t_ast *node)
+{
+	if (node->type == NODE_PIPE)
+		exec_pipeline(vars, node);
+	else
+		exec_command(vars, node);
+}
+
+void	exec_cmdline(t_vars *vars, t_ast *node)
+{
+	if (node->type == NODE_SEQ)
+		exec_cmdline(vars, node->right);
+	exec_job(vars, node->left);
+}
+
+void	exec_ast(t_vars *vars, t_ast *root)
+{
+	exec_cmdline(vars, root);
 }

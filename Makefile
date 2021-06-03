@@ -12,7 +12,7 @@ VPATH		=	src \
 				src/parser \
 				src/utils
 OBJDIR		=	obj
-LIBDIR		=	lib
+LIBDIR		=	libft
 INCLDIR		=	incld
 
 BUILTINS	=	cd.c \
@@ -32,12 +32,9 @@ BUILTINS	=	cd.c \
 				parse_env.c \
 				print_env.c \
 				pwd.c \
-				exec_cmd.c \
-				find_cmd.c \
-				set_env_value.c \
 				unset.c
 
-EXEC		=	
+EXEC		=	exec.c
 
 INPUT		=	input.c \
 				prompt.c
@@ -71,8 +68,8 @@ OBJ			=	$(SRC:%.c=$(OBJDIR)/%.o)
 
 CC			=	gcc
 CFLAGS		=	-Wall -Werror -Wextra -g3
-INCFLAGS	=	-I./$(INCLDIR) -I./$(LIBDIR)/libft/incld
-LFLAGS		=	-L./$(LIBDIR)/libft -lft -lncurses
+INCFLAGS	=	-I./$(INCLDIR) -I./$(LIBDIR)/incld
+LFLAGS		=	-L./$(LIBDIR) -lft -lncurses
 RM			=	/bin/rm -rf
 UNAME		:=	$(shell uname -s)
 
@@ -89,7 +86,7 @@ $(OBJDIR)/%.o:	%.c | $(OBJDIR)
 				$(CC) $(CFLAGS) $(INCFLAGS) -c $< -o $@
 
 $(NAME):		$(OBJ)
-				make -C $(LIBDIR)/libft
+				make -C $(LIBDIR)
 				$(CC) $(CFLAGS) -o $@ $^ $(LFLAGS)
 
 $(OBJDIR):
