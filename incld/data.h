@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 15:01:51 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/03 17:58:08 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/03 19:55:25 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,19 +60,19 @@ typedef struct s_vars		t_vars;
 typedef struct s_token		t_token;
 typedef struct s_ast		t_ast;
 typedef struct s_param		t_param;
-typedef struct s_dlist		t_dlist;
 typedef struct s_assign		t_assign;
 typedef struct s_term		t_term;
 typedef struct s_env		t_env;
 typedef struct s_vars		t_vars;
 typedef struct s_opt		t_opt;
 typedef struct s_cmd		t_cmd;
+typedef struct s_hist		t_hist;
 
-struct				s_dlist
+struct				s_hist
 {
-	char			*data;
-	t_dlist			*next;
-	t_dlist			*prev;
+	int				cursor_pos;
+	char			*input;
+	int				len;
 };
 
 struct				s_token
@@ -132,8 +132,8 @@ struct				s_vars
 	t_term			termios;
 	t_lexer			lexer;
 	t_parser		parser;
-	t_dlist			*history;
 	t_list			*ptr_list;
+	char			*hist_file;
 	t_env			*env;
 };
 

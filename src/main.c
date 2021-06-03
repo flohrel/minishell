@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 15:29:11 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/03 17:58:28 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/03 19:49:29 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	sigquit_handler(int signum)
 
 void	init_vars(t_vars *vars)
 {
+//	hist_import(vars);
 	vars->lexer.tk_list = NULL;
 	vars->lexer.buffer = NULL;
 	vars->ptr_list = NULL;
@@ -56,5 +57,6 @@ int	main(int argc, char **argv, char **envp)
 		}
 		free_ptr_lst(&vars.ptr_list);
 	}
+//	hist_export(vars);
 	return (0);
 }
