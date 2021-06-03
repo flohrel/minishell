@@ -16,12 +16,15 @@ int	print_env(char **args, t_vars *vars)
 {
 	t_env	*tmp;
 
-	(void)args;
+	if (ft_tablen(args) > 0)
+		return (errormsg("env :", " trop d'arguments"));
 	tmp = vars->env;
 	while (tmp)
 	{
-		printf("%s=", tmp->key);
-		printf("%s\n", tmp->value);
+		ft_putstr_fd(tmp->key, 1);
+		ft_putstr_fd("=", 1);
+		ft_putstr_fd(tmp->value, 1);
+		ft_putstr_fd("\n", 1);
 		tmp = tmp->next;
 	}
 	return (1);

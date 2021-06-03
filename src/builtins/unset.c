@@ -62,6 +62,12 @@ static t_env	*unset_key(char *key, t_env *env)
 
 int	unset(char **args, t_vars *vars)
 {
-	vars->env = unset_key(args[0], vars->env);
+	int	i;
+
+	i = 0;
+	while (args && args[i])
+	{
+		vars->env = unset_key(args[i++], vars->env);
+	}
 	return (1);
 }

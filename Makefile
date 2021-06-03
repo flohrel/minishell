@@ -19,12 +19,14 @@ BUILTINS	=	cd.c \
 				echo.c \
 				env_utils.c \
 				export.c \
+				exit_b.c \
 				find_builtin.c \
 				ft_already.c \
 				ft_endwith.c \
 				ft_ischarset.c \
 				ft_startwith.c \
 				ft_tablen.c \
+				ft_strisdigit.c \
 				get_env_value.c \
 				optionhandle.c \
 				parse_env.c \

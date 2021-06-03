@@ -1,16 +1,17 @@
 #include "minishell.h"
 
-/*static int	find_builtin_next(char *path, char **args, t_vars *vars)
+static int	find_builtin_next(char *path, char **args, t_vars *vars)
 {
-	if (ft_strcmp("env", path))
+	if (ft_strcmp("env", path) == 0)
 	{
-		print_env(args, vars->env);
+		print_env(args, vars);
 	}
-	else if (ft_strcmp("exit", path))
+	else if (ft_strcmp("exit", path) == 0)
 	{
-		clean_exit(etc);
+		exit_b(args, vars);
 	}
-}*/
+	return (1);
+}
 
 int	find_builtin(char *path, char **args, t_vars *vars)
 {
@@ -34,6 +35,6 @@ int	find_builtin(char *path, char **args, t_vars *vars)
 		if (unset(args, vars) < 0)
 			return (-1);
 	}
-	//find_builtin_next(path, args, vars);
+	find_builtin_next(path, args, vars);
 	return (1);
 }
