@@ -37,7 +37,8 @@ BUILTINS	=	cd.c \
 
 EXEC		=	exec.c
 
-INPUT		=	input.c \
+INPUT		=	history.c \
+				input.c \
 				prompt.c
 
 LEXER		=	lexer.c \

@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/18 02:36:25 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/31 19:03:20 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/06/04 02:15:03 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int		syntax_error(t_token *token);
 void	*lst_alloc(size_t nmemb, size_t size, t_vars *vars);
 
 /*
- ** conversion 
+ **		list_to_tab.c
  */
 char	**list_to_tab(t_list *lst, t_vars *vars);
 
