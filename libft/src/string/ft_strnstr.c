@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 03:51:28 by flohrel           #+#    #+#             */
-/*   Updated: 2021/01/16 15:57:38 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/04 01:48:58 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,20 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
 	size_t	lsize;
 
-	if (!(lsize = ft_strlen(little)))
+	lsize = ft_strlen(little);
+	if (!lsize)
 		return ((char *)big);
-	if (len && (len -= (lsize - 1)) > 0)
+	if (len)
 	{
-		while (len-- && *big)
+		len -= (lsize - 1);
+		if (len > 0)
 		{
-			if (!ft_strncmp(big, little, lsize))
-				return ((char *)big);
-			big++;
+			while (len-- && *big)
+			{
+				if (!ft_strncmp(big, little, lsize))
+					return ((char *)big);
+				big++;
+			}
 		}
 	}
 	return (NULL);

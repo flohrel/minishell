@@ -1,22 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
+/*   ft_dlstsize.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/11 18:09:13 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/29 18:40:45 by mtogbe           ###   ########.fr       */
+/*   Created: 2020/12/11 18:13:36 by flohrel           #+#    #+#             */
+/*   Updated: 2021/06/04 01:01:50 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/list.h"
+#include "libft/dlist.h"
 
-void	ft_lstadd_front(t_list **alst, t_list *new)
+int	ft_dlstsize(t_dlist *lst)
 {
-	if (new)
-	{
-		new->next = *alst;
-		*alst = new;
-	}
+	if (!lst)
+		return (0);
+	return (1 + ft_dlstsize(lst->next));
 }

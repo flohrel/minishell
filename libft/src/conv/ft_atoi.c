@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 12:20:33 by flohrel           #+#    #+#             */
-/*   Updated: 2021/01/16 15:52:38 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/04 01:25:44 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	check_overflow(unsigned int nb, int nptr, int sign)
 {
-	unsigned int n;
+	unsigned int	n;
 
 	if (sign > 0)
 		n = (INT_MAX - nptr + '0') / 10;
@@ -25,7 +25,7 @@ static int	check_overflow(unsigned int nb, int nptr, int sign)
 	return (0);
 }
 
-int			ft_atoi(const char *nptr)
+int	ft_atoi(const char *nptr)
 {
 	int	nb;
 	int	sign;
@@ -33,8 +33,8 @@ int			ft_atoi(const char *nptr)
 	while (ft_isspace(*nptr))
 		nptr++;
 	sign = 1;
-	if (((*nptr == '-') || (*nptr == '+')) &&
-		(*nptr++ == '-'))
+	if (((*nptr == '-') || (*nptr == '+'))
+		&& (*nptr++ == '-'))
 		sign = -sign;
 	nb = 0;
 	while (ft_isdigit(*nptr))

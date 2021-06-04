@@ -6,7 +6,7 @@
 #    By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/16 16:04:42 by flohrel           #+#    #+#              #
-#    Updated: 2021/06/03 17:47:46 by flohrel          ###   ########.fr        #
+#    Updated: 2021/06/04 01:18:06 by flohrel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ NAME		=	libft.a
 
 VPATH		=	src/conv \
 				src/ctype \
+				src/dlist \
 				src/io \
 				src/list \
 				src/memory \
@@ -46,6 +47,16 @@ CTYPE		=	ft_isalnum.c \
 				ft_tolower.c \
 				ft_toupper.c \
 				is_charset.c
+
+DLIST		=	ft_dlstadd_back.c \
+				ft_dlstadd_front.c \
+				ft_dlstclear.c \
+				ft_dlstdelone.c \
+				ft_dlstiter.c \
+				ft_dlstlast.c \
+				ft_dlstmap.c \
+				ft_dlstnew.c \
+				ft_dlstsize.c
 
 IO			=	ft_putchar.c \
 				ft_putchar_fd.c \
@@ -92,7 +103,14 @@ STR			=	ft_memccpy.c \
 GNL			=	get_next_line.c \
 				gnl_utils.c
 
-SRC			=	$(CONV) $(CTYPE) $(IO) $(LIST) $(MEM) $(STR) $(GNL)
+SRC			=	$(CONV) \
+				$(CTYPE) \
+				$(DLIST) \
+				$(IO) \
+				$(LIST) \
+				$(MEM) \
+				$(STR) \
+				$(GNL)
 OBJ			=	$(SRC:%.c=$(OBJDIR)/%.o)
 
 CC			=	gcc

@@ -6,11 +6,17 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 10:17:42 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/26 18:54:25 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/04 01:43:58 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/gnl.h"
+
+int	read_wrapper(int fd, char *buf, size_t buf_size, int *ret)
+{
+	*ret = read(fd, buf, buf_size);
+	return (*ret);
+}
 
 int	read_tmp(t_queue *file_q, char **line)
 {
@@ -23,17 +29,17 @@ int	read_tmp(t_queue *file_q, char **line)
 	c = ft_memchr(tmp->data, '\n', tmp->size);
 	if (!c)
 	{
-		if (push(file_q, tmp->data, tmp->size, 0) == -1)
+		if (push(file_q, tmp->data, tmp->size, false) == -1)
 			return (-1);
-		pop(file_q, 1);
+		pop(file_q, true);
 		return (0);
 	}
 	size = c - tmp->data;
 	tmp_size = tmp->size - size - 1;
-	if (size && push(file_q, tmp->data, size, 0) == -1)
+	if (size && push(file_q, tmp->data, size, false) == -1)
 		return (-1);
-	if ((set_line(file_q, line) == -1) ||
-		(tmp_size && push(file_q, c + 1, tmp_size, 1) == -1))
+	if ((set_line(file_q, line) == -1)
+		|| (tmp_size && push(file_q, c + 1, tmp_size, true) == -1))
 		return (-1);
 	free(tmp->data);
 	free(tmp);
@@ -48,20 +54,20 @@ int	read_fd(t_queue *file_q, int fd, char **line)
 	size_t	size;
 	size_t	tmp_size;
 
-	while ((ret = read(fd, buf, GNL_BUF_SIZE)) > 0)
+	while ((read_wrapper(fd, buf, GNL_BUF_SIZE, &ret)) > 0)
 	{
 		c = ft_memchr(buf, '\n', ret);
 		if (c)
 		{
 			size = c - buf;
 			tmp_size = ret - size - 1;
-			if ((size && (push(file_q, buf, size, 0) == -1)) ||
-				(set_line(file_q, line) == -1) ||
-				(tmp_size && push(file_q, c + 1, tmp_size, 1) == -1))
+			if ((size && (push(file_q, buf, size, false) == -1))
+				|| (set_line(file_q, line) == -1)
+				|| (tmp_size && push(file_q, c + 1, tmp_size, true) == -1))
 				return (-1);
 			return (1);
 		}
-		if (push(file_q, buf, ret, 0) == -1)
+		if (push(file_q, buf, ret, false) == -1)
 			return (-1);
 	}
 	return (ret);
@@ -69,14 +75,18 @@ int	read_fd(t_queue *file_q, int fd, char **line)
 
 int	get_next_line(int fd, char **line)
 {
-	static t_queue	*qlist[MAX_FD] = { NULL };
+	static t_queue	*qlist[MAX_FD] = {NULL};
 	t_queue			*file_q;
 	int				ret;
 
 	if (!line || fd < 0 || GNL_BUF_SIZE <= 0)
 		return (-1);
-	if (!qlist[fd] && !(qlist[fd] = init_file_queue(qlist[fd])))
-		return (-1);
+	if (!qlist[fd])
+	{
+		qlist[fd] = init_file_queue(qlist[fd]);
+		if (!qlist[fd])
+			return (-1);
+	}
 	file_q = qlist[fd];
 	ret = 0;
 	if (file_q->tmp)

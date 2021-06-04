@@ -6,13 +6,13 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 10:18:57 by flohrel           #+#    #+#             */
-/*   Updated: 2021/02/08 18:50:07 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/04 01:45:52 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/gnl.h"
 
-int		set_line(t_queue *file_q, char **line)
+int	set_line(t_queue *file_q, char **line)
 {
 	char	*lptr;
 	t_buf	*cur_buf;
@@ -21,11 +21,13 @@ int		set_line(t_queue *file_q, char **line)
 	if (!(*line))
 		return (-1);
 	lptr = *line;
-	while ((cur_buf = file_q->first))
+	cur_buf = file_q->first;
+	while (cur_buf)
 	{
 		ft_memcpy(lptr, cur_buf->data, cur_buf->size);
 		lptr += cur_buf->size;
 		pop(file_q, 0);
+		cur_buf = file_q->first;
 	}
 	*lptr = '\0';
 	file_q = init_file_queue(file_q);
@@ -45,7 +47,7 @@ t_queue	*init_file_queue(t_queue *file_q)
 	return (file_q);
 }
 
-int		push(t_queue *file_q, char *buf, size_t size, t_bool is_tmp)
+int	push(t_queue *file_q, char *buf, size_t size, bool is_tmp)
 {
 	t_buf	*new_buf;
 
@@ -58,7 +60,7 @@ int		push(t_queue *file_q, char *buf, size_t size, t_bool is_tmp)
 	ft_memcpy(new_buf->data, buf, size);
 	new_buf->size = size;
 	new_buf->next = NULL;
-	if (is_tmp == FALSE)
+	if (is_tmp == false)
 	{
 		file_q->len += size;
 		if (!(file_q->first))
@@ -72,11 +74,11 @@ int		push(t_queue *file_q, char *buf, size_t size, t_bool is_tmp)
 	return (0);
 }
 
-void	pop(t_queue *file_q, t_bool is_tmp)
+void	pop(t_queue *file_q, bool is_tmp)
 {
 	t_buf	*cur_buf;
 
-	if (is_tmp == TRUE)
+	if (is_tmp == true)
 	{
 		cur_buf = file_q->tmp;
 		file_q->tmp = cur_buf->next;

@@ -1,40 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strtrim.c                                       :+:      :+:    :+:   */
+/*   ft_dlstmap.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/14 19:03:51 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/04 01:46:11 by flohrel          ###   ########.fr       */
+/*   Created: 2020/12/11 19:38:57 by flohrel           #+#    #+#             */
+/*   Updated: 2021/06/04 01:11:16 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/string.h"
+#include "libft/dlist.h"
 
-char	*ft_strtrim(char const *s1, char const *set)
+t_dlist	*ft_dlstmap(t_dlist *lst, void *(*f)(void *), void (*del)(void *))
 {
-	const char	*start;
-	const char	*end;
-	char		*str;
-	size_t		len;
+	t_dlist	*new_lst;
+	t_dlist	*tmp;
 
-	if (!s1 || !set)
+	if (!lst || !f)
 		return (NULL);
-	while (is_charset(set, *s1))
-		s1++;
-	start = s1;
-	end = start;
-	while (*s1)
+	new_lst = NULL;
+	while (lst)
 	{
-		if (!is_charset(set, *s1))
-			end = s1 + 1;
-		s1++;
+		tmp = ft_dlstnew(f(lst->content));
+		if (!tmp)
+		{
+			ft_dlstclear(&new_lst, del);
+			return (NULL);
+		}
+		ft_dlstadd_back(&new_lst, tmp);
+		lst = lst->next;
 	}
-	len = end - start + 1;
-	str = malloc(sizeof(*str) * len);
-	if (!str)
-		return (str);
-	ft_strlcpy(str, start, len);
-	return (str);
+	return (new_lst);
 }

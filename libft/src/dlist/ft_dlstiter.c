@@ -1,35 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*   ft_dlstiter.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/11 19:38:57 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/04 01:11:40 by flohrel          ###   ########.fr       */
+/*   Created: 2020/12/11 19:33:54 by flohrel           #+#    #+#             */
+/*   Updated: 2021/06/04 01:06:44 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/list.h"
+#include "libft/dlist.h"
 
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+void	ft_dlstiter(t_dlist *lst, void (*f)(void *))
 {
-	t_list	*new_lst;
-	t_list	*tmp;
-
 	if (!lst || !f)
-		return (NULL);
-	new_lst = NULL;
+		return ;
 	while (lst)
 	{
-		tmp = ft_lstnew(f(lst->content));
-		if (!tmp)
-		{
-			ft_lstclear(&new_lst, del);
-			return (NULL);
-		}
-		ft_lstadd_back(&new_lst, tmp);
+		f(lst->content);
 		lst = lst->next;
 	}
-	return (new_lst);
 }

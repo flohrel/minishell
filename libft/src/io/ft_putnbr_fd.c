@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 15:50:10 by flohrel           #+#    #+#             */
-/*   Updated: 2021/01/16 15:55:47 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/04 01:35:24 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	ft_putnbr_fd2(long n, int fd)
 	ft_putchar_fd((n % 10) + '0', fd);
 }
 
-void		ft_putnbr_fd(int n, int fd)
+void	ft_putnbr_fd(int n, int fd)
 {
 	if (n < 0)
 	{

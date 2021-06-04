@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/04 16:35:57 by flohrel           #+#    #+#             */
-/*   Updated: 2021/01/16 15:58:40 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/04 01:51:57 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		return (NULL);
 	len1 = ft_strlen(s1);
 	len2 = ft_strlen(s2);
-	if ((SIZE_MAX - len1 - 1) < len2 ||
-		(SIZE_MAX - len2 - 1) < len1)
+	if ((SIZE_MAX - len1 - 1) < len2
+		|| (SIZE_MAX - len2 - 1) < len1)
 		return (NULL);
 	tlen = len1 + len2 + 1;
 	str = malloc(sizeof(*str) * tlen);

@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 11:42:38 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/02 17:37:55 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/04 01:59:52 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,23 +39,6 @@ void	init_term(t_vars *vars)
 		clean_exit(vars, 0);
 }
 
-/*void	history_save(t_vars *vars, char *buffer)
-{
-	t_dlist	*cmdline;
-	char	*copy;
-
-	if (*buffer)
-	{
-		copy = ft_strdup(buffer);
-		if (copy == NULL)
-			clean_exit(vars, errno);
-		cmdline = ft_dlstnew(copy);
-		if (cmdline == NULL)
-			clean_exit(vars, errno);
-		ft_dlstadd_front(vars->history);
-	}
-}*/
-
 void	ft_readline(t_vars *vars)
 {
 	char	buffer[BUFFER_SIZE];
@@ -73,5 +56,5 @@ void	ft_readline(t_vars *vars)
 	}
 	vars->lexer.buffer = lst_alloc(i + 1, sizeof(*(vars->lexer.buffer)), vars);
 	ft_strlcpy(vars->lexer.buffer, buffer, i + 1);
-//	history_save(vars->history, buffer);
+//	save_input(vars->history, buffer);
 }
