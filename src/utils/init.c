@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 13:48:03 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/04 14:02:40 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/04 18:49:37 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	init_term(t_vars *vars)
 void	init(t_vars *vars, char **envp)
 {
 	errno = 0;
-	vars->env = parse_env(envp);
+	vars->env = parse_env(envp, vars);
 	vars->history.lst = NULL;
 	vars->history.cur = NULL;
 	init_term(vars);
