@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/18 02:36:25 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/31 19:03:20 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/06/04 14:03:21 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,17 @@
 # include <stdio.h>
 # include <string.h>
 # include <errno.h>
+# include <term.h>
 # include "data.h"
 # include "lexer.h"
 # include "ansi_colors.h"
+# include "builtins.h"
 
 /*
  **		exit.c
  */
-void	free_cmd_node(t_param *data);
-void	free_vars(t_lexer *lexer, t_parser *parser);
+void	del_hist_entry(void *content);
+void	free_unlisted_vars(t_vars *vars);
 void	clean_exit(t_vars *vars, int status);
 
 /*
@@ -55,8 +57,15 @@ int		syntax_error(t_token *token);
 void	*lst_alloc(size_t nmemb, size_t size, t_vars *vars);
 
 /*
- ** conversion 
+ **		list_to_tab.c
  */
 char	**list_to_tab(t_list *lst, t_vars *vars);
+
+/*
+ **		init.c
+ */
+void	init(t_vars *vars, char **envp);
+void	init_term(t_vars *vars);
+
 
 #endif
