@@ -15,11 +15,15 @@
 void	exec_command(t_vars *vars, t_ast *node)
 {
 	t_param	*param;
+	char	**args;
 
 	param = node->data;
-	find_builtin(param->path, list_to_tab(param->arg, vars), vars);
-	(void)vars;
-	(void)node;
+	args = list_to_tab(param->arg, vars);
+	if (find_builtin(param->path, args, vars))
+		return ;
+	else if (find_cmd(param->path, args,
+				env_to_tab(vars->env, vars), vars))
+		return ;
 }
 
 void	exec_pipeline(t_vars *vars, t_ast *node)

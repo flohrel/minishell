@@ -13,6 +13,7 @@ static int	check_flags(char *str, char *opt)
 	}
 	return (1);
 }
+
 static int	check_options(char *str, char *opt, char **flags, t_vars *vars)
 {
 	int		i;
@@ -70,15 +71,12 @@ t_opt	optionhandler(char **args, char *opt, t_vars *vars)
 			break;
 		i++;
 	}
-	printf ("flags : %s\n", options.optflag);
-	printf ("args : %s\n", args[i]);
 	options.args = lst_alloc(ft_tablen(args + i) + 1, sizeof(char *),
 			vars);
 	if (!(options.args))
 		return (options);
 	while (args[i])
 		options.args[j++] = args[i++];
-	printf ("args : %s\n", options.args[0]);
 	options.args[j] = NULL;
 	return (options);
 }

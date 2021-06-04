@@ -24,7 +24,7 @@ static int	export_str(char *str, t_vars *vars)
 	result = malloc(sizeof(t_env));
 	if (!result)
 		return (0);
-	result = new_envblock(str, result);
+	result = new_envblock(str, result, vars);
 	if (!result)
 		return (0);
 	result->next = NULL;

@@ -35,7 +35,10 @@ BUILTINS	=	cd.c \
 				pwd.c \
 				unset.c
 
-EXEC		=	exec.c
+EXEC		=	exec.c \
+			exec_utils.c \
+			add_ptrlst.c \
+			find_cmd.c
 
 INPUT		=	input.c \
 				prompt.c
@@ -54,6 +57,7 @@ UTILS		=	astree.c \
 				exit.c \
 				list_to_tab.c \
 				memory.c \
+				print_tab.c \
 				token.c
 
 SRC			=	main.c \

@@ -58,5 +58,6 @@ void	*lst_alloc(size_t nmemb, size_t size, t_vars *vars);
  ** conversion 
  */
 char	**list_to_tab(t_list *lst, t_vars *vars);
+void	print_tab(char **arg);
 
 #endif

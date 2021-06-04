@@ -17,20 +17,20 @@
 #include <string.h>
 #include "minishell.h"
 
-char	*create_path(char *path, char *cmd)
+char	*create_path(char *path, char *cmd, t_vars *vars)
 {
 	char	*result;
 
 	result = ft_strjoin(path, "/");
-	if (!result)
+	if (!result || !(add_to_ptrlst((void *)result, vars)))
 		return (NULL);
 	result = ft_strjoin(result, cmd);
-	if (!result)
+	if (!result || !(add_to_ptrlst((void *)result, vars)))
 		return (NULL);
 	return (result);
 }
 
-int	find_cmd(char *path, char **argv, char **envp, t_vars *vars)
+int	exec_cmd(char *path, char **argv, char **envp, t_vars *vars)
 {
 //	DIR				*dir;
 //	struct dirent	*s_dir;
@@ -64,7 +64,7 @@ int	find_cmd(char *path, char **argv, char **envp, t_vars *vars)
 		return (-1);
 	while (paths[i])
 	{
-		path_x = create_path(paths[i], path);
+		path_x = create_path(paths[i], path, vars);
 		if (!path_x)
 			return (-1);
 		if (execve(path_x, argv, envp) < 0)
@@ -72,5 +72,11 @@ int	find_cmd(char *path, char **argv, char **envp, t_vars *vars)
 		else
 			return (1);
 	}
+	return (1);
+}
+
+int	find_cmd(char *path, char **argv, char **envp, t_vars *vars)
+{
+	exec_cmd(path, tabjoin(path, argv, vars), envp, vars);
 	return (1);
 }
