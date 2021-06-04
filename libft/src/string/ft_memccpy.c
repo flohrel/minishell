@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 19:52:03 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/04 01:51:33 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/04 16:46:17 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void	*ft_memccpy(void *dest, const void *src, int c, size_t n)
 	ch = (unsigned char)c;
 	while (n--)
 	{
-		*d++ = *s++;
-		if (*d == ch)
+		*d = *s++;
+		if (*d++ == ch)
 			return (d);
 	}
 	return (NULL);
