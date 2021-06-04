@@ -53,6 +53,7 @@ PARSER		=	parser.c \
 UTILS		=	astree.c \
 				error.c \
 				exit.c \
+				init.c \
 				list_to_tab.c \
 				memory.c \
 				token.c

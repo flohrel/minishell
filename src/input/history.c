@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/03 19:02:42 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/04 02:31:11 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/04 14:18:34 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,28 +20,26 @@ void	hist_export(t_vars *vars)
 {
 }*/
 
-void	save_input(t_vars *vars, char *input)
+void	get_hist_entry(t_hist *history, bool is_prev)
 {
-	t_dlist	*lst;
-	t_hist	*hist;
+	if (is_prev)
+		history->cur = history->cur->prev;
+	else
+		history->cur = history->cur->next;
+	if (history->cur)
+		ft_putstr_fd((char *)history->cur->content, STDOUT_FILENO);
+}
+
+void	save_input(t_vars *vars, t_hist *history, t_dlist *entry, char *input)
+{
 	char	*copy;
 
 	copy = ft_strdup(input);
 	if (!copy)
-		clean_exit(vars, errno);
-	hist = ft_calloc(1, sizeof(*hist));
-	if (!hist)
 	{
-		free(copy);
+		free(entry);
 		clean_exit(vars, errno);
 	}
-	hist->input = copy;
-	lst = ft_dlstnew(hist);
-	if (!lst)
-	{
-		free(copy);
-		free(hist);
-		clean_exit(vars, errno);
-	}
-	ft_dlstadd_front(&vars->history, lst);
+	entry->content = copy;
+	ft_dlstadd_front(&history->lst, entry);
 }

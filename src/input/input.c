@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/30 02:02:42 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/02 19:03:57 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/04 14:18:52 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,8 @@ void	eot_handle(t_vars *vars, int *index)
 	}
 }
 
-int		input_handle(t_vars *vars, char *input, int size, int *index)
+int		input_handle(t_vars *vars, char *input, int *index)
 {
-	(void)size;
 	if (*input == '\n')
 	{
 		*input = '\0';
@@ -46,20 +45,18 @@ int		input_handle(t_vars *vars, char *input, int size, int *index)
 		eot_handle(vars, index);
 	else if (*input < '\040')
 	{
+		tputs(tgetstr("rc", NULL), 1, ft_putchar);
+		tputs(tgetstr("ce", NULL), 1, ft_putchar);
+		if (input[2] == 'A' || input[2] == 'B')
+			get_hist_entry(&vars->history, input[2] - 'A');
 /*
 		if (input[2] == 'D')
 				tputs(tgetstr("le", NULL), 1, ft_putchar);
 			else if (input[2] == 'C')
 				tputs(tgetstr("nd", NULL), 1, ft_putchar);
-			else if (input[2] == 'A')
-				REMONTER HISTORIQUE
-			else if (input[2] == 'B')
-				DESCENDRE HISTORIQUE
 */
-		tputs(tgetstr("rc", NULL), 1, ft_putchar);
-		tputs(tgetstr("ce", NULL), 1, ft_putchar);
 	}
-	else if (*input == 127)
+	else if (*input == 8 || *input == 127)
 		return (delete_handle(index));
 	else
 		(*index)++;
