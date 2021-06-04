@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 14:52:04 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/06/03 17:48:51 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/06/04 18:46:20 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,20 @@ int	exec_cmd(char *path, char **argv, char **envp, t_vars *vars)
 
 int	find_cmd(char *path, char **argv, char **envp, t_vars *vars)
 {
-	exec_cmd(path, tabjoin(path, argv, vars), envp, vars);
+	int	pid;
+	int	status;
+
+	pid = fork();
+	if (pid < 0)
+		return (-1);
+	else if (pid == 0)
+	{
+		exec_cmd(path, tabjoin(path, argv, vars), envp, vars);
+		exit(0);
+	}
+	else
+	{
+		waitpid(pid, &status, 0);
+	}
 	return (1);
 }

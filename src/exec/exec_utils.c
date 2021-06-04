@@ -1,9 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_utils.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/06/04 17:13:26 by mtogbe            #+#    #+#             */
+/*   Updated: 2021/06/04 18:45:39 by mtogbe           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int	env_size(t_env *env)
 {
 	int	i;
 
+	i = 0;
 	while (env)
 	{
 		i++;
@@ -51,7 +64,7 @@ char	**tabjoin(char *str, char **args, t_vars *vars)
 		return (NULL);
 	result[0] = str;
 	result[ft_tablen(args) + 1] = NULL;
-	while (result[i])
+	while (i <= ft_tablen(args))
 		result[i++] = args[j++];
 	return (result);
 }
