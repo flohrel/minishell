@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/03 19:02:42 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/04 14:18:34 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/07 18:35:13 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	get_hist_entry(t_hist *history, bool is_prev)
 	else
 		history->cur = history->cur->next;
 	if (history->cur)
-		ft_putstr_fd((char *)history->cur->content, STDOUT_FILENO);
+		ft_putstr_fd((char *)history->cur->content, STDIN_FILENO);
 }
 
 void	save_input(t_vars *vars, t_hist *history, t_dlist *entry, char *input)
@@ -42,4 +42,6 @@ void	save_input(t_vars *vars, t_hist *history, t_dlist *entry, char *input)
 	}
 	entry->content = copy;
 	ft_dlstadd_front(&history->lst, entry);
+	if (history->cur == NULL)
+		history->cur = history->lst;
 }

@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 15:29:11 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/04 14:02:23 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/07 18:22:31 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,6 @@ void	sigquit_handler(int signum)
 {
 	(void)signum;
 	write(1, "\033[2D\033[0K", 8);
-}
-
-void	init_vars(t_vars *vars)
-{
-//	hist_import(vars);
-	vars->lexer.tk_list = NULL;
-	vars->lexer.buffer = NULL;
-	vars->ptr_list = NULL;
 }
 
 int	main(int argc, char **argv, char **envp)
