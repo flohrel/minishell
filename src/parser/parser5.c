@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/18 02:07:59 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/08 08:57:21 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/08 13:42:05 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,5 +109,7 @@ t_ast	*cmd(t_vars *vars, t_parser *parser)
 		parser->cur_tk = parser->cur_tk->next;
 		token = (t_token *)parser->cur_tk->content;
 	}
+	if (!data->path && !data->redir && !data->assign)
+		return (NULL);
 	return (tree_new_node(vars, NODE_CMD, data));
 }

@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 15:01:51 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/08 10:53:28 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/08 13:23:00 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ enum	e_tktype
 	TK_PIPE,
 	TK_SEMI,
 	TK_LESS,
+	TK_DLESS,
 	TK_GREAT,
 	TK_DGREAT,
 	TK_NL = -1,

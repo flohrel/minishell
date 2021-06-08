@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 20:58:03 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/08 10:38:25 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/08 13:53:16 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,14 @@
 
 int	astree_build(t_vars *vars, t_lexer *lexer, t_parser *parser)
 {
+	t_token	*token;
+
 	parser->cur_tk = lexer->tk_list;
 	parser->exec_tree = cmdline(vars, parser);
-	if (parser->exec_tree == NULL)
-		return (syntax_error(parser->cur_tk->content));
+	token = (t_token *)parser->cur_tk->content;
+	if ((parser->exec_tree == NULL)
+		|| (token->type != TK_NL))
+		return (syntax_error(token));
 	return (0);
 }
 
