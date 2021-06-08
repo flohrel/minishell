@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 20:58:03 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/01 16:32:57 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/08 10:38:25 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,14 @@ int	parser(t_vars *vars, t_lexer *lexer, t_parser *parser)
 		else
 		{
 			if ((token->type == TK_WORD)
-				&& parse_word(vars, lexer, &token->data))
+				&& parse_word(vars, &token->data))
 				continue ;
 			parser->prev_tk = parser->cur_tk;
 			parser->cur_tk = parser->prev_tk->next;
 		}
 	}
+	if (lexer->state != ST_GENERAL)
+		return (syntax_error(NULL));
 	display_token_list(&vars->lexer);						// TEST
 	return (astree_build(vars, lexer, parser));
 }

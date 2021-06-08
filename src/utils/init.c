@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 13:48:03 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/07 18:21:25 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/08 10:54:16 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	init_term(t_vars *vars)
 
 void	init_vars(t_vars *vars)
 {
-//	hist_import(vars);
 	vars->lexer.tk_list = NULL;
 	vars->lexer.buffer = NULL;
 	vars->ptr_list = NULL;
@@ -40,8 +39,7 @@ void	init_vars(t_vars *vars)
 void	init(t_vars *vars, char **envp)
 {
 	errno = 0;
+	vars->exit_status = 0;
 	vars->env = parse_env(envp);
-	vars->history.lst = NULL;
-	vars->history.cur = NULL;
 	init_term(vars);
 }

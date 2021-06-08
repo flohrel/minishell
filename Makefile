@@ -38,8 +38,7 @@ BUILTINS	=	cd.c \
 EXEC		=	exec.c
 
 INPUT		=	history.c \
-				input.c \
-				prompt.c
+				input.c
 
 LEXER		=	lexer.c \
 				lexer2.c
@@ -72,7 +71,7 @@ OBJ			=	$(SRC:%.c=$(OBJDIR)/%.o)
 CC			=	gcc
 CFLAGS		=	-Wall -Werror -Wextra -g3
 INCFLAGS	=	-I./$(INCLDIR) -I./$(LIBDIR)/incld
-LFLAGS		=	-L./$(LIBDIR) -lft -lncurses
+LFLAGS		=	-L./$(LIBDIR) -lft -lncurses -lreadline
 RM			=	/bin/rm -rf
 UNAME		:=	$(shell uname -s)
 

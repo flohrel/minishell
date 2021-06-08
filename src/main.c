@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 15:29:11 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/07 18:22:31 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/08 09:04:38 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 void	sigint_handler(int signum)
 {
 	(void)signum;
-	printf("\n");
-	display_prompt();
+	write(STDOUT_FILENO, "\n", 1);
+	write(STDERR_FILENO, PROMPT, ft_strlen(PROMPT));
 }
 
 void	sigquit_handler(int signum)
@@ -37,7 +37,6 @@ int	main(int argc, char **argv, char **envp)
 	while (isatty(0))
 	{
 		init_vars(&vars);
-		display_prompt();
 		ft_readline(&vars);
 		lexer(&vars, &vars.lexer);
 		if (parser(&vars, &vars.lexer, &vars.parser) == 0)
@@ -47,7 +46,5 @@ int	main(int argc, char **argv, char **envp)
 		}
 		free_ptr_lst(&vars.ptr_list);
 	}
-	free_unlisted_vars(&vars);
-//	hist_export(vars);
 	return (0);
 }
