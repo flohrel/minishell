@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/18 02:07:59 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/01 15:43:36 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/08 08:57:21 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,25 @@ int	redirection(t_vars *vars, t_parser *parser, int type, t_param *data)
 	return (0);
 }
 
+bool	is_valid_name(char *data, char *end)
+{
+	if ((data == end) || ft_isdigit(*data))
+		return (false);
+	else if (*(end - 1) == '+')
+	{
+		end--;
+		if (data == end)
+			return (false);
+	}
+	while (data != end)
+	{
+		if (!ft_isalnum(*data))
+			return (false);
+		data++;
+	}
+	return (true);
+}
+
 void	argument(t_vars *vars, t_token *token, t_param *data)
 {
 	t_list	**dest_list;
@@ -40,15 +59,14 @@ void	argument(t_vars *vars, t_token *token, t_param *data)
 	char	*ptr;
 
 	dest_list = &data->arg;
-	if (!data->has_path)
+	if (data->path == NULL)
 	{
-		if (((ptr = ft_strchr(token->data, '+'))
-			|| (ptr = ft_strchr(token->data, '='))) && (ptr != token->data))
+		ptr = ft_strchr(token->data, '=');
+		if (ptr && (is_valid_name(token->data, ptr) == true))
 			dest_list = &data->assign;
 		else
 		{
 			data->path = token->data;
-			data->has_path = true;
 			return ;
 		}
 	}
@@ -70,7 +88,6 @@ t_param	*init_cmd_param(t_vars *vars)
 	data->redir = NULL;
 	data->arg = NULL;
 	data->assign = NULL;
-	data->has_path = false;
 	return (data);
 }
 

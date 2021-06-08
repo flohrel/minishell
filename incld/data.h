@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 15:01:51 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/04 13:12:19 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/08 10:53:28 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ struct	s_parser
 
 struct	s_param
 {
-	bool	has_path;
 	char	*path;
 	t_list	*redir;
 	t_list	*arg;
@@ -148,6 +147,7 @@ struct	s_vars
 	t_list		*ptr_list;
 	t_hist		history;
 	t_env		*env;
+	int			exit_status;
 };
 
 #endif

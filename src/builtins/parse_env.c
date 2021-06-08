@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 15:48:37 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/05/29 19:07:08 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/06/08 13:12:49 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 t_env	*new_envblock(char *str, t_env *result, t_vars *vars)
 {
 	t_list	*new;
+	int		len1;
+	int		len2;
 
 	result->value = ft_strdup(ft_strchr(str, '=') + 1);
 	if (!(result->value))
@@ -23,10 +25,12 @@ t_env	*new_envblock(char *str, t_env *result, t_vars *vars)
 	if (!new)
 		return (NULL);
 	ft_lstadd_front(&vars->ptr_list, new);
-	result->key	= lst_alloc(ft_strlen(str) - ft_strlen(result->value), sizeof(char), vars);
+	len1 = ft_strlen(str);
+	len2 = ft_strlen(result->value);
+	result->key = lst_alloc(len1 - len2, sizeof(char), vars);
 	if (!(result->key))
 		return (NULL);
-	ft_strlcat(result->key, str, ft_strlen(str) - ft_strlen(result->value));
+	ft_strlcat(result->key, str, len1 - len2);
 	return (result);
 }
 

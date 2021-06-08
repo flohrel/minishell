@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 17:13:26 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/06/04 18:50:13 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/06/08 13:14:33 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	env_size(t_env *env)
 char	**env_to_tab(t_env *env, t_vars *vars)
 {
 	char	**result;
-	int	i;
+	int		i;
 
 	result = lst_alloc(env_size(env) + 1, sizeof(char *), vars);
 	if (!result)
@@ -54,8 +54,8 @@ char	**env_to_tab(t_env *env, t_vars *vars)
 char	**tabjoin(char *str, char **args, t_vars *vars)
 {
 	char	**result;
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 
 	j = 0;
 	i = 1;

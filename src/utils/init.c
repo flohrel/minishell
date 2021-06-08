@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 13:48:03 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/04 18:49:37 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/06/08 13:10:14 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,17 @@ void	init_term(t_vars *vars)
 		clean_exit(vars, 0);
 }
 
+void	init_vars(t_vars *vars)
+{
+	vars->lexer.tk_list = NULL;
+	vars->lexer.buffer = NULL;
+	vars->ptr_list = NULL;
+}
+
 void	init(t_vars *vars, char **envp)
 {
 	errno = 0;
 	vars->env = parse_env(envp, vars);
-	vars->history.lst = NULL;
-	vars->history.cur = NULL;
+	vars->exit_status = 0;
 	init_term(vars);
 }
