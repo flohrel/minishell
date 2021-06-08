@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/09 17:56:30 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/08 11:26:23 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/08 12:51:45 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	var_expansion(t_vars *vars, char **buffer, char **data)
 		}
 	}
 	ft_strlcpy(*buffer, var, ft_strlen(var) + 1);
-	(*buffer) += ft_strlen(var);
+	(*buffer) += ft_strlen(var) - 1;
 	(*data) = str - 1;
 }
 
@@ -83,17 +83,16 @@ void	parse_word1(t_vars *vars, int *state, char **str, char **buffer)
 	}
 	else if ((c == '\\') && (*state != ST_QUOTE)
 		&& ((*state == ST_GENERAL) || is_charset("$`\"\\", *((*str) + 1))))
-		*(*buffer++) = *(++(*str));
+		*(*buffer)++ = *(++(*str));
 	else if ((c == '$') && (*state != ST_QUOTE))
 		var_expansion(vars, buffer, str);
 	else
-		*(*buffer++) = c;
+		*(*buffer)++ = c;
 }
 
 int	parse_word(t_vars *vars, char **data)
 {
 	char	buffer[BUFFER_SIZE];
-	int		state;
 	char	*ptr;
 	char	*str;
 
@@ -101,7 +100,7 @@ int	parse_word(t_vars *vars, char **data)
 	ptr = buffer;
 	while (*str)
 	{
-		parse_word1(vars, &state, &str, &ptr);
+		parse_word1(vars, &vars->lexer.state, &str, &ptr);
 		str++;
 	}
 	*ptr = '\0';

@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 15:29:11 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/08 09:04:38 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/08 11:38:23 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,10 @@
 void	sigint_handler(int signum)
 {
 	(void)signum;
+
 	write(STDOUT_FILENO, "\n", 1);
-	write(STDERR_FILENO, PROMPT, ft_strlen(PROMPT));
+	rl_on_new_line();
+	rl_redisplay();
 }
 
 void	sigquit_handler(int signum)
