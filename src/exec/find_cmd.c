@@ -6,11 +6,12 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 14:52:04 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/06/04 18:50:20 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/06/08 13:17:54 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <sys/types.h>
+#include <sys/wait.h>
 #include <dirent.h>
 #include <stdio.h>
 #include <unistd.h>
