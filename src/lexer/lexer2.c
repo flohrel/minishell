@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 05:14:28 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/01 15:32:23 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/08 13:23:46 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@ void	job_token_handle(int tk_type, t_vars *vars, char **buf)
 	if ((tk_type == TK_GREAT) && (get_token_type(*(*buf + 1)) == TK_GREAT))
 	{
 		new_token(vars, TK_DGREAT, 0);
+		(*buf)++;
+	}
+	else if ((tk_type == TK_LESS) && (get_token_type(*(*buf + 1)) == TK_LESS))
+	{
+		new_token(vars, TK_DLESS, 0);
 		(*buf)++;
 	}
 	else

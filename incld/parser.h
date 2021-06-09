@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 20:59:00 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/08 11:10:18 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/08 13:37:05 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ t_ast	*pipeline(t_vars *vars, t_parser *parser);
  **		parser5.c
  */
 t_ast	*cmd(t_vars *vars, t_parser *parser);
+bool	is_valid_name(char *data, char *end);
 void	argument(t_vars *vars, t_token *token, t_param *data);
 int		redirection(t_vars *vars, t_parser *parser, int type, t_param *data);
 t_param	*init_cmd_param(t_vars *vars);
