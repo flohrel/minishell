@@ -6,7 +6,7 @@
 #    By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/16 16:04:42 by flohrel           #+#    #+#              #
-#    Updated: 2021/06/08 14:06:07 by flohrel          ###   ########.fr        #
+#    Updated: 2021/06/10 16:49:29 by flohrel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,7 +72,8 @@ LIST		=	ft_lstadd_back.c \
 				ft_lstlast.c \
 				ft_lstmap.c \
 				ft_lstnew.c \
-				ft_lstsize.c
+				ft_lstsize.c \
+				ft_lstsort.c
 
 MEM			=	ft_calloc.c \
 				garb_coll.c \
