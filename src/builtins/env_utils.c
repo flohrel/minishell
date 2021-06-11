@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 16:58:50 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/06/03 17:29:04 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/06/11 18:14:23 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,5 +98,6 @@ void	print_sorted_env(t_env *env)
 		if (reset)
 			env = head;
 	}
+	env_print(head);
 	free_env(head);
 }

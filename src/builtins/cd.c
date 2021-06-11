@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 14:47:20 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/06/02 19:57:45 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/06/11 16:50:09 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,10 @@ int	cd(char **args, t_vars *vars)
 	if (ft_tablen(args) > 1)
 		return (errormsg("cd : too many arguments", NULL));
 	if (ft_tablen(args) == 0)
+	{
+		write(1, "ii", sizeof(char *));
 		path = (get_env_value("HOME", vars->env));
+	}
 	else
 		path = args[0];
 	if (chdir(path) < 0)

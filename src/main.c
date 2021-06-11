@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 15:29:11 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/11 15:00:01 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/11 18:01:10 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,6 @@ int	main(int argc, char **argv, char **envp)
 		}
 		free_ptr_lst(&vars.ptr_list);
 	}
+	free_env(vars.env);
+	free_env(vars.exp);
 }

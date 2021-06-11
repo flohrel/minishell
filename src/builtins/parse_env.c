@@ -6,48 +6,50 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 15:48:37 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/06/08 13:12:49 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/11 18:59:37 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_env	*new_envblock(char *str, t_env *result, t_vars *vars)
+int	new_envblock(char *str, t_env *result)
 {
-	t_list	*new;
 	int		len1;
 	int		len2;
+	char	*chr;
 
-	result->value = ft_strdup(ft_strchr(str, '=') + 1);
+	chr = ft_strchr(str, '=');
+	if (!chr)
+		return (-1);
+	chr = chr + 1;
+	if (!chr)
+		chr = "''";
+	result->value = ft_strdup(chr);
 	if (!(result->value))
-		return (NULL);
-	new = ft_lstnew((void *)(result->value));
-	if (!new)
-		return (NULL);
-	ft_lstadd_front(&vars->ptr_list, new);
+		return (0);
 	len1 = ft_strlen(str);
 	len2 = ft_strlen(result->value);
-	result->key = lst_alloc(len1 - len2, sizeof(char), vars);
+	result->key = malloc((len1 - len2) * sizeof(char));
 	if (!(result->key))
-		return (NULL);
+		return (0);
 	ft_strlcat(result->key, str, len1 - len2);
-	return (result);
+	return (1);
 }
 
-t_env	*parse_env(char **env, t_vars *vars)
+t_env	*parse_env(char **env)
 {
 	t_env	*result;
 	t_env	*head;
 	int		i;
 
 	i = 0;
-	result = lst_alloc(1, sizeof(t_env), vars);
+	result = malloc(1 *sizeof(t_env));
 	if (!result)
 		return (NULL);
 	head = result;
 	while (env && env[i])
 	{
-		result = new_envblock(env[i], result, vars);
+		new_envblock(env[i], result);
 		if (!result)
 			return (NULL);
 		if (env[++i])
