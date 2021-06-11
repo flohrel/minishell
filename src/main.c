@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 15:29:11 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/08 13:19:40 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/11 15:00:01 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,7 @@ int	main(int argc, char **argv, char **envp)
 	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, sigquit_handler);
 	init(&vars, envp);
-	init_term(&vars);
-	vars.env = parse_env(envp, &vars);
-	while (isatty(0))
+	while (1)
 	{
 		init_vars(&vars);
 		ft_readline(&vars);
@@ -50,5 +48,4 @@ int	main(int argc, char **argv, char **envp)
 		}
 		free_ptr_lst(&vars.ptr_list);
 	}
-	return (0);
 }
