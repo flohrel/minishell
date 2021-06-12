@@ -37,8 +37,7 @@ BUILTINS	=	cd.c \
 
 EXEC		=	exec.c
 
-INPUT		=	history.c \
-				input.c
+INPUT		=	input.c
 
 LEXER		=	lexer.c \
 				lexer2.c
@@ -50,11 +49,9 @@ PARSER		=	parser.c \
 				parser5.c \
 
 UTILS		=	astree.c \
-				error.c \
 				exit.c \
 				init.c \
-				list_to_tab.c \
-				memory.c \
+				utils.c \
 				token.c
 
 SRC			=	main.c \

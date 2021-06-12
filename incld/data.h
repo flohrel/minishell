@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 15:01:51 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/08 13:23:00 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/12 16:31:35 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,6 @@ typedef struct s_env	t_env;
 typedef struct s_vars	t_vars;
 typedef struct s_opt	t_opt;
 typedef struct s_cmd	t_cmd;
-typedef struct s_hist	t_hist;
-
-struct	s_hist
-{
-	t_dlist	*lst;
-	t_dlist	*cur;
-};
 
 struct	s_token
 {
@@ -142,11 +135,9 @@ struct	s_cmd
 
 struct	s_vars
 {
-	t_term		termios;
 	t_lexer		lexer;
 	t_parser	parser;
 	t_list		*ptr_list;
-	t_hist		history;
 	t_env		*env;
 	int			exit_status;
 };

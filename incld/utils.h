@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/18 02:36:25 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/07 18:22:10 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/12 16:31:11 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@
 /*
  **		exit.c
  */
-void	del_hist_entry(void *content);
 void	free_unlisted_vars(t_vars *vars);
 void	clean_exit(t_vars *vars, int status);
 
@@ -50,15 +49,7 @@ void	tree_delete_node(t_ast *node);
  **		error.c
  */
 int		syntax_error(t_token *token);
-
-/*
- **		memory.c
- */
 void	*lst_alloc(size_t nmemb, size_t size, t_vars *vars);
-
-/*
- **		list_to_tab.c
- */
 char	**list_to_tab(t_list *lst, t_vars *vars);
 
 /*

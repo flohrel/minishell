@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 11:39:56 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/08 07:49:36 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/12 11:01:31 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,8 @@
 # define PROMPT			"\e[1;32mminishell>> \e[0m"
 
 /*
-**		prompt.c
-*/
-void	display_prompt(void);
-void	ft_readline(t_vars *vars);
-
-/*
 **		input.c
 */
-int		input_handle(t_vars *vars, char *buffer, int *index);
-
-/*
-**		history.c
-*/
-void	get_hist_entry(t_hist *history, bool is_prev);
+void	ft_readline(t_vars *vars);
 
 #endif

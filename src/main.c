@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 15:29:11 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/08 11:38:23 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/12 16:18:08 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,12 @@ void	sigint_handler(int signum)
 	(void)signum;
 
 	write(STDOUT_FILENO, "\n", 1);
-	rl_on_new_line();
-	rl_redisplay();
+	if (isatty(0))
+	{
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
 }
 
 void	sigquit_handler(int signum)
@@ -36,7 +40,7 @@ int	main(int argc, char **argv, char **envp)
 	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, sigquit_handler);
 	init(&vars, envp);
-	while (isatty(0))
+	while (1)
 	{
 		init_vars(&vars);
 		ft_readline(&vars);

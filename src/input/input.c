@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 11:42:38 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/08 09:09:12 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/12 16:31:50 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,16 @@ void	ft_readline(t_vars *vars)
 	char	*line_read;
 	int		len;
 
-	line_read = readline(PROMPT);
+	if (isatty(0))
+		line_read = readline(PROMPT);
+	else
+		line_read = readline(NULL);
 	if (line_read == NULL)
 	{
-		write(1, "exit\n", 5);
+		if (isatty(0))
+			write(1, "exit\n", 5);
+		else
+			errno = 0;
 		clean_exit(vars, 0);
 	}
 	len = ft_strlen(line_read);
