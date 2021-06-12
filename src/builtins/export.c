@@ -23,6 +23,20 @@ int			new_expblock(char *key, char *value, t_env *block)
 	return (1);
 }
 
+static void	add_to_exp(t_env *exp, t_env *block)
+{
+	t_env	*tmp;
+
+	tmp = exp;
+//check si la key existe deja, et si c'est le casm changer uniquement la value
+	while (tmp && tmp->next)
+		tmp = tmp->next;
+	if (!tmp)
+		tmp = block;
+	else
+		tmp->next = block;
+}
+
 static int	export_str(char *str, t_vars *vars)
 {
 	t_env	*result;
@@ -42,11 +56,7 @@ static int	export_str(char *str, t_vars *vars)
 	}
 	else
 		tmp->next = result;
-	if (!(vars->exp))
-		vars->exp = result;
-	else
-		vars->exp->next = result;
-//check si la key existe deja, et si c'est le casm changer uniquement la value
+	add_to_exp(vars->exp, result);
 	return (1);
 }
 
@@ -63,7 +73,6 @@ int	export(char **args, t_vars *vars)
 	}
 	if (ft_tablen(args) == 0)
 	{
-		print_sorted_env(vars->env);
 		print_sorted_env(vars->exp);
 	}
 	return (1);

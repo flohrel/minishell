@@ -94,7 +94,7 @@ void	print_sorted_env(t_env *env)
 			env->next->value = tmp_value;
 			reset = 1;
 		}
-		env = env->next;
+			env = env->next;
 		if (reset)
 			env = head;
 	}

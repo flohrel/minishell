@@ -15,6 +15,8 @@
 void	clean_exit(t_vars *vars, int status)
 {
 	free_ptr_lst(&vars->ptr_list);
+	free_env(vars->env);
+	free_env(vars->exp);
 	if (errno)
 		printf("%s\n", strerror(errno));
 	exit(128 + status);

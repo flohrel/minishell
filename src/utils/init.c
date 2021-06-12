@@ -40,6 +40,6 @@ void	init(t_vars *vars, char **envp)
 {
 	errno = 0;
 	vars->env = parse_env(envp);
-	vars->exp = NULL;
+	vars->exp = parse_env(envp);
 	vars->exit_status = 0;
 }

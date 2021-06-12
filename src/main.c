@@ -48,6 +48,4 @@ int	main(int argc, char **argv, char **envp)
 		}
 		free_ptr_lst(&vars.ptr_list);
 	}
-	free_env(vars.env);
-	free_env(vars.exp);
 }
