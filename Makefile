@@ -40,8 +40,7 @@ EXEC		=	exec.c \
 			add_ptrlst.c \
 			find_cmd.c
 
-INPUT		=	history.c \
-				input.c
+INPUT		=	input.c
 
 LEXER		=	lexer.c \
 				lexer2.c
@@ -53,12 +52,9 @@ PARSER		=	parser.c \
 				parser5.c \
 
 UTILS		=	astree.c \
-				error.c \
 				exit.c \
 				init.c \
-				list_to_tab.c \
-				memory.c \
-				print_tab.c \
+				utils.c \
 				token.c
 
 SRC			=	main.c \

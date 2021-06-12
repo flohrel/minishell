@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 11:42:38 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/11 15:15:29 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/12 16:43:49 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,16 @@ void	ft_readline(t_vars *vars)
 	int		len;
 
 	if (isatty(0))
-	{
-		init_term(vars);
 		line_read = readline(PROMPT);
-		if (line_read == NULL)
-		{
-			write(1, "exit\n", 5);
-			clean_exit(vars, 0);
-		}
-		tcsetattr(STDIN_FILENO, TCSAFLUSH, &vars->termios.original);
-	}
 	else
-	{
 		line_read = readline(NULL);
-		if (line_read == NULL)
-			clean_exit(vars, 0);
+	if (line_read == NULL)
+	{
+		if (isatty(0))
+			write(1, "exit\n", 5);
+		else
+			errno = 0;
+		clean_exit(vars, 0);
 	}
 	len = ft_strlen(line_read);
 	vars->lexer.buffer = lst_alloc(len + 1,
