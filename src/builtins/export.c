@@ -23,40 +23,58 @@ int			new_expblock(char *key, char *value, t_env *block)
 	return (1);
 }
 
+int	replace_value(t_env *env, t_env *block)
+{
+	if (ft_strcmp(env->key, block->key) == 0)
+	{
+		free(env->value);
+		env->value = ft_strdup(block->value);
+		free_block(block);
+		return (1);
+	}
+	return (0);
+}
+
 static void	add_to_exp(t_env *exp, t_env *block)
 {
 	t_env	*tmp;
+	t_env	*stack;
 
 	tmp = exp;
-//check si la key existe deja, et si c'est le casm changer uniquement la value
-	while (tmp && tmp->next)
-		tmp = tmp->next;
+	stack = blockcpy(block);
 	if (!tmp)
-		tmp = block;
-	else
-		tmp->next = block;
+	{
+		tmp = stack;
+		return ;
+	}
+	while (tmp && tmp->next)
+	{
+		if (replace_value(tmp, stack))
+			return ;
+		tmp = tmp->next;
+	}
+	if (replace_value(tmp, stack))
+		return ;
+	tmp->next = stack;
 }
-
+//SEGFAULT JE SAIS PAS OU
 static int	export_str(char *str, t_vars *vars)
 {
 	t_env	*result;
-	t_env	*tmp;
 
-	tmp = vars->env;
-	while (tmp->next)
-		tmp = tmp->next;
 	result = malloc(sizeof(t_env));
 	if (!result)
 		return (0);
 	result->next = NULL;
 	if (new_envblock(str, result) == -1)
 	{
-		if (new_expblock(str, "''", result) < 0)
+		if (new_expblock(str, "\0", result) < 0)
 			return (0);
 	}
 	else
-		tmp->next = result;
+		add_to_exp(vars->env, result);
 	add_to_exp(vars->exp, result);
+	free_block(result);
 	return (1);
 }
 

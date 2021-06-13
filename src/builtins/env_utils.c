@@ -98,6 +98,6 @@ void	print_sorted_env(t_env *env)
 		if (reset)
 			env = head;
 	}
-	env_print(head);
+	exp_print(head);
 	free_env(head);
 }

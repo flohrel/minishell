@@ -23,7 +23,7 @@ int	new_envblock(char *str, t_env *result)
 		return (-1);
 	chr = chr + 1;
 	if (!chr)
-		chr = "''";
+		chr = "\0";
 	result->value = ft_strdup(chr);
 	if (!(result->value))
 		return (0);
@@ -32,6 +32,7 @@ int	new_envblock(char *str, t_env *result)
 	result->key = malloc((len1 - len2) * sizeof(char));
 	if (!(result->key))
 		return (0);
+	(result->key)[0] = '\0';
 	ft_strlcat(result->key, str, len1 - len2);
 	return (1);
 }
@@ -43,7 +44,7 @@ t_env	*parse_env(char **env)
 	int		i;
 
 	i = 0;
-	result = malloc(1 *sizeof(t_env));
+	result = malloc(1 * sizeof(t_env));
 	if (!result)
 		return (NULL);
 	head = result;

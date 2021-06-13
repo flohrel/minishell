@@ -41,6 +41,7 @@ void	print_sorted_env(t_env *env);
 void	free_block(t_env *env);
 void	free_env(t_env *env);
 void	env_print(t_env *env);
+void	exp_print(t_env *env);
 t_env	*parse_env(char **env);
 t_env	*set_env_value(t_env *env, char *key, char *value);
 t_env	*blockcpy(t_env *env);
