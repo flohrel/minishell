@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 19:05:43 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/06/04 18:50:35 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/06/13 05:57:14 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,7 @@ void	exec_job(t_vars *vars, t_ast *node)
 void	exec_cmdline(t_vars *vars, t_ast *node)
 {
 	if (node->type == NODE_SEQ && node->right)
-	{
 		exec_cmdline(vars, node->right);
-	}
 	if (node->left)
 		exec_job(vars, node->left);
 	else if (node)

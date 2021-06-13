@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 10:17:42 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/04 01:43:58 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/12 17:16:29 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,17 @@ int	read_tmp(t_queue *file_q, char **line)
 	c = ft_memchr(tmp->data, '\n', tmp->size);
 	if (!c)
 	{
-		if (push(file_q, tmp->data, tmp->size, false) == -1)
+		if (gnl_push(file_q, tmp->data, tmp->size, false) == -1)
 			return (-1);
-		pop(file_q, true);
+		gnl_pop(file_q, true);
 		return (0);
 	}
 	size = c - tmp->data;
 	tmp_size = tmp->size - size - 1;
-	if (size && push(file_q, tmp->data, size, false) == -1)
+	if (size && gnl_push(file_q, tmp->data, size, false) == -1)
 		return (-1);
 	if ((set_line(file_q, line) == -1)
-		|| (tmp_size && push(file_q, c + 1, tmp_size, true) == -1))
+		|| (tmp_size && gnl_push(file_q, c + 1, tmp_size, true) == -1))
 		return (-1);
 	free(tmp->data);
 	free(tmp);
@@ -61,13 +61,13 @@ int	read_fd(t_queue *file_q, int fd, char **line)
 		{
 			size = c - buf;
 			tmp_size = ret - size - 1;
-			if ((size && (push(file_q, buf, size, false) == -1))
+			if ((size && (gnl_push(file_q, buf, size, false) == -1))
 				|| (set_line(file_q, line) == -1)
-				|| (tmp_size && push(file_q, c + 1, tmp_size, true) == -1))
+				|| (tmp_size && gnl_push(file_q, c + 1, tmp_size, true) == -1))
 				return (-1);
 			return (1);
 		}
-		if (push(file_q, buf, ret, false) == -1)
+		if (gnl_push(file_q, buf, ret, false) == -1)
 			return (-1);
 	}
 	return (ret);

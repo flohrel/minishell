@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 14:34:45 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/10 16:52:25 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/12 17:17:12 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,6 @@ void	ft_lstdelone(t_list *lst, void (*del)(void *));
 void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
-t_list	*ft_lstsort(t_list *lst, int (*cmp)(void *, void *));
+void	ft_lstsort(t_list **lst, int (*cmp)(void *, void *));
 
 #endif
