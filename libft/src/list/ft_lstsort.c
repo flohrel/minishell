@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 16:43:21 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/10 16:51:28 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/12 17:00:27 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,23 +40,25 @@ static t_list	*merge(t_list *left, t_list *right, int (*cmp)(void *, void *))
 	return (merged);
 }
 
-t_list	*ft_lstsort(t_list *lst, int (*cmp)(void *, void *))
+void	ft_lstsort(t_list **lst, int (*cmp)(void *, void *))
 {
 	int		size;
 	int		mid;
 	t_list	*left;
 	t_list	*right;
+	t_list	*ptr;
 
-	size = ft_lstsize(lst);
+	ptr = *lst;
+	size = ft_lstsize(ptr);
 	if (size == 1)
-		return (lst);
-	left = lst;
+		return ;
+	left = ptr;
 	mid = size / 2;
 	while (--mid)
-		lst = lst->next;
-	right = lst->next;
-	lst->next = NULL;
-	left = ft_lstsort(left, cmp);
-	right = ft_lstsort(right, cmp);
-	return (merge(left, right, cmp));
+		ptr = ptr->next;
+	right = ptr->next;
+	ptr->next = NULL;
+	ft_lstsort(&left, cmp);
+	ft_lstsort(&right, cmp);
+	*lst = merge(left, right, cmp);
 }
