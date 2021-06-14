@@ -50,6 +50,7 @@ t_env	*blockcpy(t_env *env)
 	result->value = ft_strdup(env->value);
 	if (!result->value)
 		return (NULL);
+	result->next = env->next;
 	return (result);
 }
 
