@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int			new_expblock(char *key, char *value, t_env *block)
+int	new_expblock(char *key, char *value, t_env *block)
 {
 	block->key = ft_strdup(key);
 	if (!(block->key))
@@ -35,7 +35,7 @@ int	replace_value(t_env *env, t_env *block)
 	return (0);
 }
 
-static void	add_to_exp(t_env *exp, t_env *block)
+void	add_to_exp(t_env *exp, t_env *block)
 {
 	t_env	*tmp;
 	t_env	*stack;
@@ -57,7 +57,7 @@ static void	add_to_exp(t_env *exp, t_env *block)
 		return ;
 	tmp->next = stack;
 }
-//SEGFAULT JE SAIS PAS OU
+
 static int	export_str(char *str, t_vars *vars)
 {
 	t_env	*result;
@@ -65,15 +65,21 @@ static int	export_str(char *str, t_vars *vars)
 	result = malloc(sizeof(t_env));
 	if (!result)
 		return (0);
-	result->next = NULL;
 	if (new_envblock(str, result) == -1)
 	{
-		if (new_expblock(str, "\0", result) < 0)
+		if (export_only(str, result, vars->exp, vars->env) < 0)
 			return (0);
 	}
-	else
+	else if (!result->key || !result->value)
+		return (0);
+	else if ((ft_ischarset(result->key[ft_strlen(result->key) -1],
+					"+/-*")))
+	{
 		add_to_exp(vars->env, result);
-	add_to_exp(vars->exp, result);
+		add_to_exp(vars->exp, result);
+	}
+	else
+		errormsg("export : Not valid in this context : ", result->key);
 	free_block(result);
 	return (1);
 }

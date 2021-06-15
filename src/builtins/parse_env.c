@@ -34,6 +34,7 @@ int	new_envblock(char *str, t_env *result)
 		return (0);
 	(result->key)[0] = '\0';
 	ft_strlcat(result->key, str, len1 - len2);
+	result->next = NULL;
 	return (1);
 }
 

@@ -19,6 +19,7 @@ BUILTINS	=	cd.c \
 				echo.c \
 				env_utils.c \
 				export.c \
+				export_next.c \
 				exit_b.c \
 				find_builtin.c \
 				ft_already.c \
