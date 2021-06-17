@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 13:48:03 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/11 18:03:01 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/06/17 18:54:52 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,6 @@ void	init(t_vars *vars, char **envp)
 	errno = 0;
 	vars->env = parse_env(envp);
 	vars->exp = parse_env(envp);
+	vars->agn = NULL;
 	vars->exit_status = 0;
 }

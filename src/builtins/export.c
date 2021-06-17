@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 17:14:46 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/06/11 19:23:07 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/06/17 19:19:41 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,33 +29,38 @@ int	replace_value(t_env *env, t_env *block)
 	{
 		free(env->value);
 		env->value = ft_strdup(block->value);
+		if (!(env->value))
+			return (-1);
 		free_block(block);
 		return (1);
 	}
 	return (0);
 }
 
-void	add_to_exp(t_env *exp, t_env *block)
+int	add_to_exp(t_env *exp, t_env *block)
 {
 	t_env	*tmp;
 	t_env	*stack;
 
 	tmp = exp;
 	stack = blockcpy(block);
+	if (!stack)
+		return (0);
 	if (!tmp)
 	{
 		tmp = stack;
-		return ;
+		return (1);
 	}
 	while (tmp && tmp->next)
 	{
 		if (replace_value(tmp, stack))
-			return ;
+			return (1);
 		tmp = tmp->next;
 	}
 	if (replace_value(tmp, stack))
-		return ;
+		return (1);
 	tmp->next = stack;
+	return (1);
 }
 
 static int	export_str(char *str, t_vars *vars)
@@ -75,8 +80,9 @@ static int	export_str(char *str, t_vars *vars)
 	else if ((ft_ischarset(result->key[ft_strlen(result->key) -1],
 					"+/-*")))
 	{
-		add_to_exp(vars->env, result);
-		add_to_exp(vars->exp, result);
+		if (add_to_exp(vars->env, result) < 0
+				|| add_to_exp(vars->exp, result) < 0)
+			return (0);
 	}
 	else
 		errormsg("export : Not valid in this context : ", result->key);

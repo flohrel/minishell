@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 15:01:51 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/11 17:46:18 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/06/17 18:54:19 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,7 @@ struct	s_vars
 	t_hist		history;
 	t_env		*env;
 	t_env		*exp;
+	t_env		*agn;
 	int			exit_status;
 };
 

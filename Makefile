@@ -15,7 +15,8 @@ OBJDIR		=	obj
 LIBDIR		=	libft
 INCLDIR		=	incld
 
-BUILTINS	=	cd.c \
+BUILTINS	=	assign.c \
+				cd.c \
 				echo.c \
 				env_utils.c \
 				export.c \

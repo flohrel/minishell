@@ -1,25 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.h                                             :+:      :+:    :+:   */
+/*   assign.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/31 19:23:42 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/06/17 18:37:58 by mtogbe           ###   ########.fr       */
+/*   Created: 2021/06/16 17:02:16 by mtogbe            #+#    #+#             */
+/*   Updated: 2021/06/17 19:18:15 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXEC_H
-# define EXEC_H
+#include <minishell.h>
 
-# include "data.h"
+int	handle_assign(t_env *block, t_vars *vars)
+{
+	char	*stack;
+	char	*stackb;
 
-void	exec_ast(t_vars *vars, t_ast *root);
-void	*add_to_ptrlst(void *content, t_vars *vars);
-int	find_cmd(char *path, char **argv, char **envp, t_vars *vars);
-char	**tabjoin(char *str, char **args, t_vars *vars);
-char	**env_to_tab(t_env *env, t_vars *vars);
-int	env_size(t_env *env);
-
-#endif
+	if (ft_endwith(block->key, '+'))
+	{
+		stack = get_env_value(block->key, vars->agn);
+		stackb = block->value;
+		block->value = ft_strjoin(stack, block->value);
+		free(stack);
+		free(stackb);
+	}
+	add_to_exp(block, vars->agn);
+	env_print(vars->agn);
+	free(block);
+	return (1);
+}
