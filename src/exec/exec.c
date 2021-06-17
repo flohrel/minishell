@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 19:05:43 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/06/17 19:20:23 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/06/17 20:22:20 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,10 @@ int	exec_command(t_vars *vars, t_ast *node)
 {
 	t_param	*param;
 	char	**args;
-	t_env	*res;
-
+	
 	param = node->data;
 	args = list_to_tab(param->arg, vars);
-	res = malloc(sizeof(t_env));
-	if (!res)
-		return (0);
-	if (new_envblock(param->path, res) > 0)
-	{
-		handle_assign(res, vars);
-		return (1);
-	}
-	free(res);
+	handle_assign(vars, param->assign);
 	if (find_builtin(param->path, args, vars))
 		return (2);
 	else if (find_cmd(param->path, args,

@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 15:24:24 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/06/17 19:18:47 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/06/17 20:23:09 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	free_block(t_env *env);
 void	free_env(t_env *env);
 void	env_print(t_env *env);
 void	exp_print(t_env *env);
-int		handle_assign(t_env *block, t_vars *vars);
+int		handle_assign(t_vars *vars, t_list *assign);
 int	replace_value(t_env *env, t_env *block);
 int	add_to_exp(t_env *exp, t_env *block);
 int	export_only(char *str, t_env *result, t_env *exp, t_env *env);
