@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 17:14:46 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/06/17 19:19:41 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/06/18 15:45:59 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	add_to_exp(t_env *exp, t_env *block)
 		return (0);
 	if (!tmp)
 	{
-		tmp = stack;
+		exp = stack;
 		return (1);
 	}
 	while (tmp && tmp->next)
