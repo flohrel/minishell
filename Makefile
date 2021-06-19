@@ -55,6 +55,7 @@ UTILS		=	astree.c \
 				exit.c \
 				init.c \
 				utils.c \
+				flag.c \
 				token.c
 
 SRC			=	main.c \

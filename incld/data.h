@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 15:01:51 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/13 05:56:02 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/15 14:38:37 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,15 @@ enum	e_node
 	NODE_CMD,
 };
 
+enum	e_rd
+{
+	RD_IN = 1,
+	RD_OUT = 2,
+	RD_APP = 4,
+	RD_HDOC = 8,
+};
+
+
 typedef struct s_env	t_env;
 typedef struct s_lexer	t_lexer;
 typedef struct s_parser	t_parser;
@@ -61,6 +70,7 @@ typedef struct s_env	t_env;
 typedef struct s_vars	t_vars;
 typedef struct s_opt	t_opt;
 typedef struct s_cmd	t_cmd;
+typedef struct s_rd		t_rd;
 
 struct	s_token
 {
@@ -119,14 +129,20 @@ struct	s_opt
 	char	**args;
 };
 
+struct	s_rd
+{
+	int		field;
+	int		fd_in;
+	int		fd_out;
+	char	*delim;
+};
+
 struct	s_cmd
 {
 	bool	is_builtin;
 	char	*full_path;
 	char	**arg;
-	char	*delim;
-	int		fd_in;
-	int		fd_out;
+	t_rd	redir;
 };
 
 struct	s_vars
@@ -135,7 +151,7 @@ struct	s_vars
 	t_parser	parser;
 	t_list		*ptr_list;
 	t_env		*env;
-	t_
+	t_cmd		*cmd;
 	int			exit_status;
 };
 

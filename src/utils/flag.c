@@ -1,24 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   add_ptrlst.c                                       :+:      :+:    :+:   */
+/*   flag.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
+/*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/04 17:13:52 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/06/15 01:04:13 by flohrel          ###   ########.fr       */
+/*   Created: 2021/01/29 15:27:25 by flohrel           #+#    #+#             */
+/*   Updated: 2021/06/15 14:41:28 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "utils.h"
 
-void	*add_to_ptrlst(void *content, t_vars *vars)
+int		set_flag(int *field, int flag)
 {
-	t_list	*new;
+	return ((*field) |= flag);
+}
 
-	new = ft_lstnew(content);
-	if (!new)
-		return (NULL);
-	ft_lstadd_front(&(vars->ptr_list), new);
-	return (new);
+int		check_flag(int field, int flag)
+{
+	return (field & flag);
+}
+
+void	clear_flag(int *field, int flag)
+{
+	(*field) &= ~(flag);
 }

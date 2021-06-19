@@ -6,11 +6,40 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 19:05:43 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/06/13 05:57:14 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/15 15:23:17 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	parse_redir(t_param *param, t_rd *redir)
+{
+	t_list	*lst;
+	t_token	*token;
+
+	redir->field = 0;
+	lst = param->redir;
+	if (lst == NULL)
+		return ;
+	while (lst)
+	{
+		token = (t_token *)lst->content;
+		if (token->type == TK_LESS)
+		{
+			set_flag(&redir->field, RD_IN);
+			redir->fd_in = open(token->data, O_RDONLY);
+		}
+		lst = lst->next;
+	}
+}
+
+void	init_cmd(t_vars *vars, t_param *param)
+{
+	t_cmd	*cmd;
+
+	cmd = lst_alloc(1, sizeof(*cmd), vars);
+	parse_redir(param, &cmd.redir);
+}
 
 void	exec_command(t_vars *vars, t_ast *node)
 {
@@ -19,11 +48,11 @@ void	exec_command(t_vars *vars, t_ast *node)
 
 	param = node->data;
 	args = list_to_tab(param->arg, vars);
-	if (find_builtin(param->path, args, vars))
+/*	if (find_builtin(param->path, args, vars))
 		return ;
 	else if (find_cmd(param->path, args,
 				env_to_tab(vars->env, vars), vars))
-		return ;
+		return ;*/
 }
 
 void	exec_pipeline(t_vars *vars, t_ast *node)
