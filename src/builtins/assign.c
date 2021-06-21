@@ -38,12 +38,13 @@ int	manage_agn(t_list *assign, t_vars *vars, t_env *block)
 	if (ft_endwith(block->key, '+'))
 		if (assign_add(block, vars) < 0)
 			return (-1);
-	if (get_env_value(block->key, vars->env))
-		if (add_to_exp(vars->env, block) < 0)
-			return (-1);
 	if (get_env_value(block->key, vars->exp))
+	{
 		if (add_to_exp(vars->exp, block) < 0)
 			return (-1);
+		if (add_to_exp(vars->env, block) < 0)
+			return (-1);
+	}
 	if (!vars->agn)
 		vars->agn = blockcpy(block);
 	else

@@ -76,7 +76,7 @@ static int	export_str(char *str, t_vars *vars)
 		return (0);
 	if (new_envblock(str, result) == -1)
 	{
-		if (export_only(str, result, vars->exp, vars->env) < 0)
+		if (export_only(str, result, vars) < 0)
 			return (0);
 	}
 	else if (!result->key || !result->value)

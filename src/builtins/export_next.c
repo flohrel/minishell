@@ -1,11 +1,32 @@
 #include "minishell.h"
 
-int	export_only(char *str, t_env *result, t_env *exp, t_env *env)
+int	add_agn(char *str, t_env *result, t_vars *vars)
+{
+	char	*value;
+	t_env	*block;
+
+	value = get_env_value(str, vars->agn);
+	if (value)
+		value = ft_strdup(value);
+	else
+		return (0);
+	result->value = value;
+	result->key = ft_strdup(str);
+	block = blockcpy(result);
+	if (add_to_exp(vars->env, block) < 0 ||
+			add_to_exp(vars->exp, block) < 0)
+		return (-1);
+	return (1);
+}
+
+int	export_only(char *str, t_env *result, t_vars * vars)
 {
 	t_env	*tmp;
 	t_env	*cpy;
 
-	tmp = exp;
+	tmp = vars->exp;
+	if (add_agn(str, result, vars))
+		return (1);
 	while (tmp)
 	{
 		if (ft_strcmp(str, tmp->key) == 0)
@@ -13,8 +34,8 @@ int	export_only(char *str, t_env *result, t_env *exp, t_env *env)
 			cpy = blockcpy(tmp);
 			if (!cpy)
 				return (-1);
-			if (add_to_exp(env, cpy) < 0
-				|| add_to_exp(exp, cpy) < 0)
+			if (add_to_exp(vars->env, cpy) < 0
+				|| add_to_exp(vars->exp, cpy) < 0)
 				return (-1);
 			return (1);
 		}
@@ -22,7 +43,7 @@ int	export_only(char *str, t_env *result, t_env *exp, t_env *env)
 	}
 	if (new_expblock(str, "\0", result) == 0)
 		return (-1);
-	if (add_to_exp(exp, result) < 0)
+	if (add_to_exp(vars->exp, result) < 0)
 		return (-1);
 	return (1);
 }
