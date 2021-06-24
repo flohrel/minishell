@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 14:52:04 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/06/24 20:20:24 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/06/24 20:48:46 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ int	find_cmd(char *path, char **argv, char **envp, t_vars *vars)
 		return (-1);
 	else if (pid == 0)
 	{
+		if (find_builtin(path, argv, vars))
+			exit(0);
 		exec_cmd(path, tabjoin(path, argv, vars), envp, vars);
 		exit(0);
 	}

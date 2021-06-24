@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 19:05:43 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/06/24 20:20:08 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/06/24 20:48:22 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,8 @@ int	exec_command(t_vars *vars, t_ast *node)
 	args = list_to_tab(param->arg, vars);
 	if (param && !(param->path))
 		handle_assign(vars, param->assign);
-	if (find_builtin(param->path, args, vars))
-		return (2);
-	else if (find_cmd(param->path, args,
-			env_to_tab(vars->env, vars), vars))
+	if (find_cmd(param->path, args,
+		env_to_tab(vars->env, vars), vars))
 		return (3);
 	return (-1);
 }
