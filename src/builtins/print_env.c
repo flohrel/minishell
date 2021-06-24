@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 17:28:13 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/06/11 18:14:55 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/06/24 20:19:20 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	exp_print(t_env *env)
 {
 	t_env	*tmp;
-	
+
 	tmp = env;
 	while (tmp)
 	{
@@ -33,7 +33,7 @@ void	exp_print(t_env *env)
 void	env_print(t_env *env)
 {
 	t_env	*tmp;
-	
+
 	tmp = env;
 	while (tmp)
 	{

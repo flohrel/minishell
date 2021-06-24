@@ -13,13 +13,13 @@ int	add_agn(char *str, t_env *result, t_vars *vars)
 	result->value = value;
 	result->key = ft_strdup(str);
 	block = blockcpy(result);
-	if (add_to_exp(vars->env, block) < 0 ||
-			add_to_exp(vars->exp, block) < 0)
+	if (add_to_exp(vars->env, block) < 0
+		|| add_to_exp(vars->exp, block) < 0)
 		return (-1);
 	return (1);
 }
 
-int	export_only(char *str, t_env *result, t_vars * vars)
+int	export_only(char *str, t_env *result, t_vars *vars)
 {
 	t_env	*tmp;
 	t_env	*cpy;

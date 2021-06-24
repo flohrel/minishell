@@ -42,7 +42,7 @@ static int	check_options(char *str, char *opt, char **flags, t_vars *vars)
 	return (1);
 }
 
-t_opt	nullopt()
+t_opt	nullopt(void)
 {
 	t_opt	result;
 
@@ -63,12 +63,11 @@ t_opt	optionhandler(char **args, char *opt, t_vars *vars)
 	options.optflag = "";
 	while (args[i] && ft_startwith(args[i], '-'))
 	{
-		ret = check_options(args[i] + 1, opt,
-					&(options.optflag), vars);
+		ret = check_options(args[i] + 1, opt, &(options.optflag), vars);
 		if (ret < 0)
 			return (nullopt());
 		else if (ret == 0)
-			break;
+			break ;
 		i++;
 	}
 	options.args = lst_alloc(ft_tablen(args + i) + 1, sizeof(char *),

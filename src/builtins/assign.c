@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/16 17:02:16 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/06/20 16:49:47 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/06/24 19:52:41 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int	assign_add(t_env *block, t_vars *vars)
 	char	*stackb;
 
 	(block->key)[ft_strlen(block->key) - 2] = '\0';
-	//chercher egalement la valeur dans la list export
 	stack = get_env_value(block->key, vars->exp);
 	if (!stack)
 		stack = get_env_value(block->key, vars->agn);
@@ -27,7 +26,7 @@ int	assign_add(t_env *block, t_vars *vars)
 	stackb = block->value;
 	block->value = ft_strjoin(stack, block->value);
 	if (!(block->value))
-			return (-1);
+		return (-1);
 	free(stackb);
 	return (1);
 }

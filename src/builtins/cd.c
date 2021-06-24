@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 14:47:20 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/06/11 16:50:09 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/06/24 19:54:25 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,20 @@ int	errormsg(char *str, char *arg)
 	return (1);
 }
 
-static int      check_error(char *path)
+static int	check_error(char *path)
 {
-        int     fd;
+	int	fd;
 
-        fd = open(path, O_RDONLY);
-        if (fd < 0)
-                return (errormsg("cd : aucun fichier ou dossier de ce type : "
-                                        , path));
-        else
-        {
-                close(fd);
-                return (errormsg("cd : n'est pas un dossier : ", path));
-        }
-        return (1);
+	fd = open(path, O_RDONLY);
+	if (fd < 0)
+		return (errormsg("cd : aucun fichier ou dossier de ce type : ",
+				path));
+	else
+	{
+		close(fd);
+		return (errormsg("cd : n'est pas un dossier : ", path));
+	}
+	return (1);
 }
 
 int	cd(char **args, t_vars *vars)

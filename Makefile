@@ -30,10 +30,12 @@ BUILTINS	=	assign.c \
 				ft_tablen.c \
 				ft_strisdigit.c \
 				get_env_value.c \
+				init_exp.c \
 				set_env_value.c \
 				optionhandle.c \
 				parse_env.c \
 				print_env.c \
+				print_sorted_env.c \
 				pwd.c \
 				unset.c
 

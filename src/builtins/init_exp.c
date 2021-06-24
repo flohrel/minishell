@@ -1,25 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.h                                             :+:      :+:    :+:   */
+/*   init_exp.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/31 19:23:42 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/06/24 20:22:43 by mtogbe           ###   ########.fr       */
+/*   Created: 2021/06/24 20:09:36 by mtogbe            #+#    #+#             */
+/*   Updated: 2021/06/24 20:13:53 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXEC_H
-# define EXEC_H
+#include <minishell.h>
 
-# include "data.h"
-
-void	exec_ast(t_vars *vars, t_ast *root);
-void	*add_to_ptrlst(void *content, t_vars *vars);
-int		find_cmd(char *path, char **argv, char **envp, t_vars *vars);
-char	**tabjoin(char *str, char **args, t_vars *vars);
-char	**env_to_tab(t_env *env, t_vars *vars);
-int		env_size(t_env *env);
-
-#endif
+int	init_exp(t_env **env, t_env *elem)
+{
+	(*env) = elem;
+	(*env)->next = NULL;
+	return (1);
+}

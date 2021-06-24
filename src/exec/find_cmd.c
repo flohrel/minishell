@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 14:52:04 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/06/18 15:55:33 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/06/24 20:20:24 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*create_path(char *path, char *cmd, t_vars *vars)
 int	exec_cmd(char *path, char **argv, char **envp, t_vars *vars)
 {
 	char		**paths;
-	int		i;
+	int			i;
 	char		*path_x;
 
 	i = 0;

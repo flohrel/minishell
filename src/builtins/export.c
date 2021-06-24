@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 17:14:46 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/06/18 15:45:59 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/06/24 20:13:22 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,14 @@ int	add_to_exp(t_env *exp, t_env *block)
 {
 	t_env	*tmp;
 	t_env	*stack;
-	int	ret;
+	int		ret;
 
 	tmp = exp;
 	stack = blockcpy(block);
 	if (!stack)
 		return (-1);
-	if (!tmp)
-	{
-		exp = stack;
+	if (!tmp && init_exp(&exp, stack))
 		return (1);
-	}
 	while (tmp && tmp->next)
 	{
 		ret = replace_value(tmp, stack);
@@ -81,11 +78,11 @@ static int	export_str(char *str, t_vars *vars)
 	}
 	else if (!result->key || !result->value)
 		return (0);
-	else if ((ft_ischarset(result->key[ft_strlen(result->key) -1],
-					"+/-*")) == 0)
+	else if ((ft_ischarset(result->key[ft_strlen(result->key) - 1],
+				"+/-*")) == 0)
 	{
 		if (add_to_exp(vars->env, result) < 0
-				|| add_to_exp(vars->exp, result) < 0)
+			|| add_to_exp(vars->exp, result) < 0)
 			return (0);
 	}
 	else
