@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 14:34:45 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/04 01:16:38 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/14 14:43:14 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@ void			ft_dlstclear(t_dlist **lst, void (*del)(void *));
 void			ft_dlstiter(t_dlist *lst, void (*f)(void *));
 t_dlist			*ft_dlstmap(t_dlist *lst, void *(*f)(void *), \
 		void (*del)(void *));
+void	ft_dlstsort(t_dlist **lst, int (*cmp)(void *, void *));
 
 #endif
