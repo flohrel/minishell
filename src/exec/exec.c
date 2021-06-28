@@ -21,6 +21,8 @@ int	exec_command(t_vars *vars, t_ast *node)
 	args = list_to_tab(param->arg, vars);
 	if (param && !(param->path))
 		handle_assign(vars, param->assign);
+	if (find_builtin(param->path, args, vars))
+		return (1);
 	if (find_cmd(param, args,
 		env_to_tab(vars->env, vars), vars))
 		return (3);
@@ -63,5 +65,7 @@ void	exec_cmdline(t_vars *vars, t_ast *node)
 
 void	exec_ast(t_vars *vars, t_ast *root)
 {
+	(void)vars;
+	(void)root;
 	exec_cmdline(vars, root);
 }

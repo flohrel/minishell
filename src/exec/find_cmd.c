@@ -64,14 +64,16 @@ int	find_cmd(t_param *param, char **argv, char **envp, t_vars *vars)
 	int	pid;
 	int	status;
 
+	(void)param;
+	(void)argv;
+	(void)envp;
+	(void)vars;
 	pid = fork();
 	if (pid < 0)
 		return (-1);
 	else if (pid == 0)
 	{
-		handle_redirections(param);
-		if (find_builtin(param->path, argv, vars))
-			exit(0);
+		//handle_redirections(param);
 		exec_cmd(param->path, tabjoin(param->path, argv, vars),
 				envp, vars);
 		exit(0);
