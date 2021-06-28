@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/18 02:36:25 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/12 16:31:11 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/24 20:21:30 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,5 @@ void	print_tab(char **arg);
 void	init(t_vars *vars, char **envp);
 void	init_vars(t_vars *vars);
 void	init_term(t_vars *vars);
-
 
 #endif
