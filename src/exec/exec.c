@@ -34,11 +34,14 @@ void	exec_pipeline(t_vars *vars, t_ast *node)
 	//créer le pipe, connecter le stdout de node left avec le stdin de node left de node righ si node right = pipe ou node right directement si node right = job
 	//executer node->left
 	//executer node->right
-	//echo | echo | echo
-	//if (node->right && node->right->type == NODE_PIPE)
-	//	exec_pipeline(node->right);
-	//else if (node->right)
-	//	exec_command(node->right);
+	//echo | echo | echoù
+	
+	if (node->left)
+		exec_command(node->left);
+	if (node->right && node->right->type == NODE_PIPE)
+		exec_pipeline(node->right);
+	else if (node->right)
+		exec_command(node->right);
 	(void)vars;
 	(void)node;
 }
