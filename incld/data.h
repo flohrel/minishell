@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 15:01:51 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/28 21:38:31 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/28 21:54:07 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,16 +121,18 @@ struct	s_opt
 
 struct	s_cmd
 {
-	int		field;
-	char	*delim;
-	int		fd_in;
-	int		fd_out;
+//	bool	is_builtin;
+//	char	*full_path;
+//	char	**arg;
+	int		redir[2];
+	int		pipe[2];
 };
 
 struct	s_vars
 {
 	t_lexer		lexer;
 	t_parser	parser;
+	t_cmd		cmd;
 	t_list		*ptr_list;
 	t_env		*env;
 	t_env		*exp;
