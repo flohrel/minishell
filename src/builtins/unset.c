@@ -67,7 +67,8 @@ int	unset(char **args, t_vars *vars)
 	i = 0;
 	while (args && args[i])
 	{
-		vars->env = unset_key(args[i++], vars->env);
+		vars->env = unset_key(args[i], vars->env);
+		vars->exp = unset_key(args[i++], vars->exp);
 	}
 	return (1);
 }

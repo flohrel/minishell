@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 15:01:51 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/13 05:56:02 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/28 21:01:14 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,8 @@ struct	s_vars
 	t_parser	parser;
 	t_list		*ptr_list;
 	t_env		*env;
-	t_
+	t_env		*exp;
+	t_env		*agn;
 	int			exit_status;
 };
 
