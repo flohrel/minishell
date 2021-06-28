@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 14:52:04 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/06/08 13:17:54 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/24 20:48:46 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,33 +33,16 @@ char	*create_path(char *path, char *cmd, t_vars *vars)
 
 int	exec_cmd(char *path, char **argv, char **envp, t_vars *vars)
 {
-//	DIR				*dir;
-//	struct dirent	*s_dir;
 	char		**paths;
-	int		i;
+	int			i;
 	char		*path_x;
 
 	i = 0;
+	if (!path || !argv || !envp || !vars)
+		return (-1);
 	if (ft_ischarset('/', path))
-	{
 		if (execve(path, argv, envp) < 0)
-			printf("bash : %s: No such file or directory.", path);
-		ft_putstr_fd("executing\n", 1);
-	}
-	/*else
-	{
-		dir = opendir("/bin/");
-		do
-		{
-			s_dir = readdir(dir);
-			if (s_dir && !(strcmp(s_dir->d_name, path)))
-			{
-				printf("exec %s\n", s_dir->d_name);
-			}
-		} while (s_dir);
-		closedir(dir);
-	}*/
-	// ou directment faire un execve avec le path "/bin/" + pathname
+			printf("bash : %s: No such file or directory.\n", path);
 	paths = ft_split(get_env_value("PATH", vars->env), ':');
 	if (!paths)
 		return (-1);
@@ -76,17 +59,23 @@ int	exec_cmd(char *path, char **argv, char **envp, t_vars *vars)
 	return (1);
 }
 
-int	find_cmd(char *path, char **argv, char **envp, t_vars *vars)
+int	find_cmd(t_param *param, char **argv, char **envp, t_vars *vars)
 {
 	int	pid;
 	int	status;
 
+	(void)param;
+	(void)argv;
+	(void)envp;
+	(void)vars;
 	pid = fork();
 	if (pid < 0)
 		return (-1);
 	else if (pid == 0)
 	{
-		exec_cmd(path, tabjoin(path, argv, vars), envp, vars);
+		//handle_redirections(param);
+		exec_cmd(param->path, tabjoin(param->path, argv, vars),
+				envp, vars);
 		exit(0);
 	}
 	else

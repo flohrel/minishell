@@ -6,7 +6,7 @@
 #    By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/16 16:04:42 by flohrel           #+#    #+#              #
-#    Updated: 2021/06/10 16:49:29 by flohrel          ###   ########.fr        #
+#    Updated: 2021/06/14 14:43:42 by flohrel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,8 @@ DLIST		=	ft_dlstadd_back.c \
 				ft_dlstlast.c \
 				ft_dlstmap.c \
 				ft_dlstnew.c \
-				ft_dlstsize.c
+				ft_dlstsize.c \
+				ft_dlstsort.c
 
 IO			=	ft_putchar.c \
 				ft_putchar_fd.c \

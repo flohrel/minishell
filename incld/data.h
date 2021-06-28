@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 15:01:51 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/15 14:38:37 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/29 01:08:07 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,11 @@ enum	e_rd
 	RD_HDOC = 8,
 };
 
+enum	e_io
+{
+	FD_IN,
+	FD_OUT,
+};
 
 typedef struct s_env	t_env;
 typedef struct s_lexer	t_lexer;
@@ -70,7 +75,6 @@ typedef struct s_env	t_env;
 typedef struct s_vars	t_vars;
 typedef struct s_opt	t_opt;
 typedef struct s_cmd	t_cmd;
-typedef struct s_rd		t_rd;
 
 struct	s_token
 {
@@ -129,29 +133,23 @@ struct	s_opt
 	char	**args;
 };
 
-struct	s_rd
-{
-	int		field;
-	int		fd_in;
-	int		fd_out;
-	char	*delim;
-};
-
 struct	s_cmd
 {
-	bool	is_builtin;
-	char	*full_path;
-	char	**arg;
-	t_rd	redir;
+	int		io_bit;
+	char	*delim;
+	int		redir[2];
+	int		pipe[2];
 };
 
 struct	s_vars
 {
 	t_lexer		lexer;
 	t_parser	parser;
+	t_cmd		cmd;
 	t_list		*ptr_list;
 	t_env		*env;
-	t_cmd		*cmd;
+	t_env		*exp;
+	t_env		*agn;
 	int			exit_status;
 };
 
