@@ -17,9 +17,10 @@
 
 void	exec_ast(t_vars *vars, t_ast *root);
 void	*add_to_ptrlst(void *content, t_vars *vars);
-int		find_cmd(char *path, char **argv, char **envp, t_vars *vars);
+int		find_cmd(t_param *param, char **argv, char **envp, t_vars *vars);
 char	**tabjoin(char *str, char **args, t_vars *vars);
 char	**env_to_tab(t_env *env, t_vars *vars);
+int		handle_redirections(t_param *param);
 int		env_size(t_env *env);
 
 #endif

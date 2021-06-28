@@ -21,7 +21,7 @@ int	exec_command(t_vars *vars, t_ast *node)
 	args = list_to_tab(param->arg, vars);
 	if (param && !(param->path))
 		handle_assign(vars, param->assign);
-	if (find_cmd(param->path, args,
+	if (find_cmd(param, args,
 		env_to_tab(vars->env, vars), vars))
 		return (3);
 	return (-1);
@@ -29,6 +29,14 @@ int	exec_command(t_vars *vars, t_ast *node)
 
 void	exec_pipeline(t_vars *vars, t_ast *node)
 {
+	//créer le pipe, connecter le stdout de node left avec le stdin de node left de node righ si node right = pipe ou node right directement si node right = job
+	//executer node->left
+	//executer node->right
+	//echo | echo | echo
+	//if (node->right && node->right->type == NODE_PIPE)
+	//	exec_pipeline(node->right);
+	//else if (node->right)
+	//	exec_command(node->right);
 	(void)vars;
 	(void)node;
 }
@@ -43,14 +51,14 @@ void	exec_job(t_vars *vars, t_ast *node)
 
 void	exec_cmdline(t_vars *vars, t_ast *node)
 {
-	if (node->type == NODE_SEQ && node->right)
-	{
-		exec_cmdline(vars, node->right);
-	}
 	if (node->left)
 		exec_job(vars, node->left);
 	else if (node)
 		exec_job(vars, node);
+	if (node->type == NODE_SEQ && node->right)
+	{
+		exec_cmdline(vars, node->right);
+	}
 }
 
 void	exec_ast(t_vars *vars, t_ast *root)

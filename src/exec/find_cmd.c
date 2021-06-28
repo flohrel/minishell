@@ -59,7 +59,7 @@ int	exec_cmd(char *path, char **argv, char **envp, t_vars *vars)
 	return (1);
 }
 
-int	find_cmd(char *path, char **argv, char **envp, t_vars *vars)
+int	find_cmd(t_param *param, char **argv, char **envp, t_vars *vars)
 {
 	int	pid;
 	int	status;
@@ -69,9 +69,11 @@ int	find_cmd(char *path, char **argv, char **envp, t_vars *vars)
 		return (-1);
 	else if (pid == 0)
 	{
-		if (find_builtin(path, argv, vars))
+		handle_redirections(param);
+		if (find_builtin(param->path, argv, vars))
 			exit(0);
-		exec_cmd(path, tabjoin(path, argv, vars), envp, vars);
+		exec_cmd(param->path, tabjoin(param->path, argv, vars),
+				envp, vars);
 		exit(0);
 	}
 	else
