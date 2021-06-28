@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 15:01:51 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/28 21:01:14 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/28 21:38:31 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,9 +121,7 @@ struct	s_opt
 
 struct	s_cmd
 {
-	bool	is_builtin;
-	char	*full_path;
-	char	**arg;
+	int		field;
 	char	*delim;
 	int		fd_in;
 	int		fd_out;

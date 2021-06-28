@@ -40,10 +40,10 @@ BUILTINS	=	assign.c \
 				unset.c
 
 EXEC		=	exec.c \
-			exec_utils.c \
-			redirections.c \
-			add_ptrlst.c \
-			find_cmd.c
+				exec_utils.c \
+				redirections.c \
+				add_ptrlst.c \
+				find_cmd.c
 
 INPUT		=	input.c
 
