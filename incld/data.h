@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 15:01:51 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/28 21:54:07 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/28 21:55:16 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,12 @@ enum	e_node
 	NODE_SEQ,
 	NODE_PIPE,
 	NODE_CMD,
+};
+
+enum	e_io
+{
+	FD_IN,
+	FD_OUT,
 };
 
 typedef struct s_env	t_env;
