@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 19:05:43 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/06/24 20:48:22 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/06/28 21:57:54 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	exec_job(t_vars *vars, t_ast *node)
 
 void	exec_cmdline(t_vars *vars, t_ast *node)
 {
+	init_cmd(&vars->cmd);
 	if (node->left)
 		exec_job(vars, node->left);
 	else if (node)
