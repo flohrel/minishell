@@ -17,6 +17,7 @@ int	exec_command(t_vars *vars, t_ast *node)
 	t_param	*param;
 	char	**args;
 
+	write (1, "C", 1);
 	param = node->data;
 	args = list_to_tab(param->arg, vars);
 	if (param && !(param->path))
@@ -31,37 +32,35 @@ int	exec_command(t_vars *vars, t_ast *node)
 
 void	exec_pipeline(t_vars *vars, t_ast *node)
 {
-	//créer le pipe, connecter le stdout de node left avec le stdin de node left de node righ si node right = pipe ou node right directement si node right = job
-	//executer node->left
-	//executer node->right
-	//echo | echo | echoù
-	
+	write(1, "P", 1);
+	if (pipe(vars->cmd.pipe) < 0)
+		return ;//exit ?
+//	dup2(vars->cmd.pipe[FD_OUT], 1);
 	if (node->left)
-		exec_command(node->left);
+		exec_command(vars, node->left);
+//	dup2(vars->cmd.pipe[FD_IN], 0);
 	if (node->right && node->right->type == NODE_PIPE)
-		exec_pipeline(node->right);
+		exec_pipeline(vars, node->right);
 	else if (node->right)
-		exec_command(node->right);
-	(void)vars;
-	(void)node;
+		exec_command(vars, node->right);
 }
 
 void	exec_job(t_vars *vars, t_ast *node)
 {
 	if (node->type == NODE_PIPE)
 		exec_pipeline(vars, node);
-	else
+	else if (node->type == NODE_CMD) 
 		exec_command(vars, node);
 }
 
 void	exec_cmdline(t_vars *vars, t_ast *node)
 {
-	init_cmd(&vars->cmd);
-	if (node->left)
-		exec_job(vars, node->left);
-	else if (node)
+	//init_cmd(&vars->cmd);
+	if (node && node->type != NODE_SEQ)
 		exec_job(vars, node);
-	if (node->type == NODE_SEQ && node->right)
+	else if (node && node->left)
+		exec_job(vars, node->left);
+	if (node && node->type == NODE_SEQ && node->right)
 	{
 		exec_cmdline(vars, node->right);
 	}
