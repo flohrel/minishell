@@ -64,10 +64,6 @@ int	find_cmd(t_param *param, char **argv, char **envp, t_vars *vars)
 	int	pid;
 	int	status;
 
-	(void)param;
-	(void)argv;
-	(void)envp;
-	(void)vars;
 	pid = fork();
 	if (pid < 0)
 		return (-1);
