@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 15:01:51 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/29 01:08:07 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/30 03:25:02 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,17 @@ enum	e_node
 	NODE_CMD,
 };
 
-enum	e_rd
+enum	e_io
 {
 	RD_IN = 1,
 	RD_OUT = 2,
 	RD_APP = 4,
 	RD_HDOC = 8,
+	PIPE_IN = 16,
+	PIPE_OUT = 32,
 };
 
-enum	e_io
+enum	e_fd
 {
 	FD_IN,
 	FD_OUT,

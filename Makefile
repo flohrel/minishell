@@ -77,7 +77,7 @@ OBJ			=	$(SRC:%.c=$(OBJDIR)/%.o)
 CC			=	gcc
 CFLAGS		=	-Wall -Werror -Wextra -g3
 INCFLAGS	=	-I./$(INCLDIR) -I./$(LIBDIR)/incld
-LFLAGS		=	-L./$(LIBDIR) -lft -lncurses -lreadline
+LFLAGS		=	-L./$(LIBDIR) -lft -lreadline
 RM			=	/bin/rm -rf
 UNAME		:=	$(shell uname -s)
 
