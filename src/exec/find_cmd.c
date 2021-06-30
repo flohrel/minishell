@@ -10,10 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <dirent.h>
-#include <stdio.h>
 #include <unistd.h>
 #include <string.h>
 #include "minishell.h"

@@ -2,12 +2,32 @@
 
 int	check_fd(t_vars *vars)
 {
-	//if (check_flag(vars->cmd.io_bit, PIPE_OUT))
-	//	dup2(vars->cmd.pipe[FD_IN], FD_IN);
-	if (check_flag(vars->cmd.io_bit, PIPE_IN))
-		dup2(vars->cmd.pipe[FD_OUT], FD_OUT);
+	int	pid;
+	int	status;
+
+	return (1);
+	pid = fork();
+	if (pid < 0)
+		return (-1);
+	if (pid == 0)
+	{
+		if (vars->cmd.io_bit < 0)
+			dup2(vars->cmd.pipe[FD_IN], FD_IN);
+		else
+		{
+			if (check_flag(vars->cmd.io_bit, PIPE_OUT))
+				dup2(vars->cmd.pipe[FD_IN], FD_IN);
+			if (check_flag(vars->cmd.io_bit, PIPE_IN))
+				dup2(vars->cmd.pipe[FD_OUT], FD_OUT);
+		}
+	}
+	else
+	{
+		waitpid(pid, &status, 0);
+	}
 	return (1);
 }
+
 static int	find_builtin_next(char *path, char **args, t_vars *vars)
 {
 	if (ft_strcmp("env", path) == 0 && check_fd(vars))
