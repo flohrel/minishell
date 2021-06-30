@@ -6,27 +6,22 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 19:05:43 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/06/28 21:57:54 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/30 03:40:26 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	exec_command(t_vars *vars, t_ast *node)
+int	exec_command(t_vars *vars, t_cmd *cmd, t_ast *node)
 {
 	t_param	*param;
 	char	**args;
 
+	(void)cmd;
+	if (node == NULL)
+		return (-1);
 	param = node->data;
 	args = list_to_tab(param->arg, vars);
-/*	if (vars->pipes &&  vars->pipes->prev &&
-			vars->pipes->prev->node->type == NODE_CMD)
-	{
-		close(vars->cmd.pipe[FD_OUT]);
-		dup2(vars->cmd.pipe[FD_IN], FD_IN);
-	}
-	else
-		add_pipe(vars);*/
 	if (param && !(param->path))
 		handle_assign(vars, param->assign);
 	if (find_builtin(param->path, args, vars))
@@ -37,26 +32,40 @@ int	exec_command(t_vars *vars, t_ast *node)
 	return (-1);
 }
 
-void	exec_pipeline(t_vars *vars, t_ast *node)
+void	exec_pipeline(t_vars *vars, t_cmd *cmd, t_ast *node)
 {
-//	add_pipe(vars, node);
-	if (pipe(vars->cmd.pipe) < 0)
-		return ;//exit ?
-	dup2(vars->cmd.pipe[FD_OUT], FD_OUT);
-	if (node->left)
-		exec_command(vars, node->left);
-	if (node->right && node->right->type == NODE_PIPE)
-		exec_pipeline(vars, node->right);
-	else if (node->right)
-		exec_command(vars, node->right);
+	int	fdes[2];
+
+	pipe(fdes);
+	cmd->pipe[FD_OUT] = fdes[1];
+	cmd->pipe[FD_IN] = fdes[0];
+	set_flag(&cmd->io_bit, PIPE_OUT);
+	exec_command(vars, cmd, node->left);
+	node = node->right;
+	while (node && (node->type == NODE_PIPE))
+	{
+		set_flag(&cmd->io_bit, PIPE_IN);
+		close(cmd->pipe[FD_OUT]);
+		pipe(fdes);
+		cmd->pipe[FD_OUT] = fdes[1];
+		exec_command(vars, cmd, node->left);
+		close(cmd->pipe[FD_IN]);
+		cmd->pipe[FD_IN] = fdes[0];
+		node = node->right;
+	}
+	clear_flag(&cmd->io_bit, PIPE_OUT);
+	cmd->pipe[FD_IN] = fdes[0];
+	close(cmd->pipe[FD_OUT]);
+	exec_command(vars, cmd, node);
+	close(cmd->pipe[FD_IN]);
 }
 
 void	exec_job(t_vars *vars, t_ast *node)
 {
 	if (node->type == NODE_PIPE)
-		exec_pipeline(vars, node);
-	else if (node->type == NODE_CMD) 
-		exec_command(vars, node);
+		exec_pipeline(vars, &vars->cmd, node);
+	else
+		exec_command(vars, &vars->cmd, node);
 }
 
 void	exec_cmdline(t_vars *vars, t_ast *node)

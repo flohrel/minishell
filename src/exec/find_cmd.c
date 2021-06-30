@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 14:52:04 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/06/24 20:48:46 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/06/30 03:43:31 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,11 @@ int	exec_cmd(char *path, char **argv, char **envp, t_vars *vars)
 	char		*path_x;
 
 	i = 0;
+	write(1, "O", 1);
 	if (!path || !argv || !envp || !vars)
 		return (-1);
 	if (ft_ischarset('/', path))
-		if (execve("/bin/cat", argv, envp) < 0)
+		if (execve(path, argv, envp) < 0)
 			printf("bash : %s: No such file or directory.\n", path);
 	paths = ft_split(get_env_value("PATH", vars->env), ':');
 	if (!paths)
