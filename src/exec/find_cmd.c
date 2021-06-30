@@ -41,7 +41,7 @@ int	exec_cmd(char *path, char **argv, char **envp, t_vars *vars)
 	if (!path || !argv || !envp || !vars)
 		return (-1);
 	if (ft_ischarset('/', path))
-		if (execve(path, argv, envp) < 0)
+		if (execve("/bin/cat", argv, envp) < 0)
 			printf("bash : %s: No such file or directory.\n", path);
 	paths = ft_split(get_env_value("PATH", vars->env), ':');
 	if (!paths)

@@ -22,5 +22,6 @@ char	**tabjoin(char *str, char **args, t_vars *vars);
 char	**env_to_tab(t_env *env, t_vars *vars);
 int		handle_redirections(t_param *param);
 int		env_size(t_env *env);
+int		add_pipe(t_vars *vars, t_ast *node);
 
 #endif

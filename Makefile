@@ -43,7 +43,8 @@ EXEC		=	exec.c \
 				exec_utils.c \
 				redirections.c \
 				add_ptrlst.c \
-				find_cmd.c
+				find_cmd.c \
+				pipes.c
 
 INPUT		=	input.c
 

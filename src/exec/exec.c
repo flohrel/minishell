@@ -19,8 +19,14 @@ int	exec_command(t_vars *vars, t_ast *node)
 
 	param = node->data;
 	args = list_to_tab(param->arg, vars);
-//	if (vars->cmd.pipe[FD_IN] >= 0)
-//		dup2(vars->cmd.pipe[FD_IN], 0);
+/*	if (vars->pipes &&  vars->pipes->prev &&
+			vars->pipes->prev->node->type == NODE_CMD)
+	{
+		close(vars->cmd.pipe[FD_OUT]);
+		dup2(vars->cmd.pipe[FD_IN], FD_IN);
+	}
+	else
+		add_pipe(vars);*/
 	if (param && !(param->path))
 		handle_assign(vars, param->assign);
 	if (find_builtin(param->path, args, vars))
@@ -33,9 +39,10 @@ int	exec_command(t_vars *vars, t_ast *node)
 
 void	exec_pipeline(t_vars *vars, t_ast *node)
 {
+//	add_pipe(vars, node);
 	if (pipe(vars->cmd.pipe) < 0)
 		return ;//exit ?
-	dup2(vars->cmd.pipe[FD_OUT], 1);
+	dup2(vars->cmd.pipe[FD_OUT], FD_OUT);
 	if (node->left)
 		exec_command(vars, node->left);
 	if (node->right && node->right->type == NODE_PIPE)

@@ -67,6 +67,7 @@ typedef struct s_env	t_env;
 typedef struct s_vars	t_vars;
 typedef struct s_opt	t_opt;
 typedef struct s_cmd	t_cmd;
+typedef struct s_pipes	t_pipes;
 
 struct	s_token
 {
@@ -134,6 +135,14 @@ struct	s_cmd
 	int		pipe[2];
 };
 
+struct	s_pipes
+{
+	int		p_open;
+	t_ast		*node;
+	struct s_pipes	*prev;
+	struct s_pipes	*next;
+};
+
 struct	s_vars
 {
 	t_lexer		lexer;
@@ -143,6 +152,7 @@ struct	s_vars
 	t_env		*env;
 	t_env		*exp;
 	t_env		*agn;
+	t_pipes		*pipes;
 	int			exit_status;
 };
 
