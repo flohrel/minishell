@@ -44,7 +44,6 @@ void	exec_pipeline(t_vars *vars, t_cmd *cmd, t_ast *node)
 	node = node->right;
 	while (node && (node->type == NODE_PIPE))
 	{
-		write(1, "A", 1);
 		set_flag(&cmd->io_bit, PIPE_OUT);
 		close(cmd->pipe[FD_OUT]);
 		pipe(fdes);
@@ -54,7 +53,8 @@ void	exec_pipeline(t_vars *vars, t_cmd *cmd, t_ast *node)
 		cmd->pipe[FD_IN] = fdes[0];
 		node = node->right;
 	}
-	set_flag(&cmd->io_bit, PIPE_OUT);
+	//set_flag(&cmd->io_bit, PIPE_OUT);
+	cmd->io_bit = -1;
 	cmd->pipe[FD_IN] = fdes[0];
 	close(cmd->pipe[FD_OUT]);
 	exec_command(vars, cmd, node);
