@@ -17,8 +17,9 @@ int	exec_command(t_vars *vars, t_cmd *cmd, t_ast *node)
 	t_param	*param;
 	char	**args;
 
+	(void)cmd;
 	if (node == NULL)
-		return ;
+		return (-1);
 	param = node->data;
 	args = list_to_tab(param->arg, vars);
 	if (param && !(param->path))
@@ -33,7 +34,6 @@ int	exec_command(t_vars *vars, t_cmd *cmd, t_ast *node)
 
 void	exec_pipeline(t_vars *vars, t_cmd *cmd, t_ast *node)
 {
-	t_cmd	*cmd;
 	int	fdes[2];
 
 	pipe(fdes);
@@ -71,10 +71,10 @@ void	exec_job(t_vars *vars, t_ast *node)
 void	exec_cmdline(t_vars *vars, t_ast *node)
 {
 	init_cmd(&vars->cmd);
-	if (node->left)
-		exec_job(vars, node->left);
-	else if (node)
+	if (node && node->type != NODE_SEQ)
 		exec_job(vars, node);
+	else if (node->left)
+		exec_job(vars, node->left);
 	if (node->type == NODE_SEQ && node->right)
 	{
 		exec_cmdline(vars, node->right);

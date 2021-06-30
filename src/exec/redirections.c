@@ -41,6 +41,7 @@ void	set_rdin(t_vars *vars, t_cmd *cmd, char *pathname)
 
 void	set_hdoc(t_vars *vars, t_cmd *cmd, char *string)
 {
+	(void)string;
 	set_flag(&cmd->io_bit, RD_IN | RD_HDOC);
 	cmd->redir[FD_IN] = open(TMP_FILE, O_RDWR | O_CREAT | O_TRUNC
 			| S_IRUSR | S_IWUSR);
