@@ -39,12 +39,13 @@ void	exec_pipeline(t_vars *vars, t_cmd *cmd, t_ast *node)
 	pipe(fdes);
 	cmd->pipe[FD_OUT] = fdes[1];
 	cmd->pipe[FD_IN] = fdes[0];
-	set_flag(&cmd->io_bit, PIPE_OUT);
+	set_flag(&cmd->io_bit, PIPE_IN);
 	exec_command(vars, cmd, node->left);
 	node = node->right;
 	while (node && (node->type == NODE_PIPE))
 	{
-		set_flag(&cmd->io_bit, PIPE_IN);
+		write(1, "A", 1);
+		set_flag(&cmd->io_bit, PIPE_OUT);
 		close(cmd->pipe[FD_OUT]);
 		pipe(fdes);
 		cmd->pipe[FD_OUT] = fdes[1];
@@ -53,7 +54,7 @@ void	exec_pipeline(t_vars *vars, t_cmd *cmd, t_ast *node)
 		cmd->pipe[FD_IN] = fdes[0];
 		node = node->right;
 	}
-	clear_flag(&cmd->io_bit, PIPE_OUT);
+	set_flag(&cmd->io_bit, PIPE_OUT);
 	cmd->pipe[FD_IN] = fdes[0];
 	close(cmd->pipe[FD_OUT]);
 	exec_command(vars, cmd, node);
@@ -70,7 +71,7 @@ void	exec_job(t_vars *vars, t_ast *node)
 
 void	exec_cmdline(t_vars *vars, t_ast *node)
 {
-	init_cmd(&vars->cmd);
+	vars->cmd.io_bit = 0;
 	if (node && node->type != NODE_SEQ)
 		exec_job(vars, node);
 	else if (node->left)

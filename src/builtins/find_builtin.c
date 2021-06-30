@@ -13,6 +13,10 @@ static int	find_builtin_next(char *path, char **args, t_vars *vars)
 
 int	find_builtin(char *path, char **args, t_vars *vars)
 {
+/*	if (check_flag(vars->cmd.io_bit, PIPE_OUT))
+		dup2(vars->cmd.pipe[FD_IN], FD_IN);
+	if (check_flag(vars->cmd.io_bit, PIPE_IN))
+		dup2(vars->cmd.pipe[FD_OUT], FD_OUT);*/
 	if (!path || !args || !vars)
 		return (-1);
 	if (ft_strcmp("echo", path) == 0)

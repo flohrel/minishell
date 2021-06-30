@@ -73,6 +73,10 @@ int	find_cmd(t_param *param, char **argv, char **envp, t_vars *vars)
 		return (-1);
 	else if (pid == 0)
 	{
+		if (check_flag(vars->cmd.io_bit, PIPE_IN))
+			dup2(vars->cmd.pipe[FD_OUT], FD_OUT);
+		if (check_flag(vars->cmd.io_bit, PIPE_OUT))
+			dup2(vars->cmd.pipe[FD_IN], FD_IN);
 		//handle_redirections(param);
 		exec_cmd(param->path, tabjoin(param->path, argv, vars),
 				envp, vars);
