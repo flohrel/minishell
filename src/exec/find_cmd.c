@@ -10,10 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <dirent.h>
-#include <stdio.h>
 #include <unistd.h>
 #include <string.h>
 #include "minishell.h"
@@ -38,7 +34,6 @@ int	exec_cmd(char *path, char **argv, char **envp, t_vars *vars)
 	char		*path_x;
 
 	i = 0;
-	write(1, "O", 1);
 	if (!path || !argv || !envp || !vars)
 		return (-1);
 	if (ft_ischarset('/', path))
@@ -65,19 +60,27 @@ int	find_cmd(t_param *param, char **argv, char **envp, t_vars *vars)
 	int	pid;
 	int	status;
 
-	pid = fork();
+	if (find_builtin(param->path, argv, vars))
+	{
+		pid = -2;
+	//	close_handle(vars);
+	//	return (1);
+	}
+	else
+		pid = fork();
 	if (pid < 0)
 		return (-1);
 	else if (pid == 0)
 	{
+		pipe_handle(vars);
+		close_handle(vars);
 		//handle_redirections(param);
 		exec_cmd(param->path, tabjoin(param->path, argv, vars),
 				envp, vars);
 		exit(0);
 	}
-	else
-	{
+	close_handle(vars);
+	if (pid > 0)
 		waitpid(pid, &status, 0);
-	}
 	return (1);
 }
