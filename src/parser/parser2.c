@@ -12,11 +12,28 @@
 
 #include "parser.h"
 
+char	*var_assignation(t_vars *vars, char *data, char *str)
+{
+	char	*var;
+	char	tmp;
+
+	tmp = *str;
+	*str = '\0';
+	var = get_env_value(data, vars->env);
+	if (!var)
+	{
+		var = ft_strdup("\0");
+		if (!var)
+			return (NULL);
+	}
+	*str = tmp;
+	return (var);
+}
+
 void	var_expansion(t_vars *vars, char **buffer, char **data)
 {
 	char	*var;
 	char	*str;
-	char	tmp;
 
 	str = *data;
 	if (*(str + 1) == '?')
@@ -27,12 +44,9 @@ void	var_expansion(t_vars *vars, char **buffer, char **data)
 		{
 			if (!(*str) || (!ft_isalnum(*str) && (*str != '_')))
 			{
-				tmp = *str;
-				*str = '\0';
-				var = get_env_value(*data + 1, vars->env);
+				var = var_assignation(vars, *data + 1, str);
 				if (!var)
-					var = ft_strdup("\0");
-				*str = tmp;
+					clean_exit(vars, 127);
 				break ;
 			}
 		}
