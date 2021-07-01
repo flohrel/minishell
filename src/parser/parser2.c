@@ -30,6 +30,8 @@ void	var_expansion(t_vars *vars, char **buffer, char **data)
 				tmp = *str;
 				*str = '\0';
 				var = get_env_value(*data + 1, vars->env);
+				if (!var)
+					var = ft_strdup("\0");
 				*str = tmp;
 				break ;
 			}
