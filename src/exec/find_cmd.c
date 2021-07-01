@@ -63,7 +63,9 @@ int	find_cmd(t_param *param, char **argv, char **envp, t_vars *vars)
 	if (find_builtin(param->path, argv, vars))
 	{
 		pid = -2;
-	//	close_handle(vars);
+		dup2(vars->cmd.std_in, STDIN_FILENO);
+		dup2(vars->cmd.std_out, STDOUT_FILENO);
+		close_handle(vars);
 	//	return (1);
 	}
 	else

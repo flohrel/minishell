@@ -140,6 +140,10 @@ struct	s_cmd
 {
 	int		io_bit;
 	char	*delim;
+	int		std_out;
+	int		std_in;
+	int		dup_in;
+	int		dup_out;
 	int		redir[2];
 	int		pipe[2];
 };

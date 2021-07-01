@@ -34,6 +34,8 @@ void	exec_pipeline(t_vars *vars, t_cmd *cmd, t_ast *node)
 {
 	int	fdes[2];
 
+	cmd->std_out = dup(FD_OUT);
+	cmd->std_in = dup(FD_IN);
 	pipe(fdes);
 	cmd->pipe[FD_OUT] = fdes[1];
 	cmd->pipe[FD_IN] = fdes[0];
@@ -49,9 +51,7 @@ void	exec_pipeline(t_vars *vars, t_cmd *cmd, t_ast *node)
 		cmd->pipe[FD_IN] = fdes[0];
 		node = node->right;
 	}
-	//set_flag(&cmd->io_bit, PIPE_OUT);
 	cmd->io_bit = -1;
-	cmd->pipe[FD_IN] = fdes[0];
 	exec_command(vars, cmd, node);
 	close_handle(vars);
 }
