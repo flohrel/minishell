@@ -55,17 +55,25 @@ int	exec_cmd(char *path, char **argv, char **envp, t_vars *vars)
 	return (1);
 }
 
+int	handle_builtin(char *path, char **argv, t_vars *vars)
+{
+	if (find_builtin(path, argv, vars))
+	{
+		dup2(vars->cmd.std_in, STDIN_FILENO);
+		dup2(vars->cmd.std_out, STDOUT_FILENO);
+		close_handle(vars);
+		return (1);
+	}
+	return (0);
+}
+
 int	find_cmd(t_param *param, char **argv, char **envp, t_vars *vars)
 {
 	int	pid;
 	int	status;
 
-	if (find_builtin(param->path, argv, vars))
-	{
-		pid = -2;
-		dup2(vars->cmd.std_in, STDIN_FILENO);
-		dup2(vars->cmd.std_out, STDOUT_FILENO);
-	}
+	if (handle_builtin(param->path, argv, vars))
+		return (1);
 	else
 		pid = fork();
 	if (pid < 0)
@@ -78,7 +86,6 @@ int	find_cmd(t_param *param, char **argv, char **envp, t_vars *vars)
 		exit(0);
 	}
 	close_handle(vars);
-	if (pid > 0)
-		waitpid(pid, &status, 0);
+	waitpid(pid, &status, 0);
 	return (1);
 }

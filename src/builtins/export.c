@@ -99,7 +99,7 @@ int	export(char **args, t_vars *vars)
 	while (args && args[i])
 	{
 		if (!(export_str(args[i], vars)))
-			return (-1);
+			clean_exit(vars, 127);
 		i++;
 	}
 	if (ft_tablen(args) == 0)

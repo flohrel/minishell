@@ -67,6 +67,8 @@ void	exec_job(t_vars *vars, t_ast *node)
 void	exec_cmdline(t_vars *vars, t_ast *node)
 {
 	vars->cmd.io_bit = 0;
+	vars->cmd.std_out = -1;
+	vars->cmd.std_in = -1;
 	if (node && node->type != NODE_SEQ)
 		exec_job(vars, node);
 	else if (node->left)

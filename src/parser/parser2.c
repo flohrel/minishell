@@ -25,6 +25,7 @@ char	*var_assignation(t_vars *vars, char *data, char *str)
 		var = ft_strdup("\0");
 		if (!var)
 			return (NULL);
+		add_to_ptrlst((void *)var, vars);
 	}
 	*str = tmp;
 	return (var);

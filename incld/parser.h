@@ -17,6 +17,7 @@
 # include <stdbool.h>
 # include "data.h"
 # include "lexer.h"
+# include "exec.h"
 # include "utils.h"
 # include "test.h"
 

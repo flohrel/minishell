@@ -7,12 +7,20 @@ int	add_agn(char *str, t_env *result, t_vars *vars)
 
 	value = get_env_value(str, vars->agn);
 	if (value)
+	{
 		value = ft_strdup(value);
+		if (!value)
+			return (-1);
+	}
 	else
 		return (0);
 	result->value = value;
 	result->key = ft_strdup(str);
+	if (!result->key)
+		return (-1);
 	block = blockcpy(result);
+	if (!block)
+		return (-1);
 	if (add_to_exp(vars->env, block) < 0
 		|| add_to_exp(vars->exp, block) < 0)
 		return (-1);

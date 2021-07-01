@@ -38,6 +38,31 @@ static int	check_error(char *path)
 	return (1);
 }
 
+int	handle_args(t_vars *vars, char **args, char **path)
+{
+	if (ft_tablen(args) == 0 || ft_strcmp(args[0], "~") == 0)
+	{
+		*path = (get_env_value("HOME", vars->env));
+		if (!*path)
+		{
+			errormsg("bash: cd: << HOME >> non défini", "");
+			return (-1);
+		}
+	}
+	else if (ft_strcmp(args[0], "-") == 0)
+	{
+		*path = get_env_value("OLDPWD", vars->env);
+		if (!*path)
+		{
+			errormsg("bash: cd: << OLDPWD >> non défini", "");
+			return (-1);
+		}
+	}
+	else
+		*path = args[0];
+	return (1);
+}
+
 int	cd(char **args, t_vars *vars)
 {
 	char		s[255];
@@ -45,21 +70,21 @@ int	cd(char **args, t_vars *vars)
 
 	if (ft_tablen(args) > 1)
 		return (errormsg("cd : too many arguments", NULL));
-	if (ft_tablen(args) == 0 || ft_strcmp(args[0], "~") == 0)
-	{
-		path = (get_env_value("HOME", vars->env));
-	}
-	else if (ft_strcmp(args[0], "-") == 0)
-		path = get_env_value("OLDPWD", vars->env);
-	else
-		path = args[0];
+	if (handle_args(vars, args, (char **)&path) < 0)
+		return (1);
 	if (chdir(path) < 0)
 		return (check_error((char *)path));
 	vars->env = set_env_value(vars->env, "OLDPWD",
 			get_env_value("PWD", vars->env));
+	if (!vars->env)
+		clean_exit(vars, 127); 
 	vars->exp = set_env_value(vars->exp, "OLDPWD",
 			get_env_value("PWD", vars->exp));
+	if (!vars->exp)
+		clean_exit(vars, 127);
 	getcwd(s, 255);
 	vars->env = set_env_value(vars->env, "PWD", ft_strdup(s));
+	if (!vars->env)
+		clean_exit(vars, 127);
 	return (1);
 }
