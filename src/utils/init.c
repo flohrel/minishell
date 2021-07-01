@@ -34,5 +34,6 @@ void	init(t_vars *vars, char **envp)
 	vars->env = parse_env(envp);
 	vars->exp = parse_env(envp);
 	vars->agn = NULL;
+	up_shell_lvl(vars);
 	vars->exit_status = 0;
 }
