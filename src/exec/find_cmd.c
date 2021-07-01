@@ -27,6 +27,16 @@ char	*create_path(char *path, char *cmd, t_vars *vars)
 	return (result);
 }
 
+void	free_path(char **path)
+{
+	int	i;
+
+	i = 0;
+	while (path[i])
+		free(path[i++]);
+	free(path);
+}
+
 int	exec_cmd(char *path, char **argv, char **envp, t_vars *vars)
 {
 	char		**paths;
@@ -52,6 +62,7 @@ int	exec_cmd(char *path, char **argv, char **envp, t_vars *vars)
 		else
 			return (1);
 	}
+	free_path(paths);
 	return (1);
 }
 
