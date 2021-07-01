@@ -45,17 +45,20 @@ int	cd(char **args, t_vars *vars)
 
 	if (ft_tablen(args) > 1)
 		return (errormsg("cd : too many arguments", NULL));
-	if (ft_tablen(args) == 0)
+	if (ft_tablen(args) == 0 || ft_strcmp(args[0], "~") == 0)
 	{
-		write(1, "ii", sizeof(char *));
 		path = (get_env_value("HOME", vars->env));
 	}
+	else if (ft_strcmp(args[0], "-") == 0)
+		path = get_env_value("OLDPWD", vars->env);
 	else
 		path = args[0];
 	if (chdir(path) < 0)
 		return (check_error((char *)path));
 	vars->env = set_env_value(vars->env, "OLDPWD",
 			get_env_value("PWD", vars->env));
+	vars->exp = set_env_value(vars->exp, "OLDPWD",
+			get_env_value("PWD", vars->exp));
 	getcwd(s, 255);
 	vars->env = set_env_value(vars->env, "PWD", ft_strdup(s));
 	return (1);
