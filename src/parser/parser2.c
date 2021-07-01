@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/09 17:56:30 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/17 20:30:11 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/07/01 02:34:08 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,19 @@ void	var_expansion(t_vars *vars, char **buffer, char **data)
 	{
 		while (*(str++))
 		{
-			if (!(*str) || !ft_isalnum(*str))
+			if (!(*str) || (!ft_isalnum(*str) && (*str != '_')))
 			{
 				tmp = *str;
 				*str = '\0';
-				var = getenv(*data + 1);
+				var = get_env_value(*data + 1, vars->env);
 				*str = tmp;
 				break ;
 			}
 		}
 	}
 	ft_strlcpy(*buffer, var, ft_strlen(var) + 1);
-	(*buffer) += ft_strlen(var) - 1;
+	if (ft_strlen(var))
+		(*buffer) += ft_strlen(var) - 1;
 	(*data) = str - 1;
 }
 

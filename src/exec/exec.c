@@ -53,7 +53,7 @@ void	exec_pipeline(t_vars *vars, t_cmd *cmd, t_ast *node)
 	}
 	cmd->io_bit = -1;
 	exec_command(vars, cmd, node);
-	close_handle(vars);
+	//close_handle(vars);
 }
 
 void	exec_job(t_vars *vars, t_ast *node)
@@ -82,4 +82,6 @@ void	exec_ast(t_vars *vars, t_ast *root)
 	(void)vars;
 	(void)root;
 	exec_cmdline(vars, root);
+	close(3);
+	close(4);
 }

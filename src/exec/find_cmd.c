@@ -65,8 +65,6 @@ int	find_cmd(t_param *param, char **argv, char **envp, t_vars *vars)
 		pid = -2;
 		dup2(vars->cmd.std_in, STDIN_FILENO);
 		dup2(vars->cmd.std_out, STDOUT_FILENO);
-		close_handle(vars);
-	//	return (1);
 	}
 	else
 		pid = fork();
@@ -75,8 +73,6 @@ int	find_cmd(t_param *param, char **argv, char **envp, t_vars *vars)
 	else if (pid == 0)
 	{
 		pipe_handle(vars);
-		close_handle(vars);
-		//handle_redirections(param);
 		exec_cmd(param->path, tabjoin(param->path, argv, vars),
 				envp, vars);
 		exit(0);
