@@ -99,12 +99,12 @@ int	export(char **args, t_vars *vars)
 	while (args && args[i])
 	{
 		if (!(export_str(args[i], vars)))
-			clean_exit(vars, 127);
+			clean_exit(vars, errno);
 		i++;
 	}
 	if (ft_tablen(args) == 0)
 	{
 		print_sorted_env(vars->exp);
 	}
-	return (1);
+	return (0);
 }

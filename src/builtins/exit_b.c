@@ -23,5 +23,5 @@ int	exit_b(char **args, t_vars *vars)
 		clean_exit(vars, ft_atoi(args[0]));
 	else
 		clean_exit(vars, 0);
-	return (1);
+	return (0);
 }

@@ -77,14 +77,14 @@ int	cd(char **args, t_vars *vars)
 	vars->env = set_env_value(vars->env, "OLDPWD",
 			get_env_value("PWD", vars->env));
 	if (!vars->env)
-		clean_exit(vars, 127); 
+		clean_exit(vars, errno); 
 	vars->exp = set_env_value(vars->exp, "OLDPWD",
 			get_env_value("PWD", vars->exp));
 	if (!vars->exp)
-		clean_exit(vars, 127);
+		clean_exit(vars, errno);
 	getcwd(s, 255);
 	vars->env = set_env_value(vars->env, "PWD", ft_strdup(s));
 	if (!vars->env)
-		clean_exit(vars, 127);
-	return (1);
+		clean_exit(vars, errno);
+	return (0);
 }

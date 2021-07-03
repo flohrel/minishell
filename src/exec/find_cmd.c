@@ -49,19 +49,20 @@ int	exec_cmd(char *path, char **argv, char **envp, t_vars *vars)
 			return (-1);
 		if (execve(path_x, argv, envp) < 0)
 			i++;
-		else
-			return (1);
+		strerror(errno);
 	}
 	return (1);
 }
 
 int	handle_builtin(char *path, char **argv, t_vars *vars)
 {
-	if (find_builtin(path, argv, vars))
+	vars->last_status = find_builtin(path, argv, vars);
+	if (vars->last_status >= 0)
 	{
 		dup2(vars->cmd.std_in, STDIN_FILENO);
 		dup2(vars->cmd.std_out, STDOUT_FILENO);
 		close_handle(vars);
+		printf("status : %d\n", vars->last_status);
 		return (1);
 	}
 	return (0);
@@ -83,9 +84,13 @@ int	find_cmd(t_param *param, char **argv, char **envp, t_vars *vars)
 		pipe_handle(vars);
 		exec_cmd(param->path, tabjoin(param->path, argv, vars),
 				envp, vars);
-		exit(0);
+		errormsg(param->path, ": command not found");
+		exit(errno);
 	}
 	close_handle(vars);
 	waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+		vars->last_status = WEXITSTATUS(status);
+	printf("status : %d\n", vars->last_status);
 	return (1);
 }
