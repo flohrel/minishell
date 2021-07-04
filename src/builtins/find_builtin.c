@@ -15,7 +15,9 @@ static int	find_builtin_next(char *path, char **args, t_vars *vars)
 		return (export(args, vars));
 	else if (ft_strcmp("exit", path) == 0 && check_fd(vars))
 		return (exit_b(args, vars));
-	return (0);
+	else if (ft_strcmp("wctest", path) == 0 && check_fd(vars))
+		return (wildcard(args[0], vars));
+	return (-1);
 }
 
 int	find_builtin(char *path, char **args, t_vars *vars)

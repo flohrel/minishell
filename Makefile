@@ -56,6 +56,7 @@ PARSER		=	parser.c \
 				parser3.c \
 				parser4.c \
 				parser5.c \
+				wildcard.c
 
 UTILS		=	astree.c \
 				exit.c \

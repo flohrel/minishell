@@ -18,6 +18,7 @@ int	exec_command(t_vars *vars, t_cmd *cmd, t_ast *node)
 	char	**args;
 
 	(void)cmd;
+	vars->last_status = 0;	
 	if (node == NULL)
 		return (-1);
 	param = node->data;

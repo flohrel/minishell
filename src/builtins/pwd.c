@@ -29,5 +29,5 @@ int	pwd(char **args, t_vars *vars)
 	else
 		ft_putstr_fd(s, 1);
 	ft_putchar_fd('\n', 1);
-	return (1);
+	return (0);
 }
