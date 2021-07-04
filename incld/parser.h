@@ -14,6 +14,8 @@
 # define PARSER_H
 
 # include <stdlib.h>
+# include <dirent.h>
+# include <sys/types.h>
 # include <stdbool.h>
 # include "data.h"
 # include "lexer.h"
@@ -60,5 +62,10 @@ bool	is_valid_name(char *data, char *end);
 void	argument(t_vars *vars, t_token *token, t_param *data);
 int		redirection(t_vars *vars, t_parser *parser, int type, t_param *data);
 t_param	*init_cmd_param(t_vars *vars);
+
+/*		wildcard.c
+ **
+ */
+int	wildcard(char *str, t_vars *vars);
 
 #endif
