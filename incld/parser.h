@@ -66,6 +66,6 @@ t_param	*init_cmd_param(t_vars *vars);
 /*		wildcard.c
  **
  */
-int	wildcard(char *str, t_vars *vars);
-
+char	**wildcard(char *str, t_vars *vars);
+int	wctest(char *str, t_vars *vars);
 #endif

@@ -79,17 +79,25 @@ char	**find_matches(DIR *dir, char *str, t_vars *vars)
 	return (res);
 }
 
-int	wildcard(char *str, t_vars *vars)
+char	**wildcard(char *str, t_vars *vars)
 {
 	DIR		*cur_dir;
 	char		**res;
 
 	if (open_curdir(&cur_dir) < 0)
-		return (-1);
+		return (NULL);
 	res = find_matches(cur_dir, str, vars);
 	if (!res)
-		return (errormsg("minishell: no matches found:", str));
+	{
+		errormsg("minishell: no matches found:", str);
+		return (NULL);
+	}	
 	aff_tab(res);
-	//faire une fonction qui compare la str avec le nom du fichier
+	return (res);
+}
+
+int	wctest(char *str, t_vars *vars)
+{
+	wildcard(str, vars);
 	return (1);
 }
