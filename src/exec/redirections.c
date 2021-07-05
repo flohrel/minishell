@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 01:07:52 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/30 02:05:03 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/01 18:41:05 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	set_rdout(t_vars *vars, t_cmd *cmd, char *pathname)
 {
 	set_flag(&cmd->io_bit, RD_OUT);
-	clear_flag(&cmd->io_bit, RD_APP);
 	cmd->redir[FD_OUT] = open(pathname, O_WRONLY | O_CREAT | O_TRUNC
 			| S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH);
 	if (cmd->redir[FD_OUT] == -1)
@@ -24,7 +23,7 @@ void	set_rdout(t_vars *vars, t_cmd *cmd, char *pathname)
 
 void	set_rdapp(t_vars *vars, t_cmd *cmd, char *pathname)
 {
-	set_flag(&cmd->io_bit, RD_OUT | RD_APP);
+	set_flag(&cmd->io_bit, RD_OUT);
 	cmd->redir[FD_OUT] = open(pathname, O_WRONLY | O_CREAT | O_APPEND);
 	if (cmd->redir[FD_OUT] == -1)
 		clean_exit(vars, errno);
@@ -33,20 +32,51 @@ void	set_rdapp(t_vars *vars, t_cmd *cmd, char *pathname)
 void	set_rdin(t_vars *vars, t_cmd *cmd, char *pathname)
 {
 	set_flag(&cmd->io_bit, RD_IN);
-	clear_flag(&cmd->io_bit, RD_HDOC);
 	cmd->redir[FD_IN] = open(pathname, O_RDONLY);
 	if (cmd->redir[FD_IN] == -1)
 		clean_exit(vars, errno);
 }
 
+int	delimiter_seek(char *buffer, char *delim, int *i, int *j)
+{
+	int	ret;
+
+	ret = -1;
+	if (buffer[*i] == string[*j])
+	{
+		(*j)++;
+		if (string[*j] == '\0')
+			ret = 0;
+	}
+	else
+		*j = 0;
+	(*i)++;
+	return (ret);
+}
+
 void	set_hdoc(t_vars *vars, t_cmd *cmd, char *string)
 {
-	(void)string;
-	set_flag(&cmd->io_bit, RD_IN | RD_HDOC);
+	char	buffer[BUFFER_SIZE];
+	int	ret;
+	int	i;
+	int	j;
+
+	set_flag(&cmd->io_bit, RD_IN);
 	cmd->redir[FD_IN] = open(TMP_FILE, O_RDWR | O_CREAT | O_TRUNC
 			| S_IRUSR | S_IWUSR);
 	if (cmd->redir[FD_IN] == -1)
 		clean_exit(vars, errno);
+	i = 0;
+	j = 0;
+	ret = -1;
+	while (ret)
+	{
+		ret = read(0, &buffer[i], 1);
+		if (ret < 0)
+			clean_exit(vars, errno);
+		else if (ret)
+			ret = delimiter_seek(buffer, string, &i, &j);
+	}
 }
 
 void	parse_redir(t_vars *vars, t_param *param)
@@ -66,8 +96,8 @@ void	parse_redir(t_vars *vars, t_param *param)
 			set_rdapp(vars, &vars->cmd, token->data);
 		else if (token->type == TK_GREAT)
 			set_rdin(vars, &vars->cmd, token->data);
-//		else
-//			set_hdoc(vars, &vars->cmd, token->data);
+		else
+			set_hdoc(vars, &vars->cmd, token->data);
 		lst = lst->next;
 	}
 }

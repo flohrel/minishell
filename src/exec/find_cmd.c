@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 14:52:04 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/06/30 03:43:31 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/01 15:27:35 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	exec_cmd(char *path, char **argv, char **envp, t_vars *vars)
 	return (1);
 }
 
-int	pipe_handle(t_vars *vars)
+void	pipe_handle(t_vars *vars)
 {
 	if (vars->cmd.io_bit < 0)
 		dup2(vars->cmd.pipe[FD_IN], FD_IN);
@@ -66,7 +66,15 @@ int	pipe_handle(t_vars *vars)
 		if (check_flag(vars->cmd.io_bit, PIPE_OUT))
 			dup2(vars->cmd.pipe[FD_IN], FD_IN);
 	}
-	return (1);
+}
+
+void	redir_handle(t_vars *vars, t_cmd *cmd)
+{
+	parse_redir(vars, vars->param);
+	if (check_flag(cmd->io_bit, RD_IN))
+		dup2(cmd->redir[FD_IN], FD_IN);
+	if (check_flag(cmd->io_bit, RD_OUT))
+		dup2(cmd->redir[FD_OUT], FD_OUT);
 }
 
 int	find_cmd(t_param *param, char **argv, char **envp, t_vars *vars)
@@ -84,7 +92,7 @@ int	find_cmd(t_param *param, char **argv, char **envp, t_vars *vars)
 	else if (pid == 0)
 	{
 		pipe_handle(vars);
-		//handle_redirections(param);
+		redir_handle(vars, vars->cmd);
 		exec_cmd(param->path, tabjoin(param->path, argv, vars),
 				envp, vars);
 		exit(0);
