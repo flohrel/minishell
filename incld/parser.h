@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 20:59:00 by flohrel           #+#    #+#             */
-/*   Updated: 2021/07/05 15:04:11 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/05 15:07:17 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@
 # include "lexer.h"
 # include "utils.h"
 # include "test.h"
-
-# define BUFFER_SIZE	4096
 
 /*
  **		parser.c

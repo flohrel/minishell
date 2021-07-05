@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 19:23:42 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/07/05 14:58:24 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/05 15:41:59 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ void	set_rdin(t_vars *vars, t_cmd *cmd, char *pathname);
 void	set_hdoc(t_vars *vars, t_cmd *cmd, char *string);
 
 /*
- **		redirections2.c
+ **		redir_utils.c
  */
-
+int		delimiter_seek(char *buffer, char *delim, int *i, int *j);
 
 void	exec_ast(t_vars *vars, t_ast *root);
 void	*add_to_ptrlst(void *content, t_vars *vars);

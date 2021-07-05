@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 15:01:51 by flohrel           #+#    #+#             */
-/*   Updated: 2021/07/01 18:41:05 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/05 15:25:12 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <unistd.h>
 # include <stdbool.h>
 # include "libft.h"
+
+# define BUFFER_SIZE 4096
 
 enum	e_state
 {
@@ -33,10 +35,13 @@ enum	e_tktype
 	TK_SPACE,
 	TK_ESC,
 	TK_PIPE,
+	TK_AMP,
 	TK_SEMI,
 	TK_LESS,
-	TK_DLESS,
 	TK_GREAT,
+	TK_DPIPE,
+	TK_DAMP,
+	TK_DLESS,
 	TK_DGREAT,
 	TK_NL = -1,
 };

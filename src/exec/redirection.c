@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 01:07:52 by flohrel           #+#    #+#             */
-/*   Updated: 2021/07/05 14:54:40 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/05 15:14:12 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,23 +35,6 @@ void	set_rdin(t_vars *vars, t_cmd *cmd, char *pathname)
 	cmd->redir[FD_IN] = open(pathname, O_RDONLY);
 	if (cmd->redir[FD_IN] == -1)
 		clean_exit(vars, errno);
-}
-
-int	delimiter_seek(char *buffer, char *delim, int *i, int *j)
-{
-	int	ret;
-
-	ret = 1;
-	if (buffer[*i] == string[*j])
-	{
-		(*j)++;
-		if (string[*j] == '\0')
-			ret = 0;
-	}
-	else
-		*j = 0;
-	(*i)++;
-	return (ret);
 }
 
 void	set_hdoc(t_vars *vars, t_cmd *cmd, char *string)
