@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 01:07:52 by flohrel           #+#    #+#             */
-/*   Updated: 2021/07/01 18:41:05 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/05 14:54:40 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	delimiter_seek(char *buffer, char *delim, int *i, int *j)
 {
 	int	ret;
 
-	ret = -1;
+	ret = 1;
 	if (buffer[*i] == string[*j])
 	{
 		(*j)++;
@@ -77,6 +77,7 @@ void	set_hdoc(t_vars *vars, t_cmd *cmd, char *string)
 		else if (ret)
 			ret = delimiter_seek(buffer, string, &i, &j);
 	}
+	buffer[i] = '\0';
 }
 
 void	parse_redir(t_vars *vars, t_param *param)

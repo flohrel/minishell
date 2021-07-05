@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 19:23:42 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/06/30 02:35:25 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/05 14:58:24 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <stdio.h>
 # include "data.h"
 # include "utils.h"
+# include "parser.h"
 
 # define TMP_FILE	"/tmp/minish_tmp"
 
@@ -28,6 +29,15 @@
  **		redirections.c
  */
 void	parse_redir(t_vars *vars, t_param *param);
+void	set_rdout(t_vars *vars, t_cmd *cmd, char *pathname);
+void	set_rdapp(t_vars *vars, t_cmd *cmd, char *pathname);
+void	set_rdin(t_vars *vars, t_cmd *cmd, char *pathname);
+void	set_hdoc(t_vars *vars, t_cmd *cmd, char *string);
+
+/*
+ **		redirections2.c
+ */
+
 
 void	exec_ast(t_vars *vars, t_ast *root);
 void	*add_to_ptrlst(void *content, t_vars *vars);

@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 20:59:00 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/08 13:37:05 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/05 15:04:11 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		parser(t_vars *vars, t_lexer *lexer, t_parser *parser);
 int		astree_build(t_vars *vars, t_lexer *lexer, t_parser *parser);
 
 /*
- **		parser2.c
+ **		parser_utils.c
  */
 int		is_charset(const char *charset, char c);
 void	var_expansion(t_vars *vars, char **buffer, char **data);
@@ -38,7 +38,7 @@ void	parse_word1(t_vars *vars, int *state, char **str, char **buffer);
 int		parse_word2(t_vars *vars, char **data, char *buffer);
 
 /*
- **		parser3.c
+ **		ast_build0.c
  */
 t_ast	*cmdline(t_vars *vars, t_parser *parser);
 t_ast	*cmdline1(t_vars *vars, t_parser *parser);
@@ -46,13 +46,13 @@ t_ast	*cmdline2(t_vars *vars, t_parser *parser);
 int		check_token(t_parser *parser, int type);
 
 /*
- **		parser4.c
+ **		ast_build1.c
  */
 t_ast	*job(t_vars *vars, t_parser *parser);
 t_ast	*pipeline(t_vars *vars, t_parser *parser);
 
 /*
- **		parser5.c
+ **		ast_build2.c
  */
 t_ast	*cmd(t_vars *vars, t_parser *parser);
 bool	is_valid_name(char *data, char *end);
