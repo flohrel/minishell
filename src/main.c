@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 15:29:11 by flohrel           #+#    #+#             */
-/*   Updated: 2021/07/05 16:59:33 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/06 18:54:20 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,11 @@ int	main(int argc, char **argv, char **envp)
 		init_vars(&vars);
 		ft_readline(&vars);
 		lexer(&vars, &vars.lexer);
-		display_token_list(&vars.lexer);						// TEST
-/*		if (parser(&vars, &vars.lexer, &vars.parser) == 0)
+		if (parser(&vars, &vars.lexer, &vars.parser) == 0)
 		{
 			tree_display(vars.parser.exec_tree, 0, 0);
-			exec_ast(&vars, vars.parser.exec_tree);
-		}*/
+			//exec_ast(&vars, vars.parser.exec_tree);
+		}
 		free_ptr_lst(&vars.ptr_list);
 	}
 }

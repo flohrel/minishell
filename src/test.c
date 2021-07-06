@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 01:03:40 by flohrel           #+#    #+#             */
-/*   Updated: 2021/07/05 15:40:26 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/06 18:58:51 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,10 @@ void	tree_display(t_ast *node, int level, int is_right)
 		printf("SEQ");
 	else if (node->type == NODE_PIPE)
 		printf("PIPE");
+	else if (node->type == NODE_OR)
+		printf("OR");
+	else if (node->type == NODE_AND)
+		printf("AND");
 	else
 	{
 		printf("CMD\n");

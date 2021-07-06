@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 20:59:00 by flohrel           #+#    #+#             */
-/*   Updated: 2021/07/05 15:07:17 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/06 18:55:17 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,9 @@ int		check_token(t_parser *parser, int type);
 /*
  **		ast_build1.c
  */
+t_ast	*list(t_vars *vars, t_parser *parser);
+t_ast	*list1(t_vars *vars, t_parser *parser);
+t_ast	*list2(t_vars *vars, t_parser *parser);
 t_ast	*job(t_vars *vars, t_parser *parser);
 t_ast	*pipeline(t_vars *vars, t_parser *parser);
 
