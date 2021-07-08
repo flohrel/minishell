@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 01:07:52 by flohrel           #+#    #+#             */
-/*   Updated: 2021/07/05 15:14:12 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/08 15:11:02 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,28 +39,31 @@ void	set_rdin(t_vars *vars, t_cmd *cmd, char *pathname)
 
 void	set_hdoc(t_vars *vars, t_cmd *cmd, char *string)
 {
+	char	*str;
+	char	*buf;
 	char	buffer[BUFFER_SIZE];
-	int	ret;
-	int	i;
-	int	j;
 
 	set_flag(&cmd->io_bit, RD_IN);
 	cmd->redir[FD_IN] = open(TMP_FILE, O_RDWR | O_CREAT | O_TRUNC
 			| S_IRUSR | S_IWUSR);
 	if (cmd->redir[FD_IN] == -1)
 		clean_exit(vars, errno);
-	i = 0;
-	j = 0;
-	ret = -1;
-	while (ret)
+	readline_hdoc(vars, string);
+	printf("ICI");
+	printf("buffer: %s\n", vars->lexer.buffer);
+	str = vars->lexer.buffer;
+	buf = buffer;
+	while (*str)
 	{
-		ret = read(0, &buffer[i], 1);
-		if (ret < 0)
-			clean_exit(vars, errno);
-		else if (ret)
-			ret = delimiter_seek(buffer, string, &i, &j);
+		if (*str == '$')
+			var_expansion(vars, &buf, &str);
+		else
+			*buf = *str;
+		buf++;
+		str++;
 	}
-	buffer[i] = '\0';
+	*buf = '\0';
+	printf("buffer: %s\n", buffer);
 }
 
 void	parse_redir(t_vars *vars, t_param *param)

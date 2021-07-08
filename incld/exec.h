@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 19:23:42 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/07/05 15:41:59 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/07 16:28:48 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include "data.h"
 # include "utils.h"
 # include "parser.h"
+# include "input.h"
 
 # define TMP_FILE	"/tmp/minish_tmp"
 

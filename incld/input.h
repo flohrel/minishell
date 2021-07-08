@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 11:39:56 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/12 11:01:31 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/08 15:05:04 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,11 @@
 # include "data.h"
 # include "utils.h"
 
-# define BUFFER_SIZE	4096
-# define PROMPT			"\e[1;32mminishell>> \e[0m"
-
 /*
 **		input.c
 */
 void	ft_readline(t_vars *vars);
+int		input_handle(char *line_read, char *delim, char *buffer, int *index);
+void	readline_hdoc(t_vars *vars, char *delim);
 
 #endif
