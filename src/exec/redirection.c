@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 01:07:52 by flohrel           #+#    #+#             */
-/*   Updated: 2021/07/08 15:11:02 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/08 15:39:32 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,6 @@ void	set_hdoc(t_vars *vars, t_cmd *cmd, char *string)
 	if (cmd->redir[FD_IN] == -1)
 		clean_exit(vars, errno);
 	readline_hdoc(vars, string);
-	printf("ICI");
-	printf("buffer: %s\n", vars->lexer.buffer);
 	str = vars->lexer.buffer;
 	buf = buffer;
 	while (*str)
@@ -62,8 +60,7 @@ void	set_hdoc(t_vars *vars, t_cmd *cmd, char *string)
 		buf++;
 		str++;
 	}
-	*buf = '\0';
-	printf("buffer: %s\n", buffer);
+	write(cmd->redir[FD_IN], buffer, buf - buffer);
 }
 
 void	parse_redir(t_vars *vars, t_param *param)
@@ -77,11 +74,11 @@ void	parse_redir(t_vars *vars, t_param *param)
 	while (lst)
 	{
 		token = (t_token *)lst->content;
-		if (token->type == TK_LESS)
+		if (token->type == TK_GREAT)
 			set_rdout(vars, &vars->cmd, token->data);
-		else if (token->type == TK_DLESS)
+		else if (token->type == TK_DGREAT)
 			set_rdapp(vars, &vars->cmd, token->data);
-		else if (token->type == TK_GREAT)
+		else if (token->type == TK_LESS)
 			set_rdin(vars, &vars->cmd, token->data);
 		else
 			set_hdoc(vars, &vars->cmd, token->data);

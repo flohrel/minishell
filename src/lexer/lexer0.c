@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 17:20:52 by flohrel           #+#    #+#             */
-/*   Updated: 2021/07/06 19:21:05 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/08 15:30:36 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void	lexer(t_vars *vars, t_lexer *lexer)
 	while (*buffer)
 	{
 		tk_type = get_token_type(*buffer);
-		printf("tk_type=%d\n", tk_type);
 		if (lexer->state == ST_GENERAL)
 			token_handle[tk_type](vars, tk_type, &buffer);
 		else

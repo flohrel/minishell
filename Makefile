@@ -42,7 +42,6 @@ BUILTINS	=	assign.c \
 EXEC		=	exec.c \
 				exec_utils.c \
 				redirection.c \
-				redir_utils.c \
 				add_ptrlst.c \
 				find_cmd.c
 
