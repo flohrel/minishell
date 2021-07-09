@@ -45,7 +45,8 @@ int	handle_args(t_vars *vars, char **args, char **path)
 		*path = (get_env_value("HOME", vars->env));
 		if (!*path)
 		{
-			errormsg("bash: cd: << HOME >> not defined", "");
+			errormsg("minishell: cd: << HOME >> not defined",
+				"");
 			return (-1);
 		}
 	}
@@ -54,7 +55,8 @@ int	handle_args(t_vars *vars, char **args, char **path)
 		*path = get_env_value("OLDPWD", vars->env);
 		if (!*path)
 		{
-			errormsg("bash: cd: << OLDPWD >> not defined", "");
+			errormsg("minishell: cd: << OLDPWD >> not defined",
+					"");
 			return (-1);
 		}
 	}

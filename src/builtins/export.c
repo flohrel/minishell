@@ -78,8 +78,7 @@ static int	export_str(char *str, t_vars *vars)
 	}
 	else if (!result->key || !result->value)
 		return (0);
-	else if ((ft_ischarset(result->key[ft_strlen(result->key) - 1],
-				"+/-*")) == 0)
+	else if ((ft_strischarset(result->key, "+/-*")) == 0)
 	{
 		if (add_to_exp(vars->env, result) < 0
 			|| add_to_exp(vars->exp, result) < 0)

@@ -34,6 +34,7 @@ int		ft_already(char *str, int index, char c);
 int		ft_endwith(char *str, char c);
 int		ft_startwith(char *str, char c);
 int		ft_ischarset(char c, char *set);
+int		ft_strischarset(char *str, char *set);
 int		ft_tablen(char **args);
 int		ft_strisdigit(char *str);
 int		errormsg(char *str, char *arg);
