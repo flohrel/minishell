@@ -28,12 +28,12 @@ static int	check_error(char *path)
 
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
-		return (errormsg("cd : aucun fichier ou dossier de ce type : ",
+		return (errormsg("cd : no such file or directory : ",
 				path));
 	else
 	{
 		close(fd);
-		return (errormsg("cd : n'est pas un dossier : ", path));
+		return (errormsg("cd : is not a folder : ", path));
 	}
 	return (1);
 }
@@ -45,7 +45,7 @@ int	handle_args(t_vars *vars, char **args, char **path)
 		*path = (get_env_value("HOME", vars->env));
 		if (!*path)
 		{
-			errormsg("bash: cd: << HOME >> non défini", "");
+			errormsg("bash: cd: << HOME >> not defined", "");
 			return (-1);
 		}
 	}
@@ -54,7 +54,7 @@ int	handle_args(t_vars *vars, char **args, char **path)
 		*path = get_env_value("OLDPWD", vars->env);
 		if (!*path)
 		{
-			errormsg("bash: cd: << OLDPWD >> non défini", "");
+			errormsg("bash: cd: << OLDPWD >> not defined", "");
 			return (-1);
 		}
 	}
