@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list_to_tab.c                                      :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 18:30:44 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/06/12 16:29:34 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/11 03:15:48 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	*lst_alloc(size_t nmemb, size_t size, t_vars *vars)
 
 	ptr = garbage_collector(nmemb, size, &vars->ptr_list);
 	if (ptr == NULL)
-		clean_exit(vars, errno);
+		clean_exit(vars, NULL, errno);
 	return (ptr);
 }
 

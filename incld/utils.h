@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/18 02:36:25 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/29 01:04:05 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/08 18:15:52 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
  **		exit.c
  */
 void	free_unlisted_vars(t_vars *vars);
-void	clean_exit(t_vars *vars, int status);
+void	clean_exit(t_vars *vars, char *arg, int status);
 
 /*
  **		token.c

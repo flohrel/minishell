@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 11:42:38 by flohrel           #+#    #+#             */
-/*   Updated: 2021/07/08 15:09:33 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/11 03:13:35 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ft_readline(t_vars *vars)
 			write(1, "exit\n", 5);
 		else
 			errno = 0;
-		clean_exit(vars, 0);
+		clean_exit(vars, NULL, 0);
 	}
 	len = ft_strlen(line_read);
 	vars->lexer.buffer = lst_alloc(len + 1,
@@ -72,6 +72,14 @@ void	readline_hdoc(t_vars *vars, char *delim)
 			line_read = readline(HDOC_PROMPT);
 		else
 			line_read = readline(NULL);
+		if (line_read == NULL)
+		{
+			if (isatty(0))
+				write(1, "exit\n", 5);
+			else
+				errno = 0;
+			clean_exit(vars, NULL, errno);
+		}
 		ret = input_handle(line_read, delim, buffer, &i);
 	}
 	vars->lexer.buffer = lst_alloc(i + 1, sizeof(*buffer), vars);
