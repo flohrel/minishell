@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 19:05:43 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/06/30 03:40:26 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/12 01:00:07 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,22 +69,29 @@ void	exec_job(t_vars *vars, t_ast *node)
 		exec_command(vars, &vars->cmd, node);
 }
 
-void	exec_cmdline(t_vars *vars, t_ast *node)
+void	exec_list(t_vars *vars, t_ast *node)
 {
-	vars->cmd.io_bit = 0;
-	if (node && node->type != NODE_SEQ)
-		exec_job(vars, node);
-	else if (node->left)
-		exec_job(vars, node->left);
-	if (node->type == NODE_SEQ && node->right)
+	if (check_flag(node->type, NODE_LIST))
+	if (node->type == NODE_AND)
 	{
-		exec_cmdline(vars, node->right);
+		exec_job(vars, node->left);
+		if (vars->exit_status == 0)
+			exec_list(vars, vars->right);
 	}
 }
 
-void	exec_ast(t_vars *vars, t_ast *root)
+void	exec_cmdline(t_vars *vars, t_ast *node)
 {
-	(void)vars;
-	(void)root;
-	exec_cmdline(vars, root);
+	vars->cmd.io_bit = 0;
+	if (!node)
+		return ;
+	if (node->type != NODE_SEQ)
+		exec_list(vars, node);
+	else
+	{
+		if (node->left)
+			exec_list(vars, node->left);
+		if (node->right)
+			exec_cmdline(vars, node->right);
+	}
 }

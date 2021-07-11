@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 15:01:51 by flohrel           #+#    #+#             */
-/*   Updated: 2021/07/08 15:30:36 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/12 00:58:09 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,12 @@ enum	e_tktype
 
 enum	e_node
 {
-	NODE_SEQ,
-	NODE_OR,
-	NODE_AND,
-	NODE_PIPE,
-	NODE_CMD,
+	NODE_SEQ = 0x01,
+	NODE_PIPE = 0x02,
+	NODE_CMD = 0x04,
+	NODE_LIST = 0x08,
+	NODE_OR = 0x09,
+	NODE_AND = 0x0A,
 };
 
 enum	e_io
