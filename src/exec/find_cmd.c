@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 14:52:04 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/06/30 03:43:31 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/12 11:38:08 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,15 @@ int	handle_builtin(char *path, char **argv, t_vars *vars)
 	return (0);
 }
 
+void	redir_handle(t_vars *vars, t_param *param, t_cmd *cmd)
+{
+	parse_redir(vars, param);
+	if (check_flag(cmd->io_bit, RD_IN))
+		dup2(cmd->redir[FD_IN], FD_IN);
+	if (check_flag(cmd->io_bit, RD_OUT))
+		dup2(cmd->redir[FD_OUT], FD_OUT);
+}
+
 int	find_cmd(t_param *param, char **argv, char **envp, t_vars *vars)
 {
 	int	pid;
@@ -93,6 +102,7 @@ int	find_cmd(t_param *param, char **argv, char **envp, t_vars *vars)
 	else if (pid == 0)
 	{
 		pipe_handle(vars);
+		redir_handle(vars, param, &vars->cmd);
 		exec_cmd(param->path, tabjoin(param->path, argv, vars),
 				envp, vars);
 		errormsg(param->path, ": command not found");

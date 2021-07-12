@@ -1,18 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   lexer0.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 17:20:52 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/17 20:34:45 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/07/08 15:30:36 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-void	lexer_init(t_vars *vars, void (*token_handle[5])(t_vars *, char **))
+void	quote_handle(t_vars *vars, char *buf)
+{
+	t_lexer	*lexer;
+
+	lexer = &vars->lexer;
+	*(lexer->cur_char)++ = (*buf);
+	if (((*buf == '\'') && (lexer->state == ST_QUOTE))
+		|| ((*buf == '\"') && (lexer->state == ST_DQUOTE)))
+		lexer->state = ST_GENERAL;
+}
+
+void	lexer_init(t_vars *vars, void (*token_handle[10])(t_vars *, int, char **))
 {
 	t_lexer	*lexer;
 
@@ -25,13 +36,18 @@ void	lexer_init(t_vars *vars, void (*token_handle[5])(t_vars *, char **))
 	token_handle[2] = word_handle;
 	token_handle[3] = space_handle;
 	token_handle[4] = escape_handle;
+	token_handle[5] = job_handle;
+	token_handle[6] = job_handle;
+	token_handle[7] = job_handle;
+	token_handle[8] = redirection_handle;
+	token_handle[9] = redirection_handle;
 }
 
 void	lexer(t_vars *vars, t_lexer *lexer)
 {
 	char	*buffer;
 	int		tk_type;
-	void	(*token_handle[5])(t_vars *, char **);
+	void	(*token_handle[10])(t_vars *, int, char **);
 
 	lexer_init(vars, token_handle);
 	buffer = lexer->buffer;
@@ -39,12 +55,7 @@ void	lexer(t_vars *vars, t_lexer *lexer)
 	{
 		tk_type = get_token_type(*buffer);
 		if (lexer->state == ST_GENERAL)
-		{
-			if (tk_type >= 5)
-				job_token_handle(tk_type, vars, &buffer);
-			else
-				token_handle[tk_type](vars, &buffer);
-		}
+			token_handle[tk_type](vars, tk_type, &buffer);
 		else
 			quote_handle(vars, buffer);
 		buffer++;

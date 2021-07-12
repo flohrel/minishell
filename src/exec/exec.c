@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 19:05:43 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/06/30 03:40:26 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/12 11:40:28 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	exec_command(t_vars *vars, t_cmd *cmd, t_ast *node)
 	char	**args;
 
 	(void)cmd;
-	vars->last_status = 0;	
+	vars->last_status = 0;
 	if (node == NULL)
 		return (-1);
 	param = node->data;
@@ -65,26 +65,39 @@ void	exec_job(t_vars *vars, t_ast *node)
 		exec_command(vars, &vars->cmd, node);
 }
 
-void	exec_cmdline(t_vars *vars, t_ast *node)
+void	exec_list(t_vars *vars, t_ast *node, bool is_exec)
 {
 	vars->cmd.io_bit = 0;
 	vars->cmd.std_out = -1;
 	vars->cmd.std_in = -1;
-	if (node && node->type != NODE_SEQ)
+	if (!check_flag(node->type, NODE_LIST))
 		exec_job(vars, node);
-	else if (node->left)
-		exec_job(vars, node->left);
-	if (node->type == NODE_SEQ && node->right)
+	else
 	{
-		exec_cmdline(vars, node->right);
+		if (is_exec == true)
+			exec_job(vars, node->left);
+		if (node->type == NODE_AND) && (vars->exit_status == 0)
+			exec_list(vars, node->right, true);
+		else if ((node->type == NODE_OR) && (vars->exit_status))
+			exec_list(vars, node->right, true);
+		else
+			exec_list(vars, node->right, false);
 	}
 }
 
-void	exec_ast(t_vars *vars, t_ast *root)
+void	exec_cmdline(t_vars *vars, t_ast *node)
 {
-	(void)vars;
-	(void)root;
-	exec_cmdline(vars, root);
+	if (!node)
+		return ;
+	if (node->type != NODE_SEQ)
+		exec_list(vars, node, true);
+	else
+	{
+		if (node->left)
+			exec_list(vars, node->left, true);
+		if (node->right)
+			exec_cmdline(vars, node->right);
+	}
 	close(3);
 	close(4);
 }

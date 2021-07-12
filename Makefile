@@ -41,22 +41,22 @@ BUILTINS	=	assign.c \
 
 EXEC		=	exec.c \
 				exec_utils.c \
-				redirections.c \
+				redirection.c \
 				add_ptrlst.c \
 				find_cmd.c \
 				pipes.c
 
 INPUT		=	input.c
 
-LEXER		=	lexer.c \
-				lexer2.c
+LEXER		=	lexer0.c \
+				lexer1.c \
+				lexer_utils.c
 
 PARSER		=	parser.c \
-				parser2.c \
-				parser3.c \
-				parser4.c \
-				parser5.c \
-				wildcard.c
+				parser_utils.c \
+				ast_build0.c \
+				ast_build1.c \
+				ast_build2.c
 
 UTILS		=	astree.c \
 				exit.c \

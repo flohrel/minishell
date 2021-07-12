@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 15:01:51 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/30 03:25:02 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/12 00:58:09 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@
 # include <unistd.h>
 # include <stdbool.h>
 # include "libft.h"
+
+# define BUFFER_SIZE	65536
+# define PROMPT			"\e[1;32mminishell>> \e[0m"
+# define HDOC_PROMPT	"> "
 
 enum	e_state
 {
@@ -32,28 +36,32 @@ enum	e_tktype
 	TK_DQUOTE,
 	TK_SPACE,
 	TK_ESC,
+	TK_AMP,
 	TK_PIPE,
 	TK_SEMI,
 	TK_LESS,
-	TK_DLESS,
 	TK_GREAT,
+	TK_DAMP,
+	TK_DPIPE,
+	TK_DLESS,
 	TK_DGREAT,
 	TK_NL = -1,
 };
 
 enum	e_node
 {
-	NODE_SEQ,
-	NODE_PIPE,
-	NODE_CMD,
+	NODE_SEQ = 0x01,
+	NODE_PIPE = 0x02,
+	NODE_CMD = 0x04,
+	NODE_LIST = 0x08,
+	NODE_OR = 0x09,
+	NODE_AND = 0x0A,
 };
 
 enum	e_io
 {
 	RD_IN = 1,
 	RD_OUT = 2,
-	RD_APP = 4,
-	RD_HDOC = 8,
 	PIPE_IN = 16,
 	PIPE_OUT = 32,
 };
