@@ -71,7 +71,8 @@ static int	export_str(char *str, t_vars *vars)
 	result = malloc(sizeof(t_env));
 	if (!result)
 		return (0);
-	if (new_envblock(str, result) == -1)
+	if (new_envblock(str, result) == -1 &&
+	!ft_ischarset(result->key[ft_strlen(result->key) - 1], "+/-*."))
 	{
 		if (export_only(str, result, vars) < 0)
 			return (0);
