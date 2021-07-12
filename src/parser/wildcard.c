@@ -88,6 +88,7 @@ char	**wildcard(char *str, t_vars *vars)
 	if (open_curdir(&cur_dir) < 0)
 		return (NULL);
 	res = find_matches(cur_dir, str, vars);
+	free(cur_dir);
 	return (res);
 }
 
