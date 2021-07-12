@@ -63,7 +63,6 @@ UTILS		=	astree.c \
 				init.c \
 				utils.c \
 				flag.c \
-				token.c \
 				shell_lvl.c
 
 SRC			=	main.c \

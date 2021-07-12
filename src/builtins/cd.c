@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 14:47:20 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/06/24 19:54:25 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/07/12 11:50:19 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,14 +77,14 @@ int	cd(char **args, t_vars *vars)
 	vars->env = set_env_value(vars->env, "OLDPWD",
 			get_env_value("PWD", vars->env));
 	if (!vars->env)
-		clean_exit(vars, errno); 
+		clean_exit(vars, NULL, errno);
 	vars->exp = set_env_value(vars->exp, "OLDPWD",
 			get_env_value("PWD", vars->exp));
 	if (!vars->exp)
-		clean_exit(vars, errno);
+		clean_exit(vars, NULL, errno);
 	getcwd(s, 255);
 	vars->env = set_env_value(vars->env, "PWD", ft_strdup(s));
 	if (!vars->env)
-		clean_exit(vars, errno);
+		clean_exit(vars, NULL, errno);
 	return (0);
 }
