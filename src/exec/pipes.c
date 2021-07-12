@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "exec.h"
 
 int	add_pipe(t_vars *vars, t_ast *node)
 {

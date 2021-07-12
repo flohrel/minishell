@@ -41,21 +41,23 @@ BUILTINS	=	assign.c \
 
 EXEC		=	exec.c \
 				exec_utils.c \
-				redirections.c \
+				redirection.c \
 				add_ptrlst.c \
 				find_cmd.c \
-				pipes.c
+				pipes.c \
+				wc_convert.c
 
 INPUT		=	input.c
 
-LEXER		=	lexer.c \
-				lexer2.c
+LEXER		=	lexer0.c \
+				lexer1.c \
+				lexer_utils.c
 
 PARSER		=	parser.c \
-				parser2.c \
-				parser3.c \
-				parser4.c \
-				parser5.c \
+				parser_utils.c \
+				ast_build0.c \
+				ast_build1.c \
+				ast_build2.c \
 				wildcard.c
 
 UTILS		=	astree.c \
@@ -63,7 +65,6 @@ UTILS		=	astree.c \
 				init.c \
 				utils.c \
 				flag.c \
-				token.c \
 				shell_lvl.c
 
 SRC			=	main.c \

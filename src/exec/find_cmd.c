@@ -6,13 +6,11 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 14:52:04 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/06/30 03:43:31 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/12 11:38:08 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <string.h>
-#include "minishell.h"
+#include "exec.h"
 
 char	*create_path(char *path, char *cmd, t_vars *vars)
 {
@@ -25,6 +23,16 @@ char	*create_path(char *path, char *cmd, t_vars *vars)
 	if (!result || !(add_to_ptrlst((void *)result, vars)))
 		return (NULL);
 	return (result);
+}
+
+void	free_path(char **path)
+{
+	int	i;
+
+	i = 0;
+	while (path[i])
+		free(path[i++]);
+	free(path);
 }
 
 int	exec_cmd(char *path, char **argv, char **envp, t_vars *vars)
@@ -51,6 +59,7 @@ int	exec_cmd(char *path, char **argv, char **envp, t_vars *vars)
 			i++;
 		strerror(errno);
 	}
+	free_path(paths);
 	return (1);
 }
 
@@ -68,6 +77,15 @@ int	handle_builtin(char *path, char **argv, t_vars *vars)
 	return (0);
 }
 
+void	redir_handle(t_vars *vars, t_param *param, t_cmd *cmd)
+{
+	parse_redir(vars, param);
+	if (check_flag(cmd->io_bit, RD_IN))
+		dup2(cmd->redir[FD_IN], FD_IN);
+	if (check_flag(cmd->io_bit, RD_OUT))
+		dup2(cmd->redir[FD_OUT], FD_OUT);
+}
+
 int	find_cmd(t_param *param, char **argv, char **envp, t_vars *vars)
 {
 	int	pid;
@@ -82,6 +100,7 @@ int	find_cmd(t_param *param, char **argv, char **envp, t_vars *vars)
 	else if (pid == 0)
 	{
 		pipe_handle(vars);
+		redir_handle(vars, param, &vars->cmd);
 		exec_cmd(param->path, tabjoin(param->path, argv, vars),
 				envp, vars);
 		errormsg(param->path, ": command not found");

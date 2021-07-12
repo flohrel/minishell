@@ -6,11 +6,11 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 17:14:46 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/06/24 20:13:22 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/07/12 11:51:18 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "builtins.h"
 
 int	new_expblock(char *key, char *value, t_env *block)
 {
@@ -20,6 +20,7 @@ int	new_expblock(char *key, char *value, t_env *block)
 	block->value = ft_strdup(value);
 	if (!(block->value))
 		return (-1);
+	block->next = NULL;
 	return (1);
 }
 
@@ -68,24 +69,26 @@ static int	export_str(char *str, t_vars *vars)
 {
 	t_env	*result;
 
+	if ((ft_strischarset(str, "+/-*.")))
+		return (-1);
 	result = malloc(sizeof(t_env));
 	if (!result)
 		return (0);
 	if (new_envblock(str, result) == -1)
 	{
+		result->key = NULL;
+		result->value = NULL;
 		if (export_only(str, result, vars) < 0)
 			return (0);
 	}
 	else if (!result->key || !result->value)
 		return (0);
-	else if ((ft_strischarset(result->key, "+/-*")) == 0)
+	else if (!(ft_strischarset(result->key, "+/-*.")))
 	{
 		if (add_to_exp(vars->env, result) < 0
 			|| add_to_exp(vars->exp, result) < 0)
 			return (0);
 	}
-	else
-		errormsg("export : Not valid in this context : ", result->key);
 	free_block(result);
 	return (1);
 }
@@ -93,12 +96,19 @@ static int	export_str(char *str, t_vars *vars)
 int	export(char **args, t_vars *vars)
 {
 	int	i;
+	int	ret;
 
 	i = 0;
 	while (args && args[i])
 	{
-		if (!(export_str(args[i], vars)))
-			clean_exit(vars, errno);
+		ret = export_str(args[i], vars);
+		if (!ret)
+			clean_exit(vars, NULL, errno);
+		else if (ret == -1)
+		{
+			errormsg("export : Not valid in this context : ", args[i]);
+			break ;
+		}
 		i++;
 	}
 	if (ft_tablen(args) == 0)
