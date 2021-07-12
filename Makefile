@@ -56,7 +56,8 @@ PARSER		=	parser.c \
 				parser_utils.c \
 				ast_build0.c \
 				ast_build1.c \
-				ast_build2.c
+				ast_build2.c \
+				wildcard.c
 
 UTILS		=	astree.c \
 				exit.c \
