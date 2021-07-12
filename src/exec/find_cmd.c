@@ -10,9 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <string.h>
-#include "minishell.h"
+#include "exec.h"
 
 char	*create_path(char *path, char *cmd, t_vars *vars)
 {

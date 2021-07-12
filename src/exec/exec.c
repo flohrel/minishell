@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "exec.h"
 
 int	exec_command(t_vars *vars, t_cmd *cmd, t_ast *node)
 {

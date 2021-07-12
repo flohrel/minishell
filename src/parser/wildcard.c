@@ -1,4 +1,4 @@
-#include <minishell.h>
+#include <parser.h>
 
 void	aff_tab(char **tb)
 {
@@ -49,6 +49,7 @@ int	search_match(char *file_name, char *str, int i, int j)
 	else
 		return (0);
 }
+
 char	*find_match(char *file_name, char *str)
 {
 	if (search_match(file_name, str, 0, 0))
@@ -87,17 +88,19 @@ char	**wildcard(char *str, t_vars *vars)
 	if (open_curdir(&cur_dir) < 0)
 		return (NULL);
 	res = find_matches(cur_dir, str, vars);
-	if (!res)
-	{
-		errormsg("minishell: no matches found:", str);
-		return (NULL);
-	}	
-	aff_tab(res);
 	return (res);
 }
 
 int	wctest(char *str, t_vars *vars)
 {
-	wildcard(str, vars);
+	char	**res;
+
+	res = wildcard(str, vars);
+	if (!res)
+	{
+		errormsg("minishell: no matches found:", str);
+		return (0);
+	}
+	aff_tab(res);
 	return (1);
 }

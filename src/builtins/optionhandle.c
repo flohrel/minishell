@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "builtins.h"
 
 static int	check_flags(char *str, char *opt)
 {

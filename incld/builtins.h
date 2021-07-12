@@ -14,6 +14,8 @@
 # define BUILTINS_H
 
 # include "data.h"
+# include "utils.h"
+# include "parser.h"
 # include <dirent.h>
 # include <sys/types.h>
 # include <sys/stat.h>

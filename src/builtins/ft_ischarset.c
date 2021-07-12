@@ -1,3 +1,5 @@
+#include "builtins.h"
+
 int	ft_ischarset(char c, char *set)
 {
 	int	i;
