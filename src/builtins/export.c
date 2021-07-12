@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 17:14:46 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/06/24 20:13:22 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/07/12 11:51:18 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int	export(char **args, t_vars *vars)
 	while (args && args[i])
 	{
 		if (!(export_str(args[i], vars)))
-			clean_exit(vars, errno);
+			clean_exit(vars, NULL, errno);
 		i++;
 	}
 	if (ft_tablen(args) == 0)

@@ -65,7 +65,7 @@ t_opt	optionhandler(char **args, char *opt, t_vars *vars)
 	{
 		ret = check_options(args[i] + 1, opt, &(options.optflag), vars);
 		if (ret < 0)
-			clean_exit(vars, errno);
+			clean_exit(vars, NULL, errno);
 		else if (ret == 0)
 			break ;
 		i++;
