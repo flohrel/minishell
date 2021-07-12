@@ -20,6 +20,7 @@ int	new_expblock(char *key, char *value, t_env *block)
 	block->value = ft_strdup(value);
 	if (!(block->value))
 		return (-1);
+	block->next = NULL;
 	return (1);
 }
 
@@ -71,16 +72,16 @@ static int	export_str(char *str, t_vars *vars)
 	result = malloc(sizeof(t_env));
 	if (!result)
 		return (0);
-	if (new_envblock(str, result) == -1 &&
-	!ft_ischarset(result->key[ft_strlen(result->key) - 1], "+/-*."))
+	if (new_envblock(str, result) == -1)
 	{
+		result->key = NULL;
+		result->value = NULL;
 		if (export_only(str, result, vars) < 0)
 			return (0);
 	}
 	else if (!result->key || !result->value)
 		return (0);
-	else if ((ft_ischarset(result->key[ft_strlen(result->key) - 1],
-				"+/-*.")) == 0)
+	else if (!(ft_strischarset(result->key, "+/-*.")))
 	{
 		if (add_to_exp(vars->env, result) < 0
 			|| add_to_exp(vars->exp, result) < 0)
