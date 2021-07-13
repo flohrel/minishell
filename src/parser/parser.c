@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 20:58:03 by flohrel           #+#    #+#             */
-/*   Updated: 2021/07/05 17:13:50 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/13 16:30:55 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,73 @@ int	astree_build(t_vars *vars, t_lexer *lexer, t_parser *parser)
 	return (0);
 }
 
+int	parse_word2(t_vars *vars, char **data, char *buffer)
+{
+	bool	has_quotes;
+	size_t	len;
+
+	has_quotes = false;
+	if (ft_strchr(*data, '\'') || ft_strchr(*data, '\"'))
+		has_quotes = true;
+	if (*buffer || has_quotes)
+	{
+		len = ft_strlen(buffer);
+		*data = lst_alloc(len + 1, sizeof(*buffer), vars);
+		ft_strlcpy(*data, buffer, len + 1);
+	}
+	else
+	{
+		delete_empty_token(&vars->lexer, &vars->parser);
+		return (1);
+	}
+	return (0);
+}
+
+void	parse_word1(t_vars *vars, int *state, char **str, char **buffer)
+{
+	char	c;
+
+	c = **str;
+	if ((c == '\'') && (*state != ST_DQUOTE))
+	{
+		if (*state == ST_GENERAL)
+			*state = ST_QUOTE;
+		else
+			*state = ST_GENERAL;
+	}
+	else if ((c == '\"') && (*state != ST_QUOTE))
+	{
+		if (*state == ST_GENERAL)
+			*state = ST_DQUOTE;
+		else
+			*state = ST_GENERAL;
+	}
+	else if ((c == '\\') && (*state != ST_QUOTE)
+		&& ((*state == ST_GENERAL) || is_charset("$`\"\\", *((*str) + 1))))
+		*(*buffer)++ = *(++(*str));
+	else if ((c == '$') && (*state != ST_QUOTE))
+		var_expansion(vars, buffer, str);
+	else
+		*(*buffer)++ = c;
+}
+
+int	parse_word0(t_vars *vars, char **data)
+{
+	char	buffer[BUFFER_SIZE];
+	char	*ptr;
+	char	*str;
+
+	str = *data;
+	ptr = buffer;
+	while (*str)
+	{
+		parse_word1(vars, &vars->lexer.state, &str, &ptr);
+		str++;
+	}
+	*ptr = '\0';
+	return (parse_word2(vars, data, buffer));
+}
+
 int	parser(t_vars *vars, t_lexer *lexer, t_parser *parser)
 {
 	t_token		*token;
@@ -41,7 +108,7 @@ int	parser(t_vars *vars, t_lexer *lexer, t_parser *parser)
 		else
 		{
 			if ((token->type == TK_WORD)
-				&& parse_word(vars, &token->data))
+				&& parse_word0(vars, &token->data))
 				continue ;
 			parser->prev_tk = parser->cur_tk;
 			parser->cur_tk = parser->prev_tk->next;

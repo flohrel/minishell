@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 17:58:07 by flohrel           #+#    #+#             */
-/*   Updated: 2021/07/12 14:03:42 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/13 16:33:26 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	clean_exit(t_vars *vars, char *arg, int status)
 		}
 		ft_putstr_fd(strerror(errno), STDERR_FILENO);
 	}
+	ft_putstr_fd("\n", STDERR_FILENO);
 	if (status)
 		ret_val = status;
 	free_ptr_lst(&vars->ptr_list);
