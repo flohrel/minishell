@@ -40,13 +40,23 @@ int	exec_cmd(char *path, char **argv, char **envp, t_vars *vars)
 	char		**paths;
 	int			i;
 	char		*path_x;
+	int		fd;
 
 	i = 0;
 	if (!path || !argv || !envp || !vars)
 		return (-1);
 	if (ft_ischarset('/', path))
+	{
+		fd = open(path, O_RDONLY);
+		if (fd < 0)
+			return (printf("minishell : %s: No such file or directory.\n", path));
+		close(fd);
 		if (execve(path, argv, envp) < 0)
-			printf("bash : %s: No such file or directory.\n", path);
+		{
+			printf("minishell : %s: Permission denied.\n", path);
+			exit(126);
+		}
+	}
 	paths = ft_split(get_env_value("PATH", vars->env), ':');
 	if (!paths)
 		return (-1);
@@ -59,7 +69,9 @@ int	exec_cmd(char *path, char **argv, char **envp, t_vars *vars)
 			i++;
 		strerror(errno);
 	}
+	errormsg(path, ": command not found");
 	free_path(paths);
+	exit(127);
 	return (1);
 }
 
@@ -103,7 +115,6 @@ int	find_cmd(t_param *param, char **argv, char **envp, t_vars *vars)
 		redir_handle(vars, param, &vars->cmd);
 		exec_cmd(param->path, tabjoin(param->path, argv, vars),
 				envp, vars);
-		errormsg(param->path, ": command not found");
 		exit(errno);
 	}
 	close_handle(vars);

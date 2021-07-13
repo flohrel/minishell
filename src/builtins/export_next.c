@@ -47,7 +47,7 @@ int	export_only(char *str, t_env *result, t_vars *vars)
 	t_env	*tmp;
 
 	tmp = vars->exp;
-	if (ft_strischarset(str, "+/-*."))
+	if (ft_strischarset(str, "+/-*.="))
 		return (errormsg("export : Not valid in this context : ",
 				str));
 	if (add_agn(str, result, vars))

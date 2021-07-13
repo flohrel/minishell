@@ -26,6 +26,8 @@ static int	check_error(char *path)
 {
 	int	fd;
 
+	if (ft_strlen(path) <= 1)
+		return (0);
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
 		return (errormsg("cd : no such file or directory : ",
@@ -59,6 +61,7 @@ int	handle_args(t_vars *vars, char **args, char **path)
 					"");
 			return (-1);
 		}
+		ft_putendl_fd(*path, 1);
 	}
 	else
 		*path = args[0];

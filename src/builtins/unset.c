@@ -67,8 +67,15 @@ int	unset(char **args, t_vars *vars)
 	i = 0;
 	while (args && args[i])
 	{
+		if (ft_strcmp("", args[i]) == 0)
+			return (errormsg("minishell: unset: << >> ",
+				"Invalid identifier."));
+		else if ((ft_strischarset(args[i], "+/-*.=")))
+			return (errormsg(
+				"export : Not valid in this context: ",
+				args[i]));
 		vars->env = unset_key(args[i], vars->env);
 		vars->exp = unset_key(args[i++], vars->exp);
 	}
-	return (1);
+	return (0);
 }

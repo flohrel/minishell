@@ -65,6 +65,12 @@ int	add_to_exp(t_env *exp, t_env *block)
 	return (1);
 }
 
+int		ret_context(t_env *result)
+{
+	free_block(result);
+	return (-1);
+}
+
 static int	export_str(char *str, t_vars *vars)
 {
 	t_env	*result;
@@ -76,19 +82,19 @@ static int	export_str(char *str, t_vars *vars)
 		return (0);
 	if (new_envblock(str, result) == -1)
 	{
-		result->key = NULL;
-		result->value = NULL;
 		if (export_only(str, result, vars) < 0)
 			return (0);
 	}
 	else if (!result->key || !result->value)
 		return (0);
-	else if (!(ft_strischarset(result->key, "+/-*.")))
+	else if (!(ft_strischarset(result->value, "+/-*.=")))
 	{
 		if (add_to_exp(vars->env, result) < 0
 			|| add_to_exp(vars->exp, result) < 0)
 			return (0);
 	}
+	else
+		return (ret_context(result));
 	free_block(result);
 	return (1);
 }
@@ -101,14 +107,16 @@ int	export(char **args, t_vars *vars)
 	i = 0;
 	while (args && args[i])
 	{
+		if (ft_strcmp("", args[i]) == 0)
+			return (errormsg("minishell: export: << >> ",
+					"invalid identifier."));
 		ret = export_str(args[i], vars);
 		if (!ret)
 			clean_exit(vars, NULL, errno);
 		else if (ret == -1)
-		{
-			errormsg("export : Not valid in this context : ", args[i]);
-			break ;
-		}
+			return (errormsg(
+				"export : Not valid in this context: ",
+				args[i]));
 		i++;
 	}
 	if (ft_tablen(args) == 0)

@@ -19,7 +19,7 @@ int	new_envblock(char *str, t_env *result)
 	char	*chr;
 
 	chr = ft_strchr(str, '=');
-	if (!chr)
+	if (!chr || chr == str)
 		return (-1);
 	chr = chr + 1;
 	if (!chr)
