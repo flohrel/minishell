@@ -22,6 +22,22 @@ int	errormsg(char *str, char *arg)
 	return (1);
 }
 
+static char	*add_cdpath(t_vars *vars, char *path)
+{
+	char	*cdpath;
+	char	*new_path;
+
+	if (!ft_strcmp(path, ".") || !ft_strcmp(path, ".."))
+		return (path);
+	cdpath = get_env_value("CDPATH", vars->env);
+	if (!cdpath)
+		return (path);
+	new_path = ft_strjoin(cdpath, path);
+	if (!new_path)
+		clean_exit(vars, NULL, errno);
+	return (new_path);
+}
+
 static int	check_error(char *path)
 {
 	int	fd;
@@ -64,7 +80,7 @@ int	handle_args(t_vars *vars, char **args, char **path)
 		ft_putendl_fd(*path, 1);
 	}
 	else
-		*path = args[0];
+		*path = add_cdpath(vars, args[0]);
 	return (1);
 }
 

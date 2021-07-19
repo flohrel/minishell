@@ -75,7 +75,7 @@ static int	export_str(char *str, t_vars *vars)
 {
 	t_env	*result;
 
-	if ((ft_strischarset(str, "+/-*.")))
+	if ((ft_strischarset(str, "+-*.")))
 		return (-1);
 	result = malloc(sizeof(t_env));
 	if (!result)
@@ -87,7 +87,8 @@ static int	export_str(char *str, t_vars *vars)
 	}
 	else if (!result->key || !result->value)
 		return (0);
-	else if (!(ft_strischarset(result->value, "+/-*.=")))
+	else if (!(ft_strischarset(result->value, "+-*.="))
+		|| !(ft_strischarset(result->key, "+-/*.=")))
 	{
 		if (add_to_exp(vars->env, result) < 0
 			|| add_to_exp(vars->exp, result) < 0)

@@ -45,6 +45,8 @@ t_env	*parse_env(char **env)
 	int		i;
 
 	i = 0;
+	if (!env)
+		return (NULL);
 	result = malloc(1 * sizeof(t_env));
 	if (!result)
 		return (NULL);
