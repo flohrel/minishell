@@ -43,7 +43,9 @@ EXEC		=	exec.c \
 				exec_utils.c \
 				redirection.c \
 				add_ptrlst.c \
-				find_cmd.c
+				find_cmd.c \
+				pipes.c \
+				wc_convert.c
 
 INPUT		=	input.c
 
@@ -55,13 +57,15 @@ PARSER		=	parser.c \
 				parser_utils.c \
 				ast_build0.c \
 				ast_build1.c \
-				ast_build2.c
+				ast_build2.c \
+				wildcard.c
 
 UTILS		=	astree.c \
 				exit.c \
 				init.c \
 				utils.c \
-				flag.c
+				flag.c \
+				shell_lvl.c
 
 SRC			=	main.c \
 				test.c \

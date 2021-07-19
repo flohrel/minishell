@@ -10,13 +10,42 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "builtins.h"
+
+t_env	*make_block(char *key, char *value)
+{
+	t_env	*result;
+
+	result = malloc(sizeof(t_env));
+	if (!result)
+		return (NULL);
+	result->value = ft_strdup(value);
+	if (!result->value)
+		return (NULL);
+	result->key = ft_strdup(key);
+	if (!result->key)
+		return (NULL);
+	result->next = NULL;
+	return (result);
+}
+
+int	set_value(t_env *tmp, char *value)
+{
+	char	*stack;
+
+	stack = tmp->value;
+	free(stack);
+	stack = ft_strdup(value);
+	if (!stack)
+		return (-1);
+	tmp->value = stack;
+	return (1);
+}
 
 t_env	*set_env_value(t_env *env, char *key, char *value)
 {
 	t_env	*head;
 	t_env	*tmp;
-	char	*stack;
 
 	head = env;
 	tmp = env;
@@ -24,15 +53,16 @@ t_env	*set_env_value(t_env *env, char *key, char *value)
 	{
 		if (ft_strcmp(tmp->key, key) == 0)
 		{
-			stack = tmp->value;
-			free(stack);
-			stack = ft_strdup(value);
-			if (!stack)
+			if (set_value(tmp, value) < 0)
 				return (NULL);
-			tmp->value = stack;
 			return (head);
 		}
+		if (!tmp->next)
+			break ;
 		tmp = tmp->next;
 	}
+	tmp->next = make_block(key, value);
+	if (!tmp->next)
+		return (NULL);
 	return (head);
 }

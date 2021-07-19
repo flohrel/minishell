@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "builtins.h"
 
 int	new_envblock(char *str, t_env *result)
 {
@@ -19,7 +19,7 @@ int	new_envblock(char *str, t_env *result)
 	char	*chr;
 
 	chr = ft_strchr(str, '=');
-	if (!chr)
+	if (!chr || chr == str)
 		return (-1);
 	chr = chr + 1;
 	if (!chr)
@@ -45,6 +45,8 @@ t_env	*parse_env(char **env)
 	int		i;
 
 	i = 0;
+	if (!env)
+		return (NULL);
 	result = malloc(1 * sizeof(t_env));
 	if (!result)
 		return (NULL);

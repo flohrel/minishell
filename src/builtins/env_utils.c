@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
 #include "builtins.h"
 
 t_env	*envcpy(t_env *env)
@@ -41,6 +40,8 @@ t_env	*blockcpy(t_env *env)
 {
 	t_env	*result;
 
+	if (!env)
+		return (NULL);
 	result = malloc(sizeof(t_env));
 	if (!result)
 		return (NULL);
@@ -56,6 +57,8 @@ t_env	*blockcpy(t_env *env)
 
 void	free_block(t_env *env)
 {
+	if (!env)
+		return ;
 	free(env->key);
 	free(env->value);
 	free(env);

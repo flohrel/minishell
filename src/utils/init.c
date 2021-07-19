@@ -25,6 +25,7 @@ void	init_vars(t_vars *vars)
 	vars->lexer.tk_list = NULL;
 	vars->lexer.buffer = NULL;
 	vars->ptr_list = NULL;
+	vars->pipes = NULL;
 }
 
 void	init(t_vars *vars, char **envp)
@@ -33,5 +34,6 @@ void	init(t_vars *vars, char **envp)
 	vars->env = parse_env(envp);
 	vars->exp = parse_env(envp);
 	vars->agn = NULL;
+	up_shell_lvl(vars);
 	vars->exit_status = 0;
 }

@@ -10,22 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "builtins.h"
 
 int	pwd(char **args, t_vars *vars)
 {
 	char	*str;
+	char	s[255];
 	t_env	*env;
 
 	if (ft_tablen(args))
-		return (errormsg("pwd : too many argument", ""));
+		return (errormsg("pwd : too many arguments", ""));
 	env = vars->env;
 	str = get_env_value("PWD", env);
 	if (!str)
-		str = get_env_value("OLDPWD", env);
-	if (!str)
-		return (-1);
-	ft_putstr_fd(str, 1);
+		getcwd(s, 255);
+	if (str)
+		ft_putstr_fd(str, 1);
+	else
+		ft_putstr_fd(s, 1);
 	ft_putchar_fd('\n', 1);
-	return (1);
+	return (0);
 }

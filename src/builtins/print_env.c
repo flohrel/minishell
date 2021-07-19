@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "builtins.h"
 
 void	exp_print(t_env *env)
 {
@@ -52,5 +52,5 @@ int	print_env(char **args, t_vars *vars)
 	if (ft_tablen(args) > 0)
 		return (errormsg("env :", " trop d'arguments"));
 	env_print(vars->env);
-	return (1);
+	return (0);
 }

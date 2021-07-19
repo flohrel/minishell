@@ -1,30 +1,9 @@
-#include "minishell.h"
+#include "builtins.h"
 
 int	check_fd(t_vars *vars)
 {
-	int	pid;
-	int	status;
-
-	return (1);
-	pid = fork();
-	if (pid < 0)
-		return (-1);
-	if (pid == 0)
-	{
-		if (vars->cmd.io_bit < 0)
-			dup2(vars->cmd.pipe[FD_IN], FD_IN);
-		else
-		{
-			if (check_flag(vars->cmd.io_bit, PIPE_OUT))
-				dup2(vars->cmd.pipe[FD_IN], FD_IN);
-			if (check_flag(vars->cmd.io_bit, PIPE_IN))
-				dup2(vars->cmd.pipe[FD_OUT], FD_OUT);
-		}
-	}
-	else
-	{
-		waitpid(pid, &status, 0);
-	}
+	pipe_handle(vars);
+	close_handle(vars);
 	return (1);
 }
 
@@ -36,7 +15,9 @@ static int	find_builtin_next(char *path, char **args, t_vars *vars)
 		return (export(args, vars));
 	else if (ft_strcmp("exit", path) == 0 && check_fd(vars))
 		return (exit_b(args, vars));
-	return (0);
+	else if (ft_strcmp("wctest", path) == 0 && check_fd(vars))
+		return (wctest(args[0], vars));
+	return (-1);
 }
 
 int	find_builtin(char *path, char **args, t_vars *vars)

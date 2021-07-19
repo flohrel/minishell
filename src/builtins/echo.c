@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "builtins.h"
 
 int	my_echo(char **args, t_vars *vars)
 {
@@ -31,5 +31,5 @@ int	my_echo(char **args, t_vars *vars)
 	}
 	if (!(options.optflag[0]))
 		write(1, "\n", 1);
-	return (1);
+	return (0);
 }

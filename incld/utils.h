@@ -68,4 +68,9 @@ int		set_flag(int *field, int flag);
 int		check_flag(int field, int flag);
 void	clear_flag(int *field, int flag);
 
+/*
+ **		shell_lvl.c
+ */
+int		up_shell_lvl(t_vars *vars);
+
 #endif

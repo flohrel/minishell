@@ -6,11 +6,11 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 19:05:43 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/07/20 00:23:10 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/20 00:33:14 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "exec.h"
 
 int	exec_command(t_vars *vars, t_cmd *cmd, t_ast *node)
 {
@@ -18,14 +18,14 @@ int	exec_command(t_vars *vars, t_cmd *cmd, t_ast *node)
 	char	**args;
 
 	(void)cmd;
+	vars->last_status = 0;
 	if (node == NULL)
 		return (-1);
 	param = node->data;
 	args = list_to_tab(param->arg, vars);
+	args = wildcard_convert(args, vars);
 	if (param && !(param->path))
 		handle_assign(vars, param->assign);
-	if (find_builtin(param->path, args, vars))
-		return (1);
 	if (find_cmd(param, args,
 		env_to_tab(vars->env, vars), vars))
 		return (3);
@@ -36,6 +36,8 @@ void	exec_pipeline(t_vars *vars, t_cmd *cmd, t_ast *node)
 {
 	int	fdes[2];
 
+	cmd->std_out = dup(FD_OUT);
+	cmd->std_in = dup(FD_IN);
 	pipe(fdes);
 	cmd->pipe[FD_OUT] = fdes[1];
 	cmd->pipe[FD_IN] = fdes[0];
@@ -45,20 +47,14 @@ void	exec_pipeline(t_vars *vars, t_cmd *cmd, t_ast *node)
 	while (node && (node->type == NODE_PIPE))
 	{
 		set_flag(&cmd->io_bit, PIPE_OUT);
-		close(cmd->pipe[FD_OUT]);
 		pipe(fdes);
 		cmd->pipe[FD_OUT] = fdes[1];
 		exec_command(vars, cmd, node->left);
-		close(cmd->pipe[FD_IN]);
 		cmd->pipe[FD_IN] = fdes[0];
 		node = node->right;
 	}
-	//set_flag(&cmd->io_bit, PIPE_OUT);
 	cmd->io_bit = -1;
-	cmd->pipe[FD_IN] = fdes[0];
-	close(cmd->pipe[FD_OUT]);
 	exec_command(vars, cmd, node);
-	close(cmd->pipe[FD_IN]);
 }
 
 void	exec_job(t_vars *vars, t_ast *node)
@@ -71,6 +67,9 @@ void	exec_job(t_vars *vars, t_ast *node)
 
 void	exec_list(t_vars *vars, t_ast *node, bool is_exec)
 {
+	vars->cmd.io_bit = 0;
+	vars->cmd.std_out = -1;
+	vars->cmd.std_in = -1;
 	if (!check_flag(node->type, NODE_LIST))
 		exec_job(vars, node);
 	else
@@ -88,7 +87,6 @@ void	exec_list(t_vars *vars, t_ast *node, bool is_exec)
 
 void	exec_cmdline(t_vars *vars, t_ast *node)
 {
-	vars->cmd.io_bit = 0;
 	if (!node)
 		return ;
 	if (node->type != NODE_SEQ)
@@ -100,4 +98,6 @@ void	exec_cmdline(t_vars *vars, t_ast *node)
 		if (node->right)
 			exec_cmdline(vars, node->right);
 	}
+	close(3);
+	close(4);
 }
