@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 19:23:42 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/07/07 16:28:48 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/20 00:22:17 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	set_hdoc(t_vars *vars, t_cmd *cmd, char *string);
  */
 int		delimiter_seek(char *buffer, char *delim, int *i, int *j);
 
-void	exec_ast(t_vars *vars, t_ast *root);
+void	exec_cmdline(t_vars *vars, t_ast *root);
 void	*add_to_ptrlst(void *content, t_vars *vars);
 int		find_cmd(t_param *param, char **argv, char **envp, t_vars *vars);
 char	**tabjoin(char *str, char **args, t_vars *vars);

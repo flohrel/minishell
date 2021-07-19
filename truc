@@ -1,0 +1,24 @@
+total 568
+drwxrwxr-x 7 user42 user42   4096 juil. 20 00:23 .
+drwxrwxr-x 5 user42 user42   4096 juin  30 19:04 ..
+drwxrwxr-x 8 user42 user42   4096 juil. 20 00:19 .git
+-rw-rw-r-- 1 user42 user42    445 juin  28 20:56 .gitignore
+drwxrwxr-x 2 user42 user42   4096 juil. 20 00:22 incld
+drwxrwxr-x 5 user42 user42   4096 juil.  1 01:28 libft
+-rw-rw-r-- 1 user42 user42   1709 juil. 20 00:19 Makefile
+-rwxrwxr-x 1 user42 user42 541488 juil. 20 00:23 minishell
+drwxrwxr-x 2 user42 user42   4096 juil. 20 00:23 obj
+drwxrwxr-x 8 user42 user42   4096 juil. 20 00:19 src
+-rw-rw-r-- 1 user42 user42      0 juil. 20 00:23 truc
+total 572
+drwxrwxr-x 7 user42 user42   4096 juil. 20 00:23 .
+drwxrwxr-x 5 user42 user42   4096 juin  30 19:04 ..
+drwxrwxr-x 8 user42 user42   4096 juil. 20 00:19 .git
+-rw-rw-r-- 1 user42 user42    445 juin  28 20:56 .gitignore
+drwxrwxr-x 2 user42 user42   4096 juil. 20 00:22 incld
+drwxrwxr-x 5 user42 user42   4096 juil.  1 01:28 libft
+-rw-rw-r-- 1 user42 user42   1709 juil. 20 00:19 Makefile
+-rwxrwxr-x 1 user42 user42 541488 juil. 20 00:23 minishell
+drwxrwxr-x 2 user42 user42   4096 juil. 20 00:23 obj
+drwxrwxr-x 8 user42 user42   4096 juil. 20 00:19 src
+-rw-rw-r-- 1 user42 user42    614 juil. 20 00:23 truc

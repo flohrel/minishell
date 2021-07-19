@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 19:05:43 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/07/12 10:52:25 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/20 00:23:10 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	exec_list(t_vars *vars, t_ast *node, bool is_exec)
 	{
 		if (is_exec == true)
 			exec_job(vars, node->left);
-		if (node->type == NODE_AND) && (vars->exit_status == 0)
+		if ((node->type == NODE_AND) && (vars->exit_status == 0))
 			exec_list(vars, node->right, true);
 		else if ((node->type == NODE_OR) && (vars->exit_status))
 			exec_list(vars, node->right, true);
