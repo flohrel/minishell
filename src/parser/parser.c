@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 20:58:03 by flohrel           #+#    #+#             */
-/*   Updated: 2021/07/20 04:01:33 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/20 04:28:11 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,7 @@ void	parse_word1(t_vars *vars, int *state, char **str, char **buffer)
 		else
 			*state = ST_GENERAL;
 	}
-	else if ((c == '$') && (*state != ST_QUOTE) && ((*((*str) + 1) != ' ')
-				|| (*((*str) + 1) != '\0')))
+	else if ((c == '$') && (*state != ST_QUOTE) && (*((*str) + 1) != '\0'))
 		var_expansion(vars, buffer, str);
 	else
 		*(*buffer)++ = c;
