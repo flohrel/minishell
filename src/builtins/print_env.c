@@ -50,7 +50,7 @@ void	env_print(t_env *env)
 int	print_env(char **args, t_vars *vars)
 {
 	if (ft_tablen(args) > 0)
-		return (errormsg("env :", " trop d'arguments"));
+		return (errormsg("env :", " too many arguments"));
 	env_print(vars->env);
 	return (0);
 }
