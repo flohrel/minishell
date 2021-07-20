@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 12:58:34 by flohrel           #+#    #+#             */
-/*   Updated: 2021/07/05 15:20:48 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/20 03:31:04 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,10 @@ char	get_token_char(int type)
 		return ('|');
 	else if (type == TK_AMP)
 		return ('&');
-	else if (type == TK_SEMI)
-		return (';');
 	else if (type == TK_QUOTE)
 		return ('\'');
 	else if (type == TK_DQUOTE)
 		return ('\"');
-	else if (type == TK_ESC)
-		return ('\\');
 	else if (type == TK_GREAT)
 		return ('>');
 	else if (type == TK_LESS)
@@ -42,14 +38,10 @@ int	get_token_type(char c)
 		return (TK_PIPE);
 	else if (c == '&')
 		return (TK_AMP);
-	else if (c == ';')
-		return (TK_SEMI);
 	else if (c == '\'')
 		return (TK_QUOTE);
 	else if (c == '\"')
 		return (TK_DQUOTE);
-	else if (c == '\\')
-		return (TK_ESC);
 	else if (c == '>')
 		return (TK_GREAT);
 	else if (c == '<')

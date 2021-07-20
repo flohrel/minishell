@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 20:58:03 by flohrel           #+#    #+#             */
-/*   Updated: 2021/07/13 16:30:55 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/20 04:01:33 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,9 @@ int	astree_build(t_vars *vars, t_lexer *lexer, t_parser *parser)
 	t_token	*token;
 
 	parser->cur_tk = lexer->tk_list;
-	parser->exec_tree = cmdline(vars, parser);
+	parser->exec_tree = list(vars, parser);
 	token = (t_token *)parser->cur_tk->content;
-	if ((parser->exec_tree == NULL)
-		|| (token->type != TK_NL))
+	if (token->type != TK_NL)
 		return (syntax_error(token));
 	return (0);
 }
@@ -66,10 +65,8 @@ void	parse_word1(t_vars *vars, int *state, char **str, char **buffer)
 		else
 			*state = ST_GENERAL;
 	}
-	else if ((c == '\\') && (*state != ST_QUOTE)
-		&& ((*state == ST_GENERAL) || is_charset("$`\"\\", *((*str) + 1))))
-		*(*buffer)++ = *(++(*str));
-	else if ((c == '$') && (*state != ST_QUOTE))
+	else if ((c == '$') && (*state != ST_QUOTE) && ((*((*str) + 1) != ' ')
+				|| (*((*str) + 1) != '\0')))
 		var_expansion(vars, buffer, str);
 	else
 		*(*buffer)++ = c;

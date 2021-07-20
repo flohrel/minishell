@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 01:07:52 by flohrel           #+#    #+#             */
-/*   Updated: 2021/07/12 14:02:51 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/20 01:27:55 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	set_hdoc(t_vars *vars, t_cmd *cmd, char *string)
 
 	set_flag(&cmd->io_bit, RD_IN);
 	cmd->redir[FD_IN] = open(TMP_FILE, O_WRONLY | O_CREAT | O_TRUNC, 0600);
+	printf("ICI\n");
 	if (cmd->redir[FD_IN] == -1)
 		clean_exit(vars, TMP_FILE, errno);
 	readline_hdoc(vars, string);
@@ -61,6 +62,7 @@ void	set_hdoc(t_vars *vars, t_cmd *cmd, char *string)
 	write(cmd->redir[FD_IN], buffer, buf - buffer);
 	close(cmd->redir[FD_IN]);
 	cmd->redir[FD_IN] = open(TMP_FILE, O_RDONLY);
+	printf("LA\n");
 	if (cmd->redir[FD_IN] == -1)
 		clean_exit(vars, TMP_FILE, errno);
 }

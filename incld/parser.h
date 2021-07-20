@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 20:59:00 by flohrel           #+#    #+#             */
-/*   Updated: 2021/07/13 16:38:31 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/20 03:43:29 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,6 @@ int		astree_build(t_vars *vars, t_lexer *lexer, t_parser *parser);
 char	*exit_status_expansion(t_vars *vars, char **str, int exit_status);
 void	var_expansion(t_vars *vars, char **buffer, char **data);
 char	*var_assignation(t_vars *vars, char *data, char *str);
-
-/*
- **		ast_build0.c
- */
-t_ast	*cmdline(t_vars *vars, t_parser *parser);
-t_ast	*cmdline1(t_vars *vars, t_parser *parser);
-t_ast	*cmdline2(t_vars *vars, t_parser *parser);
 int		check_token(t_parser *parser, int type);
 
 /*
@@ -69,6 +62,6 @@ t_param	*init_cmd_param(t_vars *vars);
  **
  */
 char	**wildcard(char *str, t_vars *vars);
-int	wctest(char *str, t_vars *vars);
+int		wctest(char *str, t_vars *vars);
 void	aff_tab(char **tb);
 #endif

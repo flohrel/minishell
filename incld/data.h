@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 15:01:51 by flohrel           #+#    #+#             */
-/*   Updated: 2021/07/12 00:58:09 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/20 03:31:07 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,8 @@ enum	e_tktype
 	TK_QUOTE,
 	TK_DQUOTE,
 	TK_SPACE,
-	TK_ESC,
 	TK_AMP,
 	TK_PIPE,
-	TK_SEMI,
 	TK_LESS,
 	TK_GREAT,
 	TK_DAMP,
@@ -158,8 +156,8 @@ struct	s_cmd
 
 struct	s_pipes
 {
-	int		p_open;
-	t_ast		*node;
+	int				p_open;
+	t_ast			*node;
 	struct s_pipes	*prev;
 	struct s_pipes	*next;
 };
@@ -174,7 +172,7 @@ struct	s_vars
 	t_env		*exp;
 	t_env		*agn;
 	t_pipes		*pipes;
-	int		last_status;
+	int			last_status;
 	int			exit_status;
 };
 

@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 14:52:04 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/07/13 19:25:14 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/20 01:22:50 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,9 @@ int	exec_cmd(char *path, char **argv, char **envp, t_vars *vars)
 	return (1);
 }
 
-int	handle_builtin(char *path, char **argv, t_vars *vars)
+int	handle_builtin(char *path, char **argv, t_vars *vars, t_param *param)
 {
-	vars->last_status = find_builtin(path, argv, vars);
+	vars->last_status = find_builtin(path, argv, vars, param);
 	if (vars->last_status >= 0)
 	{
 		dup2(vars->cmd.std_in, STDIN_FILENO);
@@ -103,7 +103,7 @@ int	find_cmd(t_param *param, char **argv, char **envp, t_vars *vars)
 	int	pid;
 	int	status;
 
-	if (handle_builtin(param->path, argv, vars))
+	if (handle_builtin(param->path, argv, vars, param))
 		return (1);
 	else
 		pid = fork();

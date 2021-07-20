@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 19:05:43 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/07/20 00:33:14 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/20 03:48:22 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,19 +85,11 @@ void	exec_list(t_vars *vars, t_ast *node, bool is_exec)
 	}
 }
 
-void	exec_cmdline(t_vars *vars, t_ast *node)
+void	exec_ast(t_vars *vars, t_ast *node)
 {
 	if (!node)
 		return ;
-	if (node->type != NODE_SEQ)
-		exec_list(vars, node, true);
-	else
-	{
-		if (node->left)
-			exec_list(vars, node->left, true);
-		if (node->right)
-			exec_cmdline(vars, node->right);
-	}
+	exec_list(vars, node, true);
 	close(3);
 	close(4);
 }

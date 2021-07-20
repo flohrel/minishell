@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 19:23:42 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/07/20 00:34:02 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/20 03:49:57 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,16 @@ void	set_hdoc(t_vars *vars, t_cmd *cmd, char *string);
 /*
  **		exec.c
  */
-void	exec_cmdline(t_vars *vars, t_ast *node);
+void	exec_ast(t_vars *vars, t_ast *node);
 void	exec_list(t_vars *vars, t_ast *node, bool is_exec);
 void	exec_job(t_vars *vars, t_ast *node);
 void	exec_pipeline(t_vars *vars, t_cmd *cmd, t_ast *node);
 int		exec_command(t_vars *vars, t_cmd *cmd, t_ast *node);
+
+/*
+ **		find_cmd.c
+ */
+void	redir_handle(t_vars *vars, t_param *param, t_cmd *cmd);
 
 void	*add_to_ptrlst(void *content, t_vars *vars);
 int		find_cmd(t_param *param, char **argv, char **envp, t_vars *vars);

@@ -53,6 +53,10 @@ int	close_handle(t_vars *vars)
 		if (check_flag(vars->cmd.io_bit, PIPE_OUT))
 			close(vars->cmd.pipe[FD_IN]);
 	}
+	if (check_flag(vars->cmd.io_bit, FD_IN))
+		close(vars->cmd.redir[FD_IN]);
+	if (check_flag(vars->cmd.io_bit, FD_OUT))
+		close(vars->cmd.redir[FD_OUT]);
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 17:20:52 by flohrel           #+#    #+#             */
-/*   Updated: 2021/07/08 15:30:36 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/20 04:00:21 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	quote_handle(t_vars *vars, char *buf)
 		lexer->state = ST_GENERAL;
 }
 
-void	lexer_init(t_vars *vars, void (*token_handle[10])(t_vars *, int, char **))
+void	lexer_init(t_vars *vars, void (*token_handle[8])(t_vars *, int, char **))
 {
 	t_lexer	*lexer;
 
@@ -35,19 +35,17 @@ void	lexer_init(t_vars *vars, void (*token_handle[10])(t_vars *, int, char **))
 	token_handle[1] = word_handle;
 	token_handle[2] = word_handle;
 	token_handle[3] = space_handle;
-	token_handle[4] = escape_handle;
+	token_handle[4] = job_handle;
 	token_handle[5] = job_handle;
-	token_handle[6] = job_handle;
-	token_handle[7] = job_handle;
-	token_handle[8] = redirection_handle;
-	token_handle[9] = redirection_handle;
+	token_handle[6] = redirection_handle;
+	token_handle[7] = redirection_handle;
 }
 
 void	lexer(t_vars *vars, t_lexer *lexer)
 {
 	char	*buffer;
 	int		tk_type;
-	void	(*token_handle[10])(t_vars *, int, char **);
+	void	(*token_handle[8])(t_vars *, int, char **);
 
 	lexer_init(vars, token_handle);
 	buffer = lexer->buffer;

@@ -6,11 +6,22 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/09 17:56:30 by flohrel           #+#    #+#             */
-/*   Updated: 2021/07/13 16:38:09 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/20 03:41:31 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
+
+int	check_token(t_parser *parser, int type)
+{
+	t_token	*token;
+
+	token = (t_token *)parser->cur_tk->content;
+	if (token->type != type)
+		return (0);
+	parser->cur_tk = parser->cur_tk->next;
+	return (1);
+}
 
 char	*var_assignation(t_vars *vars, char *data, char *str)
 {

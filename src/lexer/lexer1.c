@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 05:14:28 by flohrel           #+#    #+#             */
-/*   Updated: 2021/07/08 15:33:45 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/20 03:35:28 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ void	job_handle(t_vars *vars, int tk_type, char **buf)
 	}
 	else
 		new_token(vars, tk_type, 0);
-	printf("tk_type=%d\n", tk_type);
 	size = lexer->buffer + lexer->buf_len - (*buf);
 	new_token(vars, TK_WORD, size);
 }
@@ -85,17 +84,4 @@ void	space_handle(t_vars *vars, int tk_type, char **buf)
 		*(lexer->cur_char) = '\0';
 	size = lexer->buffer + lexer->buf_len - (*buf);
 	new_token(vars, TK_WORD, size);
-}
-
-void	escape_handle(t_vars *vars, int tk_type, char **buf)
-{
-	t_lexer	*lexer;
-
-	(void)tk_type;
-	lexer = &vars->lexer;
-	if (*((*buf) + 1))
-	{
-		*(lexer->cur_char)++ = **buf;
-		*(lexer->cur_char)++ = *(++(*buf));
-	}
 }

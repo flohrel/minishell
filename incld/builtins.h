@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 15:24:24 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/06/24 20:22:14 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/07/20 01:16:01 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "data.h"
 # include "utils.h"
 # include "parser.h"
+# include "exec.h"
 # include <dirent.h>
 # include <sys/types.h>
 # include <sys/stat.h>
@@ -23,7 +24,7 @@
 
 t_env	*g_env;
 
-int		find_builtin(char *path, char **args, t_vars *vars);
+int		find_builtin(char *path, char **args, t_vars *vars, t_param *param);
 int		pwd(char **args, t_vars *vars);
 int		cd(char **args, t_vars *vars);
 int		exit_b(char **args, t_vars *vars);
