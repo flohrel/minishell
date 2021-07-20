@@ -14,6 +14,8 @@
 
 int	exit_b(char **args, t_vars *vars)
 {
+	if (check_flag(vars->cmd.io_bit, PIPE_IN))
+		return (0);
 	ft_putstr_fd("exit\n", 1);
 	if (args && !(ft_strisdigit(args[0])))
 		errormsg("exit : ", "argument must be a number");

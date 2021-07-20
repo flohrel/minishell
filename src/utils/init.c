@@ -28,11 +28,31 @@ void	init_vars(t_vars *vars)
 	vars->pipes = NULL;
 }
 
+t_env	*emptyblock()
+{
+	t_env	*result;
+
+	result = malloc(sizeof(t_env));
+	if (!result)
+		return (NULL);
+	result->key = NULL;
+	result->value = NULL;
+	return (result);
+}
+
 void	init(t_vars *vars, char **envp)
 {
 	errno = 0;
-	vars->env = parse_env(envp);
-	vars->exp = parse_env(envp);
+	if (envp[0])
+	{
+		vars->env = parse_env(envp);
+		vars->exp = parse_env(envp);
+	}
+	else
+	{
+		vars->env = NULL;
+		vars->exp = NULL;
+	}
 	vars->agn = NULL;
 	up_shell_lvl(vars);
 	vars->exit_status = 0;
