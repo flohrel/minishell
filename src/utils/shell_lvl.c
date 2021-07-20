@@ -4,15 +4,19 @@ int	up_shell_lvl(t_vars *vars)
 {
 	int		lvl;
 	char		*lvlstr;
-	static int	shlvl = 0;
+	int		shlvl;
+	char		*nb;
 
 	lvl = 0;
+	shlvl = 0;
 	if (vars->env)
-		lvl = ft_atoi(get_env_value("SHLVL", vars->env)) + 1;
+		nb = (get_env_value("SHLVL", vars->env));
+	if (nb)
+		lvl = ft_atoi(nb);
 	if (!lvl)
 		lvl = ++shlvl;
 	else
-		shlvl = lvl;
+		shlvl = ++lvl;
 	lvlstr = ft_itoa(lvl);
 	vars->env = set_env_value(vars->env, "SHLVL", lvlstr);
 	if (!vars->env)

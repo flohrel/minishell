@@ -51,7 +51,7 @@ void	env_print(t_env *env);
 void	exp_print(t_env *env);
 int		handle_assign(t_vars *vars, t_list *assign);
 int		replace_value(t_env *env, t_env *block);
-int		add_to_exp(t_env *exp, t_env *block);
+int		add_to_exp(t_env **exp, t_env *block);
 int		export_only(char *str, t_env *result, t_vars *vars);
 t_env	*parse_env(char **env);
 t_env	*set_env_value(t_env *env, char *key, char *value);

@@ -38,17 +38,17 @@ int	replace_value(t_env *env, t_env *block)
 	return (0);
 }
 
-int	add_to_exp(t_env *exp, t_env *block)
+int	add_to_exp(t_env **exp, t_env *block)
 {
 	t_env	*tmp;
 	t_env	*stack;
 	int		ret;
 
-	tmp = exp;
+	tmp = *exp;
 	stack = blockcpy(block);
 	if (!stack)
 		return (-1);
-	if (!tmp && init_exp(&exp, stack))
+	if (!tmp && init_exp(exp, stack))
 		return (1);
 	while (tmp && tmp->next)
 	{
@@ -90,8 +90,8 @@ static int	export_str(char *str, t_vars *vars)
 	else if (!(ft_strischarset(result->value, "+-*.="))
 		|| !(ft_strischarset(result->key, "+-/*.=")))
 	{
-		if (add_to_exp(vars->env, result) < 0
-			|| add_to_exp(vars->exp, result) < 0)
+		if (add_to_exp(&vars->env, result) < 0
+			|| add_to_exp(&vars->exp, result) < 0)
 			return (0);
 	}
 	else
