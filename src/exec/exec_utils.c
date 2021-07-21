@@ -6,11 +6,11 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 17:13:26 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/06/08 13:14:33 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/18 15:51:23 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "exec.h"
 
 int	env_size(t_env *env)
 {
@@ -30,6 +30,8 @@ char	**env_to_tab(t_env *env, t_vars *vars)
 	char	**result;
 	int		i;
 
+	if (!env || !vars)
+		return (NULL);
 	result = lst_alloc(env_size(env) + 1, sizeof(char *), vars);
 	if (!result)
 		return (NULL);

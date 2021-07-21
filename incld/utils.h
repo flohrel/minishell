@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/18 02:36:25 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/12 16:31:11 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/08 18:15:52 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
  **		exit.c
  */
 void	free_unlisted_vars(t_vars *vars);
-void	clean_exit(t_vars *vars, int status);
+void	clean_exit(t_vars *vars, char *arg, int status);
 
 /*
  **		token.c
@@ -58,7 +58,19 @@ void	print_tab(char **arg);
  */
 void	init(t_vars *vars, char **envp);
 void	init_vars(t_vars *vars);
-void	init_term(t_vars *vars);
+void	init_cmd(t_cmd *cmd);
 
+
+/*
+ **		flag.c
+ */
+int		set_flag(int *field, int flag);
+int		check_flag(int field, int flag);
+void	clear_flag(int *field, int flag);
+
+/*
+ **		shell_lvl.c
+ */
+int		up_shell_lvl(t_vars *vars);
 
 #endif

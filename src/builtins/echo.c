@@ -6,18 +6,18 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/29 17:49:41 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/05/31 17:26:13 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/06/24 19:55:01 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "builtins.h"
 
 int	my_echo(char **args, t_vars *vars)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 	t_opt	options;
-	
+
 	i = 0;
 	options = optionhandler(args, "n", vars);
 	while (options.args[i])
@@ -31,5 +31,5 @@ int	my_echo(char **args, t_vars *vars)
 	}
 	if (!(options.optflag[0]))
 		write(1, "\n", 1);
-	return (1);
+	return (0);
 }

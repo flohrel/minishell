@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 15:29:11 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/24 21:15:26 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/07/21 02:52:59 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	sigint_handler(int signum)
 {
 	(void)signum;
-
 	write(STDOUT_FILENO, "\n", 1);
 	if (isatty(0))
 	{

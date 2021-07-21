@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 10:18:14 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/04 01:31:43 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/28 21:00:32 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ struct s_queue
 int			get_next_line(int fd, char **line);
 int			set_line(t_queue *file_q, char **line);
 t_queue		*init_file_queue(t_queue *file_q);
-int			push(t_queue *file_q, char *buf, size_t size, bool is_tmp);
-void		pop(t_queue *file_q, bool is_tmp);
+int			gnl_push(t_queue *file_q, char *buf, size_t size, bool is_tmp);
+void		gnl_pop(t_queue *file_q, bool is_tmp);
 
 #endif

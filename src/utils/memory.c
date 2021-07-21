@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   memory.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/01 12:22:47 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/17 20:31:07 by mtogbe           ###   ########.fr       */
+/*   Created: 2021/05/29 09:02:58 by flohrel           #+#    #+#             */
+/*   Updated: 2021/07/11 03:16:11 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+#include "utils.h"
 
-# include "libft/type.h"
-# include "libft/memory.h"
-# include "libft/dlist.h"
-# include "libft/list.h"
-# include "libft/string.h"
-# include "libft/ctype.h"
-# include "libft/io.h"
-# include "libft/conv.h"
-# include "libft/gnl.h"
+void	*lst_alloc(size_t nmemb, size_t size, t_vars *vars)
+{
+	void	*ptr;
 
-#endif
+	ptr = garbage_collector(nmemb, size, &vars->ptr_list);
+	if (ptr == NULL)
+		clean_exit(vars, NULL, errno);
+	return (ptr);
+}

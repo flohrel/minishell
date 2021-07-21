@@ -15,10 +15,12 @@ OBJDIR		=	obj
 LIBDIR		=	libft
 INCLDIR		=	incld
 
-BUILTINS	=	cd.c \
+BUILTINS	=	assign.c \
+				cd.c \
 				echo.c \
 				env_utils.c \
 				export.c \
+				export_next.c \
 				exit_b.c \
 				find_builtin.c \
 				ft_already.c \
@@ -28,34 +30,41 @@ BUILTINS	=	cd.c \
 				ft_tablen.c \
 				ft_strisdigit.c \
 				get_env_value.c \
+				init_exp.c \
 				set_env_value.c \
 				optionhandle.c \
 				parse_env.c \
 				print_env.c \
+				print_sorted_env.c \
 				pwd.c \
 				unset.c
 
 EXEC		=	exec.c \
-			exec_utils.c \
-			add_ptrlst.c \
-			find_cmd.c
+				exec_utils.c \
+				redirection.c \
+				add_ptrlst.c \
+				find_cmd.c \
+				pipes.c \
+				wc_convert.c
 
 INPUT		=	input.c
 
-LEXER		=	lexer.c \
-				lexer2.c
+LEXER		=	lexer0.c \
+				lexer1.c \
+				lexer_utils.c
 
 PARSER		=	parser.c \
-				parser2.c \
-				parser3.c \
-				parser4.c \
-				parser5.c \
+				parser_utils.c \
+				ast_build1.c \
+				ast_build2.c \
+				wildcard.c
 
 UTILS		=	astree.c \
 				exit.c \
 				init.c \
 				utils.c \
-				token.c
+				flag.c \
+				shell_lvl.c
 
 SRC			=	main.c \
 				test.c \
@@ -71,7 +80,7 @@ OBJ			=	$(SRC:%.c=$(OBJDIR)/%.o)
 CC			=	gcc
 CFLAGS		=	-Wall -Werror -Wextra -g3
 INCFLAGS	=	-I./$(INCLDIR) -I./$(LIBDIR)/incld
-LFLAGS		=	-L./$(LIBDIR) -lft -lncurses -lreadline
+LFLAGS		=	-L./$(LIBDIR) -lft -lreadline
 RM			=	/bin/rm -rf
 UNAME		:=	$(shell uname -s)
 

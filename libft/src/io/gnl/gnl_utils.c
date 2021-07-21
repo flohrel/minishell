@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 10:18:57 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/04 01:45:52 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/06/28 20:59:26 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	set_line(t_queue *file_q, char **line)
 	{
 		ft_memcpy(lptr, cur_buf->data, cur_buf->size);
 		lptr += cur_buf->size;
-		pop(file_q, 0);
+		gnl_pop(file_q, 0);
 		cur_buf = file_q->first;
 	}
 	*lptr = '\0';
@@ -47,7 +47,7 @@ t_queue	*init_file_queue(t_queue *file_q)
 	return (file_q);
 }
 
-int	push(t_queue *file_q, char *buf, size_t size, bool is_tmp)
+int	gnl_push(t_queue *file_q, char *buf, size_t size, bool is_tmp)
 {
 	t_buf	*new_buf;
 
@@ -74,7 +74,7 @@ int	push(t_queue *file_q, char *buf, size_t size, bool is_tmp)
 	return (0);
 }
 
-void	pop(t_queue *file_q, bool is_tmp)
+void	gnl_pop(t_queue *file_q, bool is_tmp)
 {
 	t_buf	*cur_buf;
 

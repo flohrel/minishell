@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 15:01:51 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/12 16:31:35 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/20 03:31:07 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@
 # include <unistd.h>
 # include <stdbool.h>
 # include "libft.h"
+
+# define BUFFER_SIZE	65536
+# define PROMPT			"\e[1;32mminishell>> \e[0m"
+# define HDOC_PROMPT	"> "
 
 enum	e_state
 {
@@ -31,24 +35,36 @@ enum	e_tktype
 	TK_QUOTE,
 	TK_DQUOTE,
 	TK_SPACE,
-	TK_ESC,
+	TK_AMP,
 	TK_PIPE,
-	TK_SEMI,
 	TK_LESS,
-	TK_DLESS,
 	TK_GREAT,
+	TK_DAMP,
+	TK_DPIPE,
+	TK_DLESS,
 	TK_DGREAT,
 	TK_NL = -1,
 };
 
 enum	e_node
 {
-	NODE_SEQ,
-	NODE_PIPE,
-	NODE_CMD,
+	NODE_SEQ = 0x01,
+	NODE_PIPE = 0x02,
+	NODE_CMD = 0x04,
+	NODE_LIST = 0x08,
+	NODE_OR = 0x09,
+	NODE_AND = 0x0A,
 };
 
 enum	e_io
+{
+	RD_IN = 1,
+	RD_OUT = 2,
+	PIPE_IN = 16,
+	PIPE_OUT = 32,
+};
+
+enum	e_fd
 {
 	FD_IN,
 	FD_OUT,
@@ -67,6 +83,7 @@ typedef struct s_env	t_env;
 typedef struct s_vars	t_vars;
 typedef struct s_opt	t_opt;
 typedef struct s_cmd	t_cmd;
+typedef struct s_pipes	t_pipes;
 
 struct	s_token
 {
@@ -127,18 +144,35 @@ struct	s_opt
 
 struct	s_cmd
 {
-	bool	is_builtin;
-	char	*full_path;
-	char	**arg;
-	int		fd[2];
+	int		io_bit;
+	char	*delim;
+	int		std_out;
+	int		std_in;
+	int		dup_in;
+	int		dup_out;
+	int		redir[2];
+	int		pipe[2];
+};
+
+struct	s_pipes
+{
+	int				p_open;
+	t_ast			*node;
+	struct s_pipes	*prev;
+	struct s_pipes	*next;
 };
 
 struct	s_vars
 {
 	t_lexer		lexer;
 	t_parser	parser;
+	t_cmd		cmd;
 	t_list		*ptr_list;
 	t_env		*env;
+	t_env		*exp;
+	t_env		*agn;
+	t_pipes		*pipes;
+	int			last_status;
 	int			exit_status;
 };
 

@@ -6,11 +6,11 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 16:31:07 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/05/29 19:12:50 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/06/20 16:46:27 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "builtins.h"
 
 char	*get_env_value(char *key, t_env *env)
 {

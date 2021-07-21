@@ -6,17 +6,11 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 14:52:04 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/06/08 13:17:54 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/20 01:22:50 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <dirent.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <string.h>
-#include "minishell.h"
+#include "exec.h"
 
 char	*create_path(char *path, char *cmd, t_vars *vars)
 {
@@ -31,35 +25,38 @@ char	*create_path(char *path, char *cmd, t_vars *vars)
 	return (result);
 }
 
-int	exec_cmd(char *path, char **argv, char **envp, t_vars *vars)
+void	free_path(char **path)
 {
-//	DIR				*dir;
-//	struct dirent	*s_dir;
-	char		**paths;
-	int		i;
-	char		*path_x;
+	int	i;
 
 	i = 0;
+	while (path[i])
+		free(path[i++]);
+	free(path);
+}
+
+int	exec_cmd(char *path, char **argv, char **envp, t_vars *vars)
+{
+	char		**paths;
+	int			i;
+	char		*path_x;
+	int		fd;
+
+	i = 0;
+	if (!path || !argv || !envp || !vars)
+		return (-1);
 	if (ft_ischarset('/', path))
 	{
+		fd = open(path, O_RDONLY);
+		if (fd < 0)
+			return (printf("minishell : %s: No such file or directory.\n", path));
+		close(fd);
 		if (execve(path, argv, envp) < 0)
-			printf("bash : %s: No such file or directory.", path);
-		ft_putstr_fd("executing\n", 1);
-	}
-	/*else
-	{
-		dir = opendir("/bin/");
-		do
 		{
-			s_dir = readdir(dir);
-			if (s_dir && !(strcmp(s_dir->d_name, path)))
-			{
-				printf("exec %s\n", s_dir->d_name);
-			}
-		} while (s_dir);
-		closedir(dir);
-	}*/
-	// ou directment faire un execve avec le path "/bin/" + pathname
+			printf("minishell : %s: Permission denied.\n", path);
+			exit(126);
+		}
+	}
 	paths = ft_split(get_env_value("PATH", vars->env), ':');
 	if (!paths)
 		return (-1);
@@ -70,28 +67,60 @@ int	exec_cmd(char *path, char **argv, char **envp, t_vars *vars)
 			return (-1);
 		if (execve(path_x, argv, envp) < 0)
 			i++;
-		else
-			return (1);
+		strerror(errno);
 	}
+	errormsg(path, ": command not found");
+	free_path(paths);
+	exit(127);
 	return (1);
 }
 
-int	find_cmd(char *path, char **argv, char **envp, t_vars *vars)
+int	handle_builtin(char *path, char **argv, t_vars *vars, t_param *param)
+{
+	vars->last_status = find_builtin(path, argv, vars, param);
+	if (vars->last_status >= 0)
+	{
+		dup2(vars->cmd.std_in, STDIN_FILENO);
+		dup2(vars->cmd.std_out, STDOUT_FILENO);
+		close_handle(vars);
+		printf("status : %d\n", vars->last_status);
+		return (1);
+	}
+	return (0);
+}
+
+void	redir_handle(t_vars *vars, t_param *param, t_cmd *cmd)
+{
+	parse_redir(vars, param);
+	if (check_flag(cmd->io_bit, RD_IN))
+		dup2(cmd->redir[FD_IN], FD_IN);
+	if (check_flag(cmd->io_bit, RD_OUT))
+		dup2(cmd->redir[FD_OUT], FD_OUT);
+}
+
+int	find_cmd(t_param *param, char **argv, char **envp, t_vars *vars)
 {
 	int	pid;
 	int	status;
 
-	pid = fork();
+	if (handle_builtin(param->path, argv, vars, param))
+		return (1);
+	else
+		pid = fork();
 	if (pid < 0)
 		return (-1);
 	else if (pid == 0)
 	{
-		exec_cmd(path, tabjoin(path, argv, vars), envp, vars);
-		exit(0);
+		pipe_handle(vars);
+		redir_handle(vars, param, &vars->cmd);
+		exec_cmd(param->path, tabjoin(param->path, argv, vars),
+				envp, vars);
+		exit(errno);
 	}
-	else
-	{
-		waitpid(pid, &status, 0);
-	}
+	close_handle(vars);
+	waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+		vars->last_status = WEXITSTATUS(status);
+	printf("status : %d\n", vars->last_status);
 	return (1);
 }
