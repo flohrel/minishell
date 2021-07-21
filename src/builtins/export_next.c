@@ -1,5 +1,11 @@
 #include "builtins.h"
 
+int	ret_context(t_env *result)
+{
+	free_block(result);
+	return (-1);
+}
+
 int	add_agn(char *str, t_env *result, t_vars *vars)
 {
 	char	*value;
@@ -22,7 +28,7 @@ int	add_agn(char *str, t_env *result, t_vars *vars)
 	if (!block)
 		return (-1);
 	if (add_to_exp(&vars->env, block) < 0
-			|| add_to_exp(&vars->exp, block) < 0)
+		|| add_to_exp(&vars->exp, block) < 0)
 		return (-1);
 	free_block(block);
 	return (1);
@@ -31,12 +37,12 @@ int	add_agn(char *str, t_env *result, t_vars *vars)
 int	export_found(t_env *tmp, t_vars *vars)
 {
 	t_env	*cpy;
-	
+
 	cpy = blockcpy(tmp);
 	if (!cpy)
 		return (-1);
 	if (add_to_exp(&vars->env, cpy) < 0
-			|| add_to_exp(&vars->exp, cpy) < 0)
+		|| add_to_exp(&vars->exp, cpy) < 0)
 		return (-1);
 	free_block(cpy);
 	return (1);

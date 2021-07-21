@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 13:48:03 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/28 22:00:37 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/21 03:48:55 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,6 @@ void	init_vars(t_vars *vars)
 	vars->lexer.buffer = NULL;
 	vars->ptr_list = NULL;
 	vars->pipes = NULL;
-}
-
-t_env	*emptyblock()
-{
-	t_env	*result;
-
-	result = malloc(sizeof(t_env));
-	if (!result)
-		return (NULL);
-	result->key = NULL;
-	result->value = NULL;
-	return (result);
 }
 
 void	init(t_vars *vars, char **envp)

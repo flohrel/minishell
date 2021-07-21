@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/18 02:07:59 by flohrel           #+#    #+#             */
-/*   Updated: 2021/07/20 03:46:02 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/21 03:50:07 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ t_ast	*cmd(t_vars *vars, t_parser *parser)
 		return (NULL);
 	data = init_cmd_param(vars);
 	while ((token->type == TK_WORD) || ((token->type > TK_PIPE)
-				&& (token->type != TK_DAMP) && (token->type != TK_DPIPE)))
+			&& (token->type != TK_DAMP) && (token->type != TK_DPIPE)))
 	{
 		if (token->type == TK_WORD)
 			argument(vars, token, data);

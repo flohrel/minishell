@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 17:14:29 by flohrel           #+#    #+#             */
-/*   Updated: 2021/07/20 04:00:38 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/21 04:15:11 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@
  **		lexer0.c
  */
 void	lexer(t_vars *vars, t_lexer *lexer);
-void	lexer_init(t_vars *vars, void (*token_handle[8])(t_vars *, int, char **));
+void	lexer_init(t_vars *vars,
+			void (*token_handle[8])(t_vars *, int, char **));
 void	quote_handle(t_vars *vars, char *buf);
 
 /*

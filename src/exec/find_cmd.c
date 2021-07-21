@@ -6,60 +6,27 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 14:52:04 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/07/20 01:22:50 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/21 03:44:49 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
-
-char	*create_path(char *path, char *cmd, t_vars *vars)
-{
-	char	*result;
-
-	result = ft_strjoin(path, "/");
-	if (!result || !(add_to_ptrlst((void *)result, vars)))
-		return (NULL);
-	result = ft_strjoin(result, cmd);
-	if (!result || !(add_to_ptrlst((void *)result, vars)))
-		return (NULL);
-	return (result);
-}
-
-void	free_path(char **path)
-{
-	int	i;
-
-	i = 0;
-	while (path[i])
-		free(path[i++]);
-	free(path);
-}
 
 int	exec_cmd(char *path, char **argv, char **envp, t_vars *vars)
 {
 	char		**paths;
 	int			i;
 	char		*path_x;
-	int		fd;
+	int			fd;
 
 	i = 0;
 	if (!path || !argv || !envp || !vars)
-		return (-1);
+		clean_exit(vars, NULL, errno);
 	if (ft_ischarset('/', path))
-	{
-		fd = open(path, O_RDONLY);
-		if (fd < 0)
-			return (printf("minishell : %s: No such file or directory.\n", path));
-		close(fd);
-		if (execve(path, argv, envp) < 0)
-		{
-			printf("minishell : %s: Permission denied.\n", path);
-			exit(126);
-		}
-	}
+		exec_absolute_path(path, argv, envp, vars);
 	paths = ft_split(get_env_value("PATH", vars->env), ':');
 	if (!paths)
-		return (-1);
+		clean_exit(vars, NULL, errno);
 	while (paths[i])
 	{
 		path_x = create_path(paths[i], path, vars);
@@ -71,7 +38,6 @@ int	exec_cmd(char *path, char **argv, char **envp, t_vars *vars)
 	}
 	errormsg(path, ": command not found");
 	free_path(paths);
-	exit(127);
 	return (1);
 }
 
@@ -113,9 +79,8 @@ int	find_cmd(t_param *param, char **argv, char **envp, t_vars *vars)
 	{
 		pipe_handle(vars);
 		redir_handle(vars, param, &vars->cmd);
-		exec_cmd(param->path, tabjoin(param->path, argv, vars),
-				envp, vars);
-		exit(errno);
+		exec_cmd(param->path, tabjoin(param->path, argv, vars), envp, vars);
+		exit(127);
 	}
 	close_handle(vars);
 	waitpid(pid, &status, 0);

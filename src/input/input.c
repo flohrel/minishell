@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 11:42:38 by flohrel           #+#    #+#             */
-/*   Updated: 2021/07/20 05:29:17 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/21 03:47:23 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_readline(t_vars *vars)
 {
 	char	*line_read;
-	int	len;
+	int		len;
 
 	if (isatty(0))
 		line_read = readline(PROMPT);
@@ -40,8 +40,8 @@ void	ft_readline(t_vars *vars)
 
 int	input_handle(char *line_read, char *delim, char *buffer, int *index)
 {
-	int	ret;
-	int	len;
+	int		ret;
+	int		len;
 	char	*ptr;
 
 	ret = 1;
@@ -67,8 +67,8 @@ void	readline_hdoc(t_vars *vars, char *delim)
 {
 	char	buffer[BUFFER_SIZE];
 	char	*line_read;
-	int	ret;
-	int	i;
+	int		ret;
+	int		i;
 
 	i = 0;
 	ret = 1;

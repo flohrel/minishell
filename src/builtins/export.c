@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 17:14:46 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/07/12 11:51:18 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/21 03:11:56 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,6 @@ int	add_to_exp(t_env **exp, t_env *block)
 	return (1);
 }
 
-int		ret_context(t_env *result)
-{
-	free_block(result);
-	return (-1);
-}
-
 static int	export_str(char *str, t_vars *vars)
 {
 	t_env	*result;
@@ -115,9 +109,7 @@ int	export(char **args, t_vars *vars)
 		if (!ret)
 			clean_exit(vars, NULL, errno);
 		else if (ret == -1)
-			return (errormsg(
-				"export : Not valid in this context: ",
-				args[i]));
+			return (errormsg("export : Not valid in this context: ", args[i]));
 		i++;
 	}
 	if (ft_tablen(args) == 0)

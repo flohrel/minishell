@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 15:24:24 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/07/20 01:16:01 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/21 03:12:46 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,7 @@ t_env	*blockcpy(t_env *env);
 t_env	*envcpy(t_env *env);
 int		new_envblock(char *str, t_env *result);
 t_opt	optionhandler(char **args, char *opt, t_vars *vars);
+int		failed_path(t_vars *vars, char *path);
+int		ret_context(t_env *result);
 
 #endif

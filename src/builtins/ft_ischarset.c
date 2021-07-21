@@ -2,18 +2,18 @@
 
 int	ft_strischarset(char *str, char *set)
 {
-        int	i;
-        int	ret;
+	int	i;
+	int	ret;
 
-        i = 0;
-        while (str[i])
-        {
-                ret = ft_ischarset(str[i], set);
-                if (ret)
-                        return (ret);
-                i++;
-        }
-        return (0);
+	i = 0;
+	while (str[i])
+	{
+		ret = ft_ischarset(str[i], set);
+		if (ret)
+			return (ret);
+		i++;
+	}
+	return (0);
 }
 
 int	ft_ischarset(char c, char *set)

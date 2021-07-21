@@ -59,4 +59,3 @@ int	close_handle(t_vars *vars)
 		close(vars->cmd.redir[FD_OUT]);
 	return (1);
 }
-

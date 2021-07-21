@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 17:36:41 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/06/01 15:33:27 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/21 03:14:55 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,9 @@ int	unset(char **args, t_vars *vars)
 	{
 		if (ft_strcmp("", args[i]) == 0)
 			return (errormsg("minishell: unset: << >> ",
-				"Invalid identifier."));
+					"Invalid identifier."));
 		else if ((ft_strischarset(args[i], "+/-*.=")))
-			return (errormsg(
-				"export : Not valid in this context: ",
-				args[i]));
+			return (errormsg("export : Not valid in this context: ", args[i]));
 		vars->env = unset_key(args[i], vars->env);
 		vars->exp = unset_key(args[i++], vars->exp);
 	}

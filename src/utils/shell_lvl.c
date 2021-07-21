@@ -3,9 +3,9 @@
 int	up_shell_lvl(t_vars *vars)
 {
 	int		lvl;
-	char		*lvlstr;
+	char	*lvlstr;
 	int		shlvl;
-	char		*nb;
+	char	*nb;
 
 	lvl = 0;
 	shlvl = 0;
@@ -22,7 +22,7 @@ int	up_shell_lvl(t_vars *vars)
 	if (!vars->env)
 		clean_exit(vars, NULL, errno);
 	vars->exp = set_env_value(vars->exp, "SHLVL", lvlstr);
-	if (!vars->exp)	
+	if (!vars->exp)
 		clean_exit(vars, NULL, errno);
 	free(lvlstr);
 	return (1);

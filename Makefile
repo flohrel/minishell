@@ -17,6 +17,7 @@ INCLDIR		=	incld
 
 BUILTINS	=	assign.c \
 				cd.c \
+				cd_next.c \
 				echo.c \
 				env_utils.c \
 				export.c \

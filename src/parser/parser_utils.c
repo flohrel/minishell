@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/09 17:56:30 by flohrel           #+#    #+#             */
-/*   Updated: 2021/07/20 03:41:31 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/21 03:51:03 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*var_assignation(t_vars *vars, char *data, char *str)
 
 char	*exit_status_expansion(t_vars *vars, char **str, int exit_status)
 {
-	char *var;
+	char	*var;
 
 	var = ft_itoa(exit_status);
 	add_to_ptrlst((void *)var, vars);

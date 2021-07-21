@@ -6,50 +6,26 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 14:47:20 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/07/12 11:50:19 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/21 03:09:45 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-int	errormsg(char *str, char *arg)
-{
-	if (str)
-		ft_putstr_fd(str, 1);
-	if (arg)
-		ft_putstr_fd(arg, 1);
-	ft_putstr_fd("\n", 1);
-	return (1);
-}
-
-int	failed_path(t_vars *vars, char *path)
-{
-	char	*pwd;
-
-	errormsg("getcwd: Failed to access parent directory", "");
-	pwd = get_env_value("PWD", vars->env);
-	//addtoptrlist
-	path = ft_strjoin("/", path);
-	path = ft_strjoin(pwd, path);
-	vars->env = set_env_value(vars->env, "PWD", path);
-	if (!vars->env)
-		clean_exit(vars, NULL, errno);
-	return (0);
-}
-
 static char	*add_cdpath(t_vars *vars, char *path)
 {
 	char	*cdpath;
 	char	*new_path;
+
 	if (!ft_strcmp(path, ".") || !ft_strcmp(path, ".."))
 		return (path);
 	cdpath = get_env_value("CDPATH", vars->env);
 	if (!cdpath)
 		return (path);
-	//addtoptrlist
 	new_path = ft_strjoin(cdpath, path);
 	if (!new_path)
 		clean_exit(vars, NULL, errno);
+	add_to_ptrlst((void *)new_path, vars);
 	return (new_path);
 }
 
@@ -90,7 +66,7 @@ int	handle_args(t_vars *vars, char **args, char **path)
 		if (!*path)
 		{
 			errormsg("minishell: cd: << OLDPWD >> not defined",
-					"");
+				"");
 			return (-1);
 		}
 		ft_putendl_fd(*path, 1);

@@ -3,7 +3,7 @@
 char	**replace_arg(char **args, char **matches, int index, t_vars *vars)
 {
 	char	**res;
-	int	i;
+	int		i;
 
 	if (!matches)
 		return (args);
@@ -26,7 +26,7 @@ char	**replace_arg(char **args, char **matches, int index, t_vars *vars)
 
 char	**wildcard_convert(char **args, t_vars *vars)
 {
-	int	i;
+	int		i;
 	char	**res;
 
 	i = 0;
@@ -38,7 +38,7 @@ char	**wildcard_convert(char **args, t_vars *vars)
 			if (!res)
 				res = args;
 			res = replace_arg(res, wildcard(args[i], vars),
-				i + ft_tablen(res) - ft_tablen(args), vars);
+					i + ft_tablen(res) - ft_tablen(args), vars);
 			if (!res)
 				return (NULL);
 		}
