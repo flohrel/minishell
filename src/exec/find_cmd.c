@@ -17,7 +17,6 @@ int	exec_cmd(char *path, char **argv, char **envp, t_vars *vars)
 	char		**paths;
 	int			i;
 	char		*path_x;
-	int			fd;
 
 	i = 0;
 	if (!path || !argv || !envp || !vars)
