@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 17:58:07 by flohrel           #+#    #+#             */
-/*   Updated: 2021/07/13 16:33:26 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/21 16:01:48 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,6 @@ void	clean_exit(t_vars *vars, char *arg, int status)
 	free_env(vars->env);
 	free_env(vars->exp);
 	free_env(vars->agn);
+	rl_clear_history();
 	exit(ret_val);
 }

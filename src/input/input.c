@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 11:42:38 by flohrel           #+#    #+#             */
-/*   Updated: 2021/07/21 03:47:23 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/07/22 22:28:40 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ int	input_handle(char *line_read, char *delim, char *buffer, int *index)
 		(*index)++;
 	}
 	buffer[*index] = '\0';
+	free(line_read);
 	return (ret);
 }
 
