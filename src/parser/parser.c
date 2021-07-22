@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 20:58:03 by flohrel           #+#    #+#             */
-/*   Updated: 2021/07/21 03:50:33 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/07/22 22:33:14 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,5 @@ int	parser(t_vars *vars, t_lexer *lexer, t_parser *parser)
 	}
 	if (lexer->state != ST_GENERAL)
 		return (syntax_error(NULL));
-	display_token_list(&vars->lexer);						// TEST
 	return (astree_build(vars, lexer, parser));
 }

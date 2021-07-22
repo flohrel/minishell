@@ -1,0 +1,12 @@
+total 676
+drwxrwxr-x  7 user42 user42   4096 juil. 22 22:35 .
+drwxrwxr-x 10 user42 user42   4096 juin  25 04:20 ..
+drwxrwxr-x  8 user42 user42   4096 juil. 22 22:31 .git
+-rw-rw-r--  1 user42 user42    445 juin   4 16:40 .gitignore
+drwxrwxr-x  2 user42 user42   4096 juil. 22 22:31 incld
+drwxrwxr-x  6 user42 user42   4096 juil. 22 22:32 libft
+-rw-rw-r--  1 user42 user42   1783 juil. 22 22:33 Makefile
+-rwxrwxr-x  1 user42 user42 652592 juil. 22 22:34 minishell
+drwxrwxr-x  2 user42 user42   4096 juil. 22 22:34 obj
+drwxrwxr-x  8 user42 user42   4096 juil. 22 22:34 src
+-rw-rw-r--  1 user42 user42      0 juil. 22 22:35 test

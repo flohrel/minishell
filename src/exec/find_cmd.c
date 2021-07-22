@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 14:52:04 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/07/21 03:44:49 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/07/22 22:34:39 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ int	handle_builtin(char *path, char **argv, t_vars *vars, t_param *param)
 		dup2(vars->cmd.std_in, STDIN_FILENO);
 		dup2(vars->cmd.std_out, STDOUT_FILENO);
 		close_handle(vars);
-		printf("status : %d\n", vars->last_status);
 		return (1);
 	}
 	return (0);
@@ -85,6 +84,5 @@ int	find_cmd(t_param *param, char **argv, char **envp, t_vars *vars)
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		vars->last_status = WEXITSTATUS(status);
-	printf("status : %d\n", vars->last_status);
 	return (1);
 }
