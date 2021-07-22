@@ -1,32 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   input.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/16 16:21:33 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/07 18:22:47 by flohrel          ###   ########.fr       */
+/*   Created: 2021/04/19 11:39:56 by flohrel           #+#    #+#             */
+/*   Updated: 2021/07/08 15:05:04 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef INPUT_H
+# define INPUT_H
 
 # include <unistd.h>
-# include <stdio.h>
+# include <stdlib.h>
 # include <errno.h>
-# include <signal.h>
 # include <curses.h>
-# include <term.h>
-# include "libft.h"
+# include <stdio.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include "ansi_colors.h"
 # include "data.h"
-# include "lexer.h"
-# include "input.h"
-# include "parser.h"
 # include "utils.h"
-# include "test.h"
-# include "builtins.h"
-# include "exec.h"
+
+/*
+**		input.c
+*/
+void	ft_readline(t_vars *vars);
+int		input_handle(char *line_read, char *delim, char *buffer, int *index);
+void	readline_hdoc(t_vars *vars, char *delim);
 
 #endif
