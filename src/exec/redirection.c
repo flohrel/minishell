@@ -6,11 +6,11 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 01:07:52 by flohrel           #+#    #+#             */
-/*   Updated: 2021/07/23 05:33:44 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/23 16:31:05 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <exec.h>
+#include "exec.h"
 
 void	set_rdout(t_vars *vars, t_cmd *cmd, char *pathname)
 {
@@ -36,7 +36,7 @@ void	set_rdin(t_vars *vars, t_cmd *cmd, char *pathname)
 		clean_exit(vars, pathname, errno);
 }
 
-void	set_hdoc(t_vars *vars, t_cmd *cmd, char *string)
+void	set_hdoc(t_vars *vars, t_cmd *cmd, char *string, bool has_exp)
 {
 	char	*str;
 	char	*buf;
@@ -51,7 +51,7 @@ void	set_hdoc(t_vars *vars, t_cmd *cmd, char *string)
 	buf = buffer;
 	while (*str)
 	{
-		if (*str == '$')
+		if ((*str == '$') && (has_exp == true))
 			var_expansion(vars, &buf, &str);
 		else
 			*buf = *str;
@@ -83,7 +83,12 @@ void	parse_redir(t_vars *vars, t_param *param)
 		else if (token->type == TK_LESS)
 			set_rdin(vars, &vars->cmd, token->data);
 		else
-			set_hdoc(vars, &vars->cmd, token->data);
+		{
+			if (token->type == TK_DLESS2)
+				set_hdoc(vars, &vars->cmd, token->data, false);
+			else
+				set_hdoc(vars, &vars->cmd, token->data, true);
+		}
 		lst = lst->next;
 	}
 }
