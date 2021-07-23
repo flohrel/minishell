@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 19:23:42 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/07/21 03:44:12 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/07/23 05:33:44 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include "parser.h"
 # include "input.h"
 
-# define TMP_FILE	"/tmp/minish_hdoc.tmp"
+# define TMP_FILE	"/tmp/minish-hdoc"
 
 /*
  **		redirection.c
