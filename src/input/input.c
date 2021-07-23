@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 11:42:38 by flohrel           #+#    #+#             */
-/*   Updated: 2021/07/23 16:41:08 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/23 16:50:18 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_readline(t_vars *vars)
 	if (line_read == NULL)
 	{
 		if (isatty(0))
-			write(1, "exit\n", 5);
+			write(1, "exit", 5);
 		else
 			errno = 0;
 		clean_exit(vars, NULL, 0);
