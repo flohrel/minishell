@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 11:42:38 by flohrel           #+#    #+#             */
-/*   Updated: 2021/07/23 05:30:32 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/23 16:41:08 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,8 @@ void	readline_hdoc(t_vars *vars, char *delim)
 		line_read = readline(HDOC_PROMPT);
 		if (line_read == NULL)
 		{
-			printf("minishell: warning: here-document at line %d ", get_nline(vars));
+			printf("minishell: warning: ");
+			printf("here-document at line %d ", get_nline(vars));
 			printf("delimited by end-of-file (wanted `%s')\n", delim);
 			break ;
 		}
