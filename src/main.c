@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 15:29:11 by flohrel           #+#    #+#             */
-/*   Updated: 2021/08/04 02:53:08 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/08/04 02:57:29 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	sigint_handler(int signum)
 
 void	sigquit_handler(int signum)
 {
-	exit_status = 127 + signum;
+	exit_status = 128 + signum;
 	write(1, "\033[2D\033[0K", 8);
 }
 
