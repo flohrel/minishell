@@ -1,32 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/16 16:21:33 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/07 18:22:47 by flohrel          ###   ########.fr       */
+/*   Created: 2020/12/11 18:13:36 by flohrel           #+#    #+#             */
+/*   Updated: 2021/05/31 18:34:41 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "libft/list.h"
 
-# include <unistd.h>
-# include <stdio.h>
-# include <errno.h>
-# include <signal.h>
-# include <curses.h>
-# include <term.h>
-# include "libft.h"
-# include "data.h"
-# include "lexer.h"
-# include "input.h"
-# include "parser.h"
-# include "utils.h"
-# include "test.h"
-# include "builtins.h"
-# include "exec.h"
-
-#endif
+int	ft_lstsize(t_list *lst)
+{
+	if (!lst)
+		return (0);
+	return (1 + ft_lstsize(lst->next));
+}

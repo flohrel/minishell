@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.h                                             :+:      :+:    :+:   */
+/*   print_tab.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/27 07:19:08 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/27 07:25:45 by flohrel          ###   ########.fr       */
+/*   Created: 2021/06/04 17:13:39 by mtogbe            #+#    #+#             */
+/*   Updated: 2021/06/04 17:13:40 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TEST_H
-# define TEST_H
+#include "minishell.h"
 
-# include <stdio.h>
-# include "libft.h"
-# include "data.h"
+void	print_tab(char **arg)
+{
+	int	i;
 
-void	display_token_list(t_lexer *lexer);
-void	print_lst(t_list *lst);
-void	tree_display(t_ast *node, int level, int is_right);
-
-#endif
+	i = 0;
+	while (arg && arg[i])
+	{
+		ft_putstr_fd(arg[i++], 1);
+		ft_putstr_fd("\n", 1);
+	}
+}

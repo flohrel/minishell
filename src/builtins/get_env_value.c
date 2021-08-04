@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.h                                             :+:      :+:    :+:   */
+/*   get_env_value.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/27 07:19:08 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/27 07:25:45 by flohrel          ###   ########.fr       */
+/*   Created: 2021/04/16 16:31:07 by mtogbe            #+#    #+#             */
+/*   Updated: 2021/06/20 16:46:27 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TEST_H
-# define TEST_H
+#include "builtins.h"
 
-# include <stdio.h>
-# include "libft.h"
-# include "data.h"
+char	*get_env_value(char *key, t_env *env)
+{
+	t_env	*tmp;
 
-void	display_token_list(t_lexer *lexer);
-void	print_lst(t_list *lst);
-void	tree_display(t_ast *node, int level, int is_right);
-
-#endif
+	tmp = env;
+	while (tmp)
+	{
+		if (ft_strcmp(tmp->key, key) == 0)
+			return (tmp->value);
+		tmp = tmp->next;
+	}
+	return (NULL);
+}

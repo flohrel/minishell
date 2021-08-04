@@ -1,32 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ctype.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/16 16:21:33 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/07 18:22:47 by flohrel          ###   ########.fr       */
+/*   Created: 2021/01/16 15:29:20 by flohrel           #+#    #+#             */
+/*   Updated: 2021/06/03 17:54:29 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef CTYPE_H
+# define CTYPE_H
 
-# include <unistd.h>
-# include <stdio.h>
-# include <errno.h>
-# include <signal.h>
-# include <curses.h>
-# include <term.h>
-# include "libft.h"
-# include "data.h"
-# include "lexer.h"
-# include "input.h"
-# include "parser.h"
-# include "utils.h"
-# include "test.h"
-# include "builtins.h"
-# include "exec.h"
+int				ft_isalnum(int c);
+int				ft_isalpha(int c);
+int				ft_islower(int c);
+int				ft_isupper(int c);
+int				ft_isascii(int c);
+int				ft_isdigit(int c);
+int				ft_isprint(int c);
+int				ft_isspace(int c);
+int				ft_tolower(int c);
+int				ft_toupper(int c);
+int				is_charset(const char *set, char c);
 
 #endif

@@ -1,32 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/16 16:21:33 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/07 18:22:47 by flohrel          ###   ########.fr       */
+/*   Created: 2020/11/06 00:06:00 by flohrel           #+#    #+#             */
+/*   Updated: 2021/06/04 01:46:38 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "libft/string.h"
 
-# include <unistd.h>
-# include <stdio.h>
-# include <errno.h>
-# include <signal.h>
-# include <curses.h>
-# include <term.h>
-# include "libft.h"
-# include "data.h"
-# include "lexer.h"
-# include "input.h"
-# include "parser.h"
-# include "utils.h"
-# include "test.h"
-# include "builtins.h"
-# include "exec.h"
+void	*ft_memcpy(void *dest, const void *src, size_t n)
+{
+	char	*d;
+	char	*s;
 
-#endif
+	if (!dest || !src)
+		return (dest);
+	d = (char *)dest;
+	s = (char *)src;
+	while (n--)
+		*d++ = *s++;
+	return (dest);
+}

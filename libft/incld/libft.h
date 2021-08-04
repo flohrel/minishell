@@ -1,32 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/16 16:21:33 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/07 18:22:47 by flohrel          ###   ########.fr       */
+/*   Created: 2020/11/01 12:22:47 by flohrel           #+#    #+#             */
+/*   Updated: 2021/06/17 20:31:07 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef LIBFT_H
+# define LIBFT_H
 
-# include <unistd.h>
-# include <stdio.h>
-# include <errno.h>
-# include <signal.h>
-# include <curses.h>
-# include <term.h>
-# include "libft.h"
-# include "data.h"
-# include "lexer.h"
-# include "input.h"
-# include "parser.h"
-# include "utils.h"
-# include "test.h"
-# include "builtins.h"
-# include "exec.h"
+# include "libft/type.h"
+# include "libft/memory.h"
+# include "libft/dlist.h"
+# include "libft/list.h"
+# include "libft/string.h"
+# include "libft/ctype.h"
+# include "libft/io.h"
+# include "libft/conv.h"
+# include "libft/gnl.h"
 
 #endif

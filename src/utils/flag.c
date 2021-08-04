@@ -1,32 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   flag.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/16 16:21:33 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/07 18:22:47 by flohrel          ###   ########.fr       */
+/*   Created: 2021/01/29 15:27:25 by flohrel           #+#    #+#             */
+/*   Updated: 2021/07/21 03:48:33 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "utils.h"
 
-# include <unistd.h>
-# include <stdio.h>
-# include <errno.h>
-# include <signal.h>
-# include <curses.h>
-# include <term.h>
-# include "libft.h"
-# include "data.h"
-# include "lexer.h"
-# include "input.h"
-# include "parser.h"
-# include "utils.h"
-# include "test.h"
-# include "builtins.h"
-# include "exec.h"
+int	set_flag(int *field, int flag)
+{
+	return ((*field) |= flag);
+}
 
-#endif
+int	check_flag(int field, int flag)
+{
+	return (field & flag);
+}
+
+void	clear_flag(int *field, int flag)
+{
+	(*field) &= ~(flag);
+}

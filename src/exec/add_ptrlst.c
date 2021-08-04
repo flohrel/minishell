@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.h                                             :+:      :+:    :+:   */
+/*   add_ptrlst.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/27 07:19:08 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/27 07:25:45 by flohrel          ###   ########.fr       */
+/*   Created: 2021/06/04 17:13:52 by mtogbe            #+#    #+#             */
+/*   Updated: 2021/07/21 03:04:11 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TEST_H
-# define TEST_H
+#include "exec.h"
 
-# include <stdio.h>
-# include "libft.h"
-# include "data.h"
+void	*add_to_ptrlst(void *content, t_vars *vars)
+{
+	t_list	*new;
 
-void	display_token_list(t_lexer *lexer);
-void	print_lst(t_list *lst);
-void	tree_display(t_ast *node, int level, int is_right);
-
-#endif
+	new = ft_lstnew(content);
+	if (!new)
+		return (NULL);
+	ft_lstadd_front(&(vars->ptr_list), new);
+	return (new);
+}

@@ -1,24 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.h                                             :+:      :+:    :+:   */
+/*   init_exp.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/27 07:19:08 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/27 07:25:45 by flohrel          ###   ########.fr       */
+/*   Created: 2021/06/24 20:09:36 by mtogbe            #+#    #+#             */
+/*   Updated: 2021/06/24 20:13:53 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TEST_H
-# define TEST_H
+#include "builtins.h"
 
-# include <stdio.h>
-# include "libft.h"
-# include "data.h"
-
-void	display_token_list(t_lexer *lexer);
-void	print_lst(t_list *lst);
-void	tree_display(t_ast *node, int level, int is_right);
-
-#endif
+int	init_exp(t_env **env, t_env *elem)
+{
+	(*env) = elem;
+	(*env)->next = NULL;
+	return (1);
+}

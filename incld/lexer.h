@@ -6,36 +6,33 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 17:14:29 by flohrel           #+#    #+#             */
-/*   Updated: 2021/04/28 00:59:10 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/21 04:15:11 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
 # define LEXER_H
 
-# include "exit.h"
+# include "data.h"
+# include "utils.h"
 # include "libft.h"
 # include "stdlib.h"
 
 /*
- **		lexer.c
+ **		lexer0.c
  */
-void	lexer(t_vars *vars);
-
-/*
- **		lexer2.c
- */
-void	job_token_handle(int tk_type, t_vars *vars, char **buf);
-void	word_handle(t_vars *vars, char **buf);
-void	space_handle(t_vars *vars, char **buf);
-void	escape_handle(t_vars *vars, char **buf);
+void	lexer(t_vars *vars, t_lexer *lexer);
+void	lexer_init(t_vars *vars,
+			void (*token_handle[8])(t_vars *, int, char **));
 void	quote_handle(t_vars *vars, char *buf);
 
 /*
- **		token.c
+ **		lexer1.c
  */
-int		get_token_type(char c);
-void	new_token(t_vars *vars, int type, int size);
-void	del_token(void *content);
+void	redirection_handle(t_vars *vars, int tk_type, char **buf);
+void	job_handle(t_vars *vars, int tk_type, char **buf);
+void	word_handle(t_vars *vars, int tk_type, char **buf);
+void	space_handle(t_vars *vars, int tk_type, char **buf);
+void	escape_handle(t_vars *vars, int tk_type, char **buf);
 
 #endif

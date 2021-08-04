@@ -1,32 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/16 16:21:33 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/07 18:22:47 by flohrel          ###   ########.fr       */
+/*   Created: 2020/12/10 15:50:10 by flohrel           #+#    #+#             */
+/*   Updated: 2021/06/04 01:35:24 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "libft/io.h"
 
-# include <unistd.h>
-# include <stdio.h>
-# include <errno.h>
-# include <signal.h>
-# include <curses.h>
-# include <term.h>
-# include "libft.h"
-# include "data.h"
-# include "lexer.h"
-# include "input.h"
-# include "parser.h"
-# include "utils.h"
-# include "test.h"
-# include "builtins.h"
-# include "exec.h"
+static void	ft_putnbr_fd2(long n, int fd)
+{
+	if (n > 9)
+		ft_putnbr_fd2(n / 10, fd);
+	ft_putchar_fd((n % 10) + '0', fd);
+}
 
-#endif
+void	ft_putnbr_fd(int n, int fd)
+{
+	if (n < 0)
+	{
+		ft_putchar_fd('-', fd);
+		ft_putnbr_fd2(-(long)n, fd);
+	}
+	else
+		ft_putnbr_fd2(n, fd);
+}
