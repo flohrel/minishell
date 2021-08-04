@@ -173,7 +173,8 @@ struct	s_vars
 	t_env		*agn;
 	t_pipes		*pipes;
 	int			last_status;
-	int			exit_status;
 };
+
+extern int			exit_status;
 
 #endif

@@ -76,9 +76,9 @@ void	exec_list(t_vars *vars, t_ast *node, bool is_exec)
 	{
 		if (is_exec == true)
 			exec_job(vars, node->left);
-		if ((node->type == NODE_AND) && (vars->exit_status == 0))
+		if ((node->type == NODE_AND) && (exit_status == 0))
 			exec_list(vars, node->right, true);
-		else if ((node->type == NODE_OR) && (vars->exit_status))
+		else if ((node->type == NODE_OR) && (exit_status))
 			exec_list(vars, node->right, true);
 		else
 			exec_list(vars, node->right, false);

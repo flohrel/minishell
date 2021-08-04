@@ -1,0 +1,16 @@
+total 696
+drwxrwxr-x  7 user42 user42   4096 août   4 01:13 .
+drwxr-xr-x 30 user42 user42   4096 août   4 01:18 ..
+-rw-rw-r--  1 user42 user42      0 août   4 01:13 dezad
+-rw-rw-r--  1 user42 user42      6 août   4 01:13 dzead
+-rw-rw-r--  1 user42 user42    736 août   4 00:59 ex
+drwxrwxr-x  8 user42 user42   4096 août   4 00:51 .git
+-rw-rw-r--  1 user42 user42    445 juil.  3 05:11 .gitignore
+drwxrwxr-x  2 user42 user42   4096 juil. 21 04:18 incld
+drwxrwxr-x  5 user42 user42   4096 juil.  3 05:11 libft
+-rw-rw-r--  1 user42 user42   1796 juil. 21 04:19 Makefile
+-rwxrwxr-x  1 user42 user42 662896 août   4 00:51 minishell
+-rw-rw-r--  1 user42 user42    846 août   4 01:13 non
+drwxrwxr-x  2 user42 user42   4096 août   4 00:51 obj
+-rw-rw-r--  1 user42 user42      0 août   4 01:18 oui
+drwxrwxr-x  8 user42 user42   4096 août   4 00:51 src

@@ -84,7 +84,7 @@ int	find_cmd(t_param *param, char **argv, char **envp, t_vars *vars)
 	close_handle(vars);
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
-		vars->last_status = WEXITSTATUS(status);
+		exit_status = WEXITSTATUS(status);
 	printf("status : %d\n", vars->last_status);
 	return (1);
 }
