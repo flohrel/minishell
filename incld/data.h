@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 15:01:51 by flohrel           #+#    #+#             */
-/*   Updated: 2021/07/23 16:04:09 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/08/04 01:29:46 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,7 +173,6 @@ struct	s_vars
 	t_env		*exp;
 	t_env		*agn;
 	t_pipes		*pipes;
-	int			last_status;
 	int			exit_status;
 };
 
