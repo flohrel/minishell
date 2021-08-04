@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 11:39:56 by flohrel           #+#    #+#             */
-/*   Updated: 2021/07/08 15:05:04 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/23 04:41:27 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # include "ansi_colors.h"
 # include "data.h"
 # include "utils.h"
+
+# define HDOC_DATA	"/tmp/hdoc-data"
 
 /*
 **		input.c

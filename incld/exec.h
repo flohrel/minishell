@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 19:23:42 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/07/21 03:44:12 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/07/23 16:32:14 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include "parser.h"
 # include "input.h"
 
-# define TMP_FILE	"/tmp/minish_hdoc.tmp"
+# define TMP_FILE	"/tmp/minish-hdoc"
 
 /*
  **		redirection.c
@@ -33,7 +33,7 @@ void	parse_redir(t_vars *vars, t_param *param);
 void	set_rdout(t_vars *vars, t_cmd *cmd, char *pathname);
 void	set_rdapp(t_vars *vars, t_cmd *cmd, char *pathname);
 void	set_rdin(t_vars *vars, t_cmd *cmd, char *pathname);
-void	set_hdoc(t_vars *vars, t_cmd *cmd, char *string);
+void	set_hdoc(t_vars *vars, t_cmd *cmd, char *string, bool hax_exp);
 
 /*
  **		exec.c

@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 20:59:00 by flohrel           #+#    #+#             */
-/*   Updated: 2021/07/20 03:43:29 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/07/23 16:37:16 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
  **		parser.c
  */
 int		parser(t_vars *vars, t_lexer *lexer, t_parser *parser);
-int		parse_word0(t_vars *vars, char **data);
+int		parse_word0(t_vars *vars, t_list *prev_tk, char **data);
 void	parse_word1(t_vars *vars, int *state, char **str, char **buffer);
 int		parse_word2(t_vars *vars, char **data, char *buffer);
 int		astree_build(t_vars *vars, t_lexer *lexer, t_parser *parser);

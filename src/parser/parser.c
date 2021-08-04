@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 20:58:03 by flohrel           #+#    #+#             */
-/*   Updated: 2021/07/21 03:50:33 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/07/23 16:37:00 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,14 +71,22 @@ void	parse_word1(t_vars *vars, int *state, char **str, char **buffer)
 		*(*buffer)++ = c;
 }
 
-int	parse_word0(t_vars *vars, char **data)
+int	parse_word0(t_vars *vars, t_list *prev_tk, char **data)
 {
+	t_token	*token;
 	char	buffer[BUFFER_SIZE];
 	char	*ptr;
 	char	*str;
 
 	str = *data;
 	ptr = buffer;
+	if (prev_tk != NULL)
+	{
+		token = (t_token *)prev_tk->content;
+		if ((token->type == TK_DLESS) && (ft_strchr(str, '\'')
+				|| ft_strchr(str, '\"')))
+			token->type = TK_DLESS2;
+	}
 	while (*str)
 	{
 		parse_word1(vars, &vars->lexer.state, &str, &ptr);
@@ -104,7 +112,7 @@ int	parser(t_vars *vars, t_lexer *lexer, t_parser *parser)
 		else
 		{
 			if ((token->type == TK_WORD)
-				&& parse_word0(vars, &token->data))
+				&& parse_word0(vars, parser->prev_tk, &token->data))
 				continue ;
 			parser->prev_tk = parser->cur_tk;
 			parser->cur_tk = parser->prev_tk->next;
@@ -112,6 +120,5 @@ int	parser(t_vars *vars, t_lexer *lexer, t_parser *parser)
 	}
 	if (lexer->state != ST_GENERAL)
 		return (syntax_error(NULL));
-	display_token_list(&vars->lexer);						// TEST
 	return (astree_build(vars, lexer, parser));
 }
