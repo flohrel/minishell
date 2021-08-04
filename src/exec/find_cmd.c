@@ -42,13 +42,12 @@ int	exec_cmd(char *path, char **argv, char **envp, t_vars *vars)
 
 int	handle_builtin(char *path, char **argv, t_vars *vars, t_param *param)
 {
-	vars->last_status = find_builtin(path, argv, vars, param);
-	if (vars->last_status >= 0)
+	exit_status = find_builtin(path, argv, vars, param);
+	if (exit_status >= 0)
 	{
 		dup2(vars->cmd.std_in, STDIN_FILENO);
 		dup2(vars->cmd.std_out, STDOUT_FILENO);
 		close_handle(vars);
-		printf("status : %d\n", vars->last_status);
 		return (1);
 	}
 	return (0);
@@ -85,6 +84,5 @@ int	find_cmd(t_param *param, char **argv, char **envp, t_vars *vars)
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		exit_status = WEXITSTATUS(status);
-	printf("status : %d\n", vars->last_status);
 	return (1);
 }
