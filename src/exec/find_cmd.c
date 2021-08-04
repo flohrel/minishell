@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 14:52:04 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/08/04 01:31:03 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/08/04 02:54:39 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ int	exec_cmd(char *path, char **argv, char **envp, t_vars *vars)
 
 int	handle_builtin(char *path, char **argv, t_vars *vars, t_param *param)
 {
-	vars->exit_status = find_builtin(path, argv, vars, param);
-	if (vars->exit_status >= 0)
+	exit_status = find_builtin(path, argv, vars, param);
+	if (exit_status >= 0)
 	{
 		dup2(vars->cmd.std_in, STDIN_FILENO);
 		dup2(vars->cmd.std_out, STDOUT_FILENO);
@@ -83,6 +83,6 @@ int	find_cmd(t_param *param, char **argv, char **envp, t_vars *vars)
 	close_handle(vars);
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
-		vars->exit_status = WEXITSTATUS(status);
+		exit_status = WEXITSTATUS(status);
 	return (1);
 }

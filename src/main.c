@@ -12,9 +12,11 @@
 
 #include "minishell.h"
 
+int	exit_status;
+
 void	sigint_handler(int signum)
 {
-	(void)signum;
+	exit_status = 128 + signum;
 	write(STDOUT_FILENO, "\n", 1);
 	if (isatty(0))
 	{
@@ -26,7 +28,7 @@ void	sigint_handler(int signum)
 
 void	sigquit_handler(int signum)
 {
-	(void)signum;
+	exit_status = 127 + signum;
 	write(1, "\033[2D\033[0K", 8);
 }
 

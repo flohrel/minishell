@@ -43,5 +43,5 @@ void	init(t_vars *vars, char **envp)
 	}
 	vars->agn = NULL;
 	up_shell_lvl(vars);
-	vars->exit_status = 0;
+	exit_status = 0;
 }

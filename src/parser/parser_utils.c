@@ -59,7 +59,7 @@ void	var_expansion(t_vars *vars, char **buffer, char **data)
 
 	str = *data;
 	if (*(str + 1) == '?')
-		var = exit_status_expansion(vars, &str, vars->exit_status);
+		var = exit_status_expansion(vars, &str, exit_status);
 	else
 	{
 		while (*(str++))

@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 19:05:43 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/08/04 02:22:36 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/08/04 02:54:59 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int	exec_command(t_vars *vars, t_cmd *cmd, t_ast *node)
 	char	**args;
 
 	(void)cmd;
-	vars->exit_status = 0;
 	if (node == NULL)
 		return (-1);
 	param = node->data;
@@ -76,9 +75,9 @@ void	exec_list(t_vars *vars, t_ast *node, bool is_exec)
 	{
 		if (is_exec == true)
 			exec_job(vars, node->left);
-		if ((node->type == NODE_AND) && (vars->exit_status == 0))
+		if ((node->type == NODE_AND) && (exit_status == 0))
 			exec_list(vars, node->right, true);
-		else if ((node->type == NODE_OR) && (vars->exit_status))
+		else if ((node->type == NODE_OR) && (exit_status))
 			exec_list(vars, node->right, true);
 		else
 			exec_list(vars, node->right, false);
