@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/03 17:51:46 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/03 17:56:10 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/08/05 19:53:42 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,14 @@
 
 int	is_charset(const char *set, char c)
 {
-	while (*set)
+	if (set)
 	{
-		if (c == *set)
-			return (1);
-		set++;
+		while (*set)
+		{
+			if (c == *set)
+				return (1);
+			set++;
+		}
 	}
 	return (0);
 }
