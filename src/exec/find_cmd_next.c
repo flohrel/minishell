@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 03:42:43 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/07/21 04:24:46 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/08/06 16:17:58 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,21 @@ void	free_path(char **path)
 
 void	exec_absolute_path(char *path, char **argv, char **envp, t_vars *vars)
 {
-	int		fd;
+	int			fd;
 	struct stat	buf;
 
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
-		clean_exit(vars, NULL, errno);
+		clean_exit(vars, NULL, NULL, errno);
 	close(fd);
 	if (execve(path, argv, envp) < 0)
 	{
 		if (stat(path, &buf))
-			clean_exit(vars, NULL, errno);
+			clean_exit(vars, NULL, NULL, errno);
 		if (S_ISREG(buf.st_mode))
 		{
 			errormsg(path, ": command not found");
-			exit (127);
+			exit(127);
 		}
 		else
 			printf("minishell : %s: Permission denied.\n", path);

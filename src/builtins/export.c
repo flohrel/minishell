@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 17:14:46 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/07/21 03:11:56 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/08/06 16:23:40 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int	export(char **args, t_vars *vars)
 		}
 		ret = export_str(args[i], vars);
 		if (!ret)
-			clean_exit(vars, NULL, errno);
+			clean_exit(vars, NULL, NULL, errno);
 		else if (ret == -1)
 			exit_st = errormsg(
 				"export : Not valid in this context: ",

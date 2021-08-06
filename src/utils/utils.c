@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 18:30:44 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/07/23 02:10:05 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/08/06 16:14:46 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	*lst_alloc(size_t nmemb, size_t size, t_vars *vars)
 
 	ptr = garbage_collector(nmemb, size, &vars->ptr_list);
 	if (ptr == NULL)
-		clean_exit(vars, NULL, errno);
+		clean_exit(vars, NULL, NULL, errno);
 	return (ptr);
 }
 

@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 11:42:38 by flohrel           #+#    #+#             */
-/*   Updated: 2021/08/04 03:46:39 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/08/06 16:08:38 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ft_readline(t_vars *vars)
 			write(1, "exit", 5);
 		else
 			errno = 0;
-		clean_exit(vars, NULL, 0);
+		clean_exit(vars, NULL, NULL, -127);
 	}
 	len = ft_strlen(line_read);
 	vars->lexer.buffer = lst_alloc(len + 1,
@@ -73,7 +73,7 @@ int	get_nline(t_vars *vars)
 
 	fd = open(HDOC_DATA, O_RDONLY | O_CREAT, 0600);
 	if (fd == -1)
-		clean_exit(vars, NULL, errno);
+		clean_exit(vars, NULL, NULL, errno);
 	line = NULL;
 	ret = get_next_line(fd, &line);
 	if (ret == -1)
@@ -96,7 +96,7 @@ void	set_nline(t_vars *vars, int count)
 
 	fd = open(HDOC_DATA, O_RDONLY | O_CREAT, 0600);
 	if (fd == -1)
-		clean_exit(vars, NULL, errno);
+		clean_exit(vars, NULL, NULL, errno);
 	line = NULL;
 	ret = get_next_line(fd, &line);
 	if (ret == -1)
@@ -109,7 +109,7 @@ void	set_nline(t_vars *vars, int count)
 	close(fd);
 	fd = open(HDOC_DATA, O_WRONLY | O_TRUNC, 0600);
 	if (fd == -1)
-		clean_exit(vars, NULL, errno);
+		clean_exit(vars, NULL, NULL, errno);
 	write(fd, nline, ft_strlen(nline));
 	close(fd);
 	free(nline);

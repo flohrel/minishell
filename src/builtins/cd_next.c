@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 02:57:13 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/07/21 03:09:27 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/08/06 16:24:09 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,14 @@ int	failed_path(t_vars *vars, char *path)
 	pwd = get_env_value("PWD", vars->env);
 	path = ft_strjoin("/", path);
 	if (!path)
-		clean_exit(vars, NULL, errno);
+		clean_exit(vars, NULL, NULL, errno);
 	add_to_ptrlst((void *)path, vars);
 	path = ft_strjoin(pwd, path);
 	if (!path)
-		clean_exit(vars, NULL, errno);
+		clean_exit(vars, NULL, NULL, errno);
 	add_to_ptrlst((void *)path, vars);
 	vars->env = set_env_value(vars->env, "PWD", path);
 	if (!vars->env)
-		clean_exit(vars, NULL, errno);
+		clean_exit(vars, NULL, NULL, errno);
 	return (0);
 }

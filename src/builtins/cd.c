@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 14:47:20 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/07/21 03:09:45 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/08/06 16:22:34 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static char	*add_cdpath(t_vars *vars, char *path)
 		return (path);
 	new_path = ft_strjoin(cdpath, path);
 	if (!new_path)
-		clean_exit(vars, NULL, errno);
+		clean_exit(vars, NULL, NULL, errno);
 	add_to_ptrlst((void *)new_path, vars);
 	return (new_path);
 }
@@ -89,15 +89,15 @@ int	cd(char **args, t_vars *vars)
 	vars->env = set_env_value(vars->env, "OLDPWD",
 			get_env_value("PWD", vars->env));
 	if (!vars->env)
-		clean_exit(vars, NULL, errno);
+		clean_exit(vars, NULL, NULL, errno);
 	vars->exp = set_env_value(vars->exp, "OLDPWD",
 			get_env_value("PWD", vars->exp));
 	if (!vars->exp)
-		clean_exit(vars, NULL, errno);
+		clean_exit(vars, NULL, NULL, errno);
 	if (!getcwd(s, 255))
 		return (failed_path(vars, (char *)path));
 	vars->env = set_env_value(vars->env, "PWD", ft_strdup(s));
 	if (!vars->env)
-		clean_exit(vars, NULL, errno);
+		clean_exit(vars, NULL, NULL, errno);
 	return (0);
 }

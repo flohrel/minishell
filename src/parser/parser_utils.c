@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/09 17:56:30 by flohrel           #+#    #+#             */
-/*   Updated: 2021/08/05 19:24:40 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/08/06 16:21:01 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	var_expansion(t_vars *vars, char **buffer, char **data)
 			{
 				var = var_assignation(vars, *data + 1, str);
 				if (!var)
-					clean_exit(vars, NULL, 127);
+					clean_exit(vars, NULL, NULL, -127);
 				break ;
 			}
 		}

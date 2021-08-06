@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/24 20:05:59 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/07/23 16:49:35 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/08/06 16:22:59 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ int	exit_b(char **args, t_vars *vars)
 	else if (ft_tablen(args) > 1)
 		return (errormsg("exit : ", "too many arguments"));
 	if (args && args[0])
-		clean_exit(vars, NULL, ft_atoi(args[0]));
+		clean_exit(vars, NULL, NULL, ft_atoi(args[0]));
 	else
-		clean_exit(vars, NULL, 0);
+		clean_exit(vars, NULL, NULL, 0);
 	return (0);
 }

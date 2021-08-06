@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 14:52:04 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/08/04 03:50:16 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/08/06 16:18:21 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ int	exec_cmd(char *path, char **argv, char **envp, t_vars *vars)
 
 	i = 0;
 	if (!path || !argv || !envp || !vars)
-		clean_exit(vars, NULL, errno);
+		clean_exit(vars, NULL, NULL, errno);
 	if (ft_ischarset('/', path))
 		exec_absolute_path(path, argv, envp, vars);
 	paths = ft_split(get_env_value("PATH", vars->env), ':');
 	if (!paths)
-		clean_exit(vars, NULL, errno);
+		clean_exit(vars, NULL, NULL, errno);
 	while (paths[i])
 	{
 		path_x = create_path(paths[i], path, vars);
