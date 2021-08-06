@@ -98,23 +98,29 @@ int	export(char **args, t_vars *vars)
 {
 	int	i;
 	int	ret;
+	int	exit_st;
 
+	exit_st = 0;
 	i = 0;
 	while (args && args[i])
 	{
 		if (ft_strcmp("", args[i]) == 0)
-			return (errormsg("minishell: export: << >> ",
-					"invalid identifier."));
+		{
+			exit_st = errormsg("minishell: export: << >> ",
+					"invalid identifier.");
+			i++;
+			continue ;
+		}
 		ret = export_str(args[i], vars);
 		if (!ret)
 			clean_exit(vars, NULL, errno);
 		else if (ret == -1)
-			return (errormsg("export : Not valid in this context: ", args[i]));
+			exit_st = errormsg(
+				"export : Not valid in this context: ",
+			args[i]);
 		i++;
 	}
 	if (ft_tablen(args) == 0)
-	{
 		print_sorted_env(vars->exp);
-	}
-	return (0);
+	return (exit_st);
 }

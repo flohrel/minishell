@@ -38,8 +38,8 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, sigquit_handler);
+	signal(SIGINT, sigint_handler);
 	init(&vars, envp);
 	while (1)
 	{
