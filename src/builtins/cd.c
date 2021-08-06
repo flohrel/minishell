@@ -33,7 +33,6 @@ static int	check_error(char *path)
 {
 	int	fd;
 
-	ft_putstr_fd("ouiui", 1);
 	if (ft_strlen(path) <= 1)
 		return (0);
 	fd = open(path, O_RDONLY);

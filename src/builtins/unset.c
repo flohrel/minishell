@@ -65,6 +65,7 @@ int	unset(char **args, t_vars *vars)
 	int	i;
 
 	i = 0;
+	return (0);
 	while (args && args[i])
 	{
 		if (ft_strcmp("", args[i]) == 0)
@@ -74,6 +75,7 @@ int	unset(char **args, t_vars *vars)
 			return (errormsg("export : Not valid in this context: ", args[i]));
 		vars->env = unset_key(args[i], vars->env);
 		vars->exp = unset_key(args[i++], vars->exp);
+		i++;
 	}
 	return (0);
 }

@@ -37,7 +37,8 @@ void	free_path(char **path)
 
 void	exec_absolute_path(char *path, char **argv, char **envp, t_vars *vars)
 {
-	int	fd;
+	int		fd;
+	struct stat	buf;
 
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
@@ -45,7 +46,15 @@ void	exec_absolute_path(char *path, char **argv, char **envp, t_vars *vars)
 	close(fd);
 	if (execve(path, argv, envp) < 0)
 	{
-		printf("minishell : %s: Permission denied.\n", path);
+		if (stat(path, &buf))
+			clean_exit(vars, NULL, errno);
+		if (S_ISREG(buf.st_mode))
+		{
+			errormsg(path, ": command not found");
+			exit (127);
+		}
+		else
+			printf("minishell : %s: Permission denied.\n", path);
 		exit(126);
 	}
 }

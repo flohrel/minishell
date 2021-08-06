@@ -38,11 +38,11 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-	signal(SIGQUIT, sigquit_handler);
-	signal(SIGINT, sigint_handler);
 	init(&vars, envp);
 	while (1)
 	{
+		signal(SIGQUIT, sigquit_handler);
+		signal(SIGINT, sigint_handler);
 		init_vars(&vars);
 		ft_readline(&vars);
 		lexer(&vars, &vars.lexer);

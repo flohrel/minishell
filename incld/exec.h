@@ -47,6 +47,7 @@ int		exec_command(t_vars *vars, t_cmd *cmd, t_ast *node);
 /*
  **		find_cmd.c
  */
+void	sigint_handler(int signum);
 void	redir_handle(t_vars *vars, t_param *param, t_cmd *cmd);
 
 void	*add_to_ptrlst(void *content, t_vars *vars);
