@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 19:23:42 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/07/23 16:32:14 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/08/08 16:01:28 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ int		env_size(t_env *env);
 int		add_pipe(t_vars *vars, t_ast *node);
 int		pipe_handle(t_vars *vars);
 int		close_handle(t_vars *vars);
-char	**wildcard_convert(char **args, t_vars *vars);
 char	*create_path(char *path, char *cmd, t_vars *vars);
 void	free_path(char **path);
 void	exec_absolute_path(char *path, char **argv, char **envp, t_vars *vars);

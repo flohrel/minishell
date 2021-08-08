@@ -1,24 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   input_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/06 01:10:33 by flohrel           #+#    #+#             */
-/*   Updated: 2021/08/08 17:42:35 by flohrel          ###   ########.fr       */
+/*   Created: 2021/08/08 20:32:35 by flohrel           #+#    #+#             */
+/*   Updated: 2021/08/08 20:34:27 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/string.h"
+#include "input.h"
 
-size_t	ft_strlen(const char *s)
+void	display_prompt(void)
 {
-	const char	*str;
-
-	str = s;
-	if (str)
-		while (*str++)
-			;
-	return (str - s - 1);
+	if (isatty(0) && (exit_status != 130))
+	{
+		if (!exit_status)
+			return (readline(PROMPT1));
+		else
+			return (readline(PROMPT2));
+	}
+	else
+		return (readline(NULL));
 }

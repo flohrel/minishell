@@ -6,11 +6,11 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 04:13:58 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/07/21 04:14:20 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/08/08 20:10:24 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <parser.h>
+#include "parser.h"
 
 int	open_curdir(DIR **cur_dir)
 {
@@ -82,14 +82,18 @@ char	**find_matches(DIR *dir, char *str, t_vars *vars)
 	return (res);
 }
 
-char	**wildcard(char *str, t_vars *vars)
+char	*wildcard(char *str, t_vars *vars)
 {
 	DIR		*cur_dir;
-	char	**res;
+	char	**strs;
+	char	*res;
 
 	if (open_curdir(&cur_dir) < 0)
 		return (NULL);
-	res = find_matches(cur_dir, str, vars);
+	strs = find_matches(cur_dir, str, vars);
 	free(cur_dir);
+	if (!strs)
+		return (str);
+	res = ft_strsjoin(ft_tablen(strs), strs, " ");
 	return (res);
 }

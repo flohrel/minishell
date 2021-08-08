@@ -6,11 +6,29 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/09 17:56:30 by flohrel           #+#    #+#             */
-/*   Updated: 2021/08/06 16:21:01 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/08/08 20:12:27 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
+
+void	state_check(int *state, char c)
+{
+	if ((c == '\'') && (*state != ST_DQUOTE))
+	{
+		if (*state == ST_GENERAL)
+			*state = ST_QUOTE;
+		else
+			*state = ST_GENERAL;
+	}
+	else if ((c == '\"') && (*state != ST_QUOTE))
+	{
+		if (*state == ST_GENERAL)
+			*state = ST_DQUOTE;
+		else
+			*state = ST_GENERAL;
+	}
+}
 
 int	check_token(t_parser *parser, int type)
 {

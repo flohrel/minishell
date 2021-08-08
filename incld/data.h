@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 15:01:51 by flohrel           #+#    #+#             */
-/*   Updated: 2021/08/04 02:55:31 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/08/08 20:30:48 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,10 @@
 # include <stdbool.h>
 # include "libft.h"
 
-# define BUFFER_SIZE	65536
-# define PROMPT			"\e[1;32mminishell>> \e[0m"
-# define HDOC_PROMPT	"> "
+# define BUFFER_SIZE		65536
+# define PROMPT1			"\e[1;32mminishell> \e[0m"
+# define PROMPT2			"\e[1;32mminishell\e[0m\e[1;31m> \e[0m"
+# define HDOC_PROMPT		"> "
 
 enum	e_state
 {

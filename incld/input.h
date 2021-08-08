@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 11:39:56 by flohrel           #+#    #+#             */
-/*   Updated: 2021/07/23 04:41:27 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/08/08 20:47:28 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,11 @@
 # include "utils.h"
 
 # define HDOC_DATA	"/tmp/hdoc-data"
+
+/*
+**		input_utils.c
+*/
+void	display_prompt(void);
 
 /*
 **		input.c

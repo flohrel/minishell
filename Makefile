@@ -46,8 +46,7 @@ EXEC		=	exec.c \
 				add_ptrlst.c \
 				find_cmd.c \
 				find_cmd_next.c \
-				pipes.c \
-				wc_convert.c
+				pipes.c
 
 INPUT		=	input.c
 

@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 20:58:03 by flohrel           #+#    #+#             */
-/*   Updated: 2021/07/23 16:37:00 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/08/08 20:08:31 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,40 +46,34 @@ int	parse_word2(t_vars *vars, char **data, char *buffer)
 	return (0);
 }
 
-void	parse_word1(t_vars *vars, int *state, char **str, char **buffer)
+void	param_expansion(t_vars *vars, char *str, char **buffer)
 {
 	char	c;
+	int		state;
 
-	c = **str;
-	if ((c == '\'') && (*state != ST_DQUOTE))
+	state = ST_GENERAL;
+	while (*str)
 	{
-		if (*state == ST_GENERAL)
-			*state = ST_QUOTE;
+		c = *str;
+		state_check(&state, c);
+		if ((c == '$') && (state != ST_QUOTE) && (*(str + 1) != '\0'))
+			var_expansion(vars, buffer, &str);
 		else
-			*state = ST_GENERAL;
+			*(*buffer)++ = c;
+		str++;
 	}
-	else if ((c == '\"') && (*state != ST_QUOTE))
-	{
-		if (*state == ST_GENERAL)
-			*state = ST_DQUOTE;
-		else
-			*state = ST_GENERAL;
-	}
-	else if ((c == '$') && (*state != ST_QUOTE) && (*((*str) + 1) != '\0'))
-		var_expansion(vars, buffer, str);
-	else
-		*(*buffer)++ = c;
+	**buffer = '\0';
 }
 
-int	parse_word0(t_vars *vars, t_list *prev_tk, char **data)
+int	parse_word(t_vars *vars, t_list *prev_tk, char **data)
 {
 	t_token	*token;
-	char	buffer[BUFFER_SIZE];
+	char	buffer[2][BUFFER_SIZE];
 	char	*ptr;
 	char	*str;
 
 	str = *data;
-	ptr = buffer;
+	ptr = buffer[0];
 	if (prev_tk != NULL)
 	{
 		token = (t_token *)prev_tk->content;
@@ -87,13 +81,8 @@ int	parse_word0(t_vars *vars, t_list *prev_tk, char **data)
 				|| ft_strchr(str, '\"')))
 			token->type = TK_DLESS2;
 	}
-	while (*str)
-	{
-		parse_word1(vars, &vars->lexer.state, &str, &ptr);
-		str++;
-	}
-	*ptr = '\0';
-	return (parse_word2(vars, data, buffer));
+	param_expansion(vars, str, &ptr);
+	return (parse_word2(vars, data, buffer[0]));
 }
 
 int	parser(t_vars *vars, t_lexer *lexer, t_parser *parser)
@@ -112,7 +101,7 @@ int	parser(t_vars *vars, t_lexer *lexer, t_parser *parser)
 		else
 		{
 			if ((token->type == TK_WORD)
-				&& parse_word0(vars, parser->prev_tk, &token->data))
+				&& parse_word(vars, parser->prev_tk, &token->data))
 				continue ;
 			parser->prev_tk = parser->cur_tk;
 			parser->cur_tk = parser->prev_tk->next;

@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 20:59:00 by flohrel           #+#    #+#             */
-/*   Updated: 2021/07/23 16:37:16 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/08/08 20:11:48 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,21 +24,22 @@
 # include "test.h"
 
 /*
- **		parser.c
- */
-int		parser(t_vars *vars, t_lexer *lexer, t_parser *parser);
-int		parse_word0(t_vars *vars, t_list *prev_tk, char **data);
-void	parse_word1(t_vars *vars, int *state, char **str, char **buffer);
-int		parse_word2(t_vars *vars, char **data, char *buffer);
-int		astree_build(t_vars *vars, t_lexer *lexer, t_parser *parser);
-
-/*
  **		parser_utils.c
  */
+void	state_check(int *state, char c);
 char	*exit_status_expansion(t_vars *vars, char **str, int exit_status);
 void	var_expansion(t_vars *vars, char **buffer, char **data);
 char	*var_assignation(t_vars *vars, char *data, char *str);
 int		check_token(t_parser *parser, int type);
+
+/*
+ **		parser.c
+ */
+int		parser(t_vars *vars, t_lexer *lexer, t_parser *parser);
+int		parse_word(t_vars *vars, t_list *prev_tk, char **data);
+void	param_expansion(t_vars *vars, char *str, char **buffer);
+int		parse_word2(t_vars *vars, char **data, char *buffer);
+int		astree_build(t_vars *vars, t_lexer *lexer, t_parser *parser);
 
 /*
  **		ast_build1.c
@@ -61,7 +62,7 @@ t_param	*init_cmd_param(t_vars *vars);
 /*		wildcard.c
  **
  */
-char	**wildcard(char *str, t_vars *vars);
+char	*wildcard(char *str, t_vars *vars);
 int		wctest(char *str, t_vars *vars);
 void	aff_tab(char **tb);
 #endif
