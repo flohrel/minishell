@@ -6,25 +6,13 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 20:58:03 by flohrel           #+#    #+#             */
-/*   Updated: 2021/08/08 20:08:31 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/08/08 21:33:05 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-int	astree_build(t_vars *vars, t_lexer *lexer, t_parser *parser)
-{
-	t_token	*token;
-
-	parser->cur_tk = lexer->tk_list;
-	parser->exec_tree = list(vars, parser);
-	token = (t_token *)parser->cur_tk->content;
-	if (token->type != TK_NL)
-		return (syntax_error(token));
-	return (0);
-}
-
-int	parse_word2(t_vars *vars, char **data, char *buffer)
+int	clean_empty_word(t_vars *vars, char **data, char *buffer)
 {
 	bool	has_quotes;
 	size_t	len;
@@ -44,6 +32,25 @@ int	parse_word2(t_vars *vars, char **data, char *buffer)
 		return (1);
 	}
 	return (0);
+}
+
+void	path_expansion(t_vars *vars, char *str, char **buffer)
+{
+	char	c;
+	int		state;
+
+	state = ST_GENERAL;
+	while (*str)
+	{
+		c = *str;
+		state_check(&state, c);
+		if ((c == '*') && (state == ST_GENERAL) && (*(str + 1) != '\0'))
+			var_expansion(vars, buffer, &str);
+		else
+			*(*buffer)++ = c;
+		str++;
+	}
+	**buffer = '\0';
 }
 
 void	param_expansion(t_vars *vars, char *str, char **buffer)
@@ -82,7 +89,10 @@ int	parse_word(t_vars *vars, t_list *prev_tk, char **data)
 			token->type = TK_DLESS2;
 	}
 	param_expansion(vars, str, &ptr);
-	return (parse_word2(vars, data, buffer[0]));
+	str = buffer[0];
+	ptr = buffer[1];
+	path_expansion(vars, str, &ptr);
+	return (clean_empty_word(vars, data, buffer[1]));
 }
 
 int	parser(t_vars *vars, t_lexer *lexer, t_parser *parser)

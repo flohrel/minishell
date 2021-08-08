@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 04:13:58 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/08/08 20:10:24 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/08/08 21:20:56 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	*find_match(char *file_name, char *str)
 		return (NULL);
 }
 
-char	**find_matches(DIR *dir, char *str, t_vars *vars)
+char	**find_matches(t_vars *vars, DIR *dir, char *str)
 {
 	struct dirent	*block;
 	char			**res;
@@ -82,7 +82,7 @@ char	**find_matches(DIR *dir, char *str, t_vars *vars)
 	return (res);
 }
 
-char	*wildcard(char *str, t_vars *vars)
+char	*wildcard(t_vars *vars, char *str)
 {
 	DIR		*cur_dir;
 	char	**strs;
@@ -90,7 +90,7 @@ char	*wildcard(char *str, t_vars *vars)
 
 	if (open_curdir(&cur_dir) < 0)
 		return (NULL);
-	strs = find_matches(cur_dir, str, vars);
+	strs = find_matches(vars, cur_dir, str);
 	free(cur_dir);
 	if (!strs)
 		return (str);

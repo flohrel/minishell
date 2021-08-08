@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 11:39:56 by flohrel           #+#    #+#             */
-/*   Updated: 2021/08/08 20:47:28 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/08/08 21:11:28 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 /*
 **		input_utils.c
 */
-void	display_prompt(void);
+char	*display_prompt(void);
 
 /*
 **		input.c

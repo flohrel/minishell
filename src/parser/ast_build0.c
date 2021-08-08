@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_utils.c                                      :+:      :+:    :+:   */
+/*   ast_build0.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/08 20:32:35 by flohrel           #+#    #+#             */
-/*   Updated: 2021/08/08 21:11:13 by flohrel          ###   ########.fr       */
+/*   Created: 2021/08/08 21:03:22 by flohrel           #+#    #+#             */
+/*   Updated: 2021/08/08 21:03:40 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "input.h"
+#include "parser.h"
 
-char	*display_prompt(void)
+int	astree_build(t_vars *vars, t_lexer *lexer, t_parser *parser)
 {
-	if (isatty(0) && (exit_status != 130))
-	{
-		if (!exit_status)
-			return (readline(PROMPT1));
-		else
-			return (readline(PROMPT2));
-	}
-	else
-		return (readline(NULL));
+	t_token	*token;
+
+	parser->cur_tk = lexer->tk_list;
+	parser->exec_tree = list(vars, parser);
+	token = (t_token *)parser->cur_tk->content;
+	if (token->type != TK_NL)
+		return (syntax_error(token));
+	return (0);
 }

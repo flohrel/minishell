@@ -48,7 +48,8 @@ EXEC		=	exec.c \
 				find_cmd_next.c \
 				pipes.c
 
-INPUT		=	input.c
+INPUT		=	input.c \
+				input_utils.c
 
 LEXER		=	lexer0.c \
 				lexer1.c \
@@ -56,6 +57,7 @@ LEXER		=	lexer0.c \
 
 PARSER		=	parser.c \
 				parser_utils.c \
+				ast_build0.c \
 				ast_build1.c \
 				ast_build2.c \
 				wildcard.c
