@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 04:13:58 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/08/08 21:20:56 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/08/11 23:04:21 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,13 @@ char	**find_matches(t_vars *vars, DIR *dir, char *str)
 	return (res);
 }
 
-char	*wildcard(t_vars *vars, char *str)
+/*
+ **		FAIRE L'EXPANSION DEPUIS STR -> ECRIRE DANS BUFFER.
+ **		PAS DE RETURN, PAS D'ALLOCATION.
+ **		BON CHANCE.
+*/
+
+void	*wildcard(t_vars *vars, char *buffer, char *str)
 {
 	DIR		*cur_dir;
 	char	**strs;
