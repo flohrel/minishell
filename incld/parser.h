@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 20:59:00 by flohrel           #+#    #+#             */
-/*   Updated: 2021/08/08 21:33:05 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/08/11 22:44:16 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ int		check_token(t_parser *parser, int type);
  */
 int		parser(t_vars *vars, t_lexer *lexer, t_parser *parser);
 int		parse_word(t_vars *vars, t_list *prev_tk, char **data);
-void	param_expansion(t_vars *vars, char *str, char **buffer);
-void	path_expansion(t_vars *vars, char *str, char **buffer);
+void	param_expansion(t_vars *vars, char *str, char *buffer);
+void	path_expansion(t_vars *vars, char *str, char *buffer);
 int		clean_empty_word(t_vars *vars, char **data, char *buffer);
 
 /*

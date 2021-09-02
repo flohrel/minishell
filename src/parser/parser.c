@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 20:58:03 by flohrel           #+#    #+#             */
-/*   Updated: 2021/08/10 17:37:50 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/02 20:13:47 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,26 +34,37 @@ int	clean_empty_word(t_vars *vars, char **data, char *buffer)
 	return (0);
 }
 
-void	param_expansion(t_vars *vars, char *str, char *buffer)
+void	path_expansion(t_vars *vars, char *str, char *buffer)
 {
 	char	c;
+//	char	*s;
+//	char	*buf;
 	int		state;
 
+//	s = str;
+//	buf = buffer;
+	(void)vars;
 	state = ST_GENERAL;
 	while (*str)
 	{
 		c = *str;
 		state_check(&state, c);
-		if ((c == '$') && (state != ST_QUOTE) && (*(str + 1) != '\0'))
-			var_expansion(vars, &buffer, &str);
+		if ((c == '*') && (state == ST_GENERAL))
+		{
+//			wildcard(vars, buf, s);
+			return ;
+		}
 		else
-			*buffer++ = c;
+		{
+			*buffer = c;
+			buffer++;
+		}
 		str++;
 	}
 	*buffer = '\0';
 }
 
-void	path_expansion(t_vars *vars, char *str, char *buffer)
+void	param_expansion(t_vars *vars, char *str, char *buffer)
 {
 	char	c;
 	char	*s;
@@ -67,16 +78,16 @@ void	path_expansion(t_vars *vars, char *str, char *buffer)
 	{
 		c = *s;
 		state_check(&state, c);
-		if ((c == '*') && (state == ST_GENERAL))
-		{
-			glob_pattern(vars, buffer, str);
-			return ;
-		}
+		if ((c == '$') && (state != ST_QUOTE) && (*(str + 1) != '\0'))
+			var_expansion(vars, &buffer, &str);
 		else
-			*buf++ = c;
-		s++;
+		{
+			*buffer = c;
+			buffer++;
+		}
+		str++;
 	}
-	**buf = '\0';
+	*buffer = '\0';
 }
 
 int	parse_word(t_vars *vars, t_list *prev_tk, char *data)
@@ -84,20 +95,16 @@ int	parse_word(t_vars *vars, t_list *prev_tk, char *data)
 	t_token	*token;
 	char	buffer[2][BUFFER_SIZE];
 
-	str = *data;
-	ptr = buffer[0];
 	if (prev_tk != NULL)
 	{
 		token = (t_token *)prev_tk->content;
-		if ((token->type == TK_DLESS) && (ft_strchr(str, '\'')
-				|| ft_strchr(str, '\"')))
+		if ((token->type == TK_DLESS) && (ft_strchr(*data, '\'')
+				|| ft_strchr(*data, '\"')))
 			token->type = TK_DLESS2;
 	}
-	param_expansion(vars, data, buffer[0]);
-	str = buffer[0];
-	ptr = buffer[1];
-	path_expansion(vars, buffer[0], buffer[1]);
-	return (clean_empty_word(vars, data, buffer[1]));
+	param_expansion(vars, *data, buffer[0]);
+//	path_expansion(vars, buffer[0], buffer[1]);
+	return (clean_empty_word(vars, data, buffer[0]));
 }
 
 int	parser(t_vars *vars, t_lexer *lexer, t_parser *parser)
