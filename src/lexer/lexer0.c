@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 17:20:52 by flohrel           #+#    #+#             */
-/*   Updated: 2021/07/21 03:47:53 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/09/03 16:14:57 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	lexer_init(t_vars *vars,
 	token_handle[7] = redirection_handle;
 }
 
-void	lexer(t_vars *vars, t_lexer *lexer)
+int	lexer(t_vars *vars, t_lexer *lexer)
 {
 	char	*buffer;
 	int		tk_type;
@@ -59,7 +59,10 @@ void	lexer(t_vars *vars, t_lexer *lexer)
 			quote_handle(vars, buffer);
 		buffer++;
 	}
+	if (lexer->state != ST_GENERAL)
+		return (syntax_error(NULL));
 	if (lexer->cur_char)
 		*(lexer->cur_char) = '\0';
 	new_token(vars, TK_NL, 0);
+	return (0);
 }

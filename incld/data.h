@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 15:01:51 by flohrel           #+#    #+#             */
-/*   Updated: 2021/08/11 22:34:48 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/03 16:07:54 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,6 @@ struct	s_parser
 {
 	t_list	*prev_tk;
 	t_list	*cur_tk;
-	t_ast	*exec_tree;
 };
 
 struct	s_param
@@ -168,6 +167,7 @@ struct	s_vars
 {
 	t_lexer		lexer;
 	t_parser	parser;
+	t_ast		*exec_tree;
 	t_cmd		cmd;
 	t_list		*ptr_list;
 	t_env		*env;

@@ -6,12 +6,12 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 20:58:03 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/03 15:29:52 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/03 17:51:32 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
-
+/*
 int	clean_empty_word(t_vars *vars, char **data, char *buffer)
 {
 	bool	has_quotes;
@@ -132,4 +132,4 @@ int	parser(t_vars *vars, t_lexer *lexer, t_parser *parser)
 	if (lexer->state != ST_GENERAL)
 		return (syntax_error(NULL));
 	return (astree_build(vars, lexer, parser));
-}
+}*/
