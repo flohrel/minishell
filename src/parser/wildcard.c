@@ -42,7 +42,7 @@ int	search_match(char *file_name, char *str, int i, int j)
 		if (str[i + 1])
 			i++;
 	}
-	if (!(file_name[j]))
+	if (!(file_name[j]) && file_name[j - 1] == str[i])
 		return (1);
 	else if (str[i] == '*')
 		return (search_match(file_name, str, i, j));
@@ -72,7 +72,7 @@ char	**find_matches(t_vars *vars, DIR *dir, char *str)
 		count = 0;
 		block = readdir(dir);
 		if (block && block->d_name[0] != '.'
-			&& find_match(block->d_name, str))
+				&& find_match(block->d_name, str))
 		{
 			match = ft_strdup(block->d_name);
 			add_to_ptrlst((void *)match, vars);
@@ -86,7 +86,35 @@ char	**find_matches(t_vars *vars, DIR *dir, char *str)
  **		FAIRE L'EXPANSION DEPUIS STR -> ECRIRE DANS BUFFER.
  **		PAS DE RETURN, PAS D'ALLOCATION.
  **		BON CHANCE.
-*/
+ */
+
+void	replace_cpy(char *dst, char **replace, int i)
+{
+	int	j;
+	int	k;
+
+	j = 0;
+	while (replace[j])
+	{
+		k = 0;
+		while (replace[j][k])
+			dst[i++] = replace[j][k++];
+		if (replace[j + 1])
+			dst[i++] = ' ';
+		j++;
+	}
+	dst[i] = '\0';
+}
+
+char	*ft_replace(char *dst, char **replace)
+{
+	int	i;
+
+	i = 0;
+	dst[i] = '\0';
+	replace_cpy(dst, replace, i);
+	return (dst);
+}
 
 void	*wildcard(t_vars *vars, char *buffer, char *str)
 {
@@ -99,7 +127,10 @@ void	*wildcard(t_vars *vars, char *buffer, char *str)
 	strs = find_matches(vars, cur_dir, str);
 	free(cur_dir);
 	if (!strs)
+	{
+		ft_strlcpy(buffer, str, ft_strlen(str) + 1);
 		return (str);
-	res = ft_strsjoin(ft_tablen(strs), strs, " ");
+	}
+	res = ft_replace(buffer, strs);
 	return (res);
 }
