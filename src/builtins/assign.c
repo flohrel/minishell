@@ -63,10 +63,10 @@ int	handle_assign(t_vars *vars, t_list *assign)
 			return (0);
 		if (new_envblock(((t_token *)(assign->content))->data, res) == 0)
 			return (0);
-		manage_agn(assign, vars, res);
+		if (manage_agn(assign, vars, res) < 0)
+			return (0);
 		free_block(res);
 		assign = assign->next;
 	}
-	env_print(vars->agn);
 	return (1);
 }

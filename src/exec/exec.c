@@ -21,8 +21,9 @@ void	exec_command(t_vars *vars, t_ast *node)
 		return ;
 	param = node->data;
 	args = list_to_tab(param->arg, vars);
-	if (param && !(param->path))
-		handle_assign(vars, param->assign);
+	if (param && (!(param->path) || ft_strcmp(param->path, "export") == 0))
+		if (handle_assign(vars, param->assign) < 0)
+			clean_exit(vars, NULL, NULL, errno);
 	find_cmd(param, args, env_to_tab(vars->env, vars), vars);
 }
 
