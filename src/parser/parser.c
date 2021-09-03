@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 20:58:03 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/02 20:13:47 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/03 15:29:52 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@ int	clean_empty_word(t_vars *vars, char **data, char *buffer)
 void	path_expansion(t_vars *vars, char *str, char *buffer)
 {
 	char	c;
-//	char	*s;
-//	char	*buf;
+	char	*s;
+	char	*buf;
 	int		state;
 
-//	s = str;
-//	buf = buffer;
+	s = str;
+	buf = buffer;
 	(void)vars;
 	state = ST_GENERAL;
 	while (*str)
@@ -51,7 +51,7 @@ void	path_expansion(t_vars *vars, char *str, char *buffer)
 		state_check(&state, c);
 		if ((c == '*') && (state == ST_GENERAL))
 		{
-//			wildcard(vars, buf, s);
+			wildcard(vars, buf, s);
 			return ;
 		}
 		else
@@ -103,8 +103,8 @@ int	parse_word(t_vars *vars, t_list *prev_tk, char *data)
 			token->type = TK_DLESS2;
 	}
 	param_expansion(vars, *data, buffer[0]);
-//	path_expansion(vars, buffer[0], buffer[1]);
-	return (clean_empty_word(vars, data, buffer[0]));
+	path_expansion(vars, buffer[0], buffer[1]);
+	return (clean_empty_word(vars, data, buffer[1]));
 }
 
 int	parser(t_vars *vars, t_lexer *lexer, t_parser *parser)

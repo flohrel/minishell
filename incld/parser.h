@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 20:59:00 by flohrel           #+#    #+#             */
-/*   Updated: 2021/08/11 22:44:16 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/08/11 23:02:32 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ t_param	*init_cmd_param(t_vars *vars);
 /*
  **		wildcard.c
  */
-char	*wildcard(t_vars *vars, char *str);
+void	*wildcard(t_vars *vars, char *buffer, char *str);
 char	**find_matches(t_vars *vars, DIR *dir, char *str);
 char	*find_match(char *file_name, char *str);
 int		search_match(char *file_name, char *str, int i, int j);
