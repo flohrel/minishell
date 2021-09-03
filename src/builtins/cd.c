@@ -16,6 +16,7 @@ static char	*add_cdpath(t_vars *vars, char *path)
 {
 	char	*cdpath;
 	char	*new_path;
+	char	s[255];
 
 	if (!ft_strcmp(path, ".") || !ft_strcmp(path, ".."))
 		return (path);
@@ -26,7 +27,9 @@ static char	*add_cdpath(t_vars *vars, char *path)
 	if (!new_path)
 		clean_exit(vars, NULL, NULL, errno);
 	add_to_ptrlst((void *)new_path, vars);
-	return (new_path);
+	if (chdir(new_path) == 0 && getcwd(s, 255))
+		printf("%s\n", s);
+	return (path);
 }
 
 static int	check_error(char *path)
@@ -84,7 +87,8 @@ int	cd(char **args, t_vars *vars)
 		return (errormsg("cd : too many arguments", NULL));
 	if (handle_args(vars, args, (char **)&path) < 0)
 		return (1);
-	if (chdir(path) < 0)
+	if (ft_strcmp(get_env_value("PWD", vars->env), getcwd(s, 255)) == 0
+			&& chdir(path) < 0)
 		return (check_error((char *)path));
 	vars->env = set_env_value(vars->env, "OLDPWD",
 			get_env_value("PWD", vars->env));

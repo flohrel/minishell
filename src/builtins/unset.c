@@ -65,7 +65,6 @@ int	unset(char **args, t_vars *vars)
 	int	i;
 
 	i = 0;
-	return (0);
 	while (args && args[i])
 	{
 		if (ft_strcmp("", args[i]) == 0)

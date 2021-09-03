@@ -48,7 +48,7 @@ void	exec_absolute_path(char *path, char **argv, char **envp, t_vars *vars)
 	{
 		if (stat(path, &buf))
 			clean_exit(vars, NULL, NULL, errno);
-		if (S_ISREG(buf.st_mode))
+		if (buf.st_mode & S_IXUSR)
 		{
 			errormsg(path, ": command not found");
 			exit(127);
