@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 17:20:52 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/04 15:26:58 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/05 21:07:11 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ void	token_handle(t_vars *vars, int tk_type, char **buffer)
 {
 	if (check_flag(tk_type, TK_WORD) || check_flag(tk_type, 0x10))
 		word_handle(vars, tk_type, buffer);
-	if (check_flag(tk_type, TK_SPACE))
+	else if (check_flag(tk_type, TK_SPACE))
 		space_handle(vars, tk_type, buffer);
-	if (check_flag(tk_type, TK_AMP) || check_flag(tk_type, TK_PIPE))
+	else if (check_flag(tk_type, TK_AMP) || check_flag(tk_type, TK_PIPE))
 		job_handle(vars, tk_type, buffer);
-	if (check_flag(tk_type, 0x40))
+	else if (check_flag(tk_type, 0x40))
 		redirection_handle(vars, tk_type, buffer);
 }
 
@@ -49,9 +49,8 @@ int	lexer(t_vars *vars, t_lexer *lexer)
 {
 	char	*buffer;
 	int		tk_type;
-	void	(*token_handle[8])(t_vars *, int, char **);
 
-	lexer_init(vars, token_handle);
+	lexer_init(vars);
 	buffer = lexer->buffer;
 	while (*buffer)
 	{
