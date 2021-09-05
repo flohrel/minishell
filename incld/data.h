@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 15:01:51 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/03 16:07:54 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/04 15:28:51 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,21 @@ enum	e_state
 
 enum	e_tktype
 {
-	TK_WORD,
-	TK_QUOTE,
-	TK_DQUOTE,
-	TK_SPACE,
-	TK_AMP,
-	TK_PIPE,
-	TK_LESS,
-	TK_GREAT,
-	TK_DAMP,
-	TK_DPIPE,
-	TK_DLESS,
-	TK_DLESS2,
-	TK_DGREAT,
-	TK_NL = -1,
+	TK_NL = 0x80,		// 00000000
+	TK_WORD = 0x00,		// 00000001
+	TK_SPACE = 0x01,	// 00000010
+	TK_AMP = 0x02,		// 00000100
+	TK_PIPE = 0x04,		// 00001000
+	TK_QUOTE = 0x10,	// 00010001
+	TK_DQUOTE = 0x11,	// 00010010
+	TK_DAMP = 0x22,		// 00100100
+	TK_DPIPE = 0x24,	// 00101000
+	TK_REDIR = 0x40,	// 01000000
+	TK_LESS = 0x41,		// 01000001
+	TK_GREAT = 0x42,	// 01000010
+	TK_DLESS = 0x44,	// 01000100
+	TK_DLESS2 = 0x45,	// 01000101
+	TK_DGREAT = 0x48,	// 01001000
 };
 
 enum	e_node

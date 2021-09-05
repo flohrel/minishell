@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/18 02:07:59 by flohrel           #+#    #+#             */
-/*   Updated: 2021/08/08 21:09:51 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/03 19:35:57 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,13 +93,25 @@ t_param	*init_cmd_param(t_vars *vars)
 
 t_ast	*cmd(t_vars *vars, t_parser *parser)
 {
-	t_param	*data;
+//	t_param	*data;
 	t_token	*token;
 
 	token = (t_token *)parser->cur_tk->content;
 	if (token->type < 0)
 		return (NULL);
-	data = init_cmd_param(vars);
+	while ((token->type == TK_WORD) || (token->type > TK_DPIPE))
+	{
+		parser->cur_tk = parser->cur_tk->next;
+		token = (t_token *)parser->cur_tk->content;
+		if (token->type > TK_DPIPE)
+		{
+			parser->cur_tk = parser->cur_tk->next;
+			token = (t_token *)parser->cur_tk->content;
+			if (token->type != TK_WORD)
+				return (NULL);
+		}
+	}
+/*	data = init_cmd_param(vars);
 	while ((token->type == TK_WORD) || (token->type > TK_DPIPE))
 	{
 		if (token->type == TK_WORD)
@@ -110,6 +122,6 @@ t_ast	*cmd(t_vars *vars, t_parser *parser)
 		token = (t_token *)parser->cur_tk->content;
 	}
 	if (!data->path && !data->redir && !data->assign)
-		return (NULL);
-	return (tree_new_node(vars, NODE_CMD, data));
+		return (NULL);*/
+	return (tree_new_node(vars, NODE_CMD, NULL));
 }

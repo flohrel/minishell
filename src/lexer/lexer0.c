@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 17:20:52 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/03 16:14:57 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/04 15:26:58 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ void	quote_handle(t_vars *vars, char *buf)
 		lexer->state = ST_GENERAL;
 }
 
-void	lexer_init(t_vars *vars,
-	void (*token_handle[8])(t_vars *, int, char **))
+void	lexer_init(t_vars *vars)
 {
 	t_lexer	*lexer;
 
@@ -32,14 +31,18 @@ void	lexer_init(t_vars *vars,
 	lexer->state = ST_GENERAL;
 	lexer->buf_len = ft_strlen(lexer->buffer);
 	new_token(vars, TK_WORD, lexer->buf_len);
-	token_handle[0] = word_handle;
-	token_handle[1] = word_handle;
-	token_handle[2] = word_handle;
-	token_handle[3] = space_handle;
-	token_handle[4] = job_handle;
-	token_handle[5] = job_handle;
-	token_handle[6] = redirection_handle;
-	token_handle[7] = redirection_handle;
+}
+
+void	token_handle(t_vars *vars, int tk_type, char **buffer)
+{
+	if (check_flag(tk_type, TK_WORD) || check_flag(tk_type, 0x10))
+		word_handle(vars, tk_type, buffer);
+	if (check_flag(tk_type, TK_SPACE))
+		space_handle(vars, tk_type, buffer);
+	if (check_flag(tk_type, TK_AMP) || check_flag(tk_type, TK_PIPE))
+		job_handle(vars, tk_type, buffer);
+	if (check_flag(tk_type, 0x40))
+		redirection_handle(vars, tk_type, buffer);
 }
 
 int	lexer(t_vars *vars, t_lexer *lexer)
@@ -54,7 +57,7 @@ int	lexer(t_vars *vars, t_lexer *lexer)
 	{
 		tk_type = get_token_type(*buffer);
 		if (lexer->state == ST_GENERAL)
-			token_handle[tk_type](vars, tk_type, &buffer);
+			token_handle(vars, tk_type, &buffer);
 		else
 			quote_handle(vars, buffer);
 		buffer++;
