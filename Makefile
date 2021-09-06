@@ -55,7 +55,8 @@ LEXER		=	lexer0.c \
 				lexer1.c \
 				lexer_utils.c
 
-PARSER		=	parser.c \
+PARSER		=	parser0.c \
+				parser1.c \
 				parser_utils.c \
 				ast_build0.c \
 				ast_build1.c \

@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   parser0.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 20:58:03 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/06 16:23:38 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/06 17:47:54 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-/*int	clean_empty_word(t_vars *vars, char **data, char *buffer)
+int	clean_empty_word(t_vars *vars, char **data, char *buffer)
 {
 	bool	has_quotes;
 	size_t	len;
@@ -32,7 +32,7 @@
 		return (1);
 	}
 	return (0);
-}*/
+}
 
 void	path_expansion(t_vars *vars, char *str, char *buffer)
 {
@@ -85,24 +85,40 @@ void	param_expansion(t_vars *vars, char *str, char *buffer)
 	*buffer = '\0';
 }
 
-void	parse_path(t_vars *vars, char **path)
+void	parse_list(t_vars *vars, t_list *lst)
+{
+	t_token	*token;
+
+	while (lst)
+	{
+		token = (t_token *)lst->content;
+		parse_word(vars, &token->data);
+		lst = lst->next;
+	}
+}
+
+void	parse_word(t_vars *vars, char **word)
 {
 	char	buffer[2][BUFFER_SIZE];
 	int		len;
 
-	param_expansion(vars, *path, buffer[0]);
+	param_expansion(vars, *word, buffer[0]);
 	path_expansion(vars, buffer[0], buffer[1]);
 	len = ft_strlen(buffer[1]);
 	if (len == 0)
 	{
-		*path = NULL;
+		*word = NULL;
 		return ;
 	}
-	*path = lst_alloc(len + 1, sizeof(*path), vars);
-	ft_strlcpy(*path, buffer[1], len + 1);
+	*word = lst_alloc(len + 1, sizeof(*word), vars);
+	ft_strlcpy(*word, buffer[1], len + 1);
 }
 
 void	parse_param(t_vars *vars, t_param *param)
 {
-	parse_path(vars, &param->path);
+	if (param->path)
+		parse_word(vars, &param->path);
+	parse_list(vars, param->redir);
+	parse_list(vars, param->arg);
+	parse_list(vars, param->assign);
 }

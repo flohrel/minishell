@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 01:07:52 by flohrel           #+#    #+#             */
-/*   Updated: 2021/08/06 16:19:50 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/06 17:06:23 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 void	set_rdout(t_vars *vars, t_cmd *cmd, char *pathname)
 {
 	set_flag(&cmd->io_bit, RD_OUT);
+	if (!pathname || ft_strchr(pathname, ' '))
+		clean_exit(vars, NULL, "ambiguous redirect", -126);
 	cmd->redir[FD_OUT] = open(pathname, O_WRONLY | O_CREAT | O_TRUNC, 0664);
 	if (cmd->redir[FD_OUT] == -1)
 		clean_exit(vars, pathname, NULL, errno);
@@ -23,6 +25,8 @@ void	set_rdout(t_vars *vars, t_cmd *cmd, char *pathname)
 void	set_rdapp(t_vars *vars, t_cmd *cmd, char *pathname)
 {
 	set_flag(&cmd->io_bit, RD_OUT);
+	if (!pathname || ft_strchr(pathname, ' '))
+		clean_exit(vars, NULL, "ambiguous redirect", -126);
 	cmd->redir[FD_OUT] = open(pathname, O_WRONLY | O_CREAT | O_APPEND, 0664);
 	if (cmd->redir[FD_OUT] == -1)
 		clean_exit(vars, pathname, NULL, errno);
@@ -31,6 +35,8 @@ void	set_rdapp(t_vars *vars, t_cmd *cmd, char *pathname)
 void	set_rdin(t_vars *vars, t_cmd *cmd, char *pathname)
 {
 	set_flag(&cmd->io_bit, RD_IN);
+	if (!pathname)
+		clean_exit(vars, NULL, "ambiguous redirect", -126);
 	cmd->redir[FD_IN] = open(pathname, O_RDONLY);
 	if (cmd->redir[FD_IN] == -1)
 		clean_exit(vars, pathname, NULL, errno);

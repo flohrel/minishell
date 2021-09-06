@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/18 02:07:59 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/06 14:46:48 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/06 17:18:07 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	redirection(t_vars *vars, t_parser *parser, int type, t_param *data)
 
 bool	is_valid_name(char *data, char *end)
 {
-	if ((data == end) || ft_isdigit(*data))
+	if ((data == end) || ft_isdigit(*data) || (*data == '$'))
 		return (false);
 	else if (*(end - 1) == '+')
 	{

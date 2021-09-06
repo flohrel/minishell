@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 20:59:00 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/06 16:24:27 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/06 17:44:22 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ char	*var_assignation(t_vars *vars, char *data, char *str);
 int		check_token(t_parser *parser, int type);
 
 /*
- **		parser.c
+ **		parser0.c
  */
 void	parse_param(t_vars *vars, t_param *param);
-void	parse_path(t_vars *vars, char **path);
+void	parse_word(t_vars *vars, char **path);
+void	parse_list(t_vars *vars, t_list *lst);
 void	param_expansion(t_vars *vars, char *str, char *buffer);
 void	path_expansion(t_vars *vars, char *str, char *buffer);
-int		clean_empty_word(t_vars *vars, char **data, char *buffer);
 
 /*
  **		ast_build0.c
