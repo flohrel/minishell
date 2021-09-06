@@ -65,6 +65,7 @@ PARSER		=	parser.c \
 UTILS		=	astree.c \
 				exit.c \
 				init.c \
+				memory.c \
 				utils.c \
 				flag.c \
 				shell_lvl.c
