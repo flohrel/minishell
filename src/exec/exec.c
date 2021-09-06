@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 19:05:43 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/08/11 20:29:48 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/06 15:07:20 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	exec_command(t_vars *vars, t_ast *node)
 	if (node == NULL)
 		return ;
 	param = node->data;
+//	parser(vars, param);
 	args = list_to_tab(param->arg, vars);
 	if (param && !(param->path))
 		handle_assign(vars, param->assign);
