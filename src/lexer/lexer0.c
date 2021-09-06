@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 17:20:52 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/06 13:07:23 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/06 13:35:35 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ void	token_handle(t_vars *vars, int tk_type, char **buffer)
 {
 	if (check_flag(tk_type, 0x40))
 		redirection_handle(vars, tk_type, buffer);
-	else if (check_flag(tk_type, TK_SPACE))
+	else if (tk_type == TK_SPACE)
 		space_handle(vars, tk_type, buffer);
-	else if (check_flag(tk_type, TK_AMP) || check_flag(tk_type, TK_PIPE))
+	else if ((tk_type == TK_AMP) || (tk_type == TK_PIPE))
 		job_handle(vars, tk_type, buffer);
 	else
 		word_handle(vars, tk_type, buffer);

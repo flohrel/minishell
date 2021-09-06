@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 01:03:40 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/06 12:47:44 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/06 14:42:22 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	print_tabs(int size)
 void	tree_display(t_ast *node, int level, int is_right)
 {
 	char	*root = "\x1b(0\x74\x1b(B";
-//	char	*horiz = "\x1b(0\x71\x1b(B";
+	char	*horiz = "\x1b(0\x71\x1b(B";
 	char	*branch = "\x1b(0\x6d\x1b(B";
 
 	if (node == NULL)
@@ -85,7 +85,7 @@ void	tree_display(t_ast *node, int level, int is_right)
 	{
 		printf("CMD\n");
 		print_tabs(level);
-/*		printf("%s%s path: \"%s\"\n", root, horiz, node->data->path);
+		printf("%s%s path: \"%s\"\n", root, horiz, node->data->path);
 		print_tabs(level);
 		printf("%s%s %d args: ", root, horiz, ft_lstsize(node->data->arg));
 		ft_lstiter(node->data->arg, print_content);
@@ -96,7 +96,7 @@ void	tree_display(t_ast *node, int level, int is_right)
 		printf("\n");
 		print_tabs(level);
 		printf("%s%s %d assign: ", branch, horiz, ft_lstsize(node->data->assign));
-		ft_lstiter(node->data->assign, print_content);*/
+		ft_lstiter(node->data->assign, print_content);
 		printf("\n");
 		return ;
 	}
