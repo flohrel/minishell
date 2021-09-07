@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:03:22 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/06 15:09:03 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/07 18:21:53 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,27 @@ void	clean_token_list(t_lexer *lexer, t_parser *parser)
 	}
 }
 
+t_ast	*list(t_vars *vars, t_parser *parser)
+{
+	t_ast	*node;
+	t_list	*save;
+
+	save = parser->cur_tk;
+	node = list1(vars, parser);
+	if (node != NULL)
+		return (node);
+	parser->cur_tk = save;
+	node = list2(vars, parser);
+	if (node != NULL)
+		return (node);
+	parser->cur_tk = save;
+	node = job(vars, parser);
+	return (node);
+}
+
 int	astree_build(t_vars *vars, t_lexer *lexer, t_parser *parser)
 {
 	t_token	*token;
-	(void)vars;
 
 	clean_token_list(lexer, parser);
 	parser->cur_tk = lexer->tk_list;

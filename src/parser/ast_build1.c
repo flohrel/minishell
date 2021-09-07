@@ -6,28 +6,19 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 05:32:30 by flohrel           #+#    #+#             */
-/*   Updated: 2021/07/06 19:11:20 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/07 19:37:46 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-t_ast	*list(t_vars *vars, t_parser *parser)
+int	get_node_type(t_parser *parser)
 {
-	t_ast	*node;
-	t_list	*save;
-
-	save = parser->cur_tk;
-	node = list1(vars, parser);
-	if (node != NULL)
-		return (node);
-	parser->cur_tk = save;
-	node = list2(vars, parser);
-	if (node != NULL)
-		return (node);
-	parser->cur_tk = save;
-	node = job(vars, parser);
-	return (node);
+	if (check_token(parser, TK_DAMP))
+		return (NODE_AND);
+	if (check_token(parser, TK_DPIPE))
+		return (NODE_OR);
+	return (0);
 }
 
 t_ast	*list1(t_vars *vars, t_parser *parser)
@@ -35,17 +26,27 @@ t_ast	*list1(t_vars *vars, t_parser *parser)
 	t_ast	*node;
 	t_ast	*job_node;
 	t_ast	*list_node;
+	int		node_type;
 
-	job_node = job(vars, parser);
-	if (job_node == NULL)
-		return (NULL);
-	if (!check_token(parser, TK_DAMP))
+	if (!check_token(parser, TK_OPPAR))
 		return (NULL);
 	list_node = list(vars, parser);
-	if (list_node == NULL)
+	if (job_node == NULL)
 		return (NULL);
-	node = tree_new_node(vars, NODE_AND, NULL);
-	tree_attach_branch(node, job_node, list_node);
+	node_type = get_node_type(parser);
+	if (node_type)
+	{
+		list_node = list(vars, parser);
+		if (list_node == NULL)
+			return (NULL);
+		node = tree_new_node(vars, node_type, NULL);
+		tree_attach_branch(node, job_node, list_node);
+	}
+	else
+		node = job_node;
+	if (!check_token(parser, TK_CLPAR))
+		return (NULL);
+	set_flag(&node->type, NODE_SUB);
 	return (node);
 }
 
@@ -54,16 +55,18 @@ t_ast	*list2(t_vars *vars, t_parser *parser)
 	t_ast	*node;
 	t_ast	*job_node;
 	t_ast	*list_node;
+	int		node_type;
 
 	job_node = job(vars, parser);
 	if (job_node == NULL)
 		return (NULL);
-	if (!check_token(parser, TK_DPIPE))
+	node_type = get_node_type(parser);
+	if (!node_type)
 		return (NULL);
 	list_node = list(vars, parser);
 	if (list_node == NULL)
 		return (NULL);
-	node = tree_new_node(vars, NODE_OR, NULL);
+	node = tree_new_node(vars, node_type, NULL);
 	tree_attach_branch(node, job_node, list_node);
 	return (node);
 }

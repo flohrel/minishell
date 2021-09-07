@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/18 02:36:25 by flohrel           #+#    #+#             */
-/*   Updated: 2021/08/06 16:05:28 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/07 16:07:07 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void	tree_delete_node(t_ast *node);
 /*
  **		error.c
  */
-int		syntax_error(t_token *token);
 void	*lst_alloc(size_t nmemb, size_t size, t_vars *vars);
 char	**list_to_tab(t_list *lst, t_vars *vars);
 void	print_tab(char **arg);

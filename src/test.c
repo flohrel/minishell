@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 01:03:40 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/06 15:11:13 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/07 18:55:45 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,11 @@ void	display_token_list(t_lexer *lexer)
 		else if (token->type == TK_NL)
 			printf(BLU"newline"RESET);
 		else if (token->type == TK_WORD)
-			printf(MAG"%s"RESET, token->data);
+			printf(WHT"%s"RESET, token->data);
+		else if (token->type == TK_OPPAR)
+			printf(RED"("RESET);
+		else if (token->type == TK_CLPAR)
+			printf(RED")"RESET);
 		else
 			printf(BLU"%c"RESET, get_token_char(token->type));
 		printf(GRN"] "RESET);
@@ -75,15 +79,15 @@ void	tree_display(t_ast *node, int level, int is_right)
 		printf("%s ", root);
 	else
 		printf("%s ", branch);
-	if (node->type == NODE_SEQ)
-		printf("SEQ");
-	else if (node->type == NODE_PIPE)
+	if (check_flag(node->type, NODE_SUB))
+		printf("SUB:");
+	if (check_flag(node->type, NODE_PIPE))
 		printf("PIPE");
-	else if (node->type == NODE_OR)
+	else if (check_flag(node->type, NODE_OR))
 		printf("OR");
-	else if (node->type == NODE_AND)
+	else if (check_flag(node->type, NODE_AND))
 		printf("AND");
-	else
+	else if (check_flag(node->type, NODE_CMD))
 	{
 		printf("CMD\n");
 		print_tabs(level);

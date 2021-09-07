@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 17:20:52 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/06 13:35:35 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/07 16:13:13 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ void	quote_handle(t_vars *vars, char *buf)
 
 	lexer = &vars->lexer;
 	*(lexer->cur_char)++ = (*buf);
-	if (((*buf == '\'') && (lexer->state == ST_QUOTE))
-		|| ((*buf == '\"') && (lexer->state == ST_DQUOTE)))
-		lexer->state = ST_GENERAL;
+	if (((*buf == '\'') && (lexer->esc_st == ST_QUOTE))
+		|| ((*buf == '\"') && (lexer->esc_st == ST_DQUOTE)))
+		lexer->esc_st = ST_GENERAL;
 }
 
 void	lexer_init(t_vars *vars)
@@ -28,15 +28,17 @@ void	lexer_init(t_vars *vars)
 	t_lexer	*lexer;
 
 	lexer = &vars->lexer;
-	lexer->state = ST_GENERAL;
+	lexer->esc_st = ST_GENERAL;
 	lexer->buf_len = ft_strlen(lexer->buffer);
 	new_token(vars, TK_WORD, lexer->buf_len);
 }
 
 void	token_handle(t_vars *vars, int tk_type, char **buffer)
 {
-	if (check_flag(tk_type, 0x40))
+	if (check_flag(tk_type, TK_REDIR))
 		redirection_handle(vars, tk_type, buffer);
+	else if (check_flag(tk_type, TK_COMPND))
+		compound_handle(vars, tk_type, buffer);
 	else if (tk_type == TK_SPACE)
 		space_handle(vars, tk_type, buffer);
 	else if ((tk_type == TK_AMP) || (tk_type == TK_PIPE))
@@ -55,13 +57,13 @@ int	lexer(t_vars *vars, t_lexer *lexer)
 	while (*buffer)
 	{
 		tk_type = get_token_type(*buffer);
-		if (lexer->state == ST_GENERAL)
+		if (lexer->esc_st == ST_GENERAL)
 			token_handle(vars, tk_type, &buffer);
 		else
 			quote_handle(vars, buffer);
 		buffer++;
 	}
-	if (lexer->state != ST_GENERAL)
+	if (lexer->esc_st != ST_GENERAL)
 		return (syntax_error(NULL));
 	if (lexer->cur_char)
 		*(lexer->cur_char) = '\0';

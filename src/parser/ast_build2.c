@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/18 02:07:59 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/06 17:18:07 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/07 15:15:10 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ t_ast	*cmd(t_vars *vars, t_parser *parser)
 	if (token->type < 0)
 		return (NULL);
 	data = init_cmd_param(vars);
-	while ((token->type == TK_WORD) || check_flag(token->type, 0x40))
+	while ((token->type == TK_WORD) || check_flag(token->type, TK_REDIR))
 	{
 		if (token->type == TK_WORD)
 			argument(vars, token, data);

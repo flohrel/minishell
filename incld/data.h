@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 15:01:51 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/06 16:30:53 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/07 18:53:54 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,26 @@ enum	e_state
 
 enum	e_tktype
 {
-	TK_NL = 0x80,
-	TK_SPACE = 0x00,
+	TK_NL = 0x0,
+	TK_SPACE = 0x01,
 	TK_WORD = 0x02,
 	TK_AMP = 0x04,
 	TK_PIPE = 0x08,
-	TK_QUOTE = 0x11,
-	TK_DQUOTE = 0x12,
-	TK_DAMP = 0x22,
-	TK_DPIPE = 0x24,
-	TK_LESS = 0x41,
-	TK_GREAT = 0x42,
-	TK_DLESS = 0x44,
-	TK_DLESS2 = 0x45,
-	TK_DGREAT = 0x48,
+	TK_REDIR = 0x10000,
+	TK_LESS = 0x10100,
+	TK_GREAT = 0x10200,
+	TK_DLESS = 0x10400,
+	TK_DLESS2 = 0x10800,
+	TK_DGREAT = 0x11000,
+	TK_ESC = 0x20000,
+	TK_QUOTE = 0x20010,
+	TK_DQUOTE = 0x20020,
+	TK_COMPND = 0x40000,
+	TK_OPPAR = 0x40040,
+	TK_CLPAR = 0x40080,
+	TK_LIST = 0x80000,
+	TK_DAMP = 0x80004,
+	TK_DPIPE = 0x80008,
 };
 
 enum	e_node
@@ -53,9 +59,10 @@ enum	e_node
 	NODE_SEQ = 0x01,
 	NODE_PIPE = 0x02,
 	NODE_CMD = 0x04,
-	NODE_LIST = 0x08,
-	NODE_OR = 0x09,
-	NODE_AND = 0x0A,
+	NODE_OR = 0x08,
+	NODE_AND = 0x10,
+	NODE_LIST = 0x10000,
+	NODE_SUB = 0x20000,
 };
 
 enum	e_io
@@ -95,7 +102,7 @@ struct	s_token
 
 struct	s_lexer
 {
-	int		state;
+	int		esc_st;
 	char	*buffer;
 	int		buf_len;
 	t_list	*tk_list;

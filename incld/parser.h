@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 20:59:00 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/06 17:44:22 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/07 17:59:13 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,15 @@ void	path_expansion(t_vars *vars, char *str, char *buffer);
  **		ast_build0.c
  */
 int		astree_build(t_vars *vars, t_lexer *lexer, t_parser *parser);
+void	clean_token_list(t_lexer *lexer, t_parser *parser);
+t_ast	*list(t_vars *vars, t_parser *parser);
 
 /*
  **		ast_build1.c
  */
-t_ast	*list(t_vars *vars, t_parser *parser);
 t_ast	*list1(t_vars *vars, t_parser *parser);
 t_ast	*list2(t_vars *vars, t_parser *parser);
+t_ast	*list3(t_vars *vars, t_parser *parser);
 t_ast	*job(t_vars *vars, t_parser *parser);
 t_ast	*pipeline(t_vars *vars, t_parser *parser);
 
