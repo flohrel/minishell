@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 20:58:03 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/08 14:47:45 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/08 14:55:49 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	parse_list(t_vars *vars, t_list *lst)
 
 void	parse_param(t_vars *vars, t_param *data)
 {
-	printf("ici\n");
 	if (data->path)
 		parse_word(vars, &data->path);
 	parse_list(vars, data->redir);
@@ -53,7 +52,6 @@ void	parse_param(t_vars *vars, t_param *data)
 
 void	parse_expansion(t_vars *vars, t_ast *node)
 {
-	printf("la\n");
 	if (!node)
 		return ;
 	if (check_flag(node->type, NODE_CMD))
