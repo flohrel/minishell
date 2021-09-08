@@ -112,7 +112,7 @@ bonus:
 				@make all
 
 clean:
-				$(RM) $(OBJ)
+				@$(RM) $(OBJ)
 
 fclean:			clean
 				$(RM) $(NAME) $(OBJDIR)

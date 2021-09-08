@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 19:05:43 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/09/06 18:08:04 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/08 13:36:33 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	exec_command(t_vars *vars, t_ast *node)
 	if (node == NULL)
 		return ;
 	param = node->data;
-	parse_param(vars, param);
 	args = list_to_tab(param->arg, vars);
 	if (param && !(param->path))
 		handle_assign(vars, param->assign);
@@ -54,6 +53,7 @@ void	exec_pipeline(t_vars *vars, t_cmd *cmd, t_ast *node)
 
 void	exec_job(t_vars *vars, t_ast *node)
 {
+	parse_expansion(vars, node);
 	if (node->type == NODE_PIPE)
 		exec_pipeline(vars, &vars->cmd, node);
 	else
@@ -65,19 +65,23 @@ void	exec_list(t_vars *vars, t_ast *node, bool is_exec)
 	vars->cmd.io_bit = 0;
 	vars->cmd.std_out = -1;
 	vars->cmd.std_in = -1;
-	if (node && !check_flag(node->type, NODE_LIST) && (is_exec == true))
-		exec_job(vars, node);
-	else if (node)
+	if (!node)
+		return ;
+	if (node->left && check_flag(node->left->type, NODE_SUB))
+		exec_list(vars, node->left, true);
+	else if (is_exec == true)
 	{
-		if (is_exec == true)
-			exec_job(vars, node->left);
-		if ((node->type == NODE_AND) && (exit_status == 0))
-			exec_list(vars, node->right, true);
-		else if ((node->type == NODE_OR) && (exit_status))
-			exec_list(vars, node->right, true);
+		if (!check_flag(node->type, NODE_LIST) && (is_exec == true))
+			exec_job(vars, node);
 		else
-			exec_list(vars, node->right, false);
+			exec_job(vars, node->left);
 	}
+	if ((node->type == NODE_AND) && (exit_status == 0))
+		exec_list(vars, node->right, true);
+	else if ((node->type == NODE_OR) && (exit_status))
+		exec_list(vars, node->right, true);
+	else
+		exec_list(vars, node->right, false);
 }
 
 void	exec_ast(t_vars *vars, t_ast *node)
