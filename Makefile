@@ -55,7 +55,8 @@ LEXER		=	lexer0.c \
 				lexer1.c \
 				lexer_utils.c
 
-PARSER		=	parser.c \
+PARSER		=	parser0.c \
+				parser1.c \
 				parser_utils.c \
 				ast_build0.c \
 				ast_build1.c \
@@ -65,11 +66,13 @@ PARSER		=	parser.c \
 UTILS		=	astree.c \
 				exit.c \
 				init.c \
+				memory.c \
 				utils.c \
 				flag.c \
 				shell_lvl.c
 
 SRC			=	main.c \
+				test.c \
 				$(BUILTINS) \
 				$(EXEC) \
 				$(INPUT) \
@@ -109,7 +112,7 @@ bonus:
 				@make all
 
 clean:
-				$(RM) $(OBJ)
+				@$(RM) $(OBJ)
 
 fclean:			clean
 				$(RM) $(NAME) $(OBJDIR)

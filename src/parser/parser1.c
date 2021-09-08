@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   parser1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/03 20:58:03 by flohrel           #+#    #+#             */
-/*   Updated: 2021/08/11 23:01:39 by flohrel          ###   ########.fr       */
+/*   Created: 2021/09/06 17:12:17 by flohrel           #+#    #+#             */
+/*   Updated: 2021/09/08 14:50:35 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	path_expansion(t_vars *vars, char *str, char *buffer)
 
 	s = str;
 	buf = buffer;
-	(void)vars;
 	state = ST_GENERAL;
 	while (*str)
 	{
@@ -86,46 +85,4 @@ void	param_expansion(t_vars *vars, char *str, char *buffer)
 	*buffer = '\0';
 }
 
-int	parse_word(t_vars *vars, t_list *prev_tk, char **data)
-{
-	t_token	*token;
-	char	buffer[2][BUFFER_SIZE];
 
-	if (prev_tk != NULL)
-	{
-		token = (t_token *)prev_tk->content;
-		if ((token->type == TK_DLESS) && (ft_strchr(*data, '\'')
-				|| ft_strchr(*data, '\"')))
-			token->type = TK_DLESS2;
-	}
-	param_expansion(vars, *data, buffer[0]);
-	path_expansion(vars, buffer[0], buffer[1]);
-	return (clean_empty_word(vars, data, buffer[1]));
-}
-
-int	parser(t_vars *vars, t_lexer *lexer, t_parser *parser)
-{
-	t_token		*token;
-
-	parser->cur_tk = lexer->tk_list;
-	parser->prev_tk = NULL;
-	if (lexer->state != ST_GENERAL)
-		return (syntax_error(NULL));
-	while (parser->cur_tk)
-	{
-		token = (t_token *)parser->cur_tk->content;
-		if ((token->type == TK_WORD) && (!token->data || !(*token->data)))
-			delete_empty_token(lexer, parser);
-		else
-		{
-			if ((token->type == TK_WORD)
-				&& parse_word(vars, parser->prev_tk, &token->data))
-				continue ;
-			parser->prev_tk = parser->cur_tk;
-			parser->cur_tk = parser->prev_tk->next;
-		}
-	}
-	if (lexer->state != ST_GENERAL)
-		return (syntax_error(NULL));
-	return (astree_build(vars, lexer, parser));
-}

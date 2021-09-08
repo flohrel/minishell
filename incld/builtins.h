@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 15:24:24 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/07/21 03:12:46 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/09/06 16:17:34 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int		ft_endwith(char *str, char c);
 int		ft_startwith(char *str, char c);
 int		ft_strischarset(char *str, char *set);
 int		ft_ischarset(char c, char *set);
-int		ft_strischarset(char *str, char *set);
 int		ft_tablen(char **args);
 int		ft_strisdigit(char *str);
 int		errormsg(char *str, char *arg);

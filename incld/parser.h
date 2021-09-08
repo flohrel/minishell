@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 20:59:00 by flohrel           #+#    #+#             */
-/*   Updated: 2021/08/11 23:02:32 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/08 13:33:44 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,25 +33,33 @@ char	*var_assignation(t_vars *vars, char *data, char *str);
 int		check_token(t_parser *parser, int type);
 
 /*
- **		parser.c
+ **		parser0.c
  */
-int		parser(t_vars *vars, t_lexer *lexer, t_parser *parser);
-int		parse_word(t_vars *vars, t_list *prev_tk, char **data);
+void	parse_word(t_vars *vars, char **path);
+void	parse_list(t_vars *vars, t_list *lst);
+void	parse_param(t_vars *vars, t_param *param);
+void	parse_expansion(t_vars *vars, t_ast *node);
+
+/*
+ **		parser1.c
+ */
+int		clean_empty_word(t_vars *vars, char **data, char *buffer);
 void	param_expansion(t_vars *vars, char *str, char *buffer);
 void	path_expansion(t_vars *vars, char *str, char *buffer);
-int		clean_empty_word(t_vars *vars, char **data, char *buffer);
 
 /*
  **		ast_build0.c
  */
+void	clean_token_list(t_lexer *lexer, t_parser *parser);
+t_ast	*list(t_vars *vars, t_parser *parser);
 int		astree_build(t_vars *vars, t_lexer *lexer, t_parser *parser);
 
 /*
  **		ast_build1.c
  */
-t_ast	*list(t_vars *vars, t_parser *parser);
 t_ast	*list1(t_vars *vars, t_parser *parser);
 t_ast	*list2(t_vars *vars, t_parser *parser);
+t_ast	*list3(t_vars *vars, t_parser *parser);
 t_ast	*job(t_vars *vars, t_parser *parser);
 t_ast	*pipeline(t_vars *vars, t_parser *parser);
 

@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 05:14:28 by flohrel           #+#    #+#             */
-/*   Updated: 2021/07/20 03:35:28 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/07 16:13:59 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,17 @@ void	job_handle(t_vars *vars, int tk_type, char **buf)
 	new_token(vars, TK_WORD, size);
 }
 
+void	compound_handle(t_vars *vars, int tk_type, char **buf)
+{
+	t_lexer	*lexer;
+	int		size;
+
+	lexer = &vars->lexer;
+	new_token(vars, tk_type, 0);
+	size = lexer->buffer + lexer->buf_len - (*buf);
+	new_token(vars, TK_WORD, size);
+}
+
 void	word_handle(t_vars *vars, int tk_type, char **buf)
 {
 	t_lexer	*lexer;
@@ -68,9 +79,9 @@ void	word_handle(t_vars *vars, int tk_type, char **buf)
 	lexer = &vars->lexer;
 	*(lexer->cur_char)++ = (**buf);
 	if (**buf == '\'')
-		lexer->state = ST_QUOTE;
+		lexer->esc_st = ST_QUOTE;
 	else if (**buf == '\"')
-		lexer->state = ST_DQUOTE;
+		lexer->esc_st = ST_DQUOTE;
 }
 
 void	space_handle(t_vars *vars, int tk_type, char **buf)
