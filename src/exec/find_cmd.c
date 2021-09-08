@@ -20,7 +20,7 @@ int	exec_cmd(char *path, char **argv, char **envp, t_vars *vars)
 
 	i = 0;
 	if (!path || !argv || !envp || !vars)
-		clean_exit(vars, NULL, NULL, errno);
+		clean_exit(vars, NULL, NULL, -127);
 	if (ft_ischarset('/', path))
 		exec_absolute_path(path, argv, envp, vars);
 	paths = ft_split(get_env_value("PATH", vars->env), ':');
@@ -78,7 +78,7 @@ int	find_cmd(t_param *param, char **argv, char **envp, t_vars *vars)
 		pipe_handle(vars);
 		redir_handle(vars, param, &vars->cmd);
 		exec_cmd(param->path, tabjoin(param->path, argv, vars), envp, vars);
-		exit(127);
+		exit (127);
 	}
 	close_handle(vars);
 	waitpid(pid, &status, 0);

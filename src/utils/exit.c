@@ -27,7 +27,8 @@ void	clean_exit(t_vars *vars, char *arg, char *err_msg, int status)
 		else
 			ft_putstr_fd(strerror(errno), STDERR_FILENO);
 	}
-	ft_putstr_fd("\n", STDERR_FILENO);
+	if (status > 0)
+		ft_putstr_fd("\n", STDERR_FILENO);
 	free_ptr_lst(&vars->ptr_list);
 	free_env(vars->env);
 	free_env(vars->exp);
