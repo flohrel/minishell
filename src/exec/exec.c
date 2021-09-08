@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 19:05:43 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/09/08 15:26:47 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/08 17:20:57 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	exec_pipeline(t_vars *vars, t_cmd *cmd, t_ast *node)
 void	exec_job(t_vars *vars, t_ast *node)
 {
 	parse_expansion(vars, node);
-	if (node->type == NODE_PIPE)
+	if (check_flag(node->type, NODE_PIPE))
 		exec_pipeline(vars, &vars->cmd, node);
 	else
 		exec_command(vars, node);
