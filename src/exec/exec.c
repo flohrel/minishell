@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 19:05:43 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/09/08 13:36:33 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/08 15:26:47 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,25 @@ void	exec_job(t_vars *vars, t_ast *node)
 		exec_command(vars, node);
 }
 
+void	exec_sub(t_vars *vars, t_ast *node)
+{
+	int	pid;
+	int	status;
+
+	pid = fork();
+	if (pid < 0)
+		clean_exit(vars, NULL, NULL, errno);
+	else if (pid == 0)
+	{
+		clear_flag(&node->type, NODE_SUB);
+		exec_list(vars, node, true);
+		exit(exit_status);
+	}
+	waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+		exit_status = WEXITSTATUS(status);
+}
+
 void	exec_list(t_vars *vars, t_ast *node, bool is_exec)
 {
 	vars->cmd.io_bit = 0;
@@ -68,8 +87,8 @@ void	exec_list(t_vars *vars, t_ast *node, bool is_exec)
 	vars->cmd.std_in = -1;
 	if (!node)
 		return ;
-	if (node->left && check_flag(node->left->type, NODE_SUB))
-		exec_list(vars, node->left, true);
+	if (node && check_flag(node->type, NODE_SUB))
+		exec_sub(vars, node);
 	else if (is_exec == true)
 	{
 		if (!check_flag(node->type, NODE_LIST) && (is_exec == true))
