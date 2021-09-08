@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 05:32:30 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/07 19:37:46 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/08 12:11:50 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,16 @@ int	get_node_type(t_parser *parser)
 t_ast	*list1(t_vars *vars, t_parser *parser)
 {
 	t_ast	*node;
-	t_ast	*job_node;
+	t_ast	*cmp_node;
 	t_ast	*list_node;
 	int		node_type;
 
 	if (!check_token(parser, TK_OPPAR))
 		return (NULL);
-	list_node = list(vars, parser);
-	if (job_node == NULL)
+	cmp_node = list(vars, parser);
+	if ((cmp_node == NULL) || !check_token(parser, TK_CLPAR))
 		return (NULL);
+	set_flag(&cmp_node->type, NODE_SUB);
 	node_type = get_node_type(parser);
 	if (node_type)
 	{
@@ -40,13 +41,10 @@ t_ast	*list1(t_vars *vars, t_parser *parser)
 		if (list_node == NULL)
 			return (NULL);
 		node = tree_new_node(vars, node_type, NULL);
-		tree_attach_branch(node, job_node, list_node);
+		tree_attach_branch(node, cmp_node, list_node);
 	}
 	else
-		node = job_node;
-	if (!check_token(parser, TK_CLPAR))
-		return (NULL);
-	set_flag(&node->type, NODE_SUB);
+		node = cmp_node;
 	return (node);
 }
 
@@ -61,13 +59,16 @@ t_ast	*list2(t_vars *vars, t_parser *parser)
 	if (job_node == NULL)
 		return (NULL);
 	node_type = get_node_type(parser);
-	if (!node_type)
-		return (NULL);
-	list_node = list(vars, parser);
-	if (list_node == NULL)
-		return (NULL);
-	node = tree_new_node(vars, node_type, NULL);
-	tree_attach_branch(node, job_node, list_node);
+	if (node_type)
+	{
+		list_node = list(vars, parser);
+		if (list_node == NULL)
+			return (NULL);
+		node = tree_new_node(vars, node_type, NULL);
+		tree_attach_branch(node, job_node, list_node);
+	}
+	else
+		node = job_node;
 	return (node);
 }
 

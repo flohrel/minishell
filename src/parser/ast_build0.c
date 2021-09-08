@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:03:22 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/07 18:21:53 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/08 12:11:09 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,6 @@ t_ast	*list(t_vars *vars, t_parser *parser)
 		return (node);
 	parser->cur_tk = save;
 	node = list2(vars, parser);
-	if (node != NULL)
-		return (node);
-	parser->cur_tk = save;
-	node = job(vars, parser);
 	return (node);
 }
 
