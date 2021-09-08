@@ -6,13 +6,13 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/09 17:56:30 by flohrel           #+#    #+#             */
-/*   Updated: 2021/08/08 20:12:27 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/08 16:42:23 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-void	state_check(int *state, char c)
+bool	state_check(int *state, char c)
 {
 	if ((c == '\'') && (*state != ST_DQUOTE))
 	{
@@ -20,6 +20,7 @@ void	state_check(int *state, char c)
 			*state = ST_QUOTE;
 		else
 			*state = ST_GENERAL;
+		return (true);
 	}
 	else if ((c == '\"') && (*state != ST_QUOTE))
 	{
@@ -27,7 +28,9 @@ void	state_check(int *state, char c)
 			*state = ST_DQUOTE;
 		else
 			*state = ST_GENERAL;
+		return (true);
 	}
+	return (false);
 }
 
 int	check_token(t_parser *parser, int type)

@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 17:12:17 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/08 14:50:35 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/08 16:39:12 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	path_expansion(t_vars *vars, char *str, char *buffer)
 	char	*s;
 	char	*buf;
 	int		state;
+	bool	has_changed;
 
 	s = str;
 	buf = buffer;
@@ -47,13 +48,13 @@ void	path_expansion(t_vars *vars, char *str, char *buffer)
 	while (*str)
 	{
 		c = *str;
-		state_check(&state, c);
+		has_changed = state_check(&state, c);
 		if ((c == '*') && (state == ST_GENERAL))
 		{
 			wildcard(vars, buf, s);
 			return ;
 		}
-		else
+		else if (has_changed == false)
 		{
 			*buffer = c;
 			buffer++;
