@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 19:05:43 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/09/09 14:53:44 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/09 16:08:05 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	exec_command(t_vars *vars, t_ast *node)
 	t_param	*param;
 	char	**args;
 
+	printf("type:%d\n", node->type);
 	if (node == NULL)
 		return ;
 	param = node->data;
@@ -93,12 +94,14 @@ void	exec_list(t_vars *vars, t_ast *node, bool is_exec)
 	{
 		if (!check_flag(node->type, NODE_LIST) && (is_exec == true))
 			exec_job(vars, node);
+		else if (node->left && check_flag(node->left->type, NODE_LIST))
+			exec_list(vars, node->left, is_exec);
 		else
 			exec_job(vars, node->left);
 	}
-	if ((node->type == NODE_AND) && (exit_status == 0))
+	if (check_flag(node->type, NODE_AND) && (exit_status == 0))
 		exec_list(vars, node->right, true);
-	else if ((node->type == NODE_OR) && (exit_status))
+	else if (check_flag(node->type, NODE_OR) && (exit_status))
 		exec_list(vars, node->right, true);
 	else
 		exec_list(vars, node->right, false);

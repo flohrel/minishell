@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 15:01:51 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/09 14:54:27 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/09 15:57:12 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ enum	e_node
 	NODE_SEQ = 0x01,
 	NODE_PIPE = 0x02,
 	NODE_CMD = 0x04,
-	NODE_OR = 0x10008,
-	NODE_AND = 0x10010,
+	NODE_OR = 0x08,
+	NODE_AND = 0x10,
 	NODE_LIST = 0x10000,
 	NODE_SUB = 0x20000,
 };
