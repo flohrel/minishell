@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "parser.h"
+
 void	replace_cpy(char *dst, char **replace, int i)
 {
 	int	j;

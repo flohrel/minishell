@@ -46,7 +46,8 @@ EXEC		=	exec.c \
 				add_ptrlst.c \
 				find_cmd.c \
 				find_cmd_next.c \
-				pipes.c
+				pipes.c \
+				exec_ast.c
 
 INPUT		=	input.c \
 				input_utils.c
@@ -61,7 +62,8 @@ PARSER		=	parser0.c \
 				ast_build0.c \
 				ast_build1.c \
 				ast_build2.c \
-				wildcard.c
+				wildcard.c \
+				replace.c
 
 UTILS		=	astree.c \
 				exit.c \
