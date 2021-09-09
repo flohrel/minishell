@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 19:23:42 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/08/11 20:31:49 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/09 17:25:04 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,11 @@ int		close_handle(t_vars *vars);
 char	*create_path(char *path, char *cmd, t_vars *vars);
 void	free_path(char **path);
 void	exec_absolute_path(char *path, char **argv, char **envp, t_vars *vars);
+
+/*
+ **		replace.c
+ */
+void	replace_cpy(char *dst, char **replace, int i);
+char	*ft_replace(char *dst, char **replace);
 
 #endif

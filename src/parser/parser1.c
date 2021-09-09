@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 17:12:17 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/08 16:39:12 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/09 17:22:45 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,7 @@ void	path_expansion(t_vars *vars, char *str, char *buffer)
 			return ;
 		}
 		else if (has_changed == false)
-		{
-			*buffer = c;
-			buffer++;
-		}
+			*buffer++ = c;
 		str++;
 	}
 	*buffer = '\0';
@@ -85,5 +82,3 @@ void	param_expansion(t_vars *vars, char *str, char *buffer)
 	}
 	*buffer = '\0';
 }
-
-

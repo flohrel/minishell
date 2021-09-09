@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 04:13:58 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/08/11 23:04:21 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/09 17:23:44 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ char	**find_matches(t_vars *vars, DIR *dir, char *str)
 		count = 0;
 		block = readdir(dir);
 		if (block && block->d_name[0] != '.'
-				&& find_match(block->d_name, str))
+			&& find_match(block->d_name, str))
 		{
 			match = ft_strdup(block->d_name);
 			add_to_ptrlst((void *)match, vars);
@@ -80,40 +80,6 @@ char	**find_matches(t_vars *vars, DIR *dir, char *str)
 		}
 	}
 	return (res);
-}
-
-/*
- **		FAIRE L'EXPANSION DEPUIS STR -> ECRIRE DANS BUFFER.
- **		PAS DE RETURN, PAS D'ALLOCATION.
- **		BON CHANCE.
- */
-
-void	replace_cpy(char *dst, char **replace, int i)
-{
-	int	j;
-	int	k;
-
-	j = 0;
-	while (replace[j])
-	{
-		k = 0;
-		while (replace[j][k])
-			dst[i++] = replace[j][k++];
-		if (replace[j + 1])
-			dst[i++] = ' ';
-		j++;
-	}
-	dst[i] = '\0';
-}
-
-char	*ft_replace(char *dst, char **replace)
-{
-	int	i;
-
-	i = 0;
-	dst[i] = '\0';
-	replace_cpy(dst, replace, i);
-	return (dst);
 }
 
 void	*wildcard(t_vars *vars, char *buffer, char *str)

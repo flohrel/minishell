@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 14:47:20 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/08/06 16:22:34 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/09 17:12:04 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int	cd(char **args, t_vars *vars)
 	if (handle_args(vars, args, (char **)&path) < 0)
 		return (1);
 	if (ft_strcmp(get_env_value("PWD", vars->env), getcwd(s, 255)) == 0
-			&& chdir(path) < 0)
+		&& chdir(path) < 0)
 		return (check_error((char *)path));
 	vars->env = set_env_value(vars->env, "OLDPWD",
 			get_env_value("PWD", vars->env));
