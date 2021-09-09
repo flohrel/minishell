@@ -18,12 +18,14 @@ void	sigint_handler(int signum)
 {
 	g_sig.exit_status = 128 + signum;
 	write(STDOUT_FILENO, "\n", 1);
-	if (isatty(0))
+	if (isatty(0) && !g_sig.is_child)
 	{
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
 	}
+	else
+		g_sig.is_child = 0;
 }
 
 void	sigquit_handler(int signum)
@@ -39,6 +41,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	init(&vars, envp);
+	g_sig.is_child = 0;
 	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, sigquit_handler);
 	while (1)

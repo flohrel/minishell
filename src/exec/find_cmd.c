@@ -67,6 +67,7 @@ int	find_cmd(t_param *param, char **argv, char **envp, t_vars *vars)
 	int	pid;
 	int	status;
 
+	g_sig.is_child = 1;
 	if (handle_builtin(param->path, argv, vars, param))
 		return (1);
 	else
@@ -84,5 +85,6 @@ int	find_cmd(t_param *param, char **argv, char **envp, t_vars *vars)
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		g_sig.exit_status = WEXITSTATUS(status);
+	g_sig.is_child = 0;
 	return (1);
 }
