@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 20:59:00 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/08 16:40:34 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/09 17:12:10 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
  **		parser_utils.c
  */
 bool	state_check(int *state, char c);
-char	*exit_status_expansion(t_vars *vars, char **str, int exit_status);
+char	*exit_status_expansion(t_vars *vars, char **str);
 void	var_expansion(t_vars *vars, char **buffer, char **data);
 char	*var_assignation(t_vars *vars, char *data, char *str);
 int		check_token(t_parser *parser, int type);

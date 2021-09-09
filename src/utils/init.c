@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 13:48:03 by flohrel           #+#    #+#             */
-/*   Updated: 2021/07/23 03:17:11 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/09 17:41:42 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,5 @@ void	init(t_vars *vars, char **envp)
 	}
 	vars->agn = NULL;
 	up_shell_lvl(vars);
-	exit_status = 0;
+	g_sig.exit_status = 0;
 }

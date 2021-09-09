@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 19:05:43 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/09/09 16:10:46 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/09 17:16:13 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,11 @@ void	exec_sub(t_vars *vars, t_ast *node)
 	{
 		clear_flag(&node->type, NODE_SUB);
 		exec_list(vars, node, true);
-		exit(exit_status);
+		exit(g_sig.exit_status);
 	}
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
-		exit_status = WEXITSTATUS(status);
+		g_sig.exit_status = WEXITSTATUS(status);
 }
 
 void	exec_list(t_vars *vars, t_ast *node, bool is_exec)
@@ -98,9 +98,9 @@ void	exec_list(t_vars *vars, t_ast *node, bool is_exec)
 		else
 			exec_job(vars, node->left);
 	}
-	if (check_flag(node->type, NODE_AND) && (exit_status == 0))
+	if (check_flag(node->type, NODE_AND) && (g_sig.exit_status == 0))
 		exec_list(vars, node->right, true);
-	else if (check_flag(node->type, NODE_OR) && (exit_status))
+	else if (check_flag(node->type, NODE_OR) && (g_sig.exit_status))
 		exec_list(vars, node->right, true);
 	else
 		exec_list(vars, node->right, false);

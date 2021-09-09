@@ -6,17 +6,17 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 15:29:11 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/09 15:29:17 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/09 17:44:00 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	exit_status;
+t_sig	g_sig;
 
 void	sigint_handler(int signum)
 {
-	exit_status = 128 + signum;
+	g_sig.exit_status = 128 + signum;
 	write(STDOUT_FILENO, "\n", 1);
 	if (isatty(0))
 	{
@@ -28,7 +28,7 @@ void	sigint_handler(int signum)
 
 void	sigquit_handler(int signum)
 {
-	exit_status = 128 + signum;
+	g_sig.exit_status = 128 + signum;
 	write(1, "\033[2D\033[0K", 8);
 }
 
@@ -38,9 +38,9 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-	signal(SIGQUIT, sigquit_handler);
-	signal(SIGINT, sigint_handler);
 	init(&vars, envp);
+	signal(SIGINT, sigint_handler);
+	signal(SIGQUIT, sigquit_handler);
 	while (1)
 	{
 		init_vars(&vars);

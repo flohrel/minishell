@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/09 17:56:30 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/08 16:42:23 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/09 17:17:13 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,11 @@ char	*var_assignation(t_vars *vars, char *data, char *str)
 	return (var);
 }
 
-char	*exit_status_expansion(t_vars *vars, char **str, int exit_status)
+char	*exit_status_expansion(t_vars *vars, char **str)
 {
 	char	*var;
 
-	var = ft_itoa(exit_status);
+	var = ft_itoa(g_sig.exit_status);
 	add_to_ptrlst((void *)var, vars);
 	(*str) += 2;
 	return (var);
@@ -80,7 +80,7 @@ void	var_expansion(t_vars *vars, char **buffer, char **data)
 
 	str = *data;
 	if (*(str + 1) == '?')
-		var = exit_status_expansion(vars, &str, exit_status);
+		var = exit_status_expansion(vars, &str);
 	else
 	{
 		while (*(str++))

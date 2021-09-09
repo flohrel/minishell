@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 15:01:51 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/09 15:57:12 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/09 17:39:09 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,13 @@ typedef struct s_vars	t_vars;
 typedef struct s_opt	t_opt;
 typedef struct s_cmd	t_cmd;
 typedef struct s_pipes	t_pipes;
+typedef struct s_sig	t_sig;
+
+struct	s_sig
+{
+	int		exit_status;
+	bool	is_child;
+};
 
 struct	s_token
 {
@@ -184,6 +191,6 @@ struct	s_vars
 	int			akuma;
 };
 
-extern int			exit_status;
+extern t_sig	g_sig;
 
 #endif

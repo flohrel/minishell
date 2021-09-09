@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 20:32:35 by flohrel           #+#    #+#             */
-/*   Updated: 2021/08/08 21:11:13 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/09 17:32:21 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 char	*display_prompt(void)
 {
-	if (isatty(0) && (exit_status != 130))
+	if (isatty(0))
 	{
-		if (!exit_status)
+		if (!g_sig.exit_status)
 			return (readline(PROMPT1));
 		else
 			return (readline(PROMPT2));
