@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 19:05:43 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/09/09 16:08:05 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/09 16:10:46 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	exec_command(t_vars *vars, t_ast *node)
 	t_param	*param;
 	char	**args;
 
-	printf("type:%d\n", node->type);
 	if (node == NULL)
 		return ;
 	param = node->data;
