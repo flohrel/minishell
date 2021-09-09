@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 19:05:43 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/09/09 17:16:13 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/09 17:50:33 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,13 +104,4 @@ void	exec_list(t_vars *vars, t_ast *node, bool is_exec)
 		exec_list(vars, node->right, true);
 	else
 		exec_list(vars, node->right, false);
-}
-
-void	exec_ast(t_vars *vars, t_ast *node)
-{
-	if (!node)
-		return ;
-	exec_list(vars, node, true);
-	close(3);
-	close(4);
 }
