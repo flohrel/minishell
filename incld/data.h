@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 15:01:51 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/08 13:40:45 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/09 14:54:27 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,10 @@ enum	e_node
 
 enum	e_io
 {
-	RD_IN = 1,
-	RD_OUT = 2,
-	PIPE_IN = 16,
-	PIPE_OUT = 32,
+	RD_IN = 0x01,
+	RD_OUT = 0x02,
+	PIPE_IN = 0x04,
+	PIPE_OUT = 0x08,
 };
 
 enum	e_fd

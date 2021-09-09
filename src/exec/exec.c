@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 19:05:43 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/09/08 17:20:57 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/09 14:53:44 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	exec_pipeline(t_vars *vars, t_cmd *cmd, t_ast *node)
 		cmd->pipe[FD_IN] = fdes[FD_IN];
 		node = node->right;
 	}
-	cmd->io_bit = -1;
+	cmd->io_bit = -256;
 	exec_command(vars, node);
 }
 
