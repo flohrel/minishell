@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 17:20:52 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/10 16:08:03 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/10 17:56:53 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ void	token_handle(t_vars *vars, int tk_type, char **buffer)
 		redirection_handle(vars, tk_type, buffer);
 	else if (check_flag(tk_type, TK_COMPND))
 		compound_handle(vars, tk_type, buffer);
+	else if (check_flag(tk_type, TK_LIST))
+		job_handle(vars, tk_type, buffer);
 	else if (tk_type == TK_SPACE)
 		space_handle(vars, tk_type, buffer);
-	else if ((tk_type == TK_AMP) || (tk_type == TK_PIPE))
-		job_handle(vars, tk_type, buffer);
 	else
 		word_handle(vars, tk_type, buffer);
 }
@@ -68,5 +68,6 @@ int	lexer(t_vars *vars, t_lexer *lexer)
 	if (lexer->cur_char)
 		*(lexer->cur_char) = '\0';
 	new_token(vars, TK_NL, 0);
+	display_token_list(lexer);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 05:14:28 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/07 16:13:59 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/10 18:00:22 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,16 @@ void	redirection_handle(t_vars *vars, int tk_type, char **buf)
 	lexer = &vars->lexer;
 	if (lexer->cur_char)
 		*(lexer->cur_char) = '\0';
-	if ((tk_type == TK_GREAT) && (get_token_type(*(*buf + 1)) == TK_GREAT))
+	if (check_flag(tk_type, TK_GREAT)
+		&& (get_token_type(*(*buf + 1)) == (TK_GREAT | TK_REDIR)))
 	{
-		new_token(vars, TK_DGREAT, 0);
+		new_token(vars, TK_DGREAT | TK_REDIR, 0);
 		(*buf)++;
 	}
-	else if ((tk_type == TK_LESS) && (get_token_type(*(*buf + 1)) == TK_LESS))
+	else if (check_flag(tk_type, TK_LESS)
+		&& (get_token_type(*(*buf + 1)) == (TK_LESS | TK_REDIR)))
 	{
-		new_token(vars, TK_DLESS, 0);
+		new_token(vars, TK_DLESS | TK_REDIR, 0);
 		(*buf)++;
 	}
 	else
@@ -44,14 +46,16 @@ void	job_handle(t_vars *vars, int tk_type, char **buf)
 	lexer = &vars->lexer;
 	if (lexer->cur_char)
 		*(lexer->cur_char) = '\0';
-	if ((tk_type == TK_PIPE) && (get_token_type(*(*buf + 1)) == TK_PIPE))
+	if (check_flag(tk_type, TK_PIPE)
+		&& (get_token_type(*(*buf + 1)) == TK_PIPE))
 	{
-		new_token(vars, TK_DPIPE, 0);
+		new_token(vars, TK_DPIPE | TK_LIST, 0);
 		(*buf)++;
 	}
-	else if ((tk_type == TK_AMP) && (get_token_type(*(*buf + 1)) == TK_AMP))
+	else if (check_flag(tk_type, TK_AMP)
+		&& (get_token_type(*(*buf + 1)) == TK_AMP))
 	{
-		new_token(vars, TK_DAMP, 0);
+		new_token(vars, TK_DAMP | TK_LIST, 0);
 		(*buf)++;
 	}
 	else

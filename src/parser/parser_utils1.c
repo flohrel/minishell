@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 16:39:43 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/10 17:17:22 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/10 17:31:54 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	clean_token_list(t_lexer *lexer, t_parser *parser)
 	while (parser->cur_tk)
 	{
 		token = (t_token *)parser->cur_tk->content;
-		if (parser->prev_tk != NULL)
+		if (parser->prev_tk != NULL && token->type != TK_NL)
 		{
 			prev = (t_token *)parser->prev_tk->content;
 			if ((prev->type == TK_DLESS) && (ft_strchr(token->data, '\'')

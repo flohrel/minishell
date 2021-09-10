@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 20:58:03 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/08 16:22:04 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/10 18:03:31 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,6 @@ void	parse_word(t_vars *vars, char **word)
 	param_expansion(vars, *word, buffer[0]);
 	path_expansion(vars, buffer[0], buffer[1]);
 	len = ft_strlen(buffer[1]);
-	if (len == 0)
-	{
-		*word = NULL;
-		return ;
-	}
 	*word = lst_alloc(len + 1, sizeof(*word), vars);
 	ft_strlcpy(*word, buffer[1], len + 1);
 }
