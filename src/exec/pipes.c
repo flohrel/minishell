@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 04:24:06 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/07/21 04:24:07 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/09/10 17:15:20 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,7 @@ int	pipe_handle(t_vars *vars)
 int	close_handle(t_vars *vars)
 {
 	if (vars->cmd.io_bit < 0)
-	{
 		close(vars->cmd.pipe[FD_IN]);
-		close(vars->cmd.pipe[FD_OUT]);
-	}
 	else if (check_flag(vars->cmd.io_bit, PIPE_IN))
 	{
 		if (check_flag(vars->cmd.io_bit, PIPE_IN))
