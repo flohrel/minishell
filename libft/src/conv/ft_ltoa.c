@@ -6,14 +6,13 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 22:58:12 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/04 01:27:33 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/10 13:20:08 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/conv.h"
 
-static char	*ft_ltoa2(unsigned long n, size_t len, size_t idx,
-		bool is_negative)
+static char	*ft_ltoa2(uint64_t n, size_t len, size_t idx, bool is_negative)
 {
 	char		*str;
 	static int	l = 0;
@@ -35,7 +34,7 @@ static char	*ft_ltoa2(unsigned long n, size_t len, size_t idx,
 	return (str);
 }
 
-char	*ft_ltoa(long n)
+char	*ft_ltoa(int64_t n)
 {
 	char			*str;
 	static size_t	len = 0;
