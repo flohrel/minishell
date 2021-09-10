@@ -67,7 +67,6 @@ int	find_cmd(t_param *param, char **argv, char **envp, t_vars *vars)
 	int	pid;
 	int	status;
 
-	g_sig.is_child = 1;
 	if (handle_builtin(param->path, argv, vars, param))
 		return (1);
 	else
@@ -76,6 +75,7 @@ int	find_cmd(t_param *param, char **argv, char **envp, t_vars *vars)
 		return (-1);
 	else if (pid == 0)
 	{
+		g_sig.is_child = 1;
 		pipe_handle(vars);
 		redir_handle(vars, param, &vars->cmd);
 		exec_cmd(param->path, tabjoin(param->path, argv, vars), envp, vars);
