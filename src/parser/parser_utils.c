@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/09 17:56:30 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/09 17:17:13 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/10 15:44:49 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,6 @@ void	var_expansion(t_vars *vars, char **buffer, char **data)
 	}
 	ft_strlcpy(*buffer, var, ft_strlen(var) + 1);
 	if (ft_strlen(var))
-		(*buffer) += ft_strlen(var) - 1;
+		(*buffer) += ft_strlen(var);
 	(*data) = str - 1;
 }
