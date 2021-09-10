@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 20:59:00 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/09 17:12:10 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/10 16:42:26 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,18 @@
 # include "test.h"
 
 /*
- **		parser_utils.c
+ **		parser_utils0.c
  */
 bool	state_check(int *state, char c);
 char	*exit_status_expansion(t_vars *vars, char **str);
 void	var_expansion(t_vars *vars, char **buffer, char **data);
 char	*var_assignation(t_vars *vars, char *data, char *str);
 int		check_token(t_parser *parser, int type);
+
+/*
+ **		parser_utils1.c
+ */
+void	clean_token_list(t_lexer *lexer, t_parser *parser);
 
 /*
  **		parser0.c
@@ -50,7 +55,7 @@ void	path_expansion(t_vars *vars, char *str, char *buffer);
 /*
  **		ast_build0.c
  */
-void	clean_token_list(t_lexer *lexer, t_parser *parser);
+int		get_node_type(t_parser *parser);
 t_ast	*list(t_vars *vars, t_parser *parser);
 int		astree_build(t_vars *vars, t_lexer *lexer, t_parser *parser);
 
