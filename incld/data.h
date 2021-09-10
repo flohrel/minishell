@@ -101,6 +101,7 @@ struct	s_sig
 {
 	int		exit_status;
 	bool	is_child;
+	bool	is_displayed;
 };
 
 struct	s_token

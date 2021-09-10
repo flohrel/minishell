@@ -73,7 +73,7 @@ int	unset(char **args, t_vars *vars)
 		else if ((ft_strischarset(args[i], "+/-*.=")))
 			return (errormsg("export : Not valid in this context: ", args[i]));
 		vars->env = unset_key(args[i], vars->env);
-		vars->exp = unset_key(args[i++], vars->exp);
+		vars->exp = unset_key(args[i], vars->exp);
 		i++;
 	}
 	return (0);

@@ -14,8 +14,9 @@
 
 char	*display_prompt(void)
 {
-	if (isatty(0) && !(g_sig.is_child))
+	if (isatty(0))
 	{
+		g_sig.is_displayed = 1;
 		if (!g_sig.exit_status)
 			return (readline(PROMPT1));
 		else
