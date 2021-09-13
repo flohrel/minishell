@@ -12,6 +12,14 @@
 
 #include "exec.h"
 
+int	path_error(char *path, char *msg)
+{
+	ft_putstr_fd("minishell: ", 1);
+	ft_putstr_fd(path, 1);
+	ft_putstr_fd(msg, 1);
+	return (1);
+}
+
 int	exec_cmd(char *path, char **argv, char **envp, t_vars *vars)
 {
 	char		**paths;
@@ -24,7 +32,7 @@ int	exec_cmd(char *path, char **argv, char **envp, t_vars *vars)
 	if (ft_ischarset('/', path))
 		exec_absolute_path(path, argv, envp, vars);
 	paths = ft_split(get_env_value("PATH", vars->env), ':');
-	if (!paths)
+	if (!paths && path_error(path, ": No such file or directory"))
 		clean_exit(vars, NULL, NULL, errno);
 	while (paths[i])
 	{
