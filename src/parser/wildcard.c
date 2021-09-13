@@ -29,7 +29,7 @@ int	search_match(char *file_name, char *str, int i, int j)
 		i++;
 	if (!(str[i]))
 		return (1);
-	if (str[i - 1] == '*')
+	if (i > 0 && str[i - 1] == '*')
 	{
 		while (str[i] && file_name[j] && file_name[j] != str[i])
 			j++;
@@ -67,6 +67,7 @@ char	**find_matches(t_vars *vars, DIR *dir, char *str)
 
 	count = 1;
 	res = NULL;
+	block = NULL;
 	while (block || count)
 	{
 		count = 0;

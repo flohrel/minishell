@@ -18,6 +18,7 @@ void	replace_cpy(char *dst, char **replace, int i)
 	int	k;
 
 	j = 0;
+	dst[i++] = '\"';
 	while (replace[j])
 	{
 		k = 0;
@@ -27,6 +28,7 @@ void	replace_cpy(char *dst, char **replace, int i)
 			dst[i++] = ' ';
 		j++;
 	}
+	dst[i++] = '\"';
 	dst[i] = '\0';
 }
 

@@ -88,7 +88,7 @@ int	cd(char **args, t_vars *vars)
 	if (handle_args(vars, args, (char **)&path) < 0)
 		return (1);
 	if ((getcwd(s, 255) || chdir(path) < 0)
-		&& ft_strcmp(get_env_value("PWD", vars->env), s) == 0
+		&& getcwd(s, 255) && ft_strcmp(get_env_value("PWD", vars->env), s) == 0
 		&& chdir(path) < 0)
 		return (check_error((char *)path));
 	vars->env = set_env_value(vars->env, "OLDPWD",
