@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 17:12:17 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/09 17:22:45 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/09/13 18:56:55 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,22 @@ void	param_expansion(t_vars *vars, char *str, char *buffer)
 			*buffer = c;
 			buffer++;
 		}
+		str++;
+	}
+	*buffer = '\0';
+}
+
+void	delete_quote(char *str, char *buffer)
+{
+	char	c;
+	int		state;
+
+	state = ST_GENERAL;
+	while (*str)
+	{
+		c = *str;
+		if (state_check(&state, c) == false)
+			*buffer++ = c;
 		str++;
 	}
 	*buffer = '\0';

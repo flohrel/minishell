@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 20:59:00 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/10 16:42:26 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/13 18:56:47 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	parse_word(t_vars *vars, char **path);
 void	parse_list(t_vars *vars, t_list *lst);
 void	parse_param(t_vars *vars, t_param *param);
 void	parse_expansion(t_vars *vars, t_ast *node);
+void	parse_path(t_vars *vars, char **cur_path, t_list *arg);
 
 /*
  **		parser1.c
@@ -51,6 +52,7 @@ void	parse_expansion(t_vars *vars, t_ast *node);
 int		clean_empty_word(t_vars *vars, char **data, char *buffer);
 void	param_expansion(t_vars *vars, char *str, char *buffer);
 void	path_expansion(t_vars *vars, char *str, char *buffer);
+void	delete_quote(char *str, char *buffer);
 
 /*
  **		ast_build0.c

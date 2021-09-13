@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 12:58:34 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/10 18:00:48 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/13 17:55:10 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,5 +118,6 @@ int	syntax_error(t_token *token)
 	else
 		ft_putchar_fd(get_token_char(token->type), STDERR_FILENO);
 	ft_putstr_fd("'\n", STDERR_FILENO);
+	g_sig.exit_status = 2;
 	return (-1);
 }

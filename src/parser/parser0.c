@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 20:58:03 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/10 18:03:31 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/13 18:56:37 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,10 @@ void	parse_word(t_vars *vars, char **word)
 
 	param_expansion(vars, *word, buffer[0]);
 	path_expansion(vars, buffer[0], buffer[1]);
-	len = ft_strlen(buffer[1]);
+	delete_quote(buffer[1], buffer[0]);
+	len = ft_strlen(buffer[0]);
 	*word = lst_alloc(len + 1, sizeof(*word), vars);
-	ft_strlcpy(*word, buffer[1], len + 1);
+	ft_strlcpy(*word, buffer[0], len + 1);
 }
 
 void	parse_list(t_vars *vars, t_list *lst)
@@ -36,10 +37,24 @@ void	parse_list(t_vars *vars, t_list *lst)
 	}
 }
 
+/*void	parse_path(t_vars *vars, char **cur_path, t_list *arg)
+{
+	char	buffer[2][BUFFER_SIZE];
+	int		len;
+
+	param_expansion(vars, *word, buffer[0]);
+	path_expansion(vars, buffer[0], buffer[1]);
+	delete_quote(vars, buffer[1], buffer[0]);
+	len = ft_strlen(buffer[0]);
+	*word = lst_alloc(len + 1, sizeof(*word), vars);
+	ft_strlcpy(*word, buffer[0], len + 1);
+}*/
+
 void	parse_param(t_vars *vars, t_param *data)
 {
 	if (data->path)
 		parse_word(vars, &data->path);
+		//parse_path(vars, &data->path, data->arg);
 	parse_list(vars, data->redir);
 	parse_list(vars, data->arg);
 	parse_list(vars, data->assign);
