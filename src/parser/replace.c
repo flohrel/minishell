@@ -12,6 +12,27 @@
 
 #include "parser.h"
 
+char	*clear_quotes(char *str)
+{
+	int	state;
+	char	*result;
+	int	i;
+	int	j;
+
+	j = 0;
+	i = 0;
+	state = ST_GENERAL;
+	result = malloc(ft_strlen(str) + 1);
+	while (str[i])
+	{
+		if (!state_check(&state, str[i]))
+			result[j++] = str[i];
+		i++;
+	}
+	result[j] = '\0';
+	return (result);
+}
+
 void	replace_cpy(char *dst, char **replace, int i)
 {
 	int	j;

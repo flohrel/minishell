@@ -88,4 +88,11 @@ char	*find_match(char *file_name, char *str);
 int		search_match(char *file_name, char *str, int i, int j);
 int		open_curdir(DIR **cur_dir);
 
+/*
+ **		replace.c
+ */
+char	*clear_quotes(char *str);
+void	replace_cpy(char *dst, char **replace, int i);
+char	*ft_replace(char *dst, char **replace);
+
 #endif

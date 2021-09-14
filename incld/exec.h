@@ -63,10 +63,4 @@ char	*create_path(char *path, char *cmd, t_vars *vars);
 void	free_path(char **path);
 void	exec_absolute_path(char *path, char **argv, char **envp, t_vars *vars);
 
-/*
- **		replace.c
- */
-void	replace_cpy(char *dst, char **replace, int i);
-char	*ft_replace(char *dst, char **replace);
-
 #endif

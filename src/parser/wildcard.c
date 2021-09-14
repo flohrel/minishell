@@ -88,16 +88,20 @@ void	*wildcard(t_vars *vars, char *buffer, char *str)
 	DIR		*cur_dir;
 	char	**strs;
 	char	*res;
+	char	*match;
 
 	if (open_curdir(&cur_dir) < 0)
 		return (NULL);
-	strs = find_matches(vars, cur_dir, str);
+	match = clear_quotes(str);
+	strs = find_matches(vars, cur_dir, match);
 	free(cur_dir);
 	if (!strs)
 	{
 		ft_strlcpy(buffer, str, ft_strlen(str) + 1);
+		free(match);
 		return (str);
 	}
+	free(match);
 	res = ft_replace(buffer, strs);
 	return (res);
 }
