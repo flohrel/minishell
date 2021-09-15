@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.c                                             :+:      :+:    :+:   */
+/*   exec1.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 19:05:43 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/09/15 21:37:07 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/15 22:45:57 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	exec_pipeline(t_vars *vars, t_cmd *cmd, t_ast *node)
 void	exec_job(t_vars *vars, t_ast *node)
 {
 	parse_expansion(vars, node);
+	tree_display(vars->exec_tree, 0, 0);							// TEST
 	if (check_flag(node->type, NODE_PIPE))
 		exec_pipeline(vars, &vars->cmd, node);
 	else
@@ -78,54 +79,4 @@ void	exec_sub(t_vars *vars, t_ast *node)
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		g_sig.exit_status = WEXITSTATUS(status);
-}
-
-void	exec_list(t_vars *vars, t_ast *node, bool is_exec)
-{
-	vars->cmd.io_bit = 0;
-	vars->cmd.std_out = -1;
-	vars->cmd.std_in = -1;
-	if (!node)
-		return ;
-	if (node && check_flag(node->type, NODE_SUB))
-	{
-		printf("0\n");
-		exec_sub(vars, node);
-	}
-	else
-	{
-		if (is_exec == true)
-		{
-			if (!check_flag(node->type, NODE_LIST) && (is_exec == true))
-			{
-				printf("1\n");
-				exec_job(vars, node);
-			}
-			else if (node->left && check_flag(node->left->type, NODE_LIST))
-			{
-				printf("3\n");
-				exec_list(vars, node->left, is_exec);
-			}
-			else
-			{
-				printf("4\n");
-				exec_job(vars, node->left);
-			}
-		}
-		if (check_flag(node->type, NODE_AND) && (g_sig.exit_status == 0))
-		{
-			printf("5\n");
-			exec_list(vars, node->right, true);
-		}
-		else if (check_flag(node->type, NODE_OR) && (g_sig.exit_status))
-		{
-			printf("6\n");
-			exec_list(vars, node->right, true);
-		}
-		else
-		{
-			printf("7\n");
-			exec_list(vars, node->right, false);
-		}
-	}
 }

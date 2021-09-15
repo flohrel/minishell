@@ -40,13 +40,13 @@ BUILTINS	=	assign.c \
 				pwd.c \
 				unset.c
 
-EXEC		=	exec.c \
+EXEC		=	exec0.c \
+				exec1.c \
 				exec_utils.c \
 				redirection.c \
 				find_cmd.c \
 				find_cmd_next.c \
-				pipes.c \
-				exec_ast.c
+				pipes.c
 
 INPUT		=	input.c \
 				input_utils.c
