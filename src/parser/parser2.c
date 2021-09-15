@@ -6,18 +6,17 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 13:57:14 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/15 14:59:55 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/09/15 18:40:02 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-void	unquote_arg_list(t_vars *vars, t_list *lst, char *buffer)
+void	unquote_arg_list(t_list *lst)
 {
-	char	c;
+	char	*s;
 	char	*str;
 	int		state;
-	int		len;
 	t_token	*token;
 
 	state = ST_GENERAL;
@@ -25,17 +24,14 @@ void	unquote_arg_list(t_vars *vars, t_list *lst, char *buffer)
 	{
 		token = (t_token *)(lst->content);
 		str = token->data;
-		while (*str)
+		s = str;
+		while (*s)
 		{
-			c = *str;
-			if (state_check2(&state, c) == false)
-				*buffer++ = c;
-			str++;
+			if (state_check2(&state, *s) == false)
+				*str++ = *s;
+			s++;
 		}
-		*buffer = '\0';
-		len = ft_strlen(buffer);
-		token->data = lst_alloc(len + 1, sizeof(*buffer), vars);
-		ft_strlcpy(token->data, buffer, len + 1);
+		*str = '\0';
 		lst = lst->next;
 	}
 }
@@ -73,7 +69,7 @@ void	new_arg_list(t_vars *vars, t_list **args, char *word, int state)
 	token = lst_alloc(1, sizeof(*token), vars);
 	token->type = TK_WORD;
 	token->data = word;
-	if (state == ST_WILDCARD)
+	if (state == ST_WILD)
 		token->type |= TK_EXP;
 	lst = lst_alloc(1, sizeof(*lst), vars);
 	lst->content = token;
@@ -90,16 +86,21 @@ t_list	*word_splitting(t_vars *vars, char *buffer)
 
 	buf = buffer;
 	lst = NULL;
+	state = ST_GENERAL;
 	while (*buf)
 	{
 		state_check2(&state, *buf);
-		if ((*buf == ' ') && ((state == ST_GENERAL) || (state == ST_WILDCARD)))
+		if ((*buf == ' ') && ((state == ST_GENERAL) || (state == ST_WILD)))
 		{
 			word = lst_alloc((buf - buffer) + 1, sizeof(*word), vars);
 			ft_strlcpy(word, buffer, (buf - buffer) + 1);
 			new_arg_list(vars, &lst, word, state);
+			buffer = buf + 1;
 		}
 		buf++;
 	}
+	word = lst_alloc((buf - buffer) + 1, sizeof(*word), vars);
+	ft_strlcpy(word, buffer, (buf - buffer) + 1);
+	new_arg_list(vars, &lst, word, state);
 	return (lst);
 }

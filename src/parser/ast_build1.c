@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 05:32:30 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/10 16:44:21 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/15 18:44:45 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ t_ast	*list1(t_vars *vars, t_parser *parser)
 	t_ast	*list_node;
 	int		node_type;
 
-	if (!check_token(parser, TK_OPPAR))
+	if (!check_token(parser, TK_OPPAR | TK_COMPND))
 		return (NULL);
 	cmp_node = list(vars, parser);
-	if ((cmp_node == NULL) || !check_token(parser, TK_CLPAR))
+	if ((cmp_node == NULL) || !check_token(parser, TK_CLPAR | TK_COMPND))
 		return (NULL);
 	set_flag(&cmp_node->type, NODE_SUB);
 	node_type = get_node_type(parser);
@@ -40,10 +40,10 @@ t_ast	*list2(t_vars *vars, t_parser *parser)
 {
 	t_ast	*cmp_node;
 
-	if (!check_token(parser, TK_OPPAR))
+	if (!check_token(parser, TK_OPPAR | TK_COMPND))
 		return (NULL);
 	cmp_node = list(vars, parser);
-	if ((cmp_node == NULL) || !check_token(parser, TK_CLPAR))
+	if ((cmp_node == NULL) || !check_token(parser, TK_CLPAR | TK_COMPND))
 		return (NULL);
 	set_flag(&cmp_node->type, NODE_SUB);
 	return (cmp_node);

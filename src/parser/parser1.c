@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 17:12:17 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/15 14:11:31 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/15 18:19:19 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	path_expansion(t_vars *vars, char *str, char *buffer)
 	char	*s;
 	char	*buf;
 	int		state;
-	bool	has_changed;
 
 	s = str;
 	buf = buffer;
@@ -26,17 +25,17 @@ void	path_expansion(t_vars *vars, char *str, char *buffer)
 	while (*str)
 	{
 		c = *str;
-		has_changed = state_check(&state, c);
+		state_check(&state, c);
 		if ((c == '*') && (state == ST_GENERAL))
 		{
-			wildcard(vars, buf, s);
+			wildcard(vars, buffer, s);
 			return ;
 		}
-		else if (has_changed == false)
-			*buffer++ = c;
+		*buf = c;
+		buf++;
 		str++;
 	}
-	*buffer = '\0';
+	*buf = '\0';
 }
 
 void	param_expansion(t_vars *vars, char *str, char *buffer)
@@ -71,7 +70,10 @@ void	delete_quote(char *str, char *buffer)
 	{
 		c = *str;
 		if (state_check2(&state, c) == false)
-			*buffer++ = c;
+		{
+			*buffer = c;
+			buffer++;
+		}
 		str++;
 	}
 	*buffer = '\0';

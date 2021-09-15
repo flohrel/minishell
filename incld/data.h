@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 15:01:51 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/15 12:58:04 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/15 18:12:55 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ enum	e_state
 	ST_GENERAL = 0x01,
 	ST_QUOTE = 0x02,
 	ST_DQUOTE = 0x04,
-	ST_WILDCARD = 0x08,
+	ST_WILD = 0x08,
 };
 
 enum	e_tktype

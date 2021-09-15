@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:03:22 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/10 16:42:51 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/15 17:21:43 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int	get_node_type(t_parser *parser)
 {
-	if (check_token(parser, TK_DAMP))
+	if (check_token(parser, (TK_DAMP | TK_LIST)))
 		return (NODE_AND | NODE_LIST);
-	if (check_token(parser, TK_DPIPE))
+	if (check_token(parser, (TK_DPIPE | TK_LIST)))
 		return (NODE_OR | NODE_LIST);
 	return (0);
 }

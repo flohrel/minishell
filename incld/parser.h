@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 20:59:00 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/15 14:45:42 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/15 18:33:13 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	delete_quote(char *str, char *buffer);
 /*
  **		parser2.c
  */
-void	unquote_arg_list(t_vars *vars, t_list *args, char *buffer);
+void	unquote_arg_list(t_list *args);
 void	clean_arg_list(t_list **args);
 void	new_arg_list(t_vars *vars, t_list **args, char *word, int state);
 t_list	*word_splitting(t_vars *vars, char *buffer);

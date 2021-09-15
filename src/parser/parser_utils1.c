@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 16:39:43 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/15 14:30:36 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/15 18:15:19 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	clean_token_list(t_lexer *lexer, t_parser *parser)
 
 bool	state_check2(int *state, char c)
 {
-	if ((c == '\'') && (*state != ST_DQUOTE))
+	if ((c == '\'') && (*state != ST_DQUOTE) && (*state != ST_WILD))
 	{
 		if (*state == ST_GENERAL)
 			*state = ST_QUOTE;
@@ -49,7 +49,7 @@ bool	state_check2(int *state, char c)
 			*state = ST_GENERAL;
 		return (true);
 	}
-	else if ((c == '\"') && (*state != ST_QUOTE))
+	else if ((c == '\"') && (*state != ST_QUOTE) && (*state != ST_WILD))
 	{
 		if (*state == ST_GENERAL)
 			*state = ST_DQUOTE;
@@ -57,10 +57,10 @@ bool	state_check2(int *state, char c)
 			*state = ST_GENERAL;
 		return (true);
 	}
-	else if ((c == 127) && (*state != (ST_QUOTE | ST_DQUOTE)))
+	else if ((c == 127) && (*state != ST_QUOTE) && (*state !=  ST_DQUOTE))
 	{
 		if (*state == ST_GENERAL)
-			*state = ST_WILDCARD;
+			*state = ST_WILD;
 		else
 			*state = ST_GENERAL;
 		return (true);

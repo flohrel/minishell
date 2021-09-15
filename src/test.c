@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 01:03:40 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/09 15:59:40 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/15 17:07:26 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ void	display_token_list(t_lexer *lexer)
 			printf(BLU"<<"RESET);
 		else if (token->type == TK_DLESS2)
 			printf(BLU"'<<'"RESET);
-		else if (token->type == TK_DAMP)
+		else if (token->type == (TK_DAMP | TK_LIST))
 			printf(BLU"&&"RESET);
-		else if (token->type == TK_DPIPE)
+		else if (token->type == (TK_DPIPE | TK_LIST))
 			printf(BLU"||"RESET);
 		else if (token->type == TK_NL)
 			printf(BLU"newline"RESET);

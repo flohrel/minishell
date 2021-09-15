@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/18 02:07:59 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/15 14:50:50 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/15 17:20:25 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	argument(t_vars *vars, t_token *token, t_param *data)
 	char	*ptr;
 
 	ptr = ft_strchr(token->data, '=');
-	if (ptr && (is_valid_name(token->data, ptr) == true))
+	if (ptr && (is_valid_name(token->data, ptr) == true) && !data->arg)
 		dest_list = &data->assign;
 	else
 		dest_list = &data->arg;
