@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 15:01:51 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/15 18:12:55 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/15 22:16:48 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ enum	e_state
 
 enum	e_tktype
 {
-	TK_NL = 0x0,
 	TK_SPACE = 0x01,
 	TK_WORD = 0x02,
 	TK_AMP = 0x04,
@@ -54,6 +53,7 @@ enum	e_tktype
 	TK_COMPND = 0x40000,
 	TK_LIST = 0x80000,
 	TK_EXP = 0x100000,
+	TK_NL = 0x200000,
 };
 
 enum	e_node

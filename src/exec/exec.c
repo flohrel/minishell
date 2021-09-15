@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 19:05:43 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/09/15 19:07:51 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/15 21:37:07 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,23 +88,44 @@ void	exec_list(t_vars *vars, t_ast *node, bool is_exec)
 	if (!node)
 		return ;
 	if (node && check_flag(node->type, NODE_SUB))
+	{
+		printf("0\n");
 		exec_sub(vars, node);
+	}
 	else
 	{
 		if (is_exec == true)
 		{
 			if (!check_flag(node->type, NODE_LIST) && (is_exec == true))
+			{
+				printf("1\n");
 				exec_job(vars, node);
+			}
 			else if (node->left && check_flag(node->left->type, NODE_LIST))
+			{
+				printf("3\n");
 				exec_list(vars, node->left, is_exec);
+			}
 			else
+			{
+				printf("4\n");
 				exec_job(vars, node->left);
+			}
 		}
 		if (check_flag(node->type, NODE_AND) && (g_sig.exit_status == 0))
+		{
+			printf("5\n");
 			exec_list(vars, node->right, true);
+		}
 		else if (check_flag(node->type, NODE_OR) && (g_sig.exit_status))
+		{
+			printf("6\n");
 			exec_list(vars, node->right, true);
+		}
 		else
+		{
+			printf("7\n");
 			exec_list(vars, node->right, false);
+		}
 	}
 }

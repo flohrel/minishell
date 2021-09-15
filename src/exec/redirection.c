@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 01:07:52 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/06 17:06:23 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/15 21:59:15 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,15 +82,15 @@ void	parse_redir(t_vars *vars, t_param *param)
 	while (lst)
 	{
 		token = (t_token *)lst->content;
-		if (token->type == TK_GREAT)
+		if (check_flag(token->type, TK_GREAT))
 			set_rdout(vars, &vars->cmd, token->data);
-		else if (token->type == TK_DGREAT)
+		else if (check_flag(token->type, TK_DGREAT))
 			set_rdapp(vars, &vars->cmd, token->data);
-		else if (token->type == TK_LESS)
+		else if (check_flag(token->type, TK_LESS))
 			set_rdin(vars, &vars->cmd, token->data);
 		else
 		{
-			if (token->type == TK_DLESS2)
+			if (check_flag(token->type, TK_DLESS2))
 				set_hdoc(vars, &vars->cmd, token->data, false);
 			else
 				set_hdoc(vars, &vars->cmd, token->data, true);

@@ -6,13 +6,13 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/18 02:07:59 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/15 17:20:25 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/15 22:26:33 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-int	redirection(t_vars *vars, t_parser *parser, int type, t_param *data)
+int	redirection(t_vars *vars, t_parser *parser, int *type, t_param *data)
 {
 	t_token	*token;
 	t_token	*redir;
@@ -22,10 +22,13 @@ int	redirection(t_vars *vars, t_parser *parser, int type, t_param *data)
 	token = (t_token *)parser->cur_tk->content;
 	if (token->type != TK_WORD)
 		return (-1);
+	if (check_flag(*type, TK_DLESS)
+		&& (ft_strchr(token->data, '\'') || ft_strchr(token->data, '\"')))
+		*type = (TK_DLESS2 | TK_REDIR);
 	lst = lst_alloc(1, sizeof(*lst), vars);
 	lst->next = NULL;
 	redir = lst_alloc(1, sizeof(*redir), vars);
-	redir->type = type;
+	redir->type = *type;
 	redir->data = token->data;
 	lst->content = redir;
 	ft_lstadd_back(&data->redir, lst);
@@ -97,7 +100,7 @@ t_ast	*cmd(t_vars *vars, t_parser *parser)
 	{
 		if (token->type == TK_WORD)
 			argument(vars, token, data);
-		else if (redirection(vars, parser, token->type, data) == -1)
+		else if (redirection(vars, parser, &token->type, data) == -1)
 			return (NULL);
 		parser->cur_tk = parser->cur_tk->next;
 		token = (t_token *)parser->cur_tk->content;
