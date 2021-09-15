@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 19:05:43 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/09/15 16:37:51 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/15 19:07:51 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,19 +89,22 @@ void	exec_list(t_vars *vars, t_ast *node, bool is_exec)
 		return ;
 	if (node && check_flag(node->type, NODE_SUB))
 		exec_sub(vars, node);
-	else if (is_exec == true)
-	{
-		if (!check_flag(node->type, NODE_LIST) && (is_exec == true))
-			exec_job(vars, node);
-		else if (node->left && check_flag(node->left->type, NODE_LIST))
-			exec_list(vars, node->left, is_exec);
-		else
-			exec_job(vars, node->left);
-	}
-	if (check_flag(node->type, NODE_AND) && (g_sig.exit_status == 0))
-		exec_list(vars, node->right, true);
-	else if (check_flag(node->type, NODE_OR) && (g_sig.exit_status))
-		exec_list(vars, node->right, true);
 	else
-		exec_list(vars, node->right, false);
+	{
+		if (is_exec == true)
+		{
+			if (!check_flag(node->type, NODE_LIST) && (is_exec == true))
+				exec_job(vars, node);
+			else if (node->left && check_flag(node->left->type, NODE_LIST))
+				exec_list(vars, node->left, is_exec);
+			else
+				exec_job(vars, node->left);
+		}
+		if (check_flag(node->type, NODE_AND) && (g_sig.exit_status == 0))
+			exec_list(vars, node->right, true);
+		else if (check_flag(node->type, NODE_OR) && (g_sig.exit_status))
+			exec_list(vars, node->right, true);
+		else
+			exec_list(vars, node->right, false);
+	}
 }
