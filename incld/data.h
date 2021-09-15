@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 15:01:51 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/10 17:35:42 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/15 12:58:04 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,10 @@
 
 enum	e_state
 {
-	ST_GENERAL,
-	ST_QUOTE,
-	ST_DQUOTE,
+	ST_GENERAL = 0x01,
+	ST_QUOTE = 0x02,
+	ST_DQUOTE = 0x04,
+	ST_WILDCARD = 0x08,
 };
 
 enum	e_tktype
@@ -52,6 +53,7 @@ enum	e_tktype
 	TK_ESC = 0x20000,
 	TK_COMPND = 0x40000,
 	TK_LIST = 0x80000,
+	TK_EXP = 0x100000,
 };
 
 enum	e_node

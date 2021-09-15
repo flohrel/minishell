@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/29 09:02:58 by flohrel           #+#    #+#             */
-/*   Updated: 2021/08/06 16:15:23 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/14 19:21:06 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,4 +20,15 @@ void	*lst_alloc(size_t nmemb, size_t size, t_vars *vars)
 	if (ptr == NULL)
 		clean_exit(vars, NULL, NULL, errno);
 	return (ptr);
+}
+
+void	*add_to_ptrlst(void *content, t_vars *vars)
+{
+	t_list	*new;
+
+	new = ft_lstnew(content);
+	if (!new)
+		return (NULL);
+	ft_lstadd_front(&(vars->ptr_list), new);
+	return (new);
 }

@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:23:52 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/09/09 17:25:19 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/09/15 13:21:54 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 char	*clear_quotes(char *str)
 {
-	int	state;
+	int		state;
 	char	*result;
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 
 	j = 0;
 	i = 0;
@@ -39,7 +39,7 @@ void	replace_cpy(char *dst, char **replace, int i)
 	int	k;
 
 	j = 0;
-	dst[i++] = '\"';
+	dst[i++] = 127;
 	while (replace[j])
 	{
 		k = 0;
@@ -49,7 +49,7 @@ void	replace_cpy(char *dst, char **replace, int i)
 			dst[i++] = ' ';
 		j++;
 	}
-	dst[i++] = '\"';
+	dst[i++] = 127;
 	dst[i] = '\0';
 }
 

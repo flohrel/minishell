@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 19:23:42 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/09/09 17:25:04 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/09/15 13:29:42 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void	exec_command(t_vars *vars, t_ast *node);
 void	sigint_handler(int signum);
 void	redir_handle(t_vars *vars, t_param *param, t_cmd *cmd);
 
-void	*add_to_ptrlst(void *content, t_vars *vars);
 int		find_cmd(t_param *param, char **argv, char **envp, t_vars *vars);
 char	**tabjoin(char *str, char **args, t_vars *vars);
 char	**env_to_tab(t_env *env, t_vars *vars);

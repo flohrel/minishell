@@ -6,33 +6,11 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 17:12:17 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/13 18:56:55 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/15 14:11:31 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
-
-int	clean_empty_word(t_vars *vars, char **data, char *buffer)
-{
-	bool	has_quotes;
-	size_t	len;
-
-	has_quotes = false;
-	if (ft_strchr(*data, '\'') || ft_strchr(*data, '\"'))
-		has_quotes = true;
-	if (*buffer || has_quotes)
-	{
-		len = ft_strlen(buffer);
-		*data = lst_alloc(len + 1, sizeof(*buffer), vars);
-		ft_strlcpy(*data, buffer, len + 1);
-	}
-	else
-	{
-		delete_empty_token(&vars->lexer, &vars->parser);
-		return (1);
-	}
-	return (0);
-}
 
 void	path_expansion(t_vars *vars, char *str, char *buffer)
 {
@@ -92,7 +70,7 @@ void	delete_quote(char *str, char *buffer)
 	while (*str)
 	{
 		c = *str;
-		if (state_check(&state, c) == false)
+		if (state_check2(&state, c) == false)
 			*buffer++ = c;
 		str++;
 	}

@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 20:58:03 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/13 18:56:37 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/15 14:46:08 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,26 +37,34 @@ void	parse_list(t_vars *vars, t_list *lst)
 	}
 }
 
-/*void	parse_path(t_vars *vars, char **cur_path, t_list *arg)
+void	parse_arg_list(t_vars *vars, t_list **args)
 {
 	char	buffer[2][BUFFER_SIZE];
-	int		len;
+	t_list	*lst;
+	t_list	*new_lst;
+	t_token	*token;
 
-	param_expansion(vars, *word, buffer[0]);
-	path_expansion(vars, buffer[0], buffer[1]);
-	delete_quote(vars, buffer[1], buffer[0]);
-	len = ft_strlen(buffer[0]);
-	*word = lst_alloc(len + 1, sizeof(*word), vars);
-	ft_strlcpy(*word, buffer[0], len + 1);
-}*/
+	lst = *args;
+	*args = NULL;
+	while (lst)
+	{
+		token = (t_token *)lst->content;
+		param_expansion(vars, token->data, buffer[0]);
+		path_expansion(vars, buffer[0], buffer[1]);
+		new_lst = word_splitting(vars, buffer[1]);
+		ft_lstadd_back(args, new_lst);
+		lst = lst->next;
+	}
+	clean_arg_list(args);
+	unquote_arg_list(vars, *args, buffer[0]);
+}
 
 void	parse_param(t_vars *vars, t_param *data)
 {
-	if (data->path)
-		parse_word(vars, &data->path);
-		//parse_path(vars, &data->path, data->arg);
+	parse_arg_list(vars, &data->arg);
+	data->path = ((t_token *)(data->arg->content))->data;
+	data->arg = data->arg->next;
 	parse_list(vars, data->redir);
-	parse_list(vars, data->arg);
 	parse_list(vars, data->assign);
 }
 

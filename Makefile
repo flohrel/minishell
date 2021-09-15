@@ -43,7 +43,6 @@ BUILTINS	=	assign.c \
 EXEC		=	exec.c \
 				exec_utils.c \
 				redirection.c \
-				add_ptrlst.c \
 				find_cmd.c \
 				find_cmd_next.c \
 				pipes.c \
@@ -58,6 +57,7 @@ LEXER		=	lexer0.c \
 
 PARSER		=	parser0.c \
 				parser1.c \
+				parser2.c \
 				parser_utils0.c \
 				parser_utils1.c \
 				ast_build0.c \

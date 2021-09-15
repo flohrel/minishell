@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 16:39:43 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/10 17:31:54 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/15 14:30:36 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,33 @@ void	clean_token_list(t_lexer *lexer, t_parser *parser)
 			parser->cur_tk = parser->prev_tk->next;
 		}
 	}
+}
+
+bool	state_check2(int *state, char c)
+{
+	if ((c == '\'') && (*state != ST_DQUOTE))
+	{
+		if (*state == ST_GENERAL)
+			*state = ST_QUOTE;
+		else
+			*state = ST_GENERAL;
+		return (true);
+	}
+	else if ((c == '\"') && (*state != ST_QUOTE))
+	{
+		if (*state == ST_GENERAL)
+			*state = ST_DQUOTE;
+		else
+			*state = ST_GENERAL;
+		return (true);
+	}
+	else if ((c == 127) && (*state != (ST_QUOTE | ST_DQUOTE)))
+	{
+		if (*state == ST_GENERAL)
+			*state = ST_WILDCARD;
+		else
+			*state = ST_GENERAL;
+		return (true);
+	}
+	return (false);
 }

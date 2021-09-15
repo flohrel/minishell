@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/18 02:36:25 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/07 16:07:07 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/14 19:51:40 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,12 @@ void	init_cmd(t_cmd *cmd);
 int		set_flag(int *field, int flag);
 int		check_flag(int field, int flag);
 void	clear_flag(int *field, int flag);
+
+/*
+ **		memory.c
+ */
+void	*lst_alloc(size_t nmemb, size_t size, t_vars *vars);
+void	*add_to_ptrlst(void *content, t_vars *vars);
 
 /*
  **		shell_lvl.c

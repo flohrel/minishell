@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/18 02:07:59 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/10 17:28:51 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/15 14:50:50 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,18 +58,11 @@ void	argument(t_vars *vars, t_token *token, t_param *data)
 	t_token	*param;
 	char	*ptr;
 
-	dest_list = &data->arg;
-	if (data->path == NULL)
-	{
-		ptr = ft_strchr(token->data, '=');
-		if (ptr && (is_valid_name(token->data, ptr) == true))
-			dest_list = &data->assign;
-		else
-		{
-			data->path = token->data;
-			return ;
-		}
-	}
+	ptr = ft_strchr(token->data, '=');
+	if (ptr && (is_valid_name(token->data, ptr) == true))
+		dest_list = &data->assign;
+	else
+		dest_list = &data->arg;
 	lst = lst_alloc(1, sizeof(*lst), vars);
 	lst->next = NULL;
 	param = lst_alloc(1, sizeof(*param), vars);
@@ -109,7 +102,7 @@ t_ast	*cmd(t_vars *vars, t_parser *parser)
 		parser->cur_tk = parser->cur_tk->next;
 		token = (t_token *)parser->cur_tk->content;
 	}
-	if (!data->path && !data->redir && !data->assign)
+	if (!data->arg && !data->redir && !data->assign)
 		return (NULL);
 	return (tree_new_node(vars, NODE_CMD, data));
 }
