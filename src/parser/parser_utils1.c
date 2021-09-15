@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/10 16:39:43 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/15 18:15:19 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/15 18:48:27 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ bool	state_check2(int *state, char c)
 			*state = ST_GENERAL;
 		return (true);
 	}
-	else if ((c == 127) && (*state != ST_QUOTE) && (*state !=  ST_DQUOTE))
+	else if ((c == 127) && (*state != ST_QUOTE) && (*state != ST_DQUOTE))
 	{
 		if (*state == ST_GENERAL)
 			*state = ST_WILD;
