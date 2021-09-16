@@ -75,7 +75,6 @@ UTILS		=	astree.c \
 				shell_lvl.c
 
 SRC			=	main.c \
-				test.c \
 				$(BUILTINS) \
 				$(EXEC) \
 				$(INPUT) \
