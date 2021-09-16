@@ -54,3 +54,4 @@ dkms.conf
 # Perso
 *.sw*
 test.c
+test.c
