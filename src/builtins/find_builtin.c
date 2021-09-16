@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 04:22:25 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/07/21 04:22:27 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/09/16 18:39:27 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 int	check_fd(t_vars *vars, t_param *param)
 {
+	parse_redir(vars, param);
 	pipe_handle(vars);
+	redir_handle(&vars->cmd);
 	close_handle(vars);
-	redir_handle(vars, param, &vars->cmd);
 	return (1);
 }
 

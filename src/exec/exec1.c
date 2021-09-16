@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 19:05:43 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/09/16 17:54:15 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/16 18:44:26 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ void	exec_pipeline(t_vars *vars, t_cmd *cmd, t_ast *node)
 {
 	int	fdes[2];
 
-	cmd->std_out = dup(FD_OUT);
-	cmd->std_in = dup(FD_IN);
 	pipe(fdes);
 	cmd->pipe[FD_OUT] = fdes[FD_OUT];
 	cmd->pipe[FD_IN] = fdes[FD_IN];
@@ -57,6 +55,8 @@ void	exec_pipeline(t_vars *vars, t_cmd *cmd, t_ast *node)
 
 void	exec_job(t_vars *vars, t_ast *node)
 {
+	vars->cmd.std_out = dup(FD_OUT);
+	vars->cmd.std_in = dup(FD_IN);
 	parse_expansion(vars, node);
 //	tree_display(vars->exec_tree, 0, 0);							// TEST
 	if (check_flag(node->type, NODE_PIPE))
