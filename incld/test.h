@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 07:19:08 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/27 07:25:45 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/16 20:31:47 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,6 @@
 
 void	display_token_list(t_lexer *lexer);
 void	print_lst(t_list *lst);
-void	tree_display(t_ast *node, int level, int is_right);
+void	display_tree(t_ast *node, int level, int is_right);
 
 #endif
