@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 17:58:07 by flohrel           #+#    #+#             */
-/*   Updated: 2021/08/06 16:03:59 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/16 17:52:17 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@ void	clean_exit(t_vars *vars, char *arg, char *err_msg, int status)
 		else
 			ft_putstr_fd(strerror(errno), STDERR_FILENO);
 	}
-	if (status >= 0)
-		ft_putstr_fd("\n", STDERR_FILENO);
+	ft_putstr_fd("\n", STDERR_FILENO);
 	free_ptr_lst(&vars->ptr_list);
 	free_env(vars->env);
 	free_env(vars->exp);

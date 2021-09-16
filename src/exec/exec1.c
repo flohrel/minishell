@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 19:05:43 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/09/15 22:45:57 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/16 17:54:15 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,13 @@ void	exec_command(t_vars *vars, t_ast *node)
 		return ;
 	param = node->data;
 	args = list_to_tab(param->arg, vars);
-	if (param && (!(param->path) || ft_strcmp(param->path, "export") == 0))
+	if (param && !(param->path))
+	{
 		if (handle_assign(vars, param->assign) < 0)
 			clean_exit(vars, NULL, NULL, errno);
-	find_cmd(param, args, env_to_tab(vars->env, vars), vars);
+	}
+	else
+		find_cmd(param, args, env_to_tab(vars->env, vars), vars);
 }
 
 void	exec_pipeline(t_vars *vars, t_cmd *cmd, t_ast *node)
@@ -55,7 +58,7 @@ void	exec_pipeline(t_vars *vars, t_cmd *cmd, t_ast *node)
 void	exec_job(t_vars *vars, t_ast *node)
 {
 	parse_expansion(vars, node);
-	tree_display(vars->exec_tree, 0, 0);							// TEST
+//	tree_display(vars->exec_tree, 0, 0);							// TEST
 	if (check_flag(node->type, NODE_PIPE))
 		exec_pipeline(vars, &vars->cmd, node);
 	else
