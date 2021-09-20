@@ -44,10 +44,10 @@ void	fork_pipeline(t_vars *vars, t_cmd *cmd, t_ast *node)
 	}
 	last = exec_last_pipe(vars, cmd, node);
 	ct++;
+	close(vars->cmd.pipe[FD_OUT]);
+	close(vars->cmd.pipe[FD_IN]);
 	while (count < ct)
 	{
-		close(vars->cmd.pipe[FD_OUT]);
-		close(vars->cmd.pipe[FD_IN]);
 		if (waitpid(-1, &status, 0) == last)
 		{
 			if (WIFEXITED(status))
@@ -67,6 +67,7 @@ void	exec_pipeline(t_vars *vars, t_cmd *cmd, t_ast *node, int ct)
 	{
 		set_flag(&cmd->io_bit, PIPE_OUT);
 		pipe(fdes);
+		close(cmd->pipe[FD_OUT]);
 		cmd->pipe[FD_OUT] = fdes[FD_OUT];
 	}
 	g_sig.is_displayed = 0;

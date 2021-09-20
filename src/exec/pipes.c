@@ -55,13 +55,13 @@ int	pipe_handle(t_vars *vars)
 		if (check_flag(vars->cmd.io_bit, PIPE_OUT))
 			vars->cmd.dup_in = dup2(vars->cmd.pipe[FD_IN], FD_IN);
 	}
+	close(vars->cmd.pipe[FD_OUT]);
+	close(vars->cmd.pipe[FD_IN]);
 	return (1);
 }
 
 int	close_handle(t_vars *vars)
 {
-	//close(vars->cmd.pipe[FD_OUT]);
-	//close(vars->cmd.pipe[FD_IN]);
 	if (vars->cmd.io_bit < 0)
 		close(vars->cmd.pipe[FD_IN]);
 	else if (check_flag(vars->cmd.io_bit, PIPE_IN))

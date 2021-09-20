@@ -27,8 +27,6 @@ int	exec_cmd(char *path, char **argv, char **envp, t_vars *vars)
 	char		*path_x;
 
 	i = 0;
-	close(vars->cmd.pipe[FD_OUT]);
-	close(vars->cmd.pipe[FD_IN]);
 	if (!path || !argv || !envp || !vars)
 		exit(0);
 	if (ft_ischarset('/', path))
@@ -93,6 +91,8 @@ int	find_cmd(t_param *param, char **argv, char **envp, t_vars *vars)
 				envp, vars);
 		exit (127);
 	}
+	close(vars->cmd.pipe[FD_OUT]);
+	close(vars->cmd.pipe[FD_IN]);
 	close_handle(vars);
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
