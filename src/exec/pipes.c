@@ -23,8 +23,6 @@ pid_t	exec_last_pipe(t_vars *vars, t_cmd *cmd, t_ast *node)
 	{
 		g_sig.is_child = 1;
 		exec_command(vars, node);
-		close(vars->cmd.pipe[FD_OUT]);
-		close(vars->cmd.pipe[FD_IN]);
 		exit(g_sig.exit_status);
 	}
 	close(vars->cmd.pipe[FD_OUT]);
@@ -55,9 +53,14 @@ int	pipe_handle(t_vars *vars)
 		if (check_flag(vars->cmd.io_bit, PIPE_OUT))
 			vars->cmd.dup_in = dup2(vars->cmd.pipe[FD_IN], FD_IN);
 	}
+	close(3);
+	close(4);
+	close(5);
+	close(6);
+	close(7);
 	close(vars->cmd.pipe[FD_OUT]);
 	close(vars->cmd.pipe[FD_IN]);
-	return (1);
+return (1);
 }
 
 int	close_handle(t_vars *vars)
