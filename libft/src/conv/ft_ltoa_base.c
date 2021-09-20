@@ -6,13 +6,13 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:50:37 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/04 01:34:33 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/10 13:25:47 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/conv.h"
 
-static int	ft_isvalid(char *base)
+static bool	ft_isvalid(char *base)
 {
 	char	*ptr;
 
@@ -20,24 +20,24 @@ static int	ft_isvalid(char *base)
 		return (0);
 	while (*base)
 	{
-		if (*base == '+' || *base == '-' || *base < 33 || *base > 126)
-			return (0);
+		if ((*base == '+') || (*base == '-') || (*base < 33) || (*base > 126))
+			return (false);
 		ptr = base + 1;
 		while (*ptr)
 		{
 			if (*ptr == *base)
-				return (0);
+				return (false);
 			ptr++;
 		}
 		base++;
 	}
-	return (1);
+	return (true);
 }
 
-static size_t	str_alloc(long n, char **str, size_t base_len)
+static size_t	str_alloc(int64_t n, char **str, size_t base_len)
 {
-	unsigned long	tmp;
-	size_t			str_len;
+	uint64_t	tmp;
+	size_t		str_len;
 
 	str_len = 0;
 	if (n <= 0)
@@ -57,15 +57,14 @@ static size_t	str_alloc(long n, char **str, size_t base_len)
 	return (str_len);
 }
 
-static void	base_convert(unsigned long n, char *str, char *base,
-		size_t base_len)
+static void	base_convert(uint64_t n, char *str, char *base, size_t base_len)
 {
 	if (n >= base_len)
 		base_convert(n / base_len, str - 1, base, base_len);
 	*str = base[n % base_len];
 }
 
-char	*ft_ltoa_base(long n, char *base)
+char	*ft_ltoa_base(int64_t n, char *base)
 {
 	size_t			str_len;
 	size_t			base_len;

@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:50:37 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/04 01:33:47 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/10 13:26:32 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	ft_isvalid(char *base)
 		return (0);
 	while (*base)
 	{
-		if (*base == '+' || *base == '-' || *base < 33 || *base > 126)
+		if ((*base == '+') || (*base == '-') || (*base < 33) || (*base > 126))
 			return (0);
 		ptr = base + 1;
 		while (*ptr)

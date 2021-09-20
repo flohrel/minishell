@@ -1,28 +1,47 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipes.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/21 04:24:06 by mtogbe            #+#    #+#             */
+/*   Updated: 2021/09/16 17:27:01 by flohrel          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "exec.h"
 
-int	add_pipe(t_vars *vars, t_ast *node)
+pid_t	exec_last_pipe(t_vars *vars, t_cmd *cmd, t_ast *node)
 {
-	t_pipes	*tmp;
+	pid_t pid;
 
-	tmp = vars->pipes;
-	if (tmp)
+	cmd->io_bit = -256;
+	g_sig.is_displayed = 0;
+	pid = fork();
+	if (pid == 0)
 	{
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = malloc(sizeof(t_pipes));
-		if (tmp->next)
-			return (-1);
-		tmp->next->p_open = 1;
-		tmp->next->node = node;
-		tmp->next->prev = tmp;
+		g_sig.is_child = 1;
+		exec_command(vars, node);
+		close(vars->cmd.pipe[FD_OUT]);
+		close(vars->cmd.pipe[FD_IN]);
+		exit(g_sig.exit_status);
 	}
-	else
-	{
-		tmp->next = malloc(sizeof(t_pipes));
-		if (tmp->next)
-			return (-1);
-	}
-	return (1);
+	close(vars->cmd.pipe[FD_OUT]);
+	close(vars->cmd.pipe[FD_IN]);
+	return (pid);
+}
+
+void	exec_first_pipe(t_vars *vars, t_cmd *cmd, t_ast *node)
+{
+	int	fdes[2];
+
+	(void)node;
+	(void)vars;	
+	pipe(fdes);
+	cmd->pipe[FD_OUT] = fdes[FD_OUT];
+	cmd->pipe[FD_IN] = fdes[FD_IN];
+	set_flag(&cmd->io_bit, PIPE_IN);
 }
 
 int	pipe_handle(t_vars *vars)
@@ -41,11 +60,10 @@ int	pipe_handle(t_vars *vars)
 
 int	close_handle(t_vars *vars)
 {
+	//close(vars->cmd.pipe[FD_OUT]);
+	//close(vars->cmd.pipe[FD_IN]);
 	if (vars->cmd.io_bit < 0)
-	{
 		close(vars->cmd.pipe[FD_IN]);
-		close(vars->cmd.pipe[FD_OUT]);
-	}
 	else if (check_flag(vars->cmd.io_bit, PIPE_IN))
 	{
 		if (check_flag(vars->cmd.io_bit, PIPE_IN))
@@ -53,6 +71,9 @@ int	close_handle(t_vars *vars)
 		if (check_flag(vars->cmd.io_bit, PIPE_OUT))
 			close(vars->cmd.pipe[FD_IN]);
 	}
+	if (check_flag(vars->cmd.io_bit, FD_IN))
+		close(vars->cmd.redir[FD_IN]);
+	if (check_flag(vars->cmd.io_bit, FD_OUT))
+		close(vars->cmd.redir[FD_OUT]);
 	return (1);
 }
-

@@ -6,23 +6,15 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 17:58:07 by flohrel           #+#    #+#             */
-/*   Updated: 2021/07/12 14:03:42 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/16 17:52:17 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
-void	free_unlisted_vars(t_vars *vars)
+void	clean_exit(t_vars *vars, char *arg, char *err_msg, int status)
 {
-	(void)vars;
-}
-
-void	clean_exit(t_vars *vars, char *arg, int status)
-{
-	int		ret_val;
-
-	ret_val = 0;
-	if (errno)
+	if (errno && (errno != EINTR))
 	{
 		ft_putstr_fd("minishell: ", STDERR_FILENO);
 		if (arg)
@@ -30,14 +22,16 @@ void	clean_exit(t_vars *vars, char *arg, int status)
 			ft_putstr_fd(arg, STDERR_FILENO);
 			ft_putstr_fd(": ", STDERR_FILENO);
 		}
-		ft_putstr_fd(strerror(errno), STDERR_FILENO);
+		if (err_msg)
+			ft_putstr_fd(err_msg, STDERR_FILENO);
+		else
+			ft_putstr_fd(strerror(errno), STDERR_FILENO);
 	}
-	if (status)
-		ret_val = status;
+	ft_putstr_fd("\n", STDERR_FILENO);
 	free_ptr_lst(&vars->ptr_list);
-	free_unlisted_vars(vars);
 	free_env(vars->env);
 	free_env(vars->exp);
 	free_env(vars->agn);
-	exit(ret_val);
+	rl_clear_history();
+	exit(status + 127);
 }

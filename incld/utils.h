@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/18 02:36:25 by flohrel           #+#    #+#             */
-/*   Updated: 2021/07/08 18:15:52 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/14 19:51:40 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@
 /*
  **		exit.c
  */
-void	free_unlisted_vars(t_vars *vars);
-void	clean_exit(t_vars *vars, char *arg, int status);
+void	clean_exit(t_vars *vars, char *arg, char *err_msg, int status);
 
 /*
  **		token.c
@@ -48,7 +47,6 @@ void	tree_delete_node(t_ast *node);
 /*
  **		error.c
  */
-int		syntax_error(t_token *token);
 void	*lst_alloc(size_t nmemb, size_t size, t_vars *vars);
 char	**list_to_tab(t_list *lst, t_vars *vars);
 void	print_tab(char **arg);
@@ -60,13 +58,18 @@ void	init(t_vars *vars, char **envp);
 void	init_vars(t_vars *vars);
 void	init_cmd(t_cmd *cmd);
 
-
 /*
  **		flag.c
  */
 int		set_flag(int *field, int flag);
 int		check_flag(int field, int flag);
 void	clear_flag(int *field, int flag);
+
+/*
+ **		memory.c
+ */
+void	*lst_alloc(size_t nmemb, size_t size, t_vars *vars);
+void	*add_to_ptrlst(void *content, t_vars *vars);
 
 /*
  **		shell_lvl.c

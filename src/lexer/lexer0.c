@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 17:20:52 by flohrel           #+#    #+#             */
-/*   Updated: 2021/07/08 15:30:36 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/15 22:03:28 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,49 +18,55 @@ void	quote_handle(t_vars *vars, char *buf)
 
 	lexer = &vars->lexer;
 	*(lexer->cur_char)++ = (*buf);
-	if (((*buf == '\'') && (lexer->state == ST_QUOTE))
-		|| ((*buf == '\"') && (lexer->state == ST_DQUOTE)))
-		lexer->state = ST_GENERAL;
+	if (((*buf == '\'') && (lexer->esc_st == ST_QUOTE))
+		|| ((*buf == '\"') && (lexer->esc_st == ST_DQUOTE)))
+		lexer->esc_st = ST_GENERAL;
 }
 
-void	lexer_init(t_vars *vars, void (*token_handle[10])(t_vars *, int, char **))
+void	lexer_init(t_vars *vars)
 {
 	t_lexer	*lexer;
 
 	lexer = &vars->lexer;
-	lexer->state = ST_GENERAL;
+	lexer->esc_st = ST_GENERAL;
 	lexer->buf_len = ft_strlen(lexer->buffer);
 	new_token(vars, TK_WORD, lexer->buf_len);
-	token_handle[0] = word_handle;
-	token_handle[1] = word_handle;
-	token_handle[2] = word_handle;
-	token_handle[3] = space_handle;
-	token_handle[4] = escape_handle;
-	token_handle[5] = job_handle;
-	token_handle[6] = job_handle;
-	token_handle[7] = job_handle;
-	token_handle[8] = redirection_handle;
-	token_handle[9] = redirection_handle;
 }
 
-void	lexer(t_vars *vars, t_lexer *lexer)
+void	token_handle(t_vars *vars, int tk_type, char **buffer)
+{
+	if (check_flag(tk_type, TK_REDIR))
+		redirection_handle(vars, tk_type, buffer);
+	else if (check_flag(tk_type, TK_COMPND))
+		compound_handle(vars, tk_type, buffer);
+	else if (check_flag(tk_type, TK_PIPE) || check_flag(tk_type, TK_AMP))
+		job_handle(vars, tk_type, buffer);
+	else if (tk_type == TK_SPACE)
+		space_handle(vars, tk_type, buffer);
+	else
+		word_handle(vars, tk_type, buffer);
+}
+
+int	lexer(t_vars *vars, t_lexer *lexer)
 {
 	char	*buffer;
 	int		tk_type;
-	void	(*token_handle[10])(t_vars *, int, char **);
 
-	lexer_init(vars, token_handle);
+	lexer_init(vars);
 	buffer = lexer->buffer;
 	while (*buffer)
 	{
 		tk_type = get_token_type(*buffer);
-		if (lexer->state == ST_GENERAL)
-			token_handle[tk_type](vars, tk_type, &buffer);
+		if (lexer->esc_st == ST_GENERAL)
+			token_handle(vars, tk_type, &buffer);
 		else
 			quote_handle(vars, buffer);
 		buffer++;
 	}
+	if (lexer->esc_st != ST_GENERAL)
+		return (syntax_error(NULL));
 	if (lexer->cur_char)
 		*(lexer->cur_char) = '\0';
 	new_token(vars, TK_NL, 0);
+	return (0);
 }

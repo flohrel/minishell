@@ -6,37 +6,43 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 01:07:52 by flohrel           #+#    #+#             */
-/*   Updated: 2021/07/12 14:02:51 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/16 17:52:17 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <exec.h>
+#include "exec.h"
 
 void	set_rdout(t_vars *vars, t_cmd *cmd, char *pathname)
 {
 	set_flag(&cmd->io_bit, RD_OUT);
+	if (!pathname || ft_strchr(pathname, ' '))
+		clean_exit(vars, NULL, "ambiguous redirect", -126);
 	cmd->redir[FD_OUT] = open(pathname, O_WRONLY | O_CREAT | O_TRUNC, 0664);
 	if (cmd->redir[FD_OUT] == -1)
-		clean_exit(vars, pathname, errno);
+		clean_exit(vars, pathname, NULL, errno);
 }
 
 void	set_rdapp(t_vars *vars, t_cmd *cmd, char *pathname)
 {
 	set_flag(&cmd->io_bit, RD_OUT);
+	if (!pathname || ft_strchr(pathname, ' '))
+		clean_exit(vars, NULL, "ambiguous redirect", -126);
 	cmd->redir[FD_OUT] = open(pathname, O_WRONLY | O_CREAT | O_APPEND, 0664);
 	if (cmd->redir[FD_OUT] == -1)
-		clean_exit(vars, pathname, errno);
+		clean_exit(vars, pathname, NULL, errno);
 }
 
 void	set_rdin(t_vars *vars, t_cmd *cmd, char *pathname)
 {
 	set_flag(&cmd->io_bit, RD_IN);
+	if (!pathname)
+		clean_exit(vars, NULL, "ambiguous redirect", -126);
 	cmd->redir[FD_IN] = open(pathname, O_RDONLY);
 	if (cmd->redir[FD_IN] == -1)
-		clean_exit(vars, pathname, errno);
+		clean_exit(vars, pathname, NULL, errno);
 }
 
-void	set_hdoc(t_vars *vars, t_cmd *cmd, char *string)
+void	set_hdoc(t_vars *vars, t_cmd *cmd, char *string, bool has_exp)
 {
 	char	*str;
 	char	*buf;
@@ -45,13 +51,13 @@ void	set_hdoc(t_vars *vars, t_cmd *cmd, char *string)
 	set_flag(&cmd->io_bit, RD_IN);
 	cmd->redir[FD_IN] = open(TMP_FILE, O_WRONLY | O_CREAT | O_TRUNC, 0600);
 	if (cmd->redir[FD_IN] == -1)
-		clean_exit(vars, TMP_FILE, errno);
+		clean_exit(vars, TMP_FILE, NULL, errno);
 	readline_hdoc(vars, string);
 	str = vars->lexer.buffer;
 	buf = buffer;
 	while (*str)
 	{
-		if (*str == '$')
+		if ((*str == '$') && (has_exp == true))
 			var_expansion(vars, &buf, &str);
 		else
 			*buf = *str;
@@ -62,7 +68,7 @@ void	set_hdoc(t_vars *vars, t_cmd *cmd, char *string)
 	close(cmd->redir[FD_IN]);
 	cmd->redir[FD_IN] = open(TMP_FILE, O_RDONLY);
 	if (cmd->redir[FD_IN] == -1)
-		clean_exit(vars, TMP_FILE, errno);
+		clean_exit(vars, TMP_FILE, NULL, errno);
 }
 
 void	parse_redir(t_vars *vars, t_param *param)
@@ -76,14 +82,19 @@ void	parse_redir(t_vars *vars, t_param *param)
 	while (lst)
 	{
 		token = (t_token *)lst->content;
-		if (token->type == TK_GREAT)
+		if (check_flag(token->type, TK_GREAT))
 			set_rdout(vars, &vars->cmd, token->data);
-		else if (token->type == TK_DGREAT)
+		else if (check_flag(token->type, TK_DGREAT))
 			set_rdapp(vars, &vars->cmd, token->data);
-		else if (token->type == TK_LESS)
+		else if (check_flag(token->type, TK_LESS))
 			set_rdin(vars, &vars->cmd, token->data);
 		else
-			set_hdoc(vars, &vars->cmd, token->data);
+		{
+			if (check_flag(token->type, TK_DLESS2))
+				set_hdoc(vars, &vars->cmd, token->data, false);
+			else
+				set_hdoc(vars, &vars->cmd, token->data, true);
+		}
 		lst = lst->next;
 	}
 }

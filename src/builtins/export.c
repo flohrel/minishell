@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 17:14:46 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/07/12 11:51:18 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/09 17:06:42 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,17 @@ int	replace_value(t_env *env, t_env *block)
 	return (0);
 }
 
-int	add_to_exp(t_env *exp, t_env *block)
+int	add_to_exp(t_env **exp, t_env *block)
 {
 	t_env	*tmp;
 	t_env	*stack;
 	int		ret;
 
-	tmp = exp;
+	tmp = *exp;
 	stack = blockcpy(block);
 	if (!stack)
 		return (-1);
-	if (!tmp && init_exp(&exp, stack))
+	if (!tmp && init_exp(exp, stack))
 		return (1);
 	while (tmp && tmp->next)
 	{
@@ -69,26 +69,24 @@ static int	export_str(char *str, t_vars *vars)
 {
 	t_env	*result;
 
-	if ((ft_strischarset(str, "+/-*.")))
-		return (-1);
 	result = malloc(sizeof(t_env));
 	if (!result)
 		return (0);
 	if (new_envblock(str, result) == -1)
 	{
-		result->key = NULL;
-		result->value = NULL;
 		if (export_only(str, result, vars) < 0)
 			return (0);
 	}
 	else if (!result->key || !result->value)
 		return (0);
-	else if (!(ft_strischarset(result->key, "+/-*.")))
+	else if (!(ft_strischarset(result->key, "+-/*.=")))
 	{
-		if (add_to_exp(vars->env, result) < 0
-			|| add_to_exp(vars->exp, result) < 0)
+		if (add_to_exp(&vars->env, result) < 0
+			|| add_to_exp(&vars->exp, result) < 0)
 			return (0);
 	}
+	else
+		return (ret_context(result));
 	free_block(result);
 	return (1);
 }
@@ -97,23 +95,27 @@ int	export(char **args, t_vars *vars)
 {
 	int	i;
 	int	ret;
+	int	exit_st;
 
+	exit_st = 0;
 	i = 0;
 	while (args && args[i])
 	{
-		ret = export_str(args[i], vars);
-		if (!ret)
-			clean_exit(vars, NULL, errno);
-		else if (ret == -1)
+		if (ft_strcmp("", args[i]) == 0)
+			exit_st = errormsg("minishell: export: << >> ",
+					"invalid identifier.");
+		else
 		{
-			errormsg("export : Not valid in this context : ", args[i]);
-			break ;
+			ret = export_str(args[i], vars);
+			if (!ret)
+				clean_exit(vars, NULL, NULL, errno);
+			else if (ret == -1)
+				exit_st = errormsg(
+						"export : Not valid in this context: ", args[i]);
 		}
 		i++;
 	}
 	if (ft_tablen(args) == 0)
-	{
 		print_sorted_env(vars->exp);
-	}
-	return (0);
+	return (exit_st);
 }

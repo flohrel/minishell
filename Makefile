@@ -17,6 +17,7 @@ INCLDIR		=	incld
 
 BUILTINS	=	assign.c \
 				cd.c \
+				cd_next.c \
 				echo.c \
 				env_utils.c \
 				export.c \
@@ -39,36 +40,41 @@ BUILTINS	=	assign.c \
 				pwd.c \
 				unset.c
 
-EXEC		=	exec.c \
+EXEC		=	exec0.c \
+				exec1.c \
 				exec_utils.c \
 				redirection.c \
-				add_ptrlst.c \
 				find_cmd.c \
-				pipes.c \
-				wc_convert.c
+				find_cmd_next.c \
+				pipes.c
 
-INPUT		=	input.c
+INPUT		=	input.c \
+				input_utils.c
 
 LEXER		=	lexer0.c \
 				lexer1.c \
 				lexer_utils.c
 
-PARSER		=	parser.c \
-				parser_utils.c \
+PARSER		=	parser0.c \
+				parser1.c \
+				parser2.c \
+				parser_utils0.c \
+				parser_utils1.c \
 				ast_build0.c \
 				ast_build1.c \
 				ast_build2.c \
-				wildcard.c
+				wildcard.c \
+				replace.c
 
 UTILS		=	astree.c \
 				exit.c \
 				init.c \
+				memory.c \
 				utils.c \
 				flag.c \
 				shell_lvl.c
 
 SRC			=	main.c \
-				test.c \
 				$(BUILTINS) \
 				$(EXEC) \
 				$(INPUT) \
@@ -108,7 +114,7 @@ bonus:
 				@make all
 
 clean:
-				$(RM) $(OBJ)
+				@$(RM) $(OBJ)
 
 fclean:			clean
 				$(RM) $(NAME) $(OBJDIR)

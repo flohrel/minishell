@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   optionhandle.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/21 04:23:13 by mtogbe            #+#    #+#             */
+/*   Updated: 2021/08/06 16:23:54 by flohrel          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "builtins.h"
 
 static int	check_flags(char *str, char *opt)
@@ -65,7 +77,7 @@ t_opt	optionhandler(char **args, char *opt, t_vars *vars)
 	{
 		ret = check_options(args[i] + 1, opt, &(options.optflag), vars);
 		if (ret < 0)
-			clean_exit(vars, NULL, errno);
+			clean_exit(vars, NULL, NULL, errno);
 		else if (ret == 0)
 			break ;
 		i++;

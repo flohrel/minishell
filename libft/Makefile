@@ -6,7 +6,7 @@
 #    By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/16 16:04:42 by flohrel           #+#    #+#              #
-#    Updated: 2021/06/14 14:43:42 by flohrel          ###   ########.fr        #
+#    Updated: 2021/08/30 10:59:33 by flohrel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,8 @@ VPATH		=	src/conv \
 				src/list \
 				src/memory \
 				src/string \
-				src/io/gnl
+				src/io/gnl \
+				src/math
 INCLDIR		=	incld
 OBJDIR		=	obj
 
@@ -76,6 +77,12 @@ LIST		=	ft_lstadd_back.c \
 				ft_lstsize.c \
 				ft_lstsort.c
 
+MATH		=	ft_abs.c \
+				ft_labs.c \
+				ft_llabs.c \
+				ft_imin.c \
+				ft_imax.c
+
 MEM			=	ft_calloc.c \
 				garb_coll.c \
 				free.c
@@ -98,6 +105,7 @@ STR			=	ft_memccpy.c \
 				ft_strncmp.c \
 				ft_strnstr.c \
 				ft_strrchr.c \
+				ft_strsjoin.c \
 				ft_strtrim.c \
 				ft_substr.c \
 				ft_bzero.c
@@ -110,6 +118,7 @@ SRC			=	$(CONV) \
 				$(DLIST) \
 				$(IO) \
 				$(LIST) \
+				$(MATH) \
 				$(MEM) \
 				$(STR) \
 				$(GNL)

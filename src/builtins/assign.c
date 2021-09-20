@@ -39,16 +39,38 @@ int	manage_agn(t_list *assign, t_vars *vars, t_env *block)
 			return (-1);
 	if (get_env_value(block->key, vars->exp))
 	{
-		if (add_to_exp(vars->exp, block) < 0)
+		if (add_to_exp(&vars->exp, block) < 0)
 			return (-1);
-		if (add_to_exp(vars->env, block) < 0)
+		if (add_to_exp(&vars->env, block) < 0)
 			return (-1);
 	}
 	if (!vars->agn)
 		vars->agn = blockcpy(block);
 	else
-		if (add_to_exp(vars->agn, block) < 0)
+		if (add_to_exp(&vars->agn, block) < 0)
 			return (-1);
+	return (1);
+}
+
+int	handle_assign_export(t_vars *vars, char **args, t_list *assign)
+{
+	t_env	*res;
+	int	i;
+
+	while (assign)
+	{
+		i = 0;
+		res = malloc(sizeof(t_env));
+		if (!res)
+			return (0);
+		if (new_envblock(((t_token *)(assign->content))->data, res) == 0)
+			return (0);
+		while (args[i])
+			if (!ft_strischarset(args[i], "+/-*.=") && !ft_strcmp(args[i++], res->key))
+				add_to_exp(&vars->env, res);
+		free_block(res);
+		assign = assign->next;
+	}
 	return (1);
 }
 
@@ -63,10 +85,10 @@ int	handle_assign(t_vars *vars, t_list *assign)
 			return (0);
 		if (new_envblock(((t_token *)(assign->content))->data, res) == 0)
 			return (0);
-		manage_agn(assign, vars, res);
+		if (manage_agn(assign, vars, res) < 0)
+			return (0);
 		free_block(res);
 		assign = assign->next;
 	}
-	env_print(vars->agn);
 	return (1);
 }

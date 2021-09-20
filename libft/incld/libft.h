@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 12:22:47 by flohrel           #+#    #+#             */
-/*   Updated: 2021/06/17 20:31:07 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/08/30 10:59:13 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,6 @@
 # include "libft/io.h"
 # include "libft/conv.h"
 # include "libft/gnl.h"
+# include "libft/math.h"
 
 #endif

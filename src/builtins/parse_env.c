@@ -18,8 +18,10 @@ int	new_envblock(char *str, t_env *result)
 	int		len2;
 	char	*chr;
 
+	result->value = NULL;
+	result->key = NULL;
 	chr = ft_strchr(str, '=');
-	if (!chr)
+	if (!chr || chr == str)
 		return (-1);
 	chr = chr + 1;
 	if (!chr)

@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.h                                             :+:      :+:    :+:   */
+/*   input_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/27 07:19:08 by flohrel           #+#    #+#             */
-/*   Updated: 2021/05/27 07:25:45 by flohrel          ###   ########.fr       */
+/*   Created: 2021/08/08 20:32:35 by flohrel           #+#    #+#             */
+/*   Updated: 2021/09/09 17:49:01 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TEST_H
-# define TEST_H
+#include "input.h"
 
-# include <stdio.h>
-# include "libft.h"
-# include "data.h"
-
-void	display_token_list(t_lexer *lexer);
-void	print_lst(t_list *lst);
-void	tree_display(t_ast *node, int level, int is_right);
-
-#endif
+char	*display_prompt(void)
+{
+	if (isatty(0))
+	{
+		g_sig.is_displayed = 1;
+		if (!g_sig.exit_status)
+			return (readline(PROMPT1));
+		else
+			return (readline(PROMPT2));
+	}
+	else
+		return (readline(NULL));
+}

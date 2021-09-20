@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 11:42:38 by flohrel           #+#    #+#             */
-/*   Updated: 2021/07/11 03:13:35 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/15 22:07:12 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,14 @@
 void	ft_readline(t_vars *vars)
 {
 	char	*line_read;
-	int	len;
+	int		len;
 
-	if (isatty(0))
-		line_read = readline(PROMPT);
-	else
-		line_read = readline(NULL);
+	line_read = display_prompt();
 	if (line_read == NULL)
 	{
 		if (isatty(0))
-			write(1, "exit\n", 5);
-		else
-			errno = 0;
-		clean_exit(vars, NULL, 0);
+			write(1, "exit", 5);
+		clean_exit(vars, NULL, NULL, errno);
 	}
 	len = ft_strlen(line_read);
 	vars->lexer.buffer = lst_alloc(len + 1,
@@ -40,8 +35,8 @@ void	ft_readline(t_vars *vars)
 
 int	input_handle(char *line_read, char *delim, char *buffer, int *index)
 {
-	int	ret;
-	int	len;
+	int		ret;
+	int		len;
 	char	*ptr;
 
 	ret = 1;
@@ -49,39 +44,97 @@ int	input_handle(char *line_read, char *delim, char *buffer, int *index)
 	ptr = ft_strnstr(line_read, delim, len);
 	if ((ptr != NULL) && (ptr != delim))
 	{
-		len = ptr - line_read + 1;
+		len = ptr - line_read;
 		ret = 0;
 	}
 	ft_strlcpy(&buffer[*index], line_read, len + 1);
-	(*index) += len - 1;
+	(*index) += len;
+	if (ret)
+	{
+		buffer[*index] = '\n';
+		(*index)++;
+	}
+	buffer[*index] = '\0';
+	free(line_read);
 	return (ret);
+}
+
+int	get_nline(t_vars *vars)
+{
+	int		fd;
+	int		ret;
+	int		nline;
+	char	*line;
+
+	fd = open(HDOC_DATA, O_RDONLY | O_CREAT, 0600);
+	if (fd == -1)
+		clean_exit(vars, NULL, NULL, errno);
+	line = NULL;
+	ret = get_next_line(fd, &line);
+	if (ret == -1)
+		nline = 1;
+	else
+	{
+		nline = ft_atoi(line);
+		free(line);
+	}
+	close(fd);
+	return (nline);
+}
+
+void	set_nline(t_vars *vars, int count)
+{
+	int		fd;
+	int		ret;
+	char	*nline;
+	char	*line;
+
+	fd = open(HDOC_DATA, O_RDONLY | O_CREAT, 0600);
+	if (fd == -1)
+		clean_exit(vars, NULL, NULL, errno);
+	line = NULL;
+	ret = get_next_line(fd, &line);
+	if (ret == -1)
+		nline = ft_itoa(count);
+	else
+	{
+		nline = ft_itoa(ft_atoi(line) + count);
+		free(line);
+	}
+	close(fd);
+	fd = open(HDOC_DATA, O_WRONLY | O_TRUNC, 0600);
+	if (fd == -1)
+		clean_exit(vars, NULL, NULL, errno);
+	write(fd, nline, ft_strlen(nline));
+	close(fd);
+	free(nline);
 }
 
 void	readline_hdoc(t_vars *vars, char *delim)
 {
-	char	buffer[BUFFER_SIZE];
-	char	*line_read;
-	int	ret;
-	int	i;
+	char		buffer[BUFFER_SIZE];
+	char		*line_read;
+	int			count;
+	int			ret;
+	int			i;
 
 	i = 0;
 	ret = 1;
+	count = 0;
 	while (ret)
 	{
-		if (isatty(0))
-			line_read = readline(HDOC_PROMPT);
-		else
-			line_read = readline(NULL);
+		count++;
+		line_read = readline(HDOC_PROMPT);
 		if (line_read == NULL)
 		{
-			if (isatty(0))
-				write(1, "exit\n", 5);
-			else
-				errno = 0;
-			clean_exit(vars, NULL, errno);
+			printf("minishell: warning: ");
+			printf("here-document at line %d ", get_nline(vars));
+			printf("delimited by end-of-file (wanted `%s')\n", delim);
+			break ;
 		}
 		ret = input_handle(line_read, delim, buffer, &i);
 	}
+	set_nline(vars, count);
 	vars->lexer.buffer = lst_alloc(i + 1, sizeof(*buffer), vars);
 	ft_strlcpy(vars->lexer.buffer, buffer, i + 1);
 }

@@ -17,6 +17,8 @@ void	swap_env(t_env *env)
 	char	*tmp_key;
 	char	*tmp_value;
 
+	if (!env)
+		return ;
 	tmp_key = env->key;
 	tmp_value = env->value;
 	env->key = env->next->key;

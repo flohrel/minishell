@@ -6,19 +6,8 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 17:13:52 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/06/29 01:03:22 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/15 14:59:39 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
-
-void	*add_to_ptrlst(void *content, t_vars *vars)
-{
-	t_list	*new;
-
-	new = ft_lstnew(content);
-	if (!new)
-		return (NULL);
-	ft_lstadd_front(&(vars->ptr_list), new);
-	return (new);
-}
