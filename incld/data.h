@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 15:01:51 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/15 22:16:48 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/20 19:44:31 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ extern t_sig			g_sig;
 struct	s_sig
 {
 	int		exit_status;
+	t_list	*child_pid;
 	bool	is_child;
 	bool	is_displayed;
 };
