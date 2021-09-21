@@ -70,5 +70,6 @@ void	free_path(char **path);
 void	exec_absolute_path(char *path, char **argv, char **envp, t_vars *vars);
 pid_t	exec_last_pipe(t_vars *vars, t_cmd *cmd, t_ast *node);
 void	exec_first_pipe(t_vars *vars, t_cmd *cmd, t_ast *node);
+void	clear_pipes(t_vars *vars);
 
 #endif

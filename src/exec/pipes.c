@@ -42,6 +42,22 @@ void	exec_first_pipe(t_vars *vars, t_cmd *cmd, t_ast *node)
 	set_flag(&cmd->io_bit, PIPE_IN);
 }
 
+void	clear_pipes(t_vars *vars)
+{
+	int	i;
+
+	i = 0;
+	if (is_pipe(vars))
+	{
+		while (i < vars->nb_pipes)
+		{
+			close(vars->pipes_fd[i++]);
+		}
+		close(vars->cmd.pipe[FD_OUT]);
+		close(vars->cmd.pipe[FD_IN]);
+	}
+}	
+
 int	pipe_handle(t_vars *vars)
 {
 	if (vars->cmd.io_bit < 0)
@@ -53,14 +69,8 @@ int	pipe_handle(t_vars *vars)
 		if (check_flag(vars->cmd.io_bit, PIPE_OUT))
 			vars->cmd.dup_in = dup2(vars->cmd.pipe[FD_IN], FD_IN);
 	}
-	close(3);
-	close(4);
-	close(5);
-	close(6);
-	close(7);
-	close(vars->cmd.pipe[FD_OUT]);
-	close(vars->cmd.pipe[FD_IN]);
-return (1);
+	clear_pipes(vars);
+	return (1);
 }
 
 int	close_handle(t_vars *vars)

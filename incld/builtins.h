@@ -61,5 +61,6 @@ int		new_envblock(char *str, t_env *result);
 t_opt	optionhandler(char **args, char *opt, t_vars *vars);
 int		failed_path(t_vars *vars, char *path);
 int		ret_context(t_env *result);
+int	is_pipe(t_vars *vars);
 
 #endif

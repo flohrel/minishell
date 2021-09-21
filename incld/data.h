@@ -192,6 +192,8 @@ struct	s_vars
 	t_env		*env;
 	t_env		*exp;
 	t_env		*agn;
+	int		pipes_fd[1024];
+	int		nb_pipes;
 	t_pipes		*pipes;
 	int			akuma;
 };

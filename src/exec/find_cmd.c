@@ -91,13 +91,7 @@ int	find_cmd(t_param *param, char **argv, char **envp, t_vars *vars)
 				envp, vars);
 		exit (127);
 	}
-	close(vars->cmd.pipe[FD_OUT]);
-	close(vars->cmd.pipe[FD_IN]);
-	close(3);
-	close(4);
-	close(5);
-	close(6);
-	close(7);
+	clear_pipes(vars);
 	close_handle(vars);
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))

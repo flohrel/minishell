@@ -74,6 +74,8 @@ void	exec_pipeline(t_vars *vars, t_cmd *cmd, t_ast *node, int ct)
 	close_handle(vars);
 	if (ct)	
 		cmd->pipe[FD_IN] = fdes[FD_IN];
+	vars->pipes_fd[(vars->nb_pipes)++] = cmd->pipe[FD_OUT];
+	vars->pipes_fd[(vars->nb_pipes)++] = cmd->pipe[FD_IN];
 }
 
 void	exec_job(t_vars *vars, t_ast *node)
