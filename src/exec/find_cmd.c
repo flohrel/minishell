@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 14:52:04 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/09/22 16:48:23 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/22 17:30:25 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,15 @@ int	handle_builtin(char *path, char **argv, t_vars *vars, t_param *param)
 	return (0);
 }
 
-void	redir_handle(t_cmd *cmd)
+void	parse_cmd(t_vars *vars, t_param *param)
 {
-	if (check_flag(cmd->io_bit, RD_IN))
-		dup2(cmd->redir[FD_IN], FD_IN);
-	if (check_flag(cmd->io_bit, RD_OUT))
-		dup2(cmd->redir[FD_OUT], FD_OUT);
+	g_sig.is_child = 1;
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
+	parse_redir(vars, param);
+	pipe_handle(vars);
+	redir_handle(&vars->cmd);
+	clear_pipes(vars);
 }
 
 int	find_cmd(t_param *param, char **argv, char **envp, t_vars *vars)
@@ -82,10 +85,7 @@ int	find_cmd(t_param *param, char **argv, char **envp, t_vars *vars)
 		return (-1);
 	else if (pid == 0)
 	{
-		g_sig.is_child = 1;
-		parse_redir(vars, param);
-		pipe_handle(vars);
-		redir_handle(&vars->cmd);
+		parse_cmd(vars, param);
 		exec_cmd(param->path, tabjoin(param->path, argv, vars),
 			envp, vars);
 		exit (127);

@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 04:24:06 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/09/22 14:36:28 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/09/22 17:30:36 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ int	pipe_handle(t_vars *vars)
 		if (check_flag(vars->cmd.io_bit, PIPE_OUT))
 			vars->cmd.dup_in = dup2(vars->cmd.pipe[FD_IN], FD_IN);
 	}
-	clear_pipes(vars);
 	return (1);
 }
 
