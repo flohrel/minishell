@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 11:42:38 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/15 22:07:12 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/20 17:09:49 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,20 +37,15 @@ int	input_handle(char *line_read, char *delim, char *buffer, int *index)
 {
 	int		ret;
 	int		len;
-	char	*ptr;
 
 	ret = 1;
 	len = ft_strlen(line_read);
-	ptr = ft_strnstr(line_read, delim, len);
-	if ((ptr != NULL) && (ptr != delim))
-	{
-		len = ptr - line_read;
+	if (!ft_strcmp(line_read, delim))
 		ret = 0;
-	}
-	ft_strlcpy(&buffer[*index], line_read, len + 1);
-	(*index) += len;
-	if (ret)
+	else
 	{
+		ft_strlcpy(&buffer[*index], line_read, len + 1);
+		(*index) += len;
 		buffer[*index] = '\n';
 		(*index)++;
 	}
