@@ -25,6 +25,7 @@ void	init_vars(t_vars *vars)
 	vars->lexer.tk_list = NULL;
 	vars->lexer.buffer = NULL;
 	vars->ptr_list = NULL;
+	vars->nb_pipes = 0;
 	vars->pipes = NULL;
 }
 

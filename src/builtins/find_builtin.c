@@ -24,10 +24,16 @@ int	check_fd(t_vars *vars, t_param *param)
 static int	find_builtin_next(char *path, char **args, t_vars *vars,
 		t_param *param)
 {
+	int	ret;
+
 	if (ft_strcmp("env", path) == 0 && check_fd(vars, param))
 		return (print_env(args, vars));
 	else if (ft_strcmp("export", path) == 0 && check_fd(vars, param))
-		return (export(args, vars));
+	{
+		ret = export(args, vars);
+		handle_assign_export(vars, args, param->assign);
+		return (ret);
+	}
 	else if (ft_strcmp("exit", path) == 0 && check_fd(vars, param))
 		return (exit_b(args, vars));
 	return (-1);

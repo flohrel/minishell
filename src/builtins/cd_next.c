@@ -15,10 +15,10 @@
 int	errormsg(char *str, char *arg)
 {
 	if (str)
-		ft_putstr_fd(str, 1);
+		ft_putstr_fd(str, 2);
 	if (arg)
-		ft_putstr_fd(arg, 1);
-	ft_putstr_fd("\n", 1);
+		ft_putstr_fd(arg, 2);
+	ft_putstr_fd("\n", 2);
 	return (1);
 }
 

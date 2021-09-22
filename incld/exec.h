@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 19:23:42 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/09/16 17:29:36 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/22 14:29:23 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,13 @@ void	exec_list2(t_vars *vars, t_ast *node, bool is_exec);
  */
 void	exec_sub(t_vars *vars, t_ast *node);
 void	exec_job(t_vars *vars, t_ast *node);
-void	exec_pipeline(t_vars *vars, t_cmd *cmd, t_ast *node);
+void	exec_pipeline(t_vars *vars, t_cmd *cmd, t_ast *node, int ct);
 void	exec_command(t_vars *vars, t_ast *node);
 
 /*
  **		find_cmd.c
  */
+int		path_error(char *path, char *msg);
 void	sigint_handler(int signum);
 void	redir_handle(t_cmd *cmd);
 
@@ -67,5 +68,8 @@ int		close_handle(t_vars *vars);
 char	*create_path(char *path, char *cmd, t_vars *vars);
 void	free_path(char **path);
 void	exec_absolute_path(char *path, char **argv, char **envp, t_vars *vars);
+pid_t	exec_last_pipe(t_vars *vars, t_cmd *cmd, t_ast *node);
+void	exec_first_pipe(t_vars *vars, t_cmd *cmd, t_ast *node);
+void	clear_pipes(t_vars *vars);
 
 #endif

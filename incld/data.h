@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 15:01:51 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/15 22:16:48 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/22 14:28:54 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include "libft.h"
 
 # define BUFFER_SIZE		65536
+# define FD_MAX			1024
 # define PROMPT1			"\e[1;32mminishell> \e[0m"
 # define PROMPT2			"\e[1;32mminishell\e[0m\e[1;31m> \e[0m"
 # define HDOC_PROMPT		"> "
@@ -192,6 +193,8 @@ struct	s_vars
 	t_env		*env;
 	t_env		*exp;
 	t_env		*agn;
+	int			pipes_fd[MAX_FD];
+	int			nb_pipes;
 	t_pipes		*pipes;
 	int			akuma;
 };

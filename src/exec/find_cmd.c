@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 14:52:04 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/09/16 17:51:52 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/22 14:35:37 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int	path_error(char *path, char *msg)
 {
-	ft_putstr_fd("minishell: ", 1);
-	ft_putstr_fd(path, 1);
-	ft_putstr_fd(msg, 1);
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	ft_putstr_fd(path, STDERR_FILENO);
+	ft_putstr_fd(msg, STDERR_FILENO);
 	return (1);
 }
 
@@ -28,7 +28,7 @@ int	exec_cmd(char *path, char **argv, char **envp, t_vars *vars)
 
 	i = 0;
 	if (!path || !argv || !envp || !vars)
-		clean_exit(vars, NULL, NULL, errno);
+		exit(0);
 	if (ft_ischarset('/', path))
 		exec_absolute_path(path, argv, envp, vars);
 	paths = ft_split(get_env_value("PATH", vars->env), ':');
@@ -74,7 +74,6 @@ int	find_cmd(t_param *param, char **argv, char **envp, t_vars *vars)
 	int	pid;
 	int	status;
 
-	g_sig.is_displayed = 0;
 	if (handle_builtin(param->path, argv, vars, param))
 		return (1);
 	else
@@ -87,9 +86,11 @@ int	find_cmd(t_param *param, char **argv, char **envp, t_vars *vars)
 		parse_redir(vars, param);
 		pipe_handle(vars);
 		redir_handle(&vars->cmd);
-		exec_cmd(param->path, tabjoin(param->path, argv, vars), envp, vars);
+		exec_cmd(param->path, tabjoin(param->path, argv, vars),
+			envp, vars);
 		exit (127);
 	}
+	clear_pipes(vars);
 	close_handle(vars);
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))

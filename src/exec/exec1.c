@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 19:05:43 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/09/16 20:26:08 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/22 14:36:02 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,36 +21,63 @@ void	exec_command(t_vars *vars, t_ast *node)
 		return ;
 	param = node->data;
 	args = list_to_tab(param->arg, vars);
-	if (param && !(param->path))
-	{
-		if (handle_assign(vars, param->assign) < 0)
-			clean_exit(vars, NULL, NULL, errno);
-	}
-	else
-		find_cmd(param, args, env_to_tab(vars->env, vars), vars);
+	if (param && !(param->path) && param->assign
+		&& handle_assign(vars, param->assign) < 0)
+		clean_exit(vars, NULL, NULL, errno);
+	g_sig.is_displayed = 0;
+	find_cmd(param, args, env_to_tab(vars->env, vars), vars);
 }
 
-void	exec_pipeline(t_vars *vars, t_cmd *cmd, t_ast *node)
+void	fork_pipeline(t_vars *vars, t_cmd *cmd, t_ast *node)
+{
+	int		status;
+	int		ct;
+	pid_t	last;
+	int		count;
+
+	count = 0;
+	ct = 0;
+	vars->nb_pipes = 0;
+	while (node && (node->type == NODE_PIPE))
+	{
+		exec_pipeline(vars, cmd, node, ct);
+		ct++;
+		node = node->right;
+	}
+	last = exec_last_pipe(vars, cmd, node);
+	ct++;
+	while (count < ct)
+	{
+		if (waitpid(-1, &status, 0) == last && WIFEXITED(status))
+			g_sig.exit_status = WEXITSTATUS(status);
+		count++;
+	}
+}
+
+void	exec_pipeline(t_vars *vars, t_cmd *cmd, t_ast *node, int ct)
 {
 	int	fdes[2];
 
-	pipe(fdes);
-	cmd->pipe[FD_OUT] = fdes[FD_OUT];
-	cmd->pipe[FD_IN] = fdes[FD_IN];
-	set_flag(&cmd->io_bit, PIPE_IN);
-	exec_command(vars, node->left);
-	node = node->right;
-	while (node && (node->type == NODE_PIPE))
+	if (!ct)
+		exec_first_pipe(vars, cmd, node);
+	else
 	{
 		set_flag(&cmd->io_bit, PIPE_OUT);
 		pipe(fdes);
 		cmd->pipe[FD_OUT] = fdes[FD_OUT];
-		exec_command(vars, node->left);
-		cmd->pipe[FD_IN] = fdes[FD_IN];
-		node = node->right;
 	}
-	cmd->io_bit = -256;
-	exec_command(vars, node);
+	g_sig.is_displayed = 0;
+	if (!fork())
+	{
+		g_sig.is_child = 1;
+		exec_command(vars, node->left);
+		exit(g_sig.exit_status);
+	}
+	close_handle(vars);
+	if (ct)
+		cmd->pipe[FD_IN] = fdes[FD_IN];
+	vars->pipes_fd[(vars->nb_pipes)++] = cmd->pipe[FD_OUT];
+	vars->pipes_fd[(vars->nb_pipes)++] = cmd->pipe[FD_IN];
 }
 
 void	exec_job(t_vars *vars, t_ast *node)
@@ -59,7 +86,7 @@ void	exec_job(t_vars *vars, t_ast *node)
 	vars->cmd.std_in = dup(FD_IN);
 	parse_expansion(vars, node);
 	if (check_flag(node->type, NODE_PIPE))
-		exec_pipeline(vars, &vars->cmd, node);
+		fork_pipeline(vars, &vars->cmd, node);
 	else
 		exec_command(vars, node);
 }
