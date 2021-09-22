@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 15:29:11 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/15 22:45:04 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/22 16:49:39 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ t_sig	g_sig;
 void	sigint_handler(int signum)
 {
 	g_sig.exit_status = 128 + signum;
-	write(STDOUT_FILENO, "\n", 1);
+	if (g_sig.minishlvl == 0)
+		write(STDERR_FILENO, "\n", 1);
 	if (isatty(0) && !g_sig.is_child && g_sig.is_displayed)
 	{
 		rl_on_new_line();
@@ -39,8 +40,6 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	init(&vars, envp);
-	g_sig.is_child = 0;
-	g_sig.is_displayed = 1;
 	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, sigquit_handler);
 	while (1)

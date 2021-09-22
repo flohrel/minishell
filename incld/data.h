@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 15:01:51 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/22 14:28:54 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/09/22 16:33:01 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ extern t_sig			g_sig;
 
 struct	s_sig
 {
+	int		minishlvl;
 	int		exit_status;
 	bool	is_child;
 	bool	is_displayed;
