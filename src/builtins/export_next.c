@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 04:22:15 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/07/21 04:22:18 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/09/22 14:32:34 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,6 @@ int	export_found(t_env *tmp, t_vars *vars)
 	return (1);
 }
 
-int	assign_export(t_vars *vars, t_env *result)
-{
-	(void)vars;
-	(void)result;
-	return (1);
-}
-
 int	export_only(char *str, t_env *result, t_vars *vars)
 {
 	if (ft_strischarset(str, "+/-*.="))
@@ -73,7 +66,5 @@ int	export_only(char *str, t_env *result, t_vars *vars)
 		return (-1);
 	if (add_to_exp(&vars->exp, result) < 0)
 		return (-1);
-//	if (assign_export(vars, result) < 0)
-//		return (-1);
 	return (1);
 }

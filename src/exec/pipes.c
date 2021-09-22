@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 04:24:06 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/09/16 17:27:01 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/22 14:36:28 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 pid_t	exec_last_pipe(t_vars *vars, t_cmd *cmd, t_ast *node)
 {
-	pid_t pid;
+	pid_t	pid;
 
 	cmd->io_bit = -256;
 	g_sig.is_displayed = 0;
@@ -35,7 +35,7 @@ void	exec_first_pipe(t_vars *vars, t_cmd *cmd, t_ast *node)
 	int	fdes[2];
 
 	(void)node;
-	(void)vars;	
+	(void)vars;
 	pipe(fdes);
 	cmd->pipe[FD_OUT] = fdes[FD_OUT];
 	cmd->pipe[FD_IN] = fdes[FD_IN];

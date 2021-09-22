@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 19:05:43 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/09/16 20:26:08 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/22 14:36:02 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,18 @@ void	exec_command(t_vars *vars, t_ast *node)
 	param = node->data;
 	args = list_to_tab(param->arg, vars);
 	if (param && !(param->path) && param->assign
-			&& handle_assign(vars, param->assign) < 0)
+		&& handle_assign(vars, param->assign) < 0)
 		clean_exit(vars, NULL, NULL, errno);
+	g_sig.is_displayed = 0;
 	find_cmd(param, args, env_to_tab(vars->env, vars), vars);
 }
 
 void	fork_pipeline(t_vars *vars, t_cmd *cmd, t_ast *node)
 {
-	int	status;
-	int	ct; //mettre en global
+	int		status;
+	int		ct;
 	pid_t	last;
-	int	count;
+	int		count;
 
 	count = 0;
 	ct = 0;
@@ -72,7 +73,7 @@ void	exec_pipeline(t_vars *vars, t_cmd *cmd, t_ast *node, int ct)
 		exit(g_sig.exit_status);
 	}
 	close_handle(vars);
-	if (ct)	
+	if (ct)
 		cmd->pipe[FD_IN] = fdes[FD_IN];
 	vars->pipes_fd[(vars->nb_pipes)++] = cmd->pipe[FD_OUT];
 	vars->pipes_fd[(vars->nb_pipes)++] = cmd->pipe[FD_IN];

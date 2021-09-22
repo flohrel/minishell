@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/16 17:02:16 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/06/24 19:52:41 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/09/22 14:33:04 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	manage_agn(t_list *assign, t_vars *vars, t_env *block)
 int	handle_assign_export(t_vars *vars, char **args, t_list *assign)
 {
 	t_env	*res;
-	int	i;
+	int		i;
 
 	while (assign)
 	{
@@ -66,7 +66,8 @@ int	handle_assign_export(t_vars *vars, char **args, t_list *assign)
 		if (new_envblock(((t_token *)(assign->content))->data, res) == 0)
 			return (0);
 		while (args[i])
-			if (!ft_strischarset(args[i], "+/-*.=") && !ft_strcmp(args[i++], res->key))
+			if (!ft_strischarset(args[i], "+/-*.=")
+				&& !ft_strcmp(args[i++], res->key))
 				add_to_exp(&vars->env, res);
 		free_block(res);
 		assign = assign->next;

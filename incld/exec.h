@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 19:23:42 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/09/16 17:29:36 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/22 14:29:23 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	exec_command(t_vars *vars, t_ast *node);
 /*
  **		find_cmd.c
  */
-int	path_error(char *path, char *msg);
+int		path_error(char *path, char *msg);
 void	sigint_handler(int signum);
 void	redir_handle(t_cmd *cmd);
 

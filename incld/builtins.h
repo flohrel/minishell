@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 15:24:24 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/09/06 16:17:34 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/22 14:28:23 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,6 @@ int		new_envblock(char *str, t_env *result);
 t_opt	optionhandler(char **args, char *opt, t_vars *vars);
 int		failed_path(t_vars *vars, char *path);
 int		ret_context(t_env *result);
-int	is_pipe(t_vars *vars);
+int		is_pipe(t_vars *vars);
 
 #endif
