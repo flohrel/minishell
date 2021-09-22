@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 11:42:38 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/20 17:09:49 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/22 18:37:46 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,19 +116,19 @@ void	readline_hdoc(t_vars *vars, char *delim)
 	i = 0;
 	ret = 1;
 	count = 0;
+	ft_bzero(buffer, BUFFER_SIZE);
 	while (ret)
 	{
 		count++;
-		line_read = readline(HDOC_PROMPT);
-		if (line_read == NULL)
-		{
-			printf("minishell: warning: ");
-			printf("here-document at line %d ", get_nline(vars));
-			printf("delimited by end-of-file (wanted `%s')\n", delim);
-			break ;
-		}
-		ret = input_handle(line_read, delim, buffer, &i);
+		line_read = NULL;
+		ft_putstr_fd("> ", STDERR_FILENO);
+		ret = get_next_line(STDIN_FILENO, &line_read);
+		if (!ret)
+			heredoc_error_msg(vars, delim, line_read);
+		else
+			ret = input_handle(line_read, delim, buffer, &i);
 	}
+	free(line_read);
 	set_nline(vars, count);
 	vars->lexer.buffer = lst_alloc(i + 1, sizeof(*buffer), vars);
 	ft_strlcpy(vars->lexer.buffer, buffer, i + 1);
