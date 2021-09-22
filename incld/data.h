@@ -19,6 +19,7 @@
 # include "libft.h"
 
 # define BUFFER_SIZE		65536
+# define FD_MAX			1024
 # define PROMPT1			"\e[1;32mminishell> \e[0m"
 # define PROMPT2			"\e[1;32mminishell\e[0m\e[1;31m> \e[0m"
 # define HDOC_PROMPT		"> "
@@ -192,7 +193,7 @@ struct	s_vars
 	t_env		*env;
 	t_env		*exp;
 	t_env		*agn;
-	int			pipes_fd[1024];
+	int			pipes_fd[MAX_FD];
 	int			nb_pipes;
 	t_pipes		*pipes;
 	int			akuma;

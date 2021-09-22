@@ -37,6 +37,7 @@ void	fork_pipeline(t_vars *vars, t_cmd *cmd, t_ast *node)
 
 	count = 0;
 	ct = 0;
+	vars->nb_pipes = 0;
 	while (node && (node->type == NODE_PIPE))
 	{
 		exec_pipeline(vars, cmd, node, ct);

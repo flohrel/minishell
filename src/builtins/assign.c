@@ -68,7 +68,12 @@ int	handle_assign_export(t_vars *vars, char **args, t_list *assign)
 		while (args[i])
 			if (!ft_strischarset(args[i], "+/-*.=")
 				&& !ft_strcmp(args[i++], res->key))
-				add_to_exp(&vars->env, res);
+			{
+				if (add_to_exp(&vars->env, res) < 0)
+					return (-1);
+				if (add_to_exp(&vars->exp, res) < 0)
+					return (-1);
+			}
 		free_block(res);
 		assign = assign->next;
 	}
