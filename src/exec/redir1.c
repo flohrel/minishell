@@ -15,14 +15,7 @@
 void	redir_handle(t_cmd *cmd)
 {
 	if (check_flag(cmd->io_bit, RD_IN))
-	{
-		ft_putstr_fd("redirin", 2);
 		dup2(cmd->redir[FD_IN], FD_IN);
-	}
 	if (check_flag(cmd->io_bit, RD_OUT))
-	{
-		ft_putstr_fd("redirout", 2);
 		dup2(cmd->redir[FD_OUT], FD_OUT);
-
-	}
 }
