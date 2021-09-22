@@ -60,6 +60,11 @@ void	clear_pipes(t_vars *vars)
 
 int	pipe_handle(t_vars *vars)
 {
+	if (check_flag(vars->cmd.io_bit, RD_IN))
+		return (1);
+	if (check_flag(vars->cmd.io_bit, RD_OUT))
+		return (1);
+	ft_putstr_fd("pipe", 2);
 	if (vars->cmd.io_bit < 0)
 		vars->cmd.dup_in = dup2(vars->cmd.pipe[FD_IN], FD_IN);
 	else if (check_flag(vars->cmd.io_bit, PIPE_IN))

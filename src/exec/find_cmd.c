@@ -63,6 +63,7 @@ int	handle_builtin(char *path, char **argv, t_vars *vars, t_param *param)
 
 void	parse_cmd(t_vars *vars, t_param *param)
 {
+	(void)param;
 	g_sig.is_child = 1;
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
