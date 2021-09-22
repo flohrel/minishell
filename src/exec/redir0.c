@@ -50,6 +50,7 @@ void	set_hdoc(t_vars *vars, t_cmd *cmd, char *string, bool has_exp)
 
 	set_flag(&cmd->io_bit, RD_IN);
 	cmd->redir[FD_IN] = open(TMP_FILE, O_WRONLY | O_CREAT | O_TRUNC, 0600);
+	ft_putnbr_fd(cmd->redir[FD_IN], 2);
 	if (cmd->redir[FD_IN] == -1)
 		clean_exit(vars, TMP_FILE, NULL, errno);
 	readline_hdoc(vars, string);

@@ -128,7 +128,6 @@ void	readline_hdoc(t_vars *vars, char *delim)
 		else
 			ret = input_handle(line_read, delim, buffer, &i);
 	}
-	free(line_read);
 	set_nline(vars, count);
 	vars->lexer.buffer = lst_alloc(i + 1, sizeof(*buffer), vars);
 	ft_strlcpy(vars->lexer.buffer, buffer, i + 1);
