@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/18 02:07:59 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/15 22:26:33 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/24 18:02:05 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,12 @@ t_param	*init_cmd_param(t_vars *vars)
 	data->redir = NULL;
 	data->arg = NULL;
 	data->assign = NULL;
+	data->io.flag = 0;
+	data->io.delim = NULL;
+	data->io.std_in = -1;
+	data->io.std_out = -1;
+	data->io.dup_in = -1;
+	data->io.dup_out = -1;
 	return (data);
 }
 

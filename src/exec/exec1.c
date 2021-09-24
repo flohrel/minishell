@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 19:05:43 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/09/20 17:12:13 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/24 18:13:42 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	exec_command(t_vars *vars, t_ast *node)
 	find_cmd(param, args, env_to_tab(vars->env, vars), vars);
 }
 
-void	fork_pipeline(t_vars *vars, t_cmd *cmd, t_ast *node)
+void	fork_pipeline(t_vars *vars, t_ast *node, t_io *io)
 {
 	int		status;
 	int		ct;
@@ -40,11 +40,11 @@ void	fork_pipeline(t_vars *vars, t_cmd *cmd, t_ast *node)
 	vars->nb_pipes = 0;
 	while (node && (node->type == NODE_PIPE))
 	{
-		exec_pipeline(vars, cmd, node, ct);
+		exec_pipeline(vars, io, node, ct);
 		ct++;
 		node = node->right;
 	}
-	last = exec_last_pipe(vars, cmd, node);
+	last = exec_last_pipe(vars, node, io);
 	ct++;
 	while (count < ct)
 	{
@@ -54,17 +54,17 @@ void	fork_pipeline(t_vars *vars, t_cmd *cmd, t_ast *node)
 	}
 }
 
-void	exec_pipeline(t_vars *vars, t_cmd *cmd, t_ast *node, int ct)
+void	exec_pipeline(t_vars *vars, t_io *io, t_ast *node, int ct)
 {
 	int	fdes[2];
 
 	if (!ct)
-		exec_first_pipe(vars, cmd, node);
+		exec_first_pipe(node);
 	else
 	{
-		set_flag(&cmd->io_bit, PIPE_OUT);
+		set_flag(&(io->flag), PIPE_OUT);
 		pipe(fdes);
-		cmd->pipe[FD_OUT] = fdes[FD_OUT];
+		io->pipe[FD_OUT] = fdes[FD_OUT];
 	}
 	g_sig.is_displayed = 0;
 	if (!fork())
@@ -73,20 +73,20 @@ void	exec_pipeline(t_vars *vars, t_cmd *cmd, t_ast *node, int ct)
 		exec_command(vars, node->left);
 		exit(g_sig.exit_status);
 	}
-	close_handle(vars);
+	close_handle(io);
 	if (ct)
-		cmd->pipe[FD_IN] = fdes[FD_IN];
-	vars->pipes_fd[(vars->nb_pipes)++] = cmd->pipe[FD_OUT];
-	vars->pipes_fd[(vars->nb_pipes)++] = cmd->pipe[FD_IN];
+		io->pipe[FD_IN] = fdes[FD_IN];
+	vars->pipes_fd[(vars->nb_pipes)++] = io->pipe[FD_OUT];
+	vars->pipes_fd[(vars->nb_pipes)++] = io->pipe[FD_IN];
 }
 
 void	exec_job(t_vars *vars, t_ast *node)
 {
-	vars->cmd.std_out = dup(FD_OUT);
-	vars->cmd.std_in = dup(FD_IN);
+	vars->io.std_out = dup(FD_OUT);
+	vars->io.std_in = dup(FD_IN);
 	parse_expansion(vars, node);
 	if (check_flag(node->type, NODE_PIPE))
-		fork_pipeline(vars, &vars->cmd, node);
+		fork_pipeline(vars, node, &(node->data->io));
 	else
 		exec_command(vars, node);
 }

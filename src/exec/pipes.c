@@ -6,17 +6,17 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 04:24:06 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/09/22 17:30:36 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/24 17:22:40 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-pid_t	exec_last_pipe(t_vars *vars, t_cmd *cmd, t_ast *node)
+pid_t	exec_last_pipe(t_vars *vars, t_ast *node, t_io *io)
 {
 	pid_t	pid;
 
-	cmd->io_bit = -256;
+	io->flag = -256;
 	g_sig.is_displayed = 0;
 	pid = fork();
 	if (pid == 0)
@@ -25,67 +25,67 @@ pid_t	exec_last_pipe(t_vars *vars, t_cmd *cmd, t_ast *node)
 		exec_command(vars, node);
 		exit(g_sig.exit_status);
 	}
-	close(vars->cmd.pipe[FD_OUT]);
-	close(vars->cmd.pipe[FD_IN]);
+	close(io->pipe[FD_OUT]);
+	close(io->pipe[FD_IN]);
 	return (pid);
 }
 
-void	exec_first_pipe(t_vars *vars, t_cmd *cmd, t_ast *node)
+void	exec_first_pipe(t_ast *node)
 {
-	int	fdes[2];
+	int		fdes[2];
+	t_io	*io;
 
-	(void)node;
-	(void)vars;
+	io = &(node->data->io);
 	pipe(fdes);
-	cmd->pipe[FD_OUT] = fdes[FD_OUT];
-	cmd->pipe[FD_IN] = fdes[FD_IN];
-	set_flag(&cmd->io_bit, PIPE_IN);
+	io->pipe[FD_OUT] = fdes[FD_OUT];
+	io->pipe[FD_IN] = fdes[FD_IN];
+	set_flag(&(io->flag), PIPE_IN);
 }
 
-void	clear_pipes(t_vars *vars)
+void	clear_pipes(t_io *io)
 {
 	int	i;
 
 	i = 0;
-	if (is_pipe(vars))
+	if (is_pipe(io))
 	{
 		while (i < vars->nb_pipes)
 		{
 			close(vars->pipes_fd[i++]);
 		}
-		close(vars->cmd.pipe[FD_OUT]);
-		close(vars->cmd.pipe[FD_IN]);
+		close(io->pipe[FD_OUT]);
+		close(io->pipe[FD_IN]);
 	}
 }	
 
-int	pipe_handle(t_vars *vars)
+int	pipe_handle(t_io *io)
 {
-	if (vars->cmd.io_bit < 0)
-		vars->cmd.dup_in = dup2(vars->cmd.pipe[FD_IN], FD_IN);
-	else if (check_flag(vars->cmd.io_bit, PIPE_IN))
+	if (io->flag < 0)
+		io->dup_in = dup2(io->pipe[FD_IN], FD_IN);
+	else if (check_flag(io->flag, PIPE_IN))
 	{
-		if (check_flag(vars->cmd.io_bit, PIPE_IN))
-			vars->cmd.dup_out = dup2(vars->cmd.pipe[FD_OUT], FD_OUT);
-		if (check_flag(vars->cmd.io_bit, PIPE_OUT))
-			vars->cmd.dup_in = dup2(vars->cmd.pipe[FD_IN], FD_IN);
+		if (check_flag(io->flag, PIPE_IN))
+			io->dup_out = dup2(io.pipe[FD_OUT], FD_OUT);
+		if (check_flag(io->flag, PIPE_OUT))
+			io->dup_in = dup2(io->pipe[FD_IN], FD_IN);
 	}
 	return (1);
 }
 
-int	close_handle(t_vars *vars)
+int	close_handle(t_io *io)
 {
-	if (vars->cmd.io_bit < 0)
-		close(vars->cmd.pipe[FD_IN]);
-	else if (check_flag(vars->cmd.io_bit, PIPE_IN))
+	if (io->flag < 0)
+		close(io->pipe[FD_IN]);
+	else if (check_flag(io->flag, PIPE_IN))
 	{
-		if (check_flag(vars->cmd.io_bit, PIPE_IN))
-			close(vars->cmd.pipe[FD_OUT]);
-		if (check_flag(vars->cmd.io_bit, PIPE_OUT))
-			close(vars->cmd.pipe[FD_IN]);
+		if (check_flag(io->flag, PIPE_IN))
+			close(io->pipe[FD_OUT]);
+		if (check_flag(io->flag, PIPE_OUT))
+			close(io->pipe[FD_IN]);
 	}
-	if (check_flag(vars->cmd.io_bit, FD_IN))
-		close(vars->cmd.redir[FD_IN]);
-	if (check_flag(vars->cmd.io_bit, FD_OUT))
-		close(vars->cmd.redir[FD_OUT]);
+	if (check_flag(io->flag, FD_IN))
+		close(io->redir[FD_IN]);
+	if (check_flag(io->flag, FD_OUT))
+		close(io->redir[FD_OUT]);
 	return (1);
 }

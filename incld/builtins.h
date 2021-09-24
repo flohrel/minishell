@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 15:24:24 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/09/22 14:28:23 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/09/24 17:00:21 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_env	*g_env;
 int		find_builtin(char *path, char **args, t_vars *vars, t_param *param);
 int		pwd(char **args, t_vars *vars);
 int		cd(char **args, t_vars *vars);
-int		exit_b(char **args, t_vars *vars);
+int		exit_b(char **args, t_vars *vars, t_param *param);
 int		my_echo(char **args, t_vars *vars);
 int		export(char **args, t_vars *vars);
 int		init_exp(t_env **env, t_env *elem);
@@ -61,6 +61,6 @@ int		new_envblock(char *str, t_env *result);
 t_opt	optionhandler(char **args, char *opt, t_vars *vars);
 int		failed_path(t_vars *vars, char *path);
 int		ret_context(t_env *result);
-int		is_pipe(t_vars *vars);
+int		is_pipe(t_io *io);
 
 #endif
