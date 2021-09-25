@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 19:05:43 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/09/24 18:13:42 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/25 14:59:30 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	exec_command(t_vars *vars, t_ast *node)
 	find_cmd(param, args, env_to_tab(vars->env, vars), vars);
 }
 
-void	fork_pipeline(t_vars *vars, t_ast *node, t_io *io)
+void	fork_pipeline(t_vars *vars, t_ast *node)
 {
 	int		status;
 	int		ct;
@@ -40,26 +40,28 @@ void	fork_pipeline(t_vars *vars, t_ast *node, t_io *io)
 	vars->nb_pipes = 0;
 	while (node && (node->type == NODE_PIPE))
 	{
-		exec_pipeline(vars, io, node, ct);
+		exec_pipeline(vars, node->left, ct);
 		ct++;
 		node = node->right;
 	}
-	last = exec_last_pipe(vars, node, io);
+	last = exec_last_pipe(vars, node);
 	ct++;
 	while (count < ct)
 	{
-		if (waitpid(-1, &status, 0) == last && WIFEXITED(status))
+		if ((waitpid(-1, &status, 0) == last) && WIFEXITED(status))
 			g_sig.exit_status = WEXITSTATUS(status);
 		count++;
 	}
 }
 
-void	exec_pipeline(t_vars *vars, t_io *io, t_ast *node, int ct)
+void	exec_pipeline(t_vars *vars, t_ast *node, int ct)
 {
-	int	fdes[2];
+	int		fdes[2];
+	t_io	*io;
 
+	io = &(vars->io);
 	if (!ct)
-		exec_first_pipe(node);
+		exec_first_pipe(io);
 	else
 	{
 		set_flag(&(io->flag), PIPE_OUT);
@@ -70,10 +72,10 @@ void	exec_pipeline(t_vars *vars, t_io *io, t_ast *node, int ct)
 	if (!fork())
 	{
 		g_sig.is_child = 1;
-		exec_command(vars, node->left);
+		exec_command(vars, node);
 		exit(g_sig.exit_status);
 	}
-	close_handle(io);
+	close_handle(vars, node->data);
 	if (ct)
 		io->pipe[FD_IN] = fdes[FD_IN];
 	vars->pipes_fd[(vars->nb_pipes)++] = io->pipe[FD_OUT];
@@ -86,7 +88,7 @@ void	exec_job(t_vars *vars, t_ast *node)
 	vars->io.std_in = dup(FD_IN);
 	parse_expansion(vars, node);
 	if (check_flag(node->type, NODE_PIPE))
-		fork_pipeline(vars, node, &(node->data->io));
+		fork_pipeline(vars, node);
 	else
 		exec_command(vars, node);
 }

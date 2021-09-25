@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 19:23:42 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/09/24 18:12:13 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/25 14:53:30 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,18 +52,18 @@ void	exec_list2(t_vars *vars, t_ast *node, bool is_exec);
  */
 void	exec_sub(t_vars *vars, t_ast *node);
 void	exec_job(t_vars *vars, t_ast *node);
-void	fork_pipeline(t_vars *vars, t_ast *node, t_io *io);
-void	exec_pipeline(t_vars *vars, t_io *io, t_ast *node, int ct);
+void	fork_pipeline(t_vars *vars, t_ast *node);
+void	exec_pipeline(t_vars *vars, t_ast *node, int ct);
 void	exec_command(t_vars *vars, t_ast *node);
 
 /*
  **		pipes.c
  */
-pid_t	exec_last_pipe(t_vars *vars, t_ast *node, t_io *io);
-void	exec_first_pipe(t_ast *node);
-void	clear_pipes(t_io *io);
+pid_t	exec_last_pipe(t_vars *vars, t_ast *node);
+void	exec_first_pipe(t_io *io);
+void	clear_pipes(t_vars *vars, t_io *io);
 int		pipe_handle(t_io *io);
-int		close_handle(t_io *io);
+int		close_handle(t_vars *vars, t_param *param);
 
 /*
  **		find_cmd.c
@@ -71,7 +71,7 @@ int		close_handle(t_io *io);
 int		path_error(char *path, char *msg);
 int		exec_cmd(char *path, char **argv, char **envp, t_vars *vars);
 int		handle_builtin(char *path, char **argv, t_vars *vars, t_param *param);
-void	parse_cmd(t_io *io);
+void	parse_cmd(t_vars *vars, t_param *param);
 int		find_cmd(t_param *param, char **argv, char **envp, t_vars *vars);
 
 char	**tabjoin(char *str, char **args, t_vars *vars);

@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:09:39 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/09/24 18:01:10 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/25 15:07:17 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@ void	exec_list2(t_vars *vars, t_ast *node, bool is_exec)
 
 void	exec_list(t_vars *vars, t_ast *node, bool is_exec)
 {
+	vars->io.flag = 0;
+	vars->io.std_out = -1;
+	vars->io.std_in = -1;
 	if (!node)
 		return ;
 	if (node && check_flag(node->type, NODE_SUB))

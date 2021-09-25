@@ -6,16 +6,18 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 04:24:06 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/09/24 17:22:40 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/25 14:59:09 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-pid_t	exec_last_pipe(t_vars *vars, t_ast *node, t_io *io)
+pid_t	exec_last_pipe(t_vars *vars, t_ast *node)
 {
 	pid_t	pid;
+	t_io	*io;
 
+	io = &(vars->io);
 	io->flag = -256;
 	g_sig.is_displayed = 0;
 	pid = fork();
@@ -30,19 +32,17 @@ pid_t	exec_last_pipe(t_vars *vars, t_ast *node, t_io *io)
 	return (pid);
 }
 
-void	exec_first_pipe(t_ast *node)
+void	exec_first_pipe(t_io *io)
 {
 	int		fdes[2];
-	t_io	*io;
 
-	io = &(node->data->io);
 	pipe(fdes);
 	io->pipe[FD_OUT] = fdes[FD_OUT];
 	io->pipe[FD_IN] = fdes[FD_IN];
 	set_flag(&(io->flag), PIPE_IN);
 }
 
-void	clear_pipes(t_io *io)
+void	clear_pipes(t_vars *vars, t_io *io)
 {
 	int	i;
 
@@ -56,36 +56,41 @@ void	clear_pipes(t_io *io)
 		close(io->pipe[FD_OUT]);
 		close(io->pipe[FD_IN]);
 	}
-}	
+}
 
 int	pipe_handle(t_io *io)
 {
 	if (io->flag < 0)
-		io->dup_in = dup2(io->pipe[FD_IN], FD_IN);
+		dup2(io->pipe[FD_IN], FD_IN);
 	else if (check_flag(io->flag, PIPE_IN))
 	{
 		if (check_flag(io->flag, PIPE_IN))
-			io->dup_out = dup2(io.pipe[FD_OUT], FD_OUT);
+			dup2(io->pipe[FD_OUT], FD_OUT);
 		if (check_flag(io->flag, PIPE_OUT))
-			io->dup_in = dup2(io->pipe[FD_IN], FD_IN);
+			dup2(io->pipe[FD_IN], FD_IN);
 	}
 	return (1);
 }
 
-int	close_handle(t_io *io)
+int	close_handle(t_vars *vars, t_param *param)
 {
-	if (io->flag < 0)
-		close(io->pipe[FD_IN]);
-	else if (check_flag(io->flag, PIPE_IN))
+	t_io	*gio;
+	t_io	*io;
+
+	gio = &vars->io;
+	io = &param->io;
+	if (gio->flag < 0)
+		close(gio->pipe[FD_IN]);
+	else if (check_flag(gio->flag, PIPE_IN))
 	{
-		if (check_flag(io->flag, PIPE_IN))
-			close(io->pipe[FD_OUT]);
-		if (check_flag(io->flag, PIPE_OUT))
-			close(io->pipe[FD_IN]);
+		if (check_flag(gio->flag, PIPE_IN))
+			close(gio->pipe[FD_OUT]);
+		if (check_flag(gio->flag, PIPE_OUT))
+			close(gio->pipe[FD_IN]);
 	}
-	if (check_flag(io->flag, FD_IN))
+	if (check_flag(io->flag, RD_IN))
 		close(io->redir[FD_IN]);
-	if (check_flag(io->flag, FD_OUT))
+	if (check_flag(io->flag, RD_OUT))
 		close(io->redir[FD_OUT]);
 	return (1);
 }

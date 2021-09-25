@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 14:52:04 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/09/24 17:52:51 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/25 14:56:53 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,34 +50,36 @@ int	exec_cmd(char *path, char **argv, char **envp, t_vars *vars)
 
 int	handle_builtin(char *path, char **argv, t_vars *vars, t_param *param)
 {
+	t_io	*io;
+
+	io = &(param->io);
 	g_sig.exit_status = find_builtin(path, argv, vars, param);
 	if (g_sig.exit_status >= 0)
 	{
-		dup2(param->io.std_in, STDIN_FILENO);
-		dup2(param->io.std_out, STDOUT_FILENO);
-		close_handle(vars);
+		dup2(io->std_in, STDIN_FILENO);
+		dup2(io->std_out, STDOUT_FILENO);
+		close_handle(vars, param);
 		return (1);
 	}
 	return (0);
 }
 
-void	parse_cmd(t_io *io)
+void	parse_cmd(t_vars *vars, t_param *param)
 {
+	(void)vars;
 	g_sig.is_child = 1;
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
-	pipe_handle(io);
-	redir_handle(io);
-	clear_pipes(io);
+	pipe_handle(&vars->io);
+	redir_handle(&param->io);
+	clear_pipes(vars, &vars->io);
 }
 
 int	find_cmd(t_param *param, char **argv, char **envp, t_vars *vars)
 {
 	int		pid;
 	int		status;
-	t_io	*io;
 
-	io = &(param->io);
 	if (handle_builtin(param->path, argv, vars, param))
 		return (1);
 	else
@@ -86,13 +88,13 @@ int	find_cmd(t_param *param, char **argv, char **envp, t_vars *vars)
 		return (-1);
 	else if (pid == 0)
 	{
-		parse_cmd(vars, io);
+		parse_cmd(vars, param);
 		exec_cmd(param->path, tabjoin(param->path, argv, vars),
 			envp, vars);
 		exit (127);
 	}
-	clear_pipes(io);
-	close_handle(io);
+	clear_pipes(vars, &vars->io);
+	close_handle(vars, param);
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		g_sig.exit_status = WEXITSTATUS(status);

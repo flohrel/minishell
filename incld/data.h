@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 15:01:51 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/24 18:14:47 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/25 13:27:50 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,8 +134,6 @@ struct	s_io
 	char	*delim;
 	int		std_in;
 	int		std_out;
-	int		dup_in;
-	int		dup_out;
 	int		redir[2];
 	int		pipe[2];
 };
@@ -193,6 +191,7 @@ struct	s_vars
 	t_env		*env;
 	t_env		*exp;
 	t_env		*agn;
+	t_io		io;
 	int			nb_pipes;
 	int			pipes_fd[MAX_FD];
 	t_pipes		*pipes;

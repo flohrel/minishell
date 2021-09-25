@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 20:58:03 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/24 15:04:57 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/24 18:22:45 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	parse_arg_list(t_vars *vars, t_list **args)
 	unquote_arg_list(*args);
 }
 
-void	parse_param(t_vars *vars, t_param *param)
+void	parse_param(t_vars *vars, t_param *data)
 {
 	parse_arg_list(vars, &data->arg);
 	if (data->arg)
@@ -69,7 +69,7 @@ void	parse_param(t_vars *vars, t_param *param)
 	}
 	parse_list(vars, data->redir);
 	parse_list(vars, data->assign);
-	parse_redir(vars, param);
+	parse_redir(vars, data);
 }
 
 void	parse_expansion(t_vars *vars, t_ast *node)
