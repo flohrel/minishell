@@ -40,10 +40,10 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	init(&vars, envp);
-	signal(SIGINT, sigint_handler);
-	signal(SIGQUIT, sigquit_handler);
 	while (1)
 	{
+		signal(SIGINT, sigint_handler);
+		signal(SIGQUIT, sigquit_handler);
 		init_vars(&vars);
 		ft_readline(&vars);
 		if ((lexer(&vars, &vars.lexer) != -1)

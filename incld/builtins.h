@@ -52,7 +52,7 @@ int		handle_assign_export(t_vars *vars, char **args, t_list *assign);
 int		handle_assign(t_vars *vars, t_list *assign);
 int		replace_value(t_env *env, t_env *block);
 int		add_to_exp(t_env **exp, t_env *block);
-int		export_only(char *str, t_env *result, t_vars *vars);
+int		export_only(char *str, t_env *result, t_vars *vars, int *ret);
 t_env	*parse_env(char **env);
 t_env	*set_env_value(t_env *env, char *key, char *value);
 t_env	*blockcpy(t_env *env);
@@ -62,5 +62,6 @@ t_opt	optionhandler(char **args, char *opt, t_vars *vars);
 int		failed_path(t_vars *vars, char *path);
 int		ret_context(t_env *result);
 int		is_pipe(t_io *io);
+int		exp_error(char *arg);
 
 #endif
