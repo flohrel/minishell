@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 19:05:43 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/09/25 14:59:30 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/30 17:23:07 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	exec_command(t_vars *vars, t_ast *node)
 	if (param && !(param->path) && param->assign
 		&& handle_assign(vars, param->assign) < 0)
 		clean_exit(vars, NULL, NULL, errno);
-	g_sig.is_displayed = 0;
 	find_cmd(param, args, env_to_tab(vars->env, vars), vars);
 }
 
@@ -68,10 +67,8 @@ void	exec_pipeline(t_vars *vars, t_ast *node, int ct)
 		pipe(fdes);
 		io->pipe[FD_OUT] = fdes[FD_OUT];
 	}
-	g_sig.is_displayed = 0;
 	if (!fork())
 	{
-		g_sig.is_child = 1;
 		exec_command(vars, node);
 		exit(g_sig.exit_status);
 	}

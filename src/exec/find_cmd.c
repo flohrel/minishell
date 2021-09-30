@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 14:52:04 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/09/25 14:56:53 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/30 17:21:29 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,6 @@ int	path_error(char *path, char *msg)
 	ft_putstr_fd(path, STDERR_FILENO);
 	ft_putstr_fd(msg, STDERR_FILENO);
 	return (1);
-}
-
-void	sigint_handler_f(int signum)
-{
-	g_sig.exit_status = 128 + signum;
 }
 
 int	exec_cmd(char *path, char **argv, char **envp, t_vars *vars)
@@ -74,7 +69,6 @@ int	handle_builtin(char *path, char **argv, t_vars *vars, t_param *param)
 void	parse_cmd(t_vars *vars, t_param *param)
 {
 	(void)vars;
-	g_sig.is_child = 1;
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 	pipe_handle(&vars->io);

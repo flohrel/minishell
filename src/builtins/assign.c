@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/16 17:02:16 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/09/22 14:33:04 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/09/30 17:30:11 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,15 @@ int	handle_assign_export(t_vars *vars, char **args, t_list *assign)
 		if (new_envblock(((t_token *)(assign->content))->data, res) == 0)
 			return (0);
 		while (args[i])
+		{
 			if (!ft_strischarset(args[i], "+/-*.=")
 				&& !ft_strcmp(args[i++], res->key))
 			{
-				if (add_to_exp(&vars->env, res) < 0)
-					return (-1);
-				if (add_to_exp(&vars->exp, res) < 0)
+				if ((add_to_exp(&vars->env, res) < 0)
+					|| (add_to_exp(&vars->exp, res) < 0))
 					return (-1);
 			}
+		}
 		free_block(res);
 		assign = assign->next;
 	}

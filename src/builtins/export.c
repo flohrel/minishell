@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 17:14:46 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/09/09 17:06:42 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/09/30 17:29:00 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	add_to_exp(t_env **exp, t_env *block)
 static int	export_str(char *str, t_vars *vars)
 {
 	t_env	*result;
-	int	ret;
+	int		ret;
 
 	result = malloc(sizeof(t_env));
 	if (!result)

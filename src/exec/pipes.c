@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 04:24:06 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/09/25 14:59:09 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/30 17:22:21 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,9 @@ pid_t	exec_last_pipe(t_vars *vars, t_ast *node)
 
 	io = &(vars->io);
 	io->flag = -256;
-	g_sig.is_displayed = 0;
 	pid = fork();
 	if (pid == 0)
 	{
-		g_sig.is_child = 1;
 		exec_command(vars, node);
 		exit(g_sig.exit_status);
 	}

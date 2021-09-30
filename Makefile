@@ -73,7 +73,8 @@ UTILS		=	astree.c \
 				memory.c \
 				utils.c \
 				flag.c \
-				shell_lvl.c
+				shell_lvl.c \
+				signal.c
 
 SRC			=	main.c \
 				$(BUILTINS) \

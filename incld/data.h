@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 15:01:51 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/25 13:27:50 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/30 17:24:07 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,17 +94,13 @@ typedef struct s_env	t_env;
 typedef struct s_vars	t_vars;
 typedef struct s_opt	t_opt;
 typedef struct s_io		t_io;
-typedef struct s_pipes	t_pipes;
 typedef struct s_sig	t_sig;
 
 extern t_sig			g_sig;
 
 struct	s_sig
 {
-	int		minishlvl;
 	int		exit_status;
-	bool	is_child;
-	bool	is_displayed;
 };
 
 struct	s_token
@@ -174,14 +170,6 @@ struct	s_opt
 	char	**args;
 };
 
-struct	s_pipes
-{
-	int				p_open;
-	t_ast			*node;
-	struct s_pipes	*prev;
-	struct s_pipes	*next;
-};
-
 struct	s_vars
 {
 	t_lexer		lexer;
@@ -194,7 +182,6 @@ struct	s_vars
 	t_io		io;
 	int			nb_pipes;
 	int			pipes_fd[MAX_FD];
-	t_pipes		*pipes;
 	int			akuma;
 };
 
