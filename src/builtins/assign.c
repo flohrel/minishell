@@ -17,17 +17,18 @@ int	assign_add(t_env *block, t_vars *vars)
 	char	*stack;
 	char	*stackb;
 
-	(block->key)[ft_strlen(block->key) - 2] = '\0';
-	stack = get_env_value(block->key, vars->exp);
+	(block->key)[ft_strlen(block->key) - 1] = '\0';
+	stack = ft_strdup(get_env_value(block->key, vars->exp));
 	if (!stack)
-		stack = get_env_value(block->key, vars->agn);
+		stack = ft_strdup(get_env_value(block->key, vars->agn));
 	if (!stack)
 		stack = ft_strdup("\0");
 	stackb = block->value;
 	block->value = ft_strjoin(stack, block->value);
+	free(stack);
+	free(stackb);
 	if (!(block->value))
 		return (-1);
-	free(stackb);
 	return (1);
 }
 
