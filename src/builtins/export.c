@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 17:14:46 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/09/30 17:29:00 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/30 19:10:36 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static int	export_str(char *str, t_vars *vars)
 	}
 	else if (!result->key || !result->value)
 		return (0);
-	else if (!(ft_strischarset(result->key, "+-/*.=")))
+	else if (!(ft_strischarset(result->key, "+-/*.= $")))
 	{
 		if (add_to_exp(&vars->env, result) < 0
 			|| add_to_exp(&vars->exp, result) < 0)
