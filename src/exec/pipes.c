@@ -90,5 +90,7 @@ int	close_handle(t_vars *vars, t_param *param)
 		close(io->redir[FD_IN]);
 	if (check_flag(io->flag, RD_OUT))
 		close(io->redir[FD_OUT]);
+	dup2(io->std_in, STDIN_FILENO);
+	dup2(io->std_out, STDOUT_FILENO);
 	return (1);
 }

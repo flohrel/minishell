@@ -50,16 +50,16 @@ int	exec_cmd(char *path, char **argv, char **envp, t_vars *vars)
 
 int	handle_builtin(char *path, char **argv, t_vars *vars, t_param *param)
 {
-	t_io	*io;
+	//t_io	*io;
 
 	signal(SIGINT, sigint_handler_f);
 	signal(SIGQUIT, sigquit_handler);
-	io = &(param->io);
+	//io = &(param->io);
 	g_sig.exit_status = find_builtin(path, argv, vars, param);
 	if (g_sig.exit_status >= 0)
 	{
-		dup2(io->std_in, STDIN_FILENO);
-		dup2(io->std_out, STDOUT_FILENO);
+		dup2(vars->io.std_in, STDIN_FILENO);
+		dup2(vars->io.std_out, STDOUT_FILENO);
 		close_handle(vars, param);
 		return (1);
 	}
