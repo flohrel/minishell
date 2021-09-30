@@ -26,6 +26,7 @@
 
 # define TMP_FILE	"/tmp/minish-hdoc"
 
+void	sigquit_handler(int signum);
 /*
  **		redir0.c
  */

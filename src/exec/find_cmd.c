@@ -20,6 +20,11 @@ int	path_error(char *path, char *msg)
 	return (1);
 }
 
+void	sigint_handler_f(int signum)
+{
+	g_sig.exit_status = 128 + signum;
+}
+
 int	exec_cmd(char *path, char **argv, char **envp, t_vars *vars)
 {
 	char		**paths;
@@ -52,6 +57,8 @@ int	handle_builtin(char *path, char **argv, t_vars *vars, t_param *param)
 {
 	t_io	*io;
 
+	signal(SIGINT, sigint_handler_f);
+	signal(SIGQUIT, sigquit_handler);
 	io = &(param->io);
 	g_sig.exit_status = find_builtin(path, argv, vars, param);
 	if (g_sig.exit_status >= 0)

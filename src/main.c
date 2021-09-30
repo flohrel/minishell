@@ -17,9 +17,9 @@ t_sig	g_sig;
 void	sigint_handler(int signum)
 {
 	g_sig.exit_status = 128 + signum;
-	if (g_sig.minishlvl == 0)
+	//if (g_sig.minishlvl == 0)
 		write(STDERR_FILENO, "\n", 1);
-	if (isatty(0) && !g_sig.is_child && g_sig.is_displayed)
+	if (isatty(0)) //&& !g_sig.is_child && g_sig.is_displayed)
 	{
 		rl_on_new_line();
 		rl_replace_line("", 0);
@@ -42,6 +42,8 @@ int	main(int argc, char **argv, char **envp)
 	init(&vars, envp);
 	while (1)
 	{
+		if (g_sig.exit_status == 130)
+			ft_putstr_fd("\n", STDERR_FILENO);
 		signal(SIGINT, sigint_handler);
 		signal(SIGQUIT, sigquit_handler);
 		init_vars(&vars);

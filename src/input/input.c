@@ -18,11 +18,13 @@ void	ft_readline(t_vars *vars)
 	int		len;
 
 	line_read = display_prompt();
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 	if (line_read == NULL)
 	{
 		if (isatty(0))
 			write(1, "exit", 5);
-		clean_exit(vars, NULL, NULL, errno);
+		clean_exit(vars, NULL, NULL, -127);
 	}
 	len = ft_strlen(line_read);
 	vars->lexer.buffer = lst_alloc(len + 1,
