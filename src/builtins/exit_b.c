@@ -22,17 +22,17 @@ int	is_pipe(t_io *io)
 int	exit_b(char **args, t_vars *vars, t_param *param)
 {
 	if (!is_pipe(&(param->io)))
-		ft_putstr_fd("exit", 2);
+		ft_putstr_fd("exit", STDERR_FILENO);
 	if (args && !(ft_strisdigit(args[0])))
 	{
 		if (!is_pipe(&(param->io)))
 			ft_putstr_fd("\n", 2);
 		path_error("exit: ", args[0]);
-		ft_putstr_fd(": argument must be a number", 2);
-		if (!is_pipe(&(param->io)))
+		ft_putstr_fd(": argument must be a number", STDERR_FILENO);
+		if (!is_pipe(&(vars->io)))
 			clean_exit(vars, NULL, NULL, 2 - 127);
 		else
-			ft_putstr_fd("\n", 2);
+			ft_putstr_fd("\n", STDERR_FILENO);
 	}
 	else if (ft_tablen(args) > 1)
 		return (errormsg("\nminishell: exit : ",

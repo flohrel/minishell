@@ -14,7 +14,7 @@
 
 void	clean_exit(t_vars *vars, char *arg, char *err_msg, int status)
 {
-	if (errno && (errno != EINTR))
+	if (errno && (errno != EINTR) && (errno != EBADF))
 	{
 		ft_putstr_fd("minishell: ", STDERR_FILENO);
 		if (arg)
