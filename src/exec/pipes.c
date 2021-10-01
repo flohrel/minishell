@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 04:24:06 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/09/30 17:22:21 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/10/01 17:59:15 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ pid_t	exec_last_pipe(t_vars *vars, t_ast *node)
 		exec_command(vars, node);
 		exit(g_sig.exit_status);
 	}
-	close(io->pipe[FD_OUT]);
-	close(io->pipe[FD_IN]);
+	close_handle(vars, node->data);
 	return (pid);
 }
 
@@ -90,7 +89,5 @@ int	close_handle(t_vars *vars, t_param *param)
 		close(io->redir[FD_IN]);
 	if (check_flag(io->flag, RD_OUT))
 		close(io->redir[FD_OUT]);
-	dup2(io->std_in, STDIN_FILENO);
-	dup2(io->std_out, STDOUT_FILENO);
 	return (1);
 }
