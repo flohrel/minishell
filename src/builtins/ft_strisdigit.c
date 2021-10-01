@@ -17,8 +17,8 @@ int	ft_strisdigit(char *str)
 	int	i;
 
 	i = 0;
-	//if (str && str[i] && (str[i] == '-' || str[i] == '+') && str[i + 1])
-	//	i++;
+	if (str && str[i] && (str[i] == '-' || str[i] == '+') && str[i + 1])
+		i++;
 	while (str && str[i])
 	{
 		if (ft_isdigit(str[i]) == 0)
