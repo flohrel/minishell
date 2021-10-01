@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 14:52:04 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/09/30 19:26:07 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/10/01 17:08:49 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void	parse_cmd(t_vars *vars, t_param *param)
 	pipe_handle(&vars->io);
 	redir_handle(&param->io);
 	clear_pipes(vars, &vars->io);
+	close_handle(vars, param);
 }
 
 int	find_cmd(t_param *param, char **argv, char **envp, t_vars *vars)
