@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 04:24:06 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/10/01 17:59:15 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/10/01 18:19:01 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,6 @@ int	close_handle(t_vars *vars, t_param *param)
 		if (check_flag(gio->flag, PIPE_OUT))
 			close(gio->pipe[FD_IN]);
 	}
-	if (check_flag(io->flag, RD_IN))
-		close(io->redir[FD_IN]);
-	if (check_flag(io->flag, RD_OUT))
-		close(io->redir[FD_OUT]);
+	close_redir(io);
 	return (1);
 }

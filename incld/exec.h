@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 19:23:42 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/09/25 14:53:30 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/10/01 18:18:15 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	set_hdoc(t_vars *vars, t_io *io, char *string, bool hax_exp);
  **		redir1.c
  */
 void	redir_handle(t_io *io);
+void	close_redir(t_io *io);
 
 /*
  **		exec0.c
