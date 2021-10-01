@@ -94,7 +94,7 @@ void	*wildcard(t_vars *vars, char *buffer, char *str)
 		return (NULL);
 	match = clear_quotes(str);
 	strs = find_matches(vars, cur_dir, match);
-	free(cur_dir);
+	closedir(cur_dir);
 	if (!strs)
 	{
 		ft_strlcpy(buffer, str, ft_strlen(str) + 1);
