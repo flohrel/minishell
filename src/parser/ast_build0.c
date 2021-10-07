@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:03:22 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/30 18:52:10 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/10/07 15:35:07 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	get_node_type(t_parser *parser)
 		return (NODE_AND | NODE_LIST);
 	if (check_token(parser, (TK_DPIPE | TK_LIST)))
 		return (NODE_OR | NODE_LIST);
+	if (check_token(parser, (TK_PIPE)))
+		return (NODE_PIPE);
 	return (0);
 }
 
@@ -39,7 +41,7 @@ t_ast	*list(t_vars *vars, t_parser *parser)
 	if (node != NULL)
 		return (node);
 	parser->cur_tk = save;
-	node = job(vars, parser);
+	node = cmd(vars, parser);
 	return (node);
 }
 
