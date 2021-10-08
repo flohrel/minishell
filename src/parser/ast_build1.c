@@ -6,53 +6,11 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 05:32:30 by flohrel           #+#    #+#             */
-/*   Updated: 2021/10/08 20:03:27 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/10/08 20:17:15 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
-
-t_ast	*list1(t_vars *vars, t_parser *parser)
-{
-	t_ast	*node;
-	t_ast	*cmp_node;
-	t_ast	*list_node;
-	int		node_type;
-
-	cmp_node = subshell(vars, parser);
-	if (cmp_node == NULL)
-		return (NULL);
-	node_type = get_node_type(parser);
-	if (!node_type)
-		return (NULL);
-	list_node = list(vars, parser);
-	if (list_node == NULL)
-		return (NULL);
-	node = tree_new_node(vars, node_type, NULL);
-	tree_attach_branch(node, cmp_node, list_node);
-	return (node);
-}
-
-t_ast	*list2(t_vars *vars, t_parser *parser)
-{
-	t_ast	*node;
-	t_ast	*job_node;
-	t_ast	*list_node;
-	int		node_type;
-
-	job_node = job(vars, parser);
-	if (job_node == NULL)
-		return (NULL);
-	node_type = get_node_type(parser);
-	if (!node_type)
-		return (NULL);
-	list_node = list(vars, parser);
-	if (list_node == NULL)
-		return (NULL);
-	node = tree_new_node(vars, node_type, NULL);
-	tree_attach_branch(node, job_node, list_node);
-	return (node);
-}
 
 t_ast	*job(t_vars *vars, t_parser *parser)
 {

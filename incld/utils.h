@@ -82,5 +82,6 @@ int		up_shell_lvl(t_vars *vars);
 void	sigint_handler_f(int signum);
 void	sigint_handler(int signum);
 void	sigquit_handler(int signum);
+void	sigquit_handler_f(int signum);
 
 #endif

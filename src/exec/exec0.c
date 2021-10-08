@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:09:39 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/10/08 20:10:40 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/10/08 20:17:33 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void	exec_ast(t_vars *vars, t_ast *node)
 {
 	vars->io.std_out = dup(FD_OUT);
 	vars->io.std_in = dup(FD_IN);
-	display_tree(vars->exec_tree, 0, 0);
 	if (!node)
 		return ;
 	exec_list(vars, node, true);
