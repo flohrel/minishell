@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 19:05:43 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/10/01 17:56:20 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/10/08 20:09:54 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,10 @@ void	exec_pipeline(t_vars *vars, t_ast *node, int ct)
 	}
 	if (!fork())
 	{
-		exec_command(vars, node);
+		if (check_flag(node->type, NODE_SUB))
+			exec_sub(vars, node);
+		else
+			exec_command(vars, node);
 		exit(g_sig.exit_status);
 	}
 	close_handle(vars, node->data);

@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 20:59:00 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/16 20:34:12 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/10/08 20:03:43 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,10 @@ int		astree_build(t_vars *vars, t_lexer *lexer, t_parser *parser);
  */
 t_ast	*list1(t_vars *vars, t_parser *parser);
 t_ast	*list2(t_vars *vars, t_parser *parser);
-t_ast	*list3(t_vars *vars, t_parser *parser);
 t_ast	*job(t_vars *vars, t_parser *parser);
-t_ast	*pipeline(t_vars *vars, t_parser *parser);
+t_ast	*pipeline1(t_vars *vars, t_parser *parser);
+t_ast	*pipeline2(t_vars *vars, t_parser *parser);
+t_ast	*subshell(t_vars *vars, t_parser *parser);
 
 /*
  **		ast_build2.c

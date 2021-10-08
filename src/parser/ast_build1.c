@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 05:32:30 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/15 18:44:45 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/10/08 20:03:27 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,9 @@ t_ast	*list1(t_vars *vars, t_parser *parser)
 	t_ast	*list_node;
 	int		node_type;
 
-	if (!check_token(parser, TK_OPPAR | TK_COMPND))
+	cmp_node = subshell(vars, parser);
+	if (cmp_node == NULL)
 		return (NULL);
-	cmp_node = list(vars, parser);
-	if ((cmp_node == NULL) || !check_token(parser, TK_CLPAR | TK_COMPND))
-		return (NULL);
-	set_flag(&cmp_node->type, NODE_SUB);
 	node_type = get_node_type(parser);
 	if (!node_type)
 		return (NULL);
@@ -37,19 +34,6 @@ t_ast	*list1(t_vars *vars, t_parser *parser)
 }
 
 t_ast	*list2(t_vars *vars, t_parser *parser)
-{
-	t_ast	*cmp_node;
-
-	if (!check_token(parser, TK_OPPAR | TK_COMPND))
-		return (NULL);
-	cmp_node = list(vars, parser);
-	if ((cmp_node == NULL) || !check_token(parser, TK_CLPAR | TK_COMPND))
-		return (NULL);
-	set_flag(&cmp_node->type, NODE_SUB);
-	return (cmp_node);
-}
-
-t_ast	*list3(t_vars *vars, t_parser *parser)
 {
 	t_ast	*node;
 	t_ast	*job_node;
@@ -76,7 +60,15 @@ t_ast	*job(t_vars *vars, t_parser *parser)
 	t_list	*save;
 
 	save = parser->cur_tk;
-	node = pipeline(vars, parser);
+	node = pipeline1(vars, parser);
+	if (node != NULL)
+		return (node);
+	parser->cur_tk = save;
+	node = pipeline2(vars, parser);
+	if (node != NULL)
+		return (node);
+	parser->cur_tk = save;
+	node = subshell(vars, parser);
 	if (node != NULL)
 		return (node);
 	parser->cur_tk = save;
@@ -84,7 +76,26 @@ t_ast	*job(t_vars *vars, t_parser *parser)
 	return (node);
 }
 
-t_ast	*pipeline(t_vars *vars, t_parser *parser)
+t_ast	*pipeline1(t_vars *vars, t_parser *parser)
+{
+	t_ast	*node;
+	t_ast	*cmp_node;
+	t_ast	*job_node;
+
+	cmp_node = subshell(vars, parser);
+	if (cmp_node == NULL)
+		return (NULL);
+	if (!check_token(parser, TK_PIPE))
+		return (NULL);
+	job_node = job(vars, parser);
+	if (job_node == NULL)
+		return (NULL);
+	node = tree_new_node(vars, NODE_PIPE, NULL);
+	tree_attach_branch(node, cmp_node, job_node);
+	return (node);
+}
+
+t_ast	*pipeline2(t_vars *vars, t_parser *parser)
 {
 	t_ast	*node;
 	t_ast	*cmd_node;
@@ -101,4 +112,17 @@ t_ast	*pipeline(t_vars *vars, t_parser *parser)
 	node = tree_new_node(vars, NODE_PIPE, NULL);
 	tree_attach_branch(node, cmd_node, job_node);
 	return (node);
+}
+
+t_ast	*subshell(t_vars *vars, t_parser *parser)
+{
+	t_ast	*cmp_node;
+
+	if (!check_token(parser, TK_OPPAR | TK_COMPND))
+		return (NULL);
+	cmp_node = list(vars, parser);
+	if ((cmp_node == NULL) || !check_token(parser, TK_CLPAR | TK_COMPND))
+		return (NULL);
+	set_flag(&cmp_node->type, NODE_SUB);
+	return (cmp_node);
 }
