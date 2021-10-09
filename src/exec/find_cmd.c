@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/28 14:52:04 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/10/01 17:08:49 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/10/09 13:22:48 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int	handle_builtin(char *path, char **argv, t_vars *vars, t_param *param)
 
 	signal(SIGINT, sigint_handler_f);
 	signal(SIGQUIT, sigquit_handler);
+	signal(SIGQUIT, sigquit_handler_f);
 	gio = &(vars->io);
 	g_sig.exit_status = find_builtin(path, argv, vars, param);
 	if (g_sig.exit_status >= 0)

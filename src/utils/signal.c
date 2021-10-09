@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 17:08:54 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/30 17:10:49 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/10/09 13:24:01 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,14 @@ void	sigint_handler(int signum)
 void	sigquit_handler(int signum)
 {
 	g_sig.exit_status = 128 + signum;
+	(void)signum;
 	write(1, "\033[2D\033[0K", 8);
+}
+
+void	sigquit_handler_f(int signum)
+{
+	if (signum == 3)
+		ft_putstr_fd("Quit (core dumped)\n  ", STDERR_FILENO);
+	write(1, "\033[2D\033[0K", 8);
+	g_sig.exit_status = 128 + signum;
 }

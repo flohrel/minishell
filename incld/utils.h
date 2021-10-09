@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/18 02:36:25 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/30 17:12:21 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/10/09 13:22:13 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,5 +82,6 @@ int		up_shell_lvl(t_vars *vars);
 void	sigint_handler_f(int signum);
 void	sigint_handler(int signum);
 void	sigquit_handler(int signum);
+void	sigquit_handler_f(int signum);
 
 #endif
