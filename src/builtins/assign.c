@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/16 17:02:16 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/06/24 19:52:41 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/09/30 17:30:11 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,18 @@ int	assign_add(t_env *block, t_vars *vars)
 	char	*stack;
 	char	*stackb;
 
-	(block->key)[ft_strlen(block->key) - 2] = '\0';
-	stack = get_env_value(block->key, vars->exp);
+	(block->key)[ft_strlen(block->key) - 1] = '\0';
+	stack = ft_strdup(get_env_value(block->key, vars->exp));
 	if (!stack)
-		stack = get_env_value(block->key, vars->agn);
+		stack = ft_strdup(get_env_value(block->key, vars->agn));
 	if (!stack)
 		stack = ft_strdup("\0");
 	stackb = block->value;
 	block->value = ft_strjoin(stack, block->value);
+	free(stack);
+	free(stackb);
 	if (!(block->value))
 		return (-1);
-	free(stackb);
 	return (1);
 }
 
@@ -49,6 +50,35 @@ int	manage_agn(t_list *assign, t_vars *vars, t_env *block)
 	else
 		if (add_to_exp(&vars->agn, block) < 0)
 			return (-1);
+	return (1);
+}
+
+int	handle_assign_export(t_vars *vars, char **args, t_list *assign)
+{
+	t_env	*res;
+	int		i;
+
+	while (assign)
+	{
+		i = 0;
+		res = malloc(sizeof(t_env));
+		if (!res)
+			return (0);
+		if (new_envblock(((t_token *)(assign->content))->data, res) == 0)
+			return (0);
+		while (args[i])
+		{
+			if (!ft_strischarset(args[i], "+/-*.=")
+				&& !ft_strcmp(args[i++], res->key))
+			{
+				if ((add_to_exp(&vars->env, res) < 0)
+					|| (add_to_exp(&vars->exp, res) < 0))
+					return (-1);
+			}
+		}
+		free_block(res);
+		assign = assign->next;
+	}
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 04:22:15 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/07/21 04:22:18 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/09/22 14:32:34 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,17 @@ int	ret_context(t_env *result)
 {
 	free_block(result);
 	return (-1);
+}
+
+int	exp_error(char *arg)
+{
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	ft_putstr_fd("export: ", STDERR_FILENO);
+	ft_putstr_fd("<< ", STDERR_FILENO);
+	ft_putstr_fd(arg, STDERR_FILENO);
+	ft_putstr_fd(" >> ", STDERR_FILENO);
+	ft_putstr_fd(": Not valid in this context\n", STDERR_FILENO);
+	return (1);
 }
 
 int	add_agn(char *str, t_env *result, t_vars *vars)
@@ -55,26 +66,24 @@ int	export_found(t_env *tmp, t_vars *vars)
 	return (1);
 }
 
-int	export_only(char *str, t_env *result, t_vars *vars)
+int	export_only(char *str, t_env *result, t_vars *vars, int *ret)
 {
-	t_env	*tmp;
-
-	tmp = vars->exp;
 	if (ft_strischarset(str, "+/-*.="))
-		return (errormsg("export : Not valid in this context : ",
-				str));
+	{
+		*ret = -1;
+		return (-1);
+	}
 	if (add_agn(str, result, vars))
 		return (1);
-	while (tmp)
-	{
-		if (ft_strcmp(str, tmp->key) == 0)
-			if (export_found(tmp, vars) < 0)
-				return (-1);
-		tmp = tmp->next;
-	}
 	if (new_expblock(str, "\0", result) == 0)
+	{
+		*ret = 0;
 		return (-1);
+	}
 	if (add_to_exp(&vars->exp, result) < 0)
+	{
+		*ret = 0;
 		return (-1);
+	}
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/18 02:36:25 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/14 19:51:40 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/30 17:12:21 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ void	print_tab(char **arg);
 /*
  **		init.c
  */
-void	init(t_vars *vars, char **envp);
 void	init_vars(t_vars *vars);
-void	init_cmd(t_cmd *cmd);
+void	init(t_vars *vars, char **envp);
+void	check_lvl(t_vars *vars);
 
 /*
  **		flag.c
@@ -75,5 +75,13 @@ void	*add_to_ptrlst(void *content, t_vars *vars);
  **		shell_lvl.c
  */
 int		up_shell_lvl(t_vars *vars);
+
+/*
+ **		signal.c
+ */
+void	sigint_handler_f(int signum);
+void	sigint_handler(int signum);
+void	sigquit_handler(int signum);
+void	sigquit_handler_f(int signum);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 15:01:51 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/20 19:44:31 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/10/09 13:17:30 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,7 @@ typedef struct s_term	t_term;
 typedef struct s_env	t_env;
 typedef struct s_vars	t_vars;
 typedef struct s_opt	t_opt;
-typedef struct s_cmd	t_cmd;
-typedef struct s_pipes	t_pipes;
+typedef struct s_io		t_io;
 typedef struct s_sig	t_sig;
 
 extern t_sig			g_sig;
@@ -102,9 +101,6 @@ extern t_sig			g_sig;
 struct	s_sig
 {
 	int		exit_status;
-	t_list	*child_pid;
-	bool	is_child;
-	bool	is_displayed;
 };
 
 struct	s_token
@@ -128,12 +124,23 @@ struct	s_parser
 	t_list	*cur_tk;
 };
 
+struct	s_io
+{
+	int		flag;
+	char	*delim;
+	int		std_in;
+	int		std_out;
+	int		redir[2];
+	int		pipe[2];
+};
+
 struct	s_param
 {
 	char	*path;
 	t_list	*redir;
 	t_list	*arg;
 	t_list	*assign;
+	t_io	io;
 };
 
 struct	s_ast
@@ -163,37 +170,18 @@ struct	s_opt
 	char	**args;
 };
 
-struct	s_cmd
-{
-	int		io_bit;
-	char	*delim;
-	int		std_out;
-	int		std_in;
-	int		dup_in;
-	int		dup_out;
-	int		redir[2];
-	int		pipe[2];
-};
-
-struct	s_pipes
-{
-	int				p_open;
-	t_ast			*node;
-	struct s_pipes	*prev;
-	struct s_pipes	*next;
-};
-
 struct	s_vars
 {
 	t_lexer		lexer;
 	t_parser	parser;
 	t_ast		*exec_tree;
-	t_cmd		cmd;
 	t_list		*ptr_list;
 	t_env		*env;
 	t_env		*exp;
 	t_env		*agn;
-	t_pipes		*pipes;
+	t_io		io;
+	int			nb_pipes;
+	int			pipes_fd[MAX_FD];
 	int			akuma;
 };
 

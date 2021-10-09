@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 04:22:25 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/09/16 18:39:27 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/25 15:11:42 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,27 @@
 
 int	check_fd(t_vars *vars, t_param *param)
 {
-	parse_redir(vars, param);
-	pipe_handle(vars);
-	redir_handle(&vars->cmd);
-	close_handle(vars);
+	pipe_handle(&vars->io);
+	redir_handle(&param->io);
+	close_handle(vars, param);
 	return (1);
 }
 
 static int	find_builtin_next(char *path, char **args, t_vars *vars,
 		t_param *param)
 {
+	int		ret;
+
 	if (ft_strcmp("env", path) == 0 && check_fd(vars, param))
 		return (print_env(args, vars));
 	else if (ft_strcmp("export", path) == 0 && check_fd(vars, param))
-		return (export(args, vars));
+	{
+		ret = export(args, vars);
+		handle_assign_export(vars, args, param->assign);
+		return (ret);
+	}
 	else if (ft_strcmp("exit", path) == 0 && check_fd(vars, param))
-		return (exit_b(args, vars));
+		return (exit_b(args, vars, param));
 	return (-1);
 }
 

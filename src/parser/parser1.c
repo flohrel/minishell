@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 17:12:17 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/15 18:19:19 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/10/01 18:26:26 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ void	param_expansion(t_vars *vars, char *str, char *buffer)
 	{
 		c = *str;
 		state_check(&state, c);
-		if ((c == '$') && (state != ST_QUOTE) && (*(str + 1) != '\0'))
+		if ((c == '$') && (state != ST_QUOTE)
+			&& !ft_ischarset(*(str + 1), "\0="))
 			var_expansion(vars, &buffer, &str);
 		else
 		{

@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 20:58:03 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/15 22:14:35 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/24 18:22:45 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	parse_param(t_vars *vars, t_param *data)
 	}
 	parse_list(vars, data->redir);
 	parse_list(vars, data->assign);
+	parse_redir(vars, data);
 }
 
 void	parse_expansion(t_vars *vars, t_ast *node)

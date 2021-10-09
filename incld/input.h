@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 11:39:56 by flohrel           #+#    #+#             */
-/*   Updated: 2021/08/08 21:11:28 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/22 18:29:29 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,15 @@
 **		input_utils.c
 */
 char	*display_prompt(void);
+int		heredoc_error_msg(t_vars *vars, char *delim, char *line_read);
 
 /*
 **		input.c
 */
 void	ft_readline(t_vars *vars);
 int		input_handle(char *line_read, char *delim, char *buffer, int *index);
+void	set_nline(t_vars *vars, int count);
+int		get_nline(t_vars *vars);
 void	readline_hdoc(t_vars *vars, char *delim);
 
 #endif

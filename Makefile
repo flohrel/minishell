@@ -43,7 +43,8 @@ BUILTINS	=	assign.c \
 EXEC		=	exec0.c \
 				exec1.c \
 				exec_utils.c \
-				redirection.c \
+				redir0.c \
+				redir1.c \
 				find_cmd.c \
 				find_cmd_next.c \
 				pipes.c
@@ -72,10 +73,10 @@ UTILS		=	astree.c \
 				memory.c \
 				utils.c \
 				flag.c \
-				shell_lvl.c
+				shell_lvl.c \
+				signal.c
 
 SRC			=	main.c \
-				test.c \
 				$(BUILTINS) \
 				$(EXEC) \
 				$(INPUT) \

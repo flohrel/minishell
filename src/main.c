@@ -6,31 +6,13 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 15:29:11 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/15 22:45:04 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/30 17:11:38 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 t_sig	g_sig;
-
-void	sigint_handler(int signum)
-{
-	g_sig.exit_status = 128 + signum;
-	write(STDOUT_FILENO, "\n", 1);
-	if (isatty(0) && !g_sig.is_child && g_sig.is_displayed)
-	{
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
-}
-
-void	sigquit_handler(int signum)
-{
-	g_sig.exit_status = 128 + signum;
-	write(1, "\033[2D\033[0K", 8);
-}
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -39,12 +21,12 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	init(&vars, envp);
-	g_sig.is_child = 0;
-	g_sig.is_displayed = 1;
-	signal(SIGINT, sigint_handler);
-	signal(SIGQUIT, sigquit_handler);
 	while (1)
 	{
+		if (g_sig.exit_status == 130)
+			ft_putstr_fd("\n", STDERR_FILENO);
+		signal(SIGINT, sigint_handler);
+		signal(SIGQUIT, sigquit_handler);
 		init_vars(&vars);
 		ft_readline(&vars);
 		if ((lexer(&vars, &vars.lexer) != -1)

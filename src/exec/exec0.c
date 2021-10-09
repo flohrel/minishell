@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_ast.c                                         :+:      :+:    :+:   */
+/*   exec0.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/09 17:09:39 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/09/15 22:38:38 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/10/08 20:17:33 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,7 @@ void	exec_list2(t_vars *vars, t_ast *node, bool is_exec)
 
 void	exec_list(t_vars *vars, t_ast *node, bool is_exec)
 {
-	vars->cmd.io_bit = 0;
-	vars->cmd.std_out = -1;
-	vars->cmd.std_in = -1;
+	vars->io.flag = 0;
 	if (!node)
 		return ;
 	if (node && check_flag(node->type, NODE_SUB))
@@ -50,9 +48,11 @@ void	exec_list(t_vars *vars, t_ast *node, bool is_exec)
 
 void	exec_ast(t_vars *vars, t_ast *node)
 {
+	vars->io.std_out = dup(FD_OUT);
+	vars->io.std_in = dup(FD_IN);
 	if (!node)
 		return ;
 	exec_list(vars, node, true);
-	close(3);
-	close(4);
+	close(vars->io.std_in);
+	close(vars->io.std_out);
 }

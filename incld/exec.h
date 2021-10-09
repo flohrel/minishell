@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 19:23:42 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/09/16 17:29:36 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/10/01 18:18:15 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,21 @@
 
 # define TMP_FILE	"/tmp/minish-hdoc"
 
+void	sigquit_handler(int signum);
 /*
- **		redirection.c
+ **		redir0.c
  */
 void	parse_redir(t_vars *vars, t_param *param);
-void	set_rdout(t_vars *vars, t_cmd *cmd, char *pathname);
-void	set_rdapp(t_vars *vars, t_cmd *cmd, char *pathname);
-void	set_rdin(t_vars *vars, t_cmd *cmd, char *pathname);
-void	set_hdoc(t_vars *vars, t_cmd *cmd, char *string, bool hax_exp);
+void	set_rdout(t_vars *vars, t_io *io, char *pathname);
+void	set_rdapp(t_vars *vars, t_io *io, char *pathname);
+void	set_rdin(t_vars *vars, t_io *io, char *pathname);
+void	set_hdoc(t_vars *vars, t_io *io, char *string, bool hax_exp);
+
+/*
+ **		redir1.c
+ */
+void	redir_handle(t_io *io);
+void	close_redir(t_io *io);
 
 /*
  **		exec0.c
@@ -47,23 +54,33 @@ void	exec_list2(t_vars *vars, t_ast *node, bool is_exec);
  */
 void	exec_sub(t_vars *vars, t_ast *node);
 void	exec_job(t_vars *vars, t_ast *node);
-void	exec_pipeline(t_vars *vars, t_cmd *cmd, t_ast *node);
+void	fork_pipeline(t_vars *vars, t_ast *node);
+void	exec_pipeline(t_vars *vars, t_ast *node, int ct);
 void	exec_command(t_vars *vars, t_ast *node);
+
+/*
+ **		pipes.c
+ */
+pid_t	exec_last_pipe(t_vars *vars, t_ast *node);
+void	exec_first_pipe(t_io *io);
+void	clear_pipes(t_vars *vars, t_io *io);
+int		pipe_handle(t_io *io);
+int		close_handle(t_vars *vars, t_param *param);
 
 /*
  **		find_cmd.c
  */
-void	sigint_handler(int signum);
-void	redir_handle(t_cmd *cmd);
-
+int		path_error(char *path, char *msg);
+int		exec_cmd(char *path, char **argv, char **envp, t_vars *vars);
+int		handle_builtin(char *path, char **argv, t_vars *vars, t_param *param);
+void	parse_cmd(t_vars *vars, t_param *param);
 int		find_cmd(t_param *param, char **argv, char **envp, t_vars *vars);
+
 char	**tabjoin(char *str, char **args, t_vars *vars);
 char	**env_to_tab(t_env *env, t_vars *vars);
 int		handle_redirections(t_param *param);
 int		env_size(t_env *env);
 int		add_pipe(t_vars *vars, t_ast *node);
-int		pipe_handle(t_vars *vars);
-int		close_handle(t_vars *vars);
 char	*create_path(char *path, char *cmd, t_vars *vars);
 void	free_path(char **path);
 void	exec_absolute_path(char *path, char **argv, char **envp, t_vars *vars);

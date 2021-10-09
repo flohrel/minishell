@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 17:14:46 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/09/09 17:06:42 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/09/30 19:10:36 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,18 +68,19 @@ int	add_to_exp(t_env **exp, t_env *block)
 static int	export_str(char *str, t_vars *vars)
 {
 	t_env	*result;
+	int		ret;
 
 	result = malloc(sizeof(t_env));
 	if (!result)
 		return (0);
 	if (new_envblock(str, result) == -1)
 	{
-		if (export_only(str, result, vars) < 0)
-			return (0);
+		if (export_only(str, result, vars, &ret) < 0)
+			return (ret);
 	}
 	else if (!result->key || !result->value)
 		return (0);
-	else if (!(ft_strischarset(result->key, "+-/*.=")))
+	else if (!(ft_strischarset(result->key, "+-/*.= $")))
 	{
 		if (add_to_exp(&vars->env, result) < 0
 			|| add_to_exp(&vars->exp, result) < 0)
@@ -110,8 +111,7 @@ int	export(char **args, t_vars *vars)
 			if (!ret)
 				clean_exit(vars, NULL, NULL, errno);
 			else if (ret == -1)
-				exit_st = errormsg(
-						"export : Not valid in this context: ", args[i]);
+				exit_st = exp_error(args[i]);
 		}
 		i++;
 	}

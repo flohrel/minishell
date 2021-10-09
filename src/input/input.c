@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/19 11:42:38 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/20 17:09:49 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/09/30 17:04:22 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,13 @@ void	ft_readline(t_vars *vars)
 	int		len;
 
 	line_read = display_prompt();
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 	if (line_read == NULL)
 	{
 		if (isatty(0))
 			write(1, "exit", 5);
-		clean_exit(vars, NULL, NULL, errno);
+		clean_exit(vars, NULL, NULL, -127);
 	}
 	len = ft_strlen(line_read);
 	vars->lexer.buffer = lst_alloc(len + 1,
@@ -116,18 +118,15 @@ void	readline_hdoc(t_vars *vars, char *delim)
 	i = 0;
 	ret = 1;
 	count = 0;
+	ft_bzero(buffer, BUFFER_SIZE);
 	while (ret)
 	{
 		count++;
 		line_read = readline(HDOC_PROMPT);
 		if (line_read == NULL)
-		{
-			printf("minishell: warning: ");
-			printf("here-document at line %d ", get_nline(vars));
-			printf("delimited by end-of-file (wanted `%s')\n", delim);
-			break ;
-		}
-		ret = input_handle(line_read, delim, buffer, &i);
+			ret = heredoc_error_msg(vars, delim, line_read);
+		else
+			ret = input_handle(line_read, delim, buffer, &i);
 	}
 	set_nline(vars, count);
 	vars->lexer.buffer = lst_alloc(i + 1, sizeof(*buffer), vars);

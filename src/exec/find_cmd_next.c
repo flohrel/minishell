@@ -42,19 +42,21 @@ void	exec_absolute_path(char *path, char **argv, char **envp, t_vars *vars)
 
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
-		clean_exit(vars, NULL, NULL, errno);
+		clean_exit(vars, path, NULL, errno);
 	close(fd);
 	if (execve(path, argv, envp) < 0)
 	{
 		if (stat(path, &buf))
-			clean_exit(vars, NULL, NULL, errno);
-		if (buf.st_mode & S_IXUSR)
+			clean_exit(vars, path, NULL, errno);
+		if (S_ISDIR(buf.st_mode))
+			path_error(path, ": is a directory.\n");
+		else if (buf.st_mode & S_IXUSR)
 		{
-			errormsg(path, ": command not found");
+			path_error(path, ": command not found.\n");
 			exit(127);
 		}
 		else
-			printf("minishell : %s: Permission denied.\n", path);
+			path_error(path, ": Permission denied.\n");
 		exit(126);
 	}
 }
