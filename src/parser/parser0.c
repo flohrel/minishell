@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 20:58:03 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/24 18:22:45 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/10/11 19:32:54 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	parse_expansion(t_vars *vars, t_ast *node)
 {
 	if (!node)
 		return ;
-	if (check_flag(node->type, NODE_CMD))
+	if (check_flag(node->type, NODE_CMD) && !check_flag(node->type, NODE_SUB))
 		parse_param(vars, node->data);
 	else
 	{

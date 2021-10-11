@@ -77,6 +77,7 @@ UTILS		=	astree.c \
 				signal.c
 
 SRC			=	main.c \
+				test.c \
 				$(BUILTINS) \
 				$(EXEC) \
 				$(INPUT) \
