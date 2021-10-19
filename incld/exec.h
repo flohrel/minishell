@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 19:23:42 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/10/19 19:16:33 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/10/19 19:29:05 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	redir_handle(t_io *io);
 int		close_redir(t_io *io);
 void	hdoc_copy(t_vars *vars, char **buf, char *str, bool has_exp);
 int		parse_redir2(t_vars *vars, t_param *param, t_token *token);
+int		redir_error(char *arg);
 
 /*
  **		exec0.c
