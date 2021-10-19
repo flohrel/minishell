@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 19:23:42 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/10/01 18:18:15 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/10/19 19:16:33 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,30 +30,32 @@ void	sigquit_handler(int signum);
 /*
  **		redir0.c
  */
-void	parse_redir(t_vars *vars, t_param *param);
-void	set_rdout(t_vars *vars, t_io *io, char *pathname);
-void	set_rdapp(t_vars *vars, t_io *io, char *pathname);
-void	set_rdin(t_vars *vars, t_io *io, char *pathname);
-void	set_hdoc(t_vars *vars, t_io *io, char *string, bool hax_exp);
+int		parse_redir(t_vars *vars, t_param *param);
+int		set_rdout(t_io *io, char *pathname);
+int		set_rdapp(t_io *io, char *pathname);
+int		set_rdin(t_io *io, char *pathname);
+int		set_hdoc(t_vars *vars, t_io *io, char *string, bool hax_exp);
 
 /*
  **		redir1.c
  */
 void	redir_handle(t_io *io);
-void	close_redir(t_io *io);
+int		close_redir(t_io *io);
+void	hdoc_copy(t_vars *vars, char **buf, char *str, bool has_exp);
+int		parse_redir2(t_vars *vars, t_param *param, t_token *token);
 
 /*
  **		exec0.c
  */
 void	exec_ast(t_vars *vars, t_ast *node);
-void	exec_list(t_vars *vars, t_ast *node, bool is_exec);
-void	exec_list2(t_vars *vars, t_ast *node, bool is_exec);
+int		exec_list(t_vars *vars, t_ast *node, bool is_exec);
+int		exec_list2(t_vars *vars, t_ast *node, bool is_exec);
 
 /*
  **		exec1.c
  */
 void	exec_sub(t_vars *vars, t_ast *node);
-void	exec_job(t_vars *vars, t_ast *node);
+int		exec_job(t_vars *vars, t_ast *node);
 void	fork_pipeline(t_vars *vars, t_ast *node);
 void	exec_pipeline(t_vars *vars, t_ast *node, int ct);
 void	exec_command(t_vars *vars, t_ast *node);

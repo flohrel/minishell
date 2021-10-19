@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 20:59:00 by flohrel           #+#    #+#             */
-/*   Updated: 2021/09/16 20:34:12 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/10/19 18:30:56 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ bool	state_check2(int *state, char c);
 void	parse_word(t_vars *vars, char **path);
 void	parse_list(t_vars *vars, t_list *lst);
 void	parse_arg_list(t_vars *vars, t_list **args);
-void	parse_param(t_vars *vars, t_param *param);
-void	parse_expansion(t_vars *vars, t_ast *node);
+int		parse_param(t_vars *vars, t_param *param);
+int		parse_expansion(t_vars *vars, t_ast *node);
 
 /*
  **		parser1.c
