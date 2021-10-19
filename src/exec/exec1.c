@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 19:05:43 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/10/19 19:09:40 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/10/19 20:03:41 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,15 +79,13 @@ void	exec_pipeline(t_vars *vars, t_ast *node, int ct)
 	vars->pipes_fd[(vars->nb_pipes)++] = io->pipe[FD_IN];
 }
 
-int	exec_job(t_vars *vars, t_ast *node)
+void	exec_job(t_vars *vars, t_ast *node)
 {
-	if (parse_expansion(vars, node) == -1)
-		return (-1);
+	parse_expansion(vars, node);
 	if (check_flag(node->type, NODE_PIPE))
 		fork_pipeline(vars, node);
 	else
 		exec_command(vars, node);
-	return (0);
 }
 
 void	exec_sub(t_vars *vars, t_ast *node)

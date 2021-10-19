@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 20:58:03 by flohrel           #+#    #+#             */
-/*   Updated: 2021/10/19 18:14:30 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/10/19 19:51:59 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,18 +76,22 @@ int	parse_param(t_vars *vars, t_param *data)
 
 int	parse_expansion(t_vars *vars, t_ast *node)
 {
+	int	ret;
+
+	ret = 0;
 	if (!node)
-		return (-1);
+		return (ret);
 	if (check_flag(node->type, NODE_CMD))
 	{
 		if (parse_param(vars, node->data) == -1)
-			return (-1);
+			ret = -1;
 	}
 	else
 	{
-		if ((parse_expansion(vars, node->left) == -1)
-			|| (parse_expansion(vars, node->right) == -1))
-			return (-1);
+		if (parse_expansion(vars, node->left) == -1)
+			ret = -1;
+		if (parse_expansion(vars, node->right) == -1)
+			ret = -1;
 	}
-	return (0);
+	return (ret);
 }

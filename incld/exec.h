@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 19:23:42 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/10/19 19:29:05 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/10/19 20:04:27 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,14 @@ int		redir_error(char *arg);
  **		exec0.c
  */
 void	exec_ast(t_vars *vars, t_ast *node);
-int		exec_list(t_vars *vars, t_ast *node, bool is_exec);
-int		exec_list2(t_vars *vars, t_ast *node, bool is_exec);
+void	exec_list(t_vars *vars, t_ast *node, bool is_exec);
+void	exec_list2(t_vars *vars, t_ast *node, bool is_exec);
 
 /*
  **		exec1.c
  */
 void	exec_sub(t_vars *vars, t_ast *node);
-int		exec_job(t_vars *vars, t_ast *node);
+void	exec_job(t_vars *vars, t_ast *node);
 void	fork_pipeline(t_vars *vars, t_ast *node);
 void	exec_pipeline(t_vars *vars, t_ast *node, int ct);
 void	exec_command(t_vars *vars, t_ast *node);
