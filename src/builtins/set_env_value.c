@@ -37,8 +37,11 @@ int	set_value(t_env *tmp, char *value)
 		return (-1);
 	stack = tmp->value;
 	free(stack);
-	stack = ft_strdup(value);
-	if (!stack)
+	if (value)
+		stack = ft_strdup(value);
+	else
+		stack = value;
+	if (value && !stack)
 		return (-1);
 	tmp->value = stack;
 	return (1);
@@ -51,8 +54,9 @@ t_env	*makeblock(char *key, char *value)
 	result = malloc(sizeof(t_env));
 	if (!result)
 		return (NULL);
+	if (value)
 	result->value = ft_strdup(value);
-	if (!result->value)
+	if (value && !result->value)
 		return (NULL);
 	result->key = ft_strdup(key);
 	if (!result->key)

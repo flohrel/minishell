@@ -21,10 +21,13 @@ void	exp_print(t_env *env)
 	{
 		ft_putstr_fd("declare -x ", 1);
 		ft_putstr_fd(tmp->key, 1);
-		ft_putstr_fd("=", 1);
-		ft_putstr_fd("\"", 1);
-		ft_putstr_fd(tmp->value, 1);
-		ft_putstr_fd("\"", 1);
+		if (tmp->value)
+		{
+			ft_putstr_fd("=", 1);
+			ft_putstr_fd("\"", 1);
+			ft_putstr_fd(tmp->value, 1);
+			ft_putstr_fd("\"", 1);
+		}
 		ft_putstr_fd("\n", 1);
 		tmp = tmp->next;
 	}

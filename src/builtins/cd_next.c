@@ -41,3 +41,43 @@ int	failed_path(t_vars *vars, char *path)
 		clean_exit(vars, NULL, NULL, errno);
 	return (0);
 }
+
+int	check_pwd(const char *path, t_vars *vars)
+{
+	char		s[255];
+	if ((getcwd(s, 255) || chdir(path) < 0)
+		&& getcwd(s, 255)
+		&& (!get_env_value("PWD", vars->env)
+		|| ft_strcmp(get_env_value("PWD", vars->env), s) == 0)
+		&& chdir(path) < 0)
+		return (0);
+	return (1);
+
+}
+
+int	cd_end(const char *path, t_vars *vars)
+{
+	char	s[255];
+
+	vars->env = set_env_value(vars->env, "OLDPWD",
+			get_env_value("PWD", vars->env));
+	if (!vars->env)
+		clean_exit(vars, NULL, NULL, errno);
+	vars->exp = set_env_value(vars->exp, "OLDPWD",
+			get_env_value("PWD", vars->env));
+	if (!vars->exp)
+		clean_exit(vars, NULL, NULL, errno);
+	if (!getcwd(s, 255))
+		return (failed_path(vars, (char *)path));
+	if (get_env_value("PWD", vars->env))
+	{
+		vars->env = set_env_value(vars->env, "PWD", s);
+		if (!vars->env)
+			clean_exit(vars, NULL, NULL, errno);
+		vars->exp = set_env_value(vars->exp, "PWD", s);
+		if (!vars->exp)
+			clean_exit(vars, NULL, NULL, errno);
+	}
+	return (0);
+}
+

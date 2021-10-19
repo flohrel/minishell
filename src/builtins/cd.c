@@ -80,29 +80,14 @@ int	handle_args(t_vars *vars, char **args, char **path)
 
 int	cd(char **args, t_vars *vars)
 {
-	char		s[255];
 	const char	*path;
 
 	if (ft_tablen(args) > 1)
 		return (errormsg("cd : too many arguments", NULL));
 	if (handle_args(vars, args, (char **)&path) < 0)
 		return (1);
-	if ((getcwd(s, 255) || chdir(path) < 0)
-		&& getcwd(s, 255) && ft_strcmp(get_env_value("PWD", vars->env), s) == 0
-		&& chdir(path) < 0)
+	if (!check_pwd(path, vars))
 		return (check_error((char *)path));
-	vars->env = set_env_value(vars->env, "OLDPWD",
-			get_env_value("PWD", vars->env));
-	if (!vars->env)
-		clean_exit(vars, NULL, NULL, errno);
-	vars->exp = set_env_value(vars->exp, "OLDPWD",
-			get_env_value("PWD", vars->exp));
-	if (!vars->exp)
-		clean_exit(vars, NULL, NULL, errno);
-	if (!getcwd(s, 255))
-		return (failed_path(vars, (char *)path));
-	vars->env = set_env_value(vars->env, "PWD", s);
-	if (!vars->env)
-		clean_exit(vars, NULL, NULL, errno);
+	cd_end(path, vars);
 	return (0);
 }

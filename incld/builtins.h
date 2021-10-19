@@ -27,6 +27,8 @@ t_env	*g_env;
 int		find_builtin(char *path, char **args, t_vars *vars, t_param *param);
 int		pwd(char **args, t_vars *vars);
 int		cd(char **args, t_vars *vars);
+int		check_pwd(const char *path, t_vars *vars);
+int		cd_end(const char *path, t_vars *vars);
 int		exit_b(char **args, t_vars *vars, t_param *param);
 int		my_echo(char **args, t_vars *vars);
 int		export(char **args, t_vars *vars);

@@ -48,8 +48,11 @@ t_env	*blockcpy(t_env *env)
 	result->key = ft_strdup(env->key);
 	if (!result->key)
 		return (NULL);
-	result->value = ft_strdup(env->value);
-	if (!result->value)
+	if (env->value)
+		result->value = ft_strdup(env->value);
+	else
+		result->value = env->value;
+	if (env->value && !result->value)
 		return (NULL);
 	result->next = env->next;
 	return (result);
