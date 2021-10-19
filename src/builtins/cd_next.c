@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/21 02:57:13 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/08/06 16:24:09 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/10/19 16:53:56 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,14 @@ int	failed_path(t_vars *vars, char *path)
 int	check_pwd(const char *path, t_vars *vars)
 {
 	char		s[255];
+
 	if ((getcwd(s, 255) || chdir(path) < 0)
 		&& getcwd(s, 255)
 		&& (!get_env_value("PWD", vars->env)
-		|| ft_strcmp(get_env_value("PWD", vars->env), s) == 0)
+			|| ft_strcmp(get_env_value("PWD", vars->env), s) == 0)
 		&& chdir(path) < 0)
 		return (0);
 	return (1);
-
 }
 
 int	cd_end(const char *path, t_vars *vars)
@@ -80,4 +80,3 @@ int	cd_end(const char *path, t_vars *vars)
 	}
 	return (0);
 }
-

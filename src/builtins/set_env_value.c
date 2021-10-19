@@ -6,7 +6,7 @@
 /*   By: mtogbe <mtogbe@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/02 16:52:49 by mtogbe            #+#    #+#             */
-/*   Updated: 2021/07/21 03:06:37 by mtogbe           ###   ########.fr       */
+/*   Updated: 2021/10/19 16:52:37 by mtogbe           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ t_env	*makeblock(char *key, char *value)
 	if (!result)
 		return (NULL);
 	if (value)
-	result->value = ft_strdup(value);
+		result->value = ft_strdup(value);
 	if (value && !result->value)
 		return (NULL);
 	result->key = ft_strdup(key);
