@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/03 20:58:03 by flohrel           #+#    #+#             */
-/*   Updated: 2021/10/20 12:51:17 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/10/20 15:26:05 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	parse_arg_list(t_vars *vars, t_list **args)
 	unquote_arg_list(*args);
 }
 
-int	parse_param(t_vars *vars, t_param *data)
+void	parse_param(t_vars *vars, t_param *data)
 {
 	parse_arg_list(vars, &data->arg);
 	if (data->arg)
@@ -69,7 +69,10 @@ int	parse_param(t_vars *vars, t_param *data)
 	}
 	parse_list(vars, data->redir);
 	parse_list(vars, data->assign);
-	return (parse_redir(vars, data))
+	if (parse_redir(vars, data) == -1)
+		data->to_exec = false;
+	else
+		data->to_exec = true;
 }
 
 void	parse_expansion(t_vars *vars, t_ast *node)
@@ -77,12 +80,7 @@ void	parse_expansion(t_vars *vars, t_ast *node)
 	if (!node)
 		return ;
 	if (check_flag(node->type, NODE_CMD))
-	{
-		if (parse_param(vars, node->data) == -1)
-			node->to_exec = false;
-		else
-			node->to_exec = true;
-	}
+		parse_param(vars, node->data);
 	else
 	{
 		parse_expansion(vars, node->left);
