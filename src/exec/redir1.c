@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 17:04:38 by flohrel           #+#    #+#             */
-/*   Updated: 2021/10/19 19:41:23 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/10/20 12:42:00 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,22 @@ void	hdoc_copy(t_vars *vars, char **buf, char *str, bool has_exp)
 	}
 }
 
+int	redir_error(char *arg)
+{
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	if (arg)
+	{
+		ft_putstr_fd(arg, STDERR_FILENO);
+		ft_putstr_fd(": ", STDERR_FILENO);
+		ft_putstr_fd(strerror(errno), STDERR_FILENO);
+	}
+	else
+		ft_putstr_fd("ambiguous redirect", STDERR_FILENO);
+	ft_putstr_fd("\n", STDERR_FILENO);
+	g_sig.exit_status = 1;
+	return (-1);
+}
+
 int	parse_redir2(t_vars *vars, t_param *param, t_token *token)
 {
 	int	ret;
@@ -65,20 +81,4 @@ int	parse_redir2(t_vars *vars, t_param *param, t_token *token)
 			ret = set_hdoc(vars, &param->io, token->data, true);
 	}
 	return (ret);
-}
-
-int	redir_error(char *arg)
-{
-	ft_putstr_fd("minishell: ", STDERR_FILENO);
-	if (arg)
-	{
-		ft_putstr_fd(arg, STDERR_FILENO);
-		ft_putstr_fd(": ", STDERR_FILENO);
-		ft_putstr_fd(strerror(errno), STDERR_FILENO);
-	}
-	else
-		ft_putstr_fd("ambiguous redirect", STDERR_FILENO);
-	ft_putstr_fd("\n", STDERR_FILENO);
-	g_sig.exit_status = 1;
-	return (-1);
 }

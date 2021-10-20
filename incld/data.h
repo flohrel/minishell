@@ -6,7 +6,7 @@
 /*   By: flohrel <flohrel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 15:01:51 by flohrel           #+#    #+#             */
-/*   Updated: 2021/10/01 17:25:06 by flohrel          ###   ########.fr       */
+/*   Updated: 2021/10/20 12:48:27 by flohrel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,7 @@ struct	s_param
 	t_list	*arg;
 	t_list	*assign;
 	t_io	io;
+	bool	to_exec;
 };
 
 struct	s_ast
@@ -182,7 +183,6 @@ struct	s_vars
 	t_io		io;
 	int			nb_pipes;
 	int			pipes_fd[MAX_FD];
-	int			akuma;
 };
 
 #endif
